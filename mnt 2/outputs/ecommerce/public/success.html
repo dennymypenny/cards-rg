@@ -7,7 +7,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0d0d0d;--bg2:#161616;--bg3:#1f1f1f;--border:rgba(255,255,255,.08);--accent:#e879f9;--blue:#60a5fa;--green:#22c55e;--white:#ffffff;--muted:#6b7280;--sans:'Inter','Segoe UI',sans-serif;--radius:6px}
+:root{--bg:#0d0d0d;--bg2:#161616;--bg3:#1f1f1f;--border:rgba(255,255,255,.08);--pink:#f0217c;--teal:#4EC9F0;--green:#22c55e;--white:#ffffff;--muted:#6b7280;--sans:'Inter','Segoe UI',sans-serif;--radius:6px;--grad:linear-gradient(135deg,var(--pink),var(--teal))}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--bg);color:var(--white);min-height:100vh;display:flex;flex-direction:column}
 a{text-decoration:none;color:inherit}
@@ -26,7 +26,7 @@ nav{background:rgba(13,13,13,.97);backdrop-filter:blur(12px);border-bottom:1px s
 .detail-row:last-child strong{font-size:1rem}
 .btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:.8rem 1.75rem;border-radius:var(--radius);font-weight:700;font-size:.9rem;cursor:pointer;border:none;transition:.2s;font-family:var(--sans)}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff}
+.btn-primary{background:var(--grad);color:#fff}
 .btn-primary:hover{opacity:.9}
 .btn-outline{background:transparent;color:var(--white);border:1px solid var(--border)}
 .btn-outline:hover{background:var(--bg3)}
@@ -65,7 +65,7 @@ nav{background:rgba(13,13,13,.97);backdrop-filter:blur(12px);border-bottom:1px s
 
 <script>
 // Show confetti
-const colors = ['#e879f9','#60a5fa','#f9a8d4','#818cf8','#ffffff'];
+const colors = ['#f0217c','#4EC9F0','#f9a8d4','#00e5ff','#ffffff'];
 const c = document.getElementById('confetti');
 for (let i = 0; i < 60; i++) {
   const dot = document.createElement('div');

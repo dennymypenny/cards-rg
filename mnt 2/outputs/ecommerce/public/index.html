@@ -3,18 +3,19 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>CRG Cards — Shop. Rip. Grade.</title>
+<title>CRG Cards — Rips &amp; Grails</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#0d0d0d;--bg2:#161616;--bg3:#1f1f1f;
   --border:rgba(255,255,255,.08);
-  --accent:#e879f9;--accent2:#818cf8;--blue:#60a5fa;
+  --pink:#f0217c;--teal:#4EC9F0;
   --red:#ef4444;--green:#22c55e;--gold:#f59e0b;
   --white:#ffffff;--muted:#6b7280;
   --sans:'Inter','Segoe UI',sans-serif;
   --radius:6px;--shadow:0 4px 24px rgba(0,0,0,.5);
+  --grad:linear-gradient(135deg,var(--pink),var(--teal));
 }
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--bg);color:var(--white);min-height:100vh}
@@ -22,86 +23,88 @@ a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
 
 /* ── NAVBAR ── */
-nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;gap:1.5rem}
-.nav-logo img{height:42px;width:auto;display:block}
+nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;gap:1.5rem}
+.nav-logo img{height:56px;width:auto;display:block}
+.nav-search{flex:1;max-width:380px;position:relative}
+.nav-search input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.5rem 1rem .5rem 2.4rem;color:var(--white);font-family:var(--sans);font-size:.85rem;outline:none;transition:.15s}
+.nav-search input:focus{border-color:rgba(255,255,255,.2)}
+.nav-search input::placeholder{color:var(--muted)}
+.nav-search .ico{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem}
 .nav-links{display:flex;align-items:center;gap:1.75rem}
-.nav-links a{font-size:.88rem;font-weight:500;color:var(--muted);transition:.15s;letter-spacing:.01em}
+.nav-links a{font-size:.88rem;font-weight:500;color:var(--muted);transition:.15s}
 .nav-links a:hover{color:var(--white)}
 .nav-right{display:flex;align-items:center;gap:.75rem}
 .nav-btn{display:flex;align-items:center;gap:6px;padding:.45rem .9rem;border-radius:var(--radius);font-size:.85rem;font-weight:500;cursor:pointer;background:transparent;border:1px solid var(--border);color:var(--white);transition:.15s;font-family:var(--sans)}
-.nav-btn:hover{background:var(--bg3);border-color:rgba(255,255,255,.18)}
-.nav-cart{background:linear-gradient(135deg,var(--accent),var(--blue));border-color:transparent!important;color:#fff;position:relative}
+.nav-btn:hover{background:var(--bg3)}
+.nav-cart{background:var(--grad);border-color:transparent!important;color:#fff;position:relative}
 .nav-cart:hover{opacity:.9}
 .cart-count{position:absolute;top:-7px;right:-7px;background:var(--red);color:#fff;font-size:.6rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
 
 /* ── HERO ── */
-.hero{background:#0d0d0d;border-bottom:1px solid var(--border);padding:5rem 2rem 4rem;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 30% 50%,rgba(232,121,249,.1) 0%,transparent 60%),radial-gradient(ellipse 50% 50% at 70% 50%,rgba(96,165,250,.1) 0%,transparent 60%);pointer-events:none}
-.hero-inner{max-width:780px;margin:0 auto;position:relative;z-index:1}
-.hero-label{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:rgba(232,121,249,.1);border:1px solid rgba(232,121,249,.25);border-radius:2px;padding:.3rem .8rem;margin-bottom:1.75rem}
-.hero h1{font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:1.0;letter-spacing:-.03em;margin-bottom:1.25rem;color:var(--white)}
-.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero{background:#0d0d0d;border-bottom:1px solid var(--border);padding:5.5rem 2rem 4.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(240,33,124,.1) 0%,transparent 55%),radial-gradient(ellipse 60% 60% at 70% 50%,rgba(78,201,240,.1) 0%,transparent 55%);pointer-events:none}
+.hero-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
+.hero-label{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);background:rgba(240,33,124,.1);border:1px solid rgba(240,33,124,.25);border-radius:2px;padding:.3rem .85rem;margin-bottom:1.75rem}
+.hero h1{font-size:clamp(3rem,6.5vw,5.5rem);font-weight:900;line-height:.95;letter-spacing:-.04em;margin-bottom:1.25rem;color:var(--white)}
+.hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero p{font-size:1.05rem;color:var(--muted);line-height:1.75;max-width:520px;margin:0 auto 2.5rem}
-.hero-stats{display:flex;justify-content:center;gap:0;margin-bottom:2.5rem;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;width:fit-content;margin-left:auto;margin-right:auto}
+.hero-stats{display:flex;justify-content:center;margin-bottom:2.5rem;width:fit-content;margin-left:auto;margin-right:auto;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .hero-stat{padding:1rem 2rem;text-align:center;border-right:1px solid var(--border)}
 .hero-stat:last-child{border-right:none}
-.hero-stat strong{display:block;font-size:1.5rem;font-weight:800;color:var(--white);line-height:1}
-.hero-stat span{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.25rem;display:block}
+.hero-stat strong{display:block;font-size:1.5rem;font-weight:800;line-height:1}
+.hero-stat strong.pink{color:var(--pink)}
+.hero-stat strong.teal{color:var(--teal)}
+.hero-stat span{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.25rem;display:block}
 .hero-btns{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:.8rem 1.75rem;border-radius:var(--radius);font-weight:700;font-size:.92rem;cursor:pointer;border:none;transition:.2s;font-family:var(--sans);letter-spacing:.01em}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff;box-shadow:0 4px 20px rgba(232,121,249,.25)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:.8rem 1.9rem;border-radius:var(--radius);font-weight:700;font-size:.92rem;cursor:pointer;border:none;transition:.2s;font-family:var(--sans);letter-spacing:.01em}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 4px 20px rgba(240,33,124,.25)}
 .btn-primary:hover{opacity:.9;transform:translateY(-1px)}
 .btn-outline{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.2)}
 .btn-outline:hover{background:rgba(255,255,255,.06);transform:translateY(-1px)}
 
-/* ── STATS BAR ── */
-.stats-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:1.25rem 2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap}
-.stats-item{text-align:center;font-size:.82rem;color:var(--muted);font-weight:500}
-.stats-item strong{color:var(--accent);margin-right:.35rem}
+/* ── FEATURE STRIP ── */
+.features{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem 2rem}
+.features-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
+.feature{text-align:center;padding:1rem}
+.feature-icon{font-size:2.25rem;margin-bottom:.85rem}
+.feature h3{font-size:1rem;font-weight:800;margin-bottom:.4rem;letter-spacing:-.01em}
+.feature p{font-size:.83rem;color:var(--muted);line-height:1.65}
 
 /* ── SECTIONS ── */
 .sec{padding:3rem 2rem}
 .container{max-width:1280px;margin:0 auto}
 .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;gap:1rem;flex-wrap:wrap}
 .sec-title{font-size:1.3rem;font-weight:800;letter-spacing:-.02em}
-.see-all{font-size:.82rem;color:var(--accent);font-weight:600;transition:.15s}
-.see-all:hover{opacity:.8}
+.sec-count{font-size:.82rem;color:var(--muted)}
 
 /* ── CATEGORIES ── */
 .cats-row{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.25rem;scrollbar-width:none}
 .cats-row::-webkit-scrollbar{display:none}
-.cat-chip{flex-shrink:0;padding:.45rem 1rem;background:transparent;border:1px solid var(--border);border-radius:var(--radius);font-size:.83rem;font-weight:500;cursor:pointer;transition:.15s;color:var(--muted);font-family:var(--sans)}
-.cat-chip:hover,.cat-chip.act{background:var(--white);border-color:var(--white);color:#000}
+.cat-chip{flex-shrink:0;padding:.45rem 1rem;background:transparent;border:1px solid var(--border);border-radius:var(--radius);font-size:.83rem;font-weight:600;cursor:pointer;transition:.15s;color:var(--muted);font-family:var(--sans)}
+.cat-chip:hover{color:var(--white);border-color:rgba(255,255,255,.2)}
+.cat-chip.act{background:var(--white);border-color:var(--white);color:#000}
 
 /* ── PRODUCT GRID ── */
 .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border)}
-.prod-card{background:var(--bg2);transition:all .2s;cursor:pointer;position:relative}
-.prod-card:hover{background:var(--bg3);z-index:1}
+.prod-card{background:var(--bg2);transition:background .15s;cursor:pointer;position:relative}
+.prod-card:hover{background:var(--bg3)}
 .prod-img{height:220px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden}
 .prod-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
 .prod-card:hover .prod-img img{transform:scale(1.04)}
 .prod-badge{position:absolute;top:10px;left:10px;padding:.2rem .6rem;border-radius:2px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.badge-sale{background:var(--red);color:#fff}
+.badge-sale{background:var(--pink);color:#fff}
 .badge-new{background:var(--green);color:#fff}
-.badge-pop{background:var(--accent);color:#fff}
+.badge-pop{background:var(--teal);color:#000}
 .prod-body{padding:1rem 1.1rem 1.25rem;border-top:1px solid var(--border)}
-.prod-cat{font-size:.68rem;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
+.prod-cat{font-size:.68rem;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
 .prod-name{font-weight:700;font-size:.93rem;margin-bottom:.35rem;line-height:1.3;color:var(--white)}
 .prod-desc{font-size:.78rem;color:var(--muted);margin-bottom:.9rem;line-height:1.55;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .prod-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
 .prod-price{font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
 .prod-compare{font-size:.78rem;color:var(--muted);text-decoration:line-through;margin-left:.25rem}
-.add-btn{background:var(--accent);color:#fff;border:none;border-radius:var(--radius);padding:.4rem .85rem;font-size:.78rem;font-weight:700;cursor:pointer;transition:.15s;font-family:var(--sans)}
-.add-btn:hover{background:var(--accent2)}
+.add-btn{background:var(--grad);color:#fff;border:none;border-radius:var(--radius);padding:.4rem .85rem;font-size:.78rem;font-weight:700;cursor:pointer;transition:opacity .15s;font-family:var(--sans)}
+.add-btn:hover{opacity:.85}
 .add-btn.added{background:var(--green)}
-
-/* ── FEATURE STRIP ── */
-.features{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:3rem 2rem}
-.features-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem}
-.feature{text-align:center}
-.feature-icon{font-size:2rem;margin-bottom:.85rem}
-.feature h3{font-size:1rem;font-weight:800;margin-bottom:.4rem;letter-spacing:-.01em}
-.feature p{font-size:.83rem;color:var(--muted);line-height:1.6}
 
 /* ── MODAL ── */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:800;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s}
@@ -117,7 +120,7 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .modal-img{border-radius:var(--radius);overflow:hidden;background:var(--bg3);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem}
 .qty-row{display:flex;align-items:center;gap:.75rem;margin:1rem 0}
 .qty-btn{background:var(--bg3);border:1px solid var(--border);color:var(--white);width:32px;height:32px;border-radius:var(--radius);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.15s}
-.qty-btn:hover{border-color:var(--accent);color:var(--accent)}
+.qty-btn:hover{border-color:var(--pink);color:var(--pink)}
 .qty-val{font-weight:700;font-size:1.05rem;min-width:28px;text-align:center}
 
 /* ── TOAST ── */
@@ -126,32 +129,26 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .toast.success{border-color:rgba(34,197,94,.35)}
 .toast.error{border-color:rgba(239,68,68,.35)}
 
-/* ── EMPTY ── */
+/* ── EMPTY / SKELETON ── */
 .empty{text-align:center;padding:4rem 1rem;color:var(--muted)}
 .empty .ico{font-size:2.5rem;margin-bottom:.85rem}
 .empty h3{font-size:1.2rem;font-weight:800;color:var(--white);margin-bottom:.4rem}
-
-/* ── SKELETON ── */
-.skel{background:linear-gradient(90deg,var(--bg3) 0%,var(--bg2) 50%,var(--bg3) 100%);background-size:200% 100%;animation:skel 1.4s infinite;border-radius:var(--radius)}
+.skel{background:linear-gradient(90deg,var(--bg3) 0%,var(--bg2) 50%,var(--bg3) 100%);background-size:200% 100%;animation:skel 1.4s infinite}
 @keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
 /* FOOTER */
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2rem 2rem}
-.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
-.footer-col h4{font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem}
+.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem}
+.footer-brand img{height:52px;margin-bottom:1rem}
+.footer-brand p{font-size:.83rem;color:var(--muted);line-height:1.65;max-width:280px}
+.footer-col h4{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem}
 .footer-col a{display:block;font-size:.85rem;color:var(--muted);margin-bottom:.5rem;transition:.15s}
 .footer-col a:hover{color:var(--white)}
 .footer-bottom{border-top:1px solid var(--border);padding-top:1.25rem;text-align:center;font-size:.78rem;color:var(--muted)}
-
-/* NAV SEARCH */
-.nav-search{flex:1;max-width:380px;position:relative}
-.nav-search input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.5rem 1rem .5rem 2.4rem;color:var(--white);font-family:var(--sans);font-size:.85rem;outline:none;transition:.15s}
-.nav-search input:focus{border-color:rgba(255,255,255,.2);background:var(--bg2)}
-.nav-search input::placeholder{color:var(--muted)}
-.nav-search .ico{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem}
+.footer-bottom span{color:var(--pink)}
 
 @media(max-width:900px){.nav-links{display:none}.nav-search{display:none}.features-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.sec{padding:2.5rem 1rem}.hero{padding:3.5rem 1rem 3rem}.hero-stats{flex-wrap:wrap;width:100%}.modal-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}}
+@media(max-width:640px){.sec{padding:2.5rem 1rem}.hero{padding:3.5rem 1rem 3rem}.hero-stats{flex-wrap:wrap}.modal-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -159,7 +156,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <!-- NAVBAR -->
 <nav>
   <a href="/" class="nav-logo">
-    <img src="/images/logo.png" alt="CRG Cards"/>
+    <img src="/images/logo.png" alt="CRG Cards — Rips &amp; Grails"/>
   </a>
   <div class="nav-search">
     <span class="ico">🔍</span>
@@ -180,12 +177,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-label">New Arrivals — 2025</div>
-    <h1>Shop.<br><em>Rip. Grade.</em></h1>
-    <p>Pokemon, Sports, Graded singles, and Mystery boxes — curated drops from the hobby's best.</p>
+    <div class="hero-label">✦ New Drops Available Now</div>
+    <h1>Rip.<br><em>Pull. Collect.</em></h1>
+    <p>Pokemon packs, Sports singles, rare Grails, and Mystery boxes — handpicked for collectors who live for the pull.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><strong>12+</strong><span>Products</span></div>
-      <div class="hero-stat"><strong>4</strong><span>Categories</span></div>
+      <div class="hero-stat"><strong class="pink">12+</strong><span>Products</span></div>
+      <div class="hero-stat"><strong class="teal">4</strong><span>Categories</span></div>
       <div class="hero-stat"><strong>Free</strong><span>Shipping</span></div>
     </div>
     <div class="hero-btns">
@@ -199,19 +196,19 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <div class="features">
   <div class="features-grid">
     <div class="feature">
-      <div class="feature-icon">🏆</div>
-      <h3>Graded Cards</h3>
-      <p>PSA & BGS slabs — authenticated, protected, and ready to add to your collection.</p>
+      <div class="feature-icon">🎴</div>
+      <h3>Pack Rips</h3>
+      <p>Fresh Pokemon and Sports packs ready to rip — live pulls, sealed boxes, and singles all in one place.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon">⚡</div>
-      <h3>Fast Shipping</h3>
-      <p>Every order ships securely packaged with tracking so you never miss a pull.</p>
+      <div class="feature-icon">💎</div>
+      <h3>Grail Hunting</h3>
+      <p>The cards you've been chasing. Rare inserts, alt arts, and chase cards curated for serious collectors.</p>
     </div>
     <div class="feature">
       <div class="feature-icon">🎁</div>
       <h3>Mystery Boxes</h3>
-      <p>Curated mystery packs — something rare in every box. Guaranteed value.</p>
+      <p>Curated mystery packs loaded with value — every box guaranteed to deliver something fire.</p>
     </div>
   </div>
 </div>
@@ -220,7 +217,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <section class="sec" style="padding-bottom:0">
   <div class="container">
     <div id="catsRow" class="cats-row">
-      <button class="cat-chip act" data-slug="" onclick="filterCat(this,'')">All Products</button>
+      <button class="cat-chip act" data-slug="" onclick="filterCat(this,'')">All Cards</button>
     </div>
   </div>
 </section>
@@ -229,8 +226,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <section class="sec" id="products">
   <div class="container">
     <div class="sec-head">
-      <h2 class="sec-title" id="sectionTitle">All Products</h2>
-      <span id="productCount" style="font-size:.82rem;color:var(--muted)"></span>
+      <h2 class="sec-title" id="sectionTitle">All Cards</h2>
+      <span id="productCount" class="sec-count"></span>
     </div>
     <div class="prod-grid" id="prodGrid">
       <div style="height:340px" class="skel"></div>
@@ -255,9 +252,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     </div>
     <div class="modal-body">
       <div class="modal-grid">
-        <div class="modal-img" id="modalImg">📦</div>
+        <div class="modal-img" id="modalImg">🎴</div>
         <div>
-          <div id="modalCat" style="font-size:.68rem;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem"></div>
+          <div id="modalCat" style="font-size:.68rem;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem"></div>
           <div id="modalDesc" style="font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.1rem"></div>
           <div style="display:flex;align-items:baseline;gap:.75rem;margin-bottom:.25rem">
             <span id="modalPrice" style="font-size:1.75rem;font-weight:800;letter-spacing:-.02em"></span>
@@ -278,31 +275,28 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <footer>
   <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/images/logo.png" alt="CRG Cards"/>
+      <p>Your spot for Pokemon, Sports, and rare Grails. We rip so you don't have to — or grab sealed and rip yourself.</p>
+    </div>
     <div class="footer-col">
       <h4>Shop</h4>
-      <a href="/">All Products</a>
+      <a href="/">All Cards</a>
       <a href="/">Pokemon</a>
       <a href="/">Sports Cards</a>
-      <a href="/">Graded Singles</a>
       <a href="/">Mystery Boxes</a>
     </div>
     <div class="footer-col">
       <h4>Account</h4>
-      <a href="/orders.html">Track My Order</a>
+      <a href="/orders.html">My Orders</a>
       <a href="/cart.html">Shopping Cart</a>
     </div>
-    <div class="footer-col">
-      <h4>CRG Cards</h4>
-      <a href="/">Rips &amp; Grails</a>
-      <p style="font-size:.82rem;color:var(--muted);margin-top:.35rem;line-height:1.6">Your source for Pokemon, Sports, and Graded card collectibles.</p>
-    </div>
   </div>
-  <div class="footer-bottom">© 2025 CRG Cards — Rips &amp; Grails. All rights reserved.</div>
+  <div class="footer-bottom">© 2025 <span>CRG Cards</span> — Rips &amp; Grails. All rights reserved.</div>
 </footer>
 
 <script>
@@ -335,11 +329,11 @@ async function loadProducts(cat='', search='') {
   if (!products.length) {
     document.getElementById('prodGrid').innerHTML = '';
     document.getElementById('emptyState').style.display = 'block';
-    document.getElementById('productCount').textContent = '0 products';
+    document.getElementById('productCount').textContent = '';
     return;
   }
 
-  document.getElementById('productCount').textContent = `${products.length} product${products.length!==1?'s':''}`;
+  document.getElementById('productCount').textContent = `${products.length} item${products.length!==1?'s':''}`;
   document.getElementById('prodGrid').innerHTML = products.map(p => `
     <div class="prod-card" onclick="openModal(${p.id})">
       <div class="prod-img">
@@ -355,7 +349,7 @@ async function loadProducts(cat='', search='') {
             <span class="prod-price">${p.price_formatted}</span>
             ${p.compare_price_formatted ? `<span class="prod-compare">${p.compare_price_formatted}</span>` : ''}
           </div>
-          <button class="add-btn" id="add-${p.id}" onclick="event.stopPropagation();quickAdd(${p.id},'${escHtml(p.name)}')">+ Add</button>
+          <button class="add-btn" id="add-${p.id}" onclick="event.stopPropagation();quickAdd(${p.id})">+ Add</button>
         </div>
       </div>
     </div>
@@ -378,7 +372,7 @@ function filterCat(btn, slug) {
   currentCat = slug;
   document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('act'));
   btn.classList.add('act');
-  const name = slug ? (allCats.find(c=>c.slug===slug)?.name || slug) : 'All Products';
+  const name = slug ? (allCats.find(c=>c.slug===slug)?.name || slug) : 'All Cards';
   document.getElementById('sectionTitle').textContent = name;
   loadProducts(slug, document.getElementById('searchInput').value);
 }
@@ -404,28 +398,21 @@ function openModal(id) {
 }
 function closeModal(e) { if(e.target.id==='modal') closeModalDirect(); }
 function closeModalDirect() { document.getElementById('modal').classList.remove('open'); }
-function changeQty(d) {
-  modalQtyVal = Math.max(1, modalQtyVal + d);
-  document.getElementById('modalQty').textContent = modalQtyVal;
-}
-async function addFromModal() {
-  if (!currentProductId) return;
-  await addToCart(currentProductId, modalQtyVal);
-  closeModalDirect();
-}
+function changeQty(d) { modalQtyVal = Math.max(1,modalQtyVal+d); document.getElementById('modalQty').textContent = modalQtyVal; }
+async function addFromModal() { if (!currentProductId) return; await addToCart(currentProductId, modalQtyVal); closeModalDirect(); }
 async function quickAdd(id) { await addToCart(id, 1); }
 
 async function addToCart(product_id, quantity=1) {
   try {
     const res  = await fetch('/api/cart/add', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({product_id, quantity}) });
     const data = await res.json();
-    if (!res.ok) { showToast(data.error||'Error', 'error'); return; }
-    showToast(data.message || 'Added to cart!', 'success');
+    if (!res.ok) { showToast(data.error||'Error','error'); return; }
+    showToast(data.message||'Added to cart!','success');
     document.getElementById('cartCount').textContent = data.item_count;
     document.getElementById('cartCount').style.display = data.item_count > 0 ? 'flex' : 'none';
     const btn = document.getElementById(`add-${product_id}`);
-    if (btn) { btn.classList.add('added'); btn.textContent = '✓'; setTimeout(()=>{btn.classList.remove('added');btn.textContent='+ Add'},1500); }
-  } catch(e) { showToast('Network error', 'error'); }
+    if (btn) { btn.classList.add('added'); btn.textContent='✓'; setTimeout(()=>{btn.classList.remove('added');btn.textContent='+ Add'},1500); }
+  } catch(e) { showToast('Network error','error'); }
 }
 
 async function updateCartCount() {
@@ -445,18 +432,16 @@ function showToast(msg, type='success') {
 }
 
 function emojiFor(cat) {
-  const m = {'pokemon':'🎴','sports':'⚾','graded':'🏅','mystery':'🎁','default':'📦'};
-  const k = Object.keys(m).find(k => cat.toLowerCase().includes(k)) || 'default';
+  const m={'pokemon':'🎴','sports':'⚾','graded':'🏅','mystery':'🎁','default':'🃏'};
+  const k = Object.keys(m).find(k=>cat.toLowerCase().includes(k))||'default';
   return `<span style="font-size:3rem">${m[k]}</span>`;
 }
 function badgeClass(b) {
-  if (!b) return '';
-  const l = b.toLowerCase();
-  if (l==='sale') return 'badge-sale';
-  if (l==='new') return 'badge-new';
+  const l=(b||'').toLowerCase();
+  if(l==='sale') return 'badge-sale';
+  if(l==='new') return 'badge-new';
   return 'badge-pop';
 }
-function escHtml(s) { return s.replace(/'/g,"\\'"); }
 
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeModalDirect(); });
 init();

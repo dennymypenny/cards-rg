@@ -7,15 +7,16 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0d0d0d;--bg2:#161616;--bg3:#1f1f1f;--border:rgba(255,255,255,.08);--accent:#e879f9;--blue:#60a5fa;--red:#ef4444;--green:#22c55e;--gold:#f59e0b;--white:#ffffff;--muted:#6b7280;--sans:'Inter','Segoe UI',sans-serif;--radius:6px;--shadow:0 4px 24px rgba(0,0,0,.5)}
+:root{--bg:#0d0d0d;--bg2:#161616;--bg3:#1f1f1f;--border:rgba(255,255,255,.08);--pink:#f0217c;--teal:#4EC9F0;--red:#ef4444;--green:#22c55e;--gold:#f59e0b;--white:#ffffff;--muted:#6b7280;--sans:'Inter','Segoe UI',sans-serif;--radius:6px;--shadow:0 4px 24px rgba(0,0,0,.5);--grad:linear-gradient(135deg,var(--pink),var(--teal))}
 html{scroll-behavior:smooth}
 body{font-family:var(--sans);background:var(--bg);color:var(--white);min-height:100vh}
 a{text-decoration:none;color:inherit}
 nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;gap:1.5rem}
-.nav-logo img{height:42px;width:auto;display:block}
+.nav-logo img{height:56px;width:auto;display:block}
+nav{height:70px}
 .nav-btn{display:flex;align-items:center;gap:6px;padding:.45rem .9rem;border-radius:var(--radius);font-size:.85rem;font-weight:500;cursor:pointer;background:transparent;border:1px solid var(--border);color:var(--white);transition:.15s;font-family:var(--sans)}
 .nav-btn:hover{background:var(--bg3);border-color:rgba(255,255,255,.18)}
-.nav-cart{background:linear-gradient(135deg,var(--accent),var(--blue));border-color:transparent!important;color:#fff}
+.nav-cart{background:var(--grad);border-color:transparent!important;color:#fff}
 .nav-cart:hover{opacity:.9}
 .sec{padding:3rem 2rem;max-width:900px;margin:0 auto}
 .page-title{font-size:2rem;font-weight:900;letter-spacing:-.03em;margin-bottom:.25rem}
@@ -47,7 +48,7 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .search-bar input{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:.6rem 1rem;color:var(--white);font-family:var(--sans);font-size:.88rem;outline:none;transition:.15s}
 .search-bar input:focus{border-color:rgba(255,255,255,.2)}
 .search-bar input::placeholder{color:var(--muted)}
-.search-bar button{background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff;border:none;border-radius:var(--radius);padding:.6rem 1.25rem;font-size:.85rem;font-weight:700;cursor:pointer;font-family:var(--sans)}
+.search-bar button{background:var(--grad);color:#fff;border:none;border-radius:var(--radius);padding:.6rem 1.25rem;font-size:.85rem;font-weight:700;cursor:pointer;font-family:var(--sans)}
 .empty{text-align:center;padding:5rem 1rem;color:var(--muted)}
 .empty .ico{font-size:2.5rem;margin-bottom:.85rem}
 .empty h3{font-size:1.2rem;font-weight:800;color:var(--white);margin-bottom:.4rem}
@@ -79,7 +80,7 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
     <div class="ico">📦</div>
     <h3>No orders yet</h3>
     <p>Your orders will appear here after you make a purchase.</p>
-    <a href="/" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:700;font-size:.88rem;margin-top:1.25rem">Start Shopping →</a>
+    <a href="/" style="display:inline-flex;align-items:center;gap:6px;background:var(--grad);color:#fff;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:700;font-size:.88rem;margin-top:1.25rem">Start Shopping →</a>
   </div>
 </div>
 
