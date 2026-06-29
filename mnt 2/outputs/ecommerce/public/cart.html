@@ -3,196 +3,154 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Cart &#8212; Sofia's Store</title>
+<title>Cart &#8212; CRG Cards</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bevan&family=Inter:wght@300;400;500;600;700;800&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#fff;--bg2:#f9fafb;--bg3:#f3f4f6;--border:#e5e7eb;--border2:#d1d5db;--accent:#2563eb;--accent2:#1d4ed8;--accent-light:#eff6ff;--text:#111827;--text2:#374151;--muted:#6b7280;--muted2:#9ca3af;--red:#ef4444;--green:#22c55e;--sans:'Inter','Segoe UI',sans-serif;--radius:12px;--shadow:0 1px 3px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.06);--shadow-lg:0 4px 6px rgba(0,0,0,.05),0 10px 40px rgba(0,0,0,.08)}
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--bg2);color:var(--text);min-height:100vh}
+:root{
+  --bg:#0d0d0d;--bg2:#161616;--bg3:#1e1e1e;
+  --border:#2a2a2a;--border2:#333;
+  --teal:#14B8A6;--teal2:#0f9184;--teal-glow:rgba(20,184,166,.18);
+  --pink:#FF2D7A;--pink2:#e0205f;--pink-glow:rgba(255,45,122,.18);
+  --silver:#D1D1D1;--silver2:#a0a0a0;
+  --text:#ffffff;--text2:#D1D1D1;--muted:#777;--red:#ff4444;
+  --sans:'Inter','Segoe UI',sans-serif;
+  --display:'Bevan',serif;
+  --radius:12px;--shadow:0 4px 24px rgba(0,0,0,.5);
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh}
 a{text-decoration:none;color:inherit}
-nav{position:sticky;top:0;z-index:500;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.logo{font-size:1.2rem;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px;letter-spacing:-.02em}
-.logo-icon{width:32px;height:32px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.85rem;font-weight:900;flex-shrink:0}
-.nav-btn{display:flex;align-items:center;gap:6px;padding:.5rem .9rem;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;background:#fff;border:1px solid var(--border);color:var(--text2);transition:.2s}
-.nav-btn:hover{background:var(--bg2);border-color:var(--border2)}
-.sec{padding:2.5rem 1.5rem;max-width:1100px;margin:0 auto}
-.page-title{font-size:1.8rem;font-weight:800;margin-bottom:.2rem;color:var(--text);letter-spacing:-.02em}
-.page-sub{color:var(--muted);font-size:.9rem;margin-bottom:2rem;font-weight:500}
-.cart-layout{display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start}
-/* ITEMS */
-.cart-items{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.cart-item{display:flex;gap:1rem;padding:1.25rem 1.4rem;border-bottom:1px solid var(--border);align-items:flex-start;transition:background .15s}
-.cart-item:last-child{border-bottom:none}
-.cart-item:hover{background:var(--bg2)}
-.item-img{width:80px;height:80px;border-radius:10px;background:var(--bg2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.8rem;overflow:hidden;border:1px solid var(--border)}
-.item-img img{width:100%;height:100%;object-fit:cover}
+
+nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{font-family:var(--display);font-size:1.4rem;display:flex;flex-direction:column}
+.logo-sub{font-family:var(--sans);font-size:.6rem;font-weight:600;letter-spacing:.12em;color:var(--silver2);text-transform:uppercase}
+.nav-back{display:flex;align-items:center;gap:6px;padding:.5rem .9rem;border-radius:8px;font-size:.85rem;font-weight:500;cursor:pointer;background:transparent;border:1px solid var(--border2);color:var(--text2);transition:.2s}
+.nav-back:hover{background:var(--bg2)}
+
+.page{max-width:1100px;margin:0 auto;padding:2.5rem 1.5rem;display:grid;grid-template-columns:1fr 340px;gap:2rem;align-items:start}
+@media(max-width:768px){.page{grid-template-columns:1fr}}
+
+.cart-head{font-family:var(--display);font-size:1.6rem;letter-spacing:.04em;margin-bottom:1.5rem}
+.cart-head span{color:var(--pink)}
+.item-list{display:flex;flex-direction:column;gap:.75rem}
+.item{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;transition:.2s}
+.item:hover{border-color:var(--border2)}
+.item-art{width:62px;height:62px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0}
+.art-poke{background:linear-gradient(135deg,#0a2a28,#091414)}
+.art-sport{background:linear-gradient(135deg,#2a0a18,#140913)}
+.art-graded{background:linear-gradient(135deg,#1a1500,#0d0d09)}
+.art-mystery{background:linear-gradient(135deg,#0d0d1a,#070711)}
 .item-info{flex:1;min-width:0}
-.item-name{font-weight:600;font-size:.93rem;margin-bottom:.2rem;color:var(--text)}
-.item-meta{font-size:.8rem;color:var(--muted);margin-bottom:.7rem}
-.qty-row{display:flex;align-items:center;gap:.5rem}
-.qty-btn{width:28px;height:28px;border-radius:7px;background:var(--bg2);border:1px solid var(--border);color:var(--text);cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:.2s}
-.qty-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-.qty-num{font-weight:600;font-size:.92rem;min-width:24px;text-align:center;color:var(--text)}
-.item-price{text-align:right;flex-shrink:0}
-.item-subtotal{font-size:1rem;font-weight:700;margin-bottom:.5rem;color:var(--text);letter-spacing:-.01em}
-.remove-btn{font-size:.75rem;color:var(--muted);cursor:pointer;transition:.2s;background:none;border:none;font-family:var(--sans)}
+.item-cat{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);margin-bottom:.2rem}
+.item-name{font-size:.9rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-price{font-size:.85rem;color:var(--silver2);margin-top:.2rem}
+.qty-ctrl{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.qty-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--border2);background:var(--bg3);color:var(--text);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;font-family:var(--sans)}
+.qty-btn:hover{border-color:var(--pink);color:var(--pink)}
+.qty-num{font-size:.9rem;font-weight:700;min-width:20px;text-align:center}
+.item-total{font-size:.95rem;font-weight:800;min-width:60px;text-align:right;flex-shrink:0}
+.remove-btn{background:transparent;border:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:.25rem;border-radius:4px;transition:.2s;line-height:1}
 .remove-btn:hover{color:var(--red)}
-/* SUMMARY */
-.summary{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem;position:sticky;top:80px;box-shadow:var(--shadow)}
-.summary h3{font-size:1rem;font-weight:700;margin-bottom:1.25rem;padding-bottom:.85rem;border-bottom:1px solid var(--border);color:var(--text)}
-.sum-row{display:flex;justify-content:space-between;font-size:.875rem;margin-bottom:.65rem;color:var(--muted)}
-.sum-row.total{font-weight:700;font-size:1rem;color:var(--text);padding-top:.75rem;border-top:1px solid var(--border);margin-top:.75rem}
-.btn{display:flex;align-items:center;justify-content:center;gap:6px;padding:.85rem 1.5rem;border-radius:10px;font-weight:600;font-size:.9rem;cursor:pointer;border:none;transition:.2s;font-family:var(--sans);width:100%;margin-top:1rem}
-.btn-primary{background:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.25)}
-.btn-primary:hover{background:var(--accent2)}
-.btn-primary:disabled{opacity:.5;cursor:not-allowed}
-.btn-outline{background:#fff;color:var(--text2);border:1.5px solid var(--border2);margin-top:.6rem}
-.btn-outline:hover{background:var(--bg2)}
-/* EMPTY */
-.empty{text-align:center;padding:4rem 1rem;background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
-.empty .ico{font-size:3rem;margin-bottom:1rem}
-.empty h3{font-size:1.3rem;margin-bottom:.5rem;font-weight:700;color:var(--text)}
-.empty p{color:var(--muted);margin-bottom:1.75rem;font-size:.9rem}
-.loading{text-align:center;padding:3rem;color:var(--muted)}
-/* TOAST */
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:#fff;border:1px solid var(--border);border-radius:12px;padding:.85rem 1.2rem;font-size:.875rem;font-weight:500;z-index:1000;transform:translateY(16px);opacity:0;transition:.25s;box-shadow:var(--shadow-lg)}
-.toast.show{transform:translateY(0);opacity:1}
-.trust-badge{display:flex;align-items:center;gap:.5rem;font-size:.77rem;color:var(--muted);margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
-@media(max-width:800px){.cart-layout{grid-template-columns:1fr}.summary{position:static}}
-@media(max-width:480px){.sec{padding:1.5rem 1rem}}
+.empty-cart{text-align:center;padding:5rem 2rem;color:var(--muted);grid-column:1/-1}
+.empty-cart .icon{font-size:4rem;margin-bottom:1rem}
+.empty-cart h2{font-family:var(--display);font-size:1.4rem;color:var(--text2);margin-bottom:.5rem;letter-spacing:.04em}
+.empty-cart p{font-size:.9rem;margin-bottom:2rem}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:.8rem 1.6rem;border-radius:10px;font-weight:600;font-size:.9rem;cursor:pointer;border:none;transition:.2s;font-family:var(--sans);width:100%}
+.btn-pink{background:var(--pink);color:#fff}
+.btn-pink:hover{background:var(--pink2);transform:translateY(-2px)}
+.btn-teal{background:var(--teal);color:#000}
+.btn-teal:hover{background:var(--teal2);transform:translateY(-2px)}
+
+.summary{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.5rem;position:sticky;top:80px}
+.sum-title{font-family:var(--display);font-size:1rem;letter-spacing:.06em;color:var(--silver);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--border)}
+.sum-row{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:.75rem;color:var(--text2)}
+.sum-row.total{font-size:1.05rem;font-weight:800;color:var(--text);padding-top:.75rem;border-top:1px solid var(--border);margin-top:.25rem}
+.sum-row.total span:last-child{color:var(--pink)}
+.sum-note{font-size:.75rem;color:var(--muted);text-align:center;margin-top:1rem;line-height:1.5}
+.stripe-note{display:flex;align-items:center;justify-content:center;gap:.4rem;color:var(--muted);font-size:.72rem;margin-top:.75rem}
 </style>
 </head>
 <body>
 <nav>
   <a href="/" class="logo">
-    <div class="logo-icon">S</div>
-    Sofia's Store
+    <div><span style="color:var(--silver)">C</span><span style="color:var(--teal)">R</span><span style="color:var(--pink)">G</span></div>
+    <div class="logo-sub">Rips &amp; Grails</div>
   </a>
-  <div style="display:flex;gap:.5rem">
-    <a href="/" class="nav-btn">&#8592; Continue Shopping</a>
-  </div>
+  <a href="/" class="nav-back">&#8592; Continue Shopping</a>
 </nav>
 
-<div class="sec">
-  <div class="page-title">Shopping Cart</div>
-  <div class="page-sub" id="cartSub">Loading&#8230;</div>
-
-  <div id="emptyState" class="empty" style="display:none">
-    <div class="ico">&#128722;</div>
-    <h3>Your cart is empty</h3>
-    <p>Looks like you haven't added anything yet.</p>
-    <a href="/" class="btn btn-primary" style="display:inline-flex;width:auto;padding:.8rem 2rem;margin:0">Browse Products</a>
-  </div>
-
-  <div id="loadingState" class="loading">Loading cart&#8230;</div>
-
-  <div id="cartLayout" class="cart-layout" style="display:none">
-    <div>
-      <div class="cart-items" id="cartItems"></div>
-    </div>
-    <div class="summary">
-      <h3>Order Summary</h3>
-      <div class="sum-row"><span>Subtotal</span><span id="sumSubtotal">&#8212;</span></div>
-      <div class="sum-row" id="shippingRow"><span>Shipping</span><span id="sumShipping">Free</span></div>
-      <div class="sum-row" id="taxRow" style="display:none"><span>Tax</span><span id="sumTax">&#8212;</span></div>
-      <div class="sum-row total"><span>Total</span><span id="sumTotal">&#8212;</span></div>
-      <button class="btn btn-primary" id="checkoutBtn" onclick="checkout()">
-        &#128274; Proceed to Checkout
-      </button>
-      <a href="/" class="btn btn-outline">&#8592; Keep Shopping</a>
-      <div class="trust-badge">
-        &#128274; Secure checkout via Stripe &nbsp;&#183;&nbsp; &#128666; Fast delivery
-      </div>
-    </div>
-  </div>
+<div class="page" id="page">
+  <div style="color:var(--muted);padding:3rem;text-align:center;grid-column:1/-1">Loading cart&#8230;</div>
 </div>
 
-<div class="toast" id="toast"></div>
-
 <script>
-async function loadCart() {
+const ART  = {pokemon:'art-poke',sports:'art-sport',graded:'art-graded',mystery:'art-mystery'};
+const ICON = {pokemon:'&#9889;',sports:'&#127944;',graded:'&#11088;',mystery:'&#127775;'};
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function artCls(i){return ART[i.category_slug]||'art-mystery'}
+function icon_(i){return ICON[i.category_slug]||'&#127183;'}
+
+async function load() {
   const res  = await fetch('/api/cart');
   const data = await res.json();
-  document.getElementById('loadingState').style.display = 'none';
-  if (!data.items || data.items.length === 0) {
-    document.getElementById('emptyState').style.display  = 'block';
-    document.getElementById('cartLayout').style.display  = 'none';
-    document.getElementById('cartSub').textContent = '0 items';
+  const page = document.getElementById('page');
+  if (!data.items||!data.items.length) {
+    page.innerHTML = `<div class="empty-cart"><div class="icon">&#127873;</div><h2>CART IS EMPTY</h2><p>No rips queued up yet. Head back and find your next grail.</p><a href="/" class="btn btn-pink" style="display:inline-flex;width:auto">&#9889; Shop the Drop</a></div>`;
     return;
   }
-  document.getElementById('cartSub').textContent = `${data.item_count} item${data.item_count!==1?'s':''}`;
-  document.getElementById('cartLayout').style.display = 'grid';
-  document.getElementById('cartItems').innerHTML = data.items.map(item => `
-    <div class="cart-item" id="item-${item.product_id}">
-      <div class="item-img">
-        ${item.image_url ? `<img src="${item.image_url}" alt="${item.name}"/>` : '&#128230;'}
-      </div>
-      <div class="item-info">
-        <div class="item-name">${item.name}</div>
-        <div class="item-meta">${item.price_formatted} each</div>
-        <div class="qty-row">
-          <button class="qty-btn" onclick="updateQty(${item.product_id}, ${item.quantity - 1})">&#8722;</button>
-          <span class="qty-num" id="qty-${item.product_id}">${item.quantity}</span>
-          <button class="qty-btn" onclick="updateQty(${item.product_id}, ${item.quantity + 1})">+</button>
-        </div>
-      </div>
-      <div class="item-price">
-        <div class="item-subtotal">${item.subtotal_formatted}</div>
-        <button class="remove-btn" onclick="removeItem(${item.product_id})">Remove</button>
+  const items = data.items;
+  const sub   = items.reduce((a,i)=>a+i.subtotal,0);
+  const fmt   = c=>'$'+(c/100).toFixed(2);
+  page.innerHTML = `
+    <div>
+      <div class="cart-head">YOUR <span>CART</span></div>
+      <div class="item-list" id="itemList">
+        ${items.map(i=>`
+          <div class="item" id="item-${i.product_id}">
+            <div class="item-art ${artCls(i)}">${icon_(i)}</div>
+            <div class="item-info">
+              <div class="item-cat">${esc(i.category_name||'Cards')}</div>
+              <div class="item-name">${esc(i.name)}</div>
+              <div class="item-price">${i.price_formatted} each</div>
+            </div>
+            <div class="qty-ctrl">
+              <button class="qty-btn" onclick="upd(${i.product_id},${i.quantity-1})">&#8722;</button>
+              <span class="qty-num">${i.quantity}</span>
+              <button class="qty-btn" onclick="upd(${i.product_id},${i.quantity+1})">+</button>
+            </div>
+            <div class="item-total">${i.subtotal_formatted}</div>
+            <button class="remove-btn" onclick="upd(${i.product_id},0)">&#10005;</button>
+          </div>`).join('')}
       </div>
     </div>
-  `).join('');
-  document.getElementById('sumSubtotal').textContent = data.subtotal_formatted;
-  document.getElementById('sumShipping').textContent = data.shipping > 0 ? data.shipping_formatted : 'Free';
-  document.getElementById('sumTotal').textContent    = data.total_formatted;
-  if (data.tax > 0) {
-    document.getElementById('taxRow').style.display = 'flex';
-    document.getElementById('sumTax').textContent   = data.tax_formatted;
-  }
+    <div class="summary">
+      <div class="sum-title">ORDER SUMMARY</div>
+      <div class="sum-row"><span>Subtotal</span><span>${fmt(sub)}</span></div>
+      <div class="sum-row"><span>Shipping</span><span style="color:var(--teal)">Free</span></div>
+      <div class="sum-row total"><span>Total</span><span>${fmt(sub)}</span></div>
+      <div style="height:1rem"></div>
+      <button class="btn btn-teal" onclick="checkout()">&#9889; Checkout &#8212; ${fmt(sub)}</button>
+      <div class="sum-note">Sealed products guaranteed authentic. All sales final on opened wax.</div>
+      <div class="stripe-note">&#128274; Secured by Stripe</div>
+    </div>`;
 }
 
-async function updateQty(product_id, quantity) {
-  const res  = await fetch('/api/cart/update', { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({product_id, quantity}) });
-  const data = await res.json();
-  if (!res.ok) { toast(data.error||'Error'); return; }
-  if (quantity <= 0) {
-    document.getElementById(`item-${product_id}`)?.remove();
-  } else {
-    document.getElementById(`qty-${product_id}`).textContent = quantity;
-  }
-  document.getElementById('sumSubtotal').textContent = data.subtotal_formatted || '&#8212;';
-  document.getElementById('sumTotal').textContent    = data.total_formatted    || '&#8212;';
-  const cnt = data.item_count;
-  document.getElementById('cartSub').textContent = `${cnt} item${cnt!==1?'s':''}`;
-  if (!cnt) loadCart();
-}
-
-async function removeItem(product_id) {
-  await fetch(`/api/cart/remove/${product_id}`, { method:'DELETE' });
-  loadCart();
-  toast('Item removed');
+async function upd(pid,qty) {
+  if (qty<=0) await fetch('/api/cart/remove',{method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({product_id:pid})});
+  else        await fetch('/api/cart/update',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({product_id:pid,quantity:qty})});
+  load();
 }
 
 async function checkout() {
-  const btn = document.getElementById('checkoutBtn');
-  btn.disabled = true;
-  btn.textContent = 'Redirecting&#8230;';
-  try {
-    const res  = await fetch('/api/checkout/session', { method:'POST', headers:{'Content-Type':'application/json'} });
-    const data = await res.json();
-    if (!res.ok) { toast(data.error||'Checkout failed'); btn.disabled=false; btn.textContent='&#128274; Proceed to Checkout'; return; }
-    window.location.href = data.url;
-  } catch(e) { toast('Network error'); btn.disabled=false; btn.textContent='&#128274; Proceed to Checkout'; }
+  const res = await fetch('/api/checkout/create',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});
+  const d   = await res.json();
+  if (d.url) location.href=d.url;
+  else alert(d.error||'Checkout error &#8212; try again.');
 }
 
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-loadCart();
+load();
 </script>
 </body>
 </html>
