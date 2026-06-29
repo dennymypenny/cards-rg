@@ -106,7 +106,7 @@ function exec(sql) {
   saveDb();
 }
 
-// &#9472;&#9472; SCHEMA &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+// &#9472;&#9472; SCHEMA &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 
 const SCHEMA = `
   CREATE TABLE IF NOT EXISTS admins (
@@ -123,7 +123,7 @@ const SCHEMA = `
     slug        TEXT    UNIQUE NOT NULL,
     description TEXT,
     sort_order  INTEGER NOT NULL DEFAULT 0,
-    created_at  TEXT    NOT NULL DEFAULXT    NOT NULL DEFAULT (datetime('now'))
+    created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
   );
 
   CREATE TABLE IF NOT EXISTS products (
@@ -185,170 +185,97 @@ const SCHEMA = `
 `;
 
 // &#9472;&#9472; SEED ADMIN &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
-
 function seedAdmin() {
   const existing = prepare('SELECT id FROM admins LIMIT 1').get();
   if (existing) return;
-
   const email    = process.env.ADMIN_EMAIL    || 'admin@yourstore.com';
   const password = process.env.ADMIN_PASSWORD || 'changeme123';
   const hash     = bcrypt.hashSync(password, 12);
-
   prepare('INSERT INTO admins (email, password, name) VALUES (?, ?, ?)').run(email, hash, 'Admin');
   console.log(`&#9989; Admin account created: ${email}`);
 }
 
 // &#9472;&#9472; SEED SAMPLE PRODUCTS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
-
 function seedSampleData() {
-  // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
   const SEED_VERSION = '3';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
-
-  // Clear existing catalog so we can re-seed cleanly
   try {
     prepare('DELETE FROM order_items').run();
     prepare('DELETE FROM orders').run();
     prepare('DELETE FROM products').run();
     prepare('DELETE FROM categories').run();
-  } catch(e) { /* ignore if tables missing */ }
-
-  // &#9472;&#9472; CATEGORIES &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
-  const cat2 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Pokemon',      'pokemon', 'Sealed booster boxes, ETBs, and bundles',     1).lastInsertRowid;
-  const cat3 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Sports Cards', 'sports',  'NBA, NFL, and MLB hobby boxes and blasters',  2).lastInsertRowid;
-  const cat4 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Graded Cards', 'graded',  'PSA-certified slabs guaranteed PSA 9 or 10',  3).lastInsertRowid;
-  const cat5 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Mystery Boxes','mystery', 'CRG signature mystery boxes &#8212; every rip hits', 4).lastInsertRowid;
-
-  const ins  = 'INSERT INTO products (category_id, name, slug, description, price, compare_price, stock, sku, image_url, badge, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)';
-
-  // &#9472;&#9472; POKEMON &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
-  prepare(ins).run(cat2, 'Pokemon Prismatic Evolutions Booster Box', 'pokemon-prismatic-evolutions-booster-box',
-    'Sealed Prismatic Evolutions booster box, 36 packs. One of the hottest Pokemon sets ever printed. Pull Eevee-lution SIRs, Tera Charizard ex, and more. Every box is a banger.',
-    18999, 22999, 20, 'PKM-PEV-BB', null, 'Hot');
-
-  prepare(ins).run(cat2, 'Pokemon Surging Sparks Elite Trainer Box', 'pokemon-surging-sparks-etb',
-    'Surging Sparks ETB featuring Pikachu ex. 9 booster packs, 45 Energy cards, player guide, and premium accessories. Solid hit potential on every open.',
-    5499, 6499, 30, 'PKM-SS-ETB', null, 'New');
-
-  prepare(ins).run(cat2, 'Pokemon Shrouded Fable Booster Bundle', 'pokemon-shrouded-fable-bundle',
-    '6-pack booster bundle from the Shrouded Fable set. Dark-type Pokemon and Special Illustration Rares. Great value entry point for the set.',
-    3499, null, 40, 'PKM-SF-BB', null, null);
-
-  prepare(ins).run(cat2, 'Pokemon Stellar Crown Booster Box', 'pokemon-stellar-crown-booster-box',
-    'Stellar Crown sealed booster box, 36 packs. Terastallized Pokemon with stunning ex cards. Pull Terapagos ex, Latios ex, and Special Illustration Rares.',
-    14999, 17999, 15, 'PKM-SC-BB', null, null);
-
-  // &#9472;&#9472; SPORTS CARDS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
-  prepare(ins).run(cat3, 'Panini Prizm NBA Hobby Box 2024-25', 'panini-prizm-nba-hobby-box',
-    '2024-25 Panini Prizm Basketball hobby box. 12 packs, guaranteed 3 autographs and 6 Prizm parallels. Chase rookie cards of Zaccharie Risacher, Alex Sarr, and the full 2024 NBA Draft class.',
-    21999, 24999, 12, 'PAN-PZM-NBA', null, 'Hot');
-
-  prepare(ins).run(cat3, 'Topps Chrome Baseball Hobby Box 2024', 'topps-chrome-baseball-hobby-box',
-    'Sealed 2024 Topps Chrome Baseball hobby box. 18 packs, 4 cards per pack. Guaranteed autographs and refractors. Iconic Chrome finish. Chase Jackson Chourio, Jackson Holliday rookies.',
-    18999, null, 15, 'TOP-CHR-BB', null, null);
-
-  prepare(ins).run(cat3, 'Panini Select NFL Blaster Box', 'panini-select-nfl-blaster-box',
-    'Panini Select NFL Football blaster box. 6 packs with exclusive Blaster-only parallels. Great entry-level football box. Pull Concourse, Premier, and Courtside level cards.',
-    3999, 4999, 35, 'PAN-SEL-NFL', null, null);
-
-  prepare(ins).run(cat3, 'Bowman Baseball Hobby Box 2024', 'bowman-baseball-hobby-box-2024',
-    '2024 Bowman Baseball hobby box &#8212; the gold standard for prospect cards. 24 packs, loaded with Chrome Prospect Autos. Future stars are born in Bowman.',
-    16999, null, 10, 'BOW-BB-24', null, 'New');
-
-  // &#9472;&#9472; GRADED CARDS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
-  prepare(ins).run(cat4, 'PSA Graded Mystery Card (PSA 9+)', 'psa-graded-mystery-card',
-    'Receive 1 random PSA-graded card guaranteed PSA 9 or PSA 10. Pokemon or sports &#8212; always a fire pull. Ships double-sleeved in a premium slab protector. Every slab slaps.',
-    7999, 9999, 20, 'PSA-MYS-9+', null, 'New');
-
-  prepare(ins).run(cat4, 'PSA 10 Graded Slab (Pokemon)', 'psa-10-graded-slab-pokemon',
-    'PSA 10 Gem Mint graded Pokemon card. Random selection from our collection &#8212; could be a vintage base set card, modern SIR, or a hidden gem. All slabs are PSA 10.',
-    14999, 19999, 8, 'PSA-10-PKM', null, 'Hot');
-
-  // &#9472;&#9472; MYSTERY BOXES &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
-  prepare(ins).run(cat5, 'Grail Hunter Mystery Box', 'grail-hunter-mystery-box',
-    'The CRG signature experience: 10 random packs (Pokemon + sports mix), 1 guaranteed hit (auto or relic card), and a chance at a PSA graded slab. Every box rips different. The hunt never stops.',
-    4999, 6499, 25, 'CRG-GHB', null, 'Hot');
-
-  prepare(ins).run(cat5, 'Vintage Vault Mystery Box', 'vintage-vault-mystery-box',
-    'Curated vintage mystery box: 5 packs from sets released before 2020 (Pokemon Jungle, Base Set 2, XY era, or Vintage sports). Perfect for the collector chasing throwback hits.',
-    3999, 5499, 15, 'CRG-VVB', null, null);
-
-  // Default settings
-  const setq = 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
-  prepare(setq).run('store_name',               process.env.STORE_NAME     || 'CRG Cards');
-  prepare(setq).run('store_currency',           process.env.STORE_CURRENCY || 'USD');
-  prepare(setq).run('tax_rate',                 '0');
-  prepare(setq).run('shipping_flat',            '0');
-  prepare(setq).run('free_shipping_threshold',  '0');
-  prepare(setq).run('seed_version',             SEED_VERSION);
-
-  console.log('CRG Cards products and categories seeded (v' + SEED_VERSION + ')');
+  } catch(e) {}
+  const cat2 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Pokemon','pokemon','Sealed booster boxes, ETBs, and bundles',1).lastInsertRowid;
+  const cat3 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Sports Cards','sports','NBA, NFL, and MLB hobby boxes and blasters',2).lastInsertRowid;
+  const cat4 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Graded Cards','graded','PSA-certified slabs guaranteed PSA 9 or 10', 3).lastInsertRowid;
+  const cat5 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Mystery Boxes','mystery','CRG signature mystery boxes &#8212; every rip hits',4).lastInsertRowid;
+  const ins = 'INSERT INTO products (category_id,name,slug,description,price,compare_price,stock,sku,image_url,badge,active) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, 1)';
+  prepare(ins).run(cat2,'Pokemon Prismatic Evolutions Booster Box','pokemon-prismatic-evolutions-booster-box','Sealed Prismatic Evolutions booster box, 36 packs. Pull Eevee-lution SIRs, Tera Charizard ex, and more.',18999,22999,20,'PKM-PEV-BB',
+    null,'Hot');
+  prepare(ins).run(cat2,'Pokemon Surging Sparks ETB','pokemon-surging-sparks-etb','Surging Sparks ETB featuring Pikachu ex. 9 booster packs and premium accessories.',5499,6499,30,'PKM-SS-ETB',
+    null,'New');
+  prepare(ins).run(cat2,'Pokemon Shrouded Fable Bundle','pokemon-shrouded-fable-bundle','6-pack booster bundle from the Shrouded Fable set. Dark-type Pokemon and Special Illustration Rares.',3499,null,40,'PKM-SF-BB',
+    null,null);
+  prepare(ins).run(cat2,'Pokemon Stellar Crown Booster Box','pokemon-stellar-crown-booster-box','Stellar Crown sealed booster box, 36 packs. Pull Terapagos ex, Latios ex, and Special Illustration Rares.',14999,17999,15,'PKM-SC-BB',
+    null,null);
+  prepare(ins).run(cat3,'Panini Prizm NBA Hobby Box 2024-25','panini-prizm-nba-hobby-box','2024-25 Panini Prizm Basketball hobby box. 12 packs, guaranteed 3 autos and 6 prizm parallels.',21999,24999,12,'PAN-PZM-NBA',
+    null,'Hot');
+  prepare(ins).run(cat3,'Topps Chrome Baseball Hobby Box 2024','topps-chrome-baseball-hobby-box','Sealed 2024 Topps Chrome Baseball hobby box. 18 packs, guaranteed autos and refractors.',18999,null,15,'TOP-CHR-BB',
+    null,null);
+  prepare(ins).run(cat3,'Panini Select NFL Blaster','panini-select-nfl-blaster-box','Panini Select NFL blaster box. 6 packs with Blaster-only parallels.',3999,4999,35,'PAN-SEL-NFL',
+    null,null);
+  prepare(ins).run(cat3,'Bowman Baseball Hobby Box 2024','bowman-baseball-hobby-box-2024','2024 Bowman Baseball hobby box &#8212; the gold standard for prospect cards. 24 packs, loaded with Chrome Prospect Autos.',16999,null,10,'BOW-BB-24',
+    null,'New');
+  prepare(ins).run(cat4,'PSA Graded Mystery Card (PSA 9+)','psa-graded-mystery-card','Receive 1 random PSA-graded card guaranteed PSA 9 or PSA 10. Pokemon or sports &#8212; always a fire pull.',3999,9999,20,'PSA-MYS-9+',
+    null,'New');
+  prepare(ins).run(cat4,'PSA 10 Graded Slab (Pokemon)','psa-10-graded-slab-pokemon','PSA 10 Gem Mint graded Pokemon card. Random selection &#8212; could be a vintage base set card or a modern SIR. All PSA 10.',14999,19999,8,'PSA-10-PKM',
+    null,'Hot');
+  prepare(ins).run(cat5,'Grail Hunter Mystery Box','grail-hunter-mystery-box','The CRG signature experience: 10 random packs, 1 guaranteed hit, and a chance at a PSA graded slab. The hunt never stops.',4999,6499,25,'CRG-GHB',
+    null,'Hot');
+  prepare(ins).run(cat5,'Vintage Vault Mystery Box','vintage-vault-mystery-box','Curated vintage mystery box: 5 packs from sets before 2020. Perfect for the collector chasing throwback hits.',3999,5499,15,'CRG-VVB',
+    null,null);
+  const setq ='INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
+  prepare(setq).run('store_name',process.env.STORE_NAME || 'CRG Cards');
+  prepare(setq).run('store_currency','USD');
+  prepare(setq).run('tax_rate','0');
+  prepare(setq).run('shipping_flat','0');
+  prepare(setq).run('free_shipping_threshold','0');
+  prepare(setq).run('seed_version',SEED_VERSION);
+  console.log('CRG Cards seeded (v' + SEED_VERSION + ')');
 }
 
-// &#9472;&#9472; HELPERS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
-
 const helpers = {
-  formatPrice(cents) {
-    return (cents / 100).toFixed(2);
-  },
-
+  formatPrice(c){ return (c/100).toFixed(2); },
   generateOrderNumber() {
     const now = new Date();
-    const ymd  = now.toISOString().slice(2, 10).replace(/-/g, '');
-    const rand = Math.floor(Math.random() * 9000 + 1000);
-    return `ORD-${ymd}-${rand}`;
+    return 'ORD-' + now.toISOString().slice(2,10).replace(/-/g,'') + '-' + Math.floor(Math.random()*9000+1000);
   },
-
   getSettings() {
-    const rows = prepare('SELECT key, value FROM settings').all();
-    return Object.fromEntries(rows.map(r => [r.key, r.value]));
+    const rows = prepare('SELECT key,value FROM settings').all();
+    return Object.fromEntries(rows.map(r=>[r.key,r.value]));
   },
-
-  updateSetting(key, value) {
-    prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)').run(key, value);
-  }
+  updateSetting(key,value){ prepare('INSERT OR REPLACE INTO settings(key,value) VALUES(?,?)').run(key,value); }
 };
 
-// &#9472;&#9472; PUBLIC DB OBJECT &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
-// Exposes a better-sqlite3-compatible interface
-
 const db = {
-  prepare,
-  exec,
-  transaction,
-  helpers,
-
-  // Async initializer &#8212; call once at startup before routes handle requests
+  prepare, exec, transaction, helpers,
   async init() {
-    if (sqlDb) return this; // already initialized
-
+    if (sqlDb) return this;
     const initSqlJs = require('sql.js');
-    const SQL = await initSqlJs({
-      locateFile: file => path.join(require.resolve('sql.js'), '..', file)
-    });
-
-    // Load existing DB from disk, or create fresh
-    if (fs.existsSync(DB_PATH)) {
-      const buffer = fs.readFileSync(DB_PATH);
-      sqlDb = new SQL.Database(buffer);
-      console.log('&#9989; Database loaded from disk');
+    const SQL = await initSqlJs({ locateFile: f => require('path').join(require.resolve('sql.js'),'..',f) });
+    if (require('fs').existsSync(DB_PATH)) {
+      sqlDb = new SQL.Database(require('fs').readFileSync(DB_PATH));
+      console.log('&#9989; DB loaded');
     } else {
       sqlDb = new SQL.Database();
-      console.log('&#9989; New database created');
+      console.log('&#9989; New DB');
     }
-
-    // Enable foreign keys
     sqlDb.run('PRAGMA foreign_keys = ON');
-
-    // Create schema
     sqlDb.exec(SCHEMA);
     saveDb();
-
-    // Seed data
     seedAdmin();
     seedSampleData();
-
     return this;
   }
 };
