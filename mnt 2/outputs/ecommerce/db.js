@@ -1,6 +1,6 @@
 /**
- * db.js — SQLite database setup & seed data
- * Uses sql.js (pure JavaScript/WASM — no native compilation required)
+ * db.js &#8212; SQLite database setup & seed data
+ * Uses sql.js (pure JavaScript/WASM &#8212; no native compilation required)
  */
 
 const bcrypt = require('bcryptjs');
@@ -11,7 +11,7 @@ const DB_PATH = process.env.DB_PATH || path.join(__dirname, 'data', 'store.db');
 
 let sqlDb = null; // raw sql.js Database instance
 
-// ── SAVE DB TO DISK ───────────────────────────────────────────────────────────
+// &#9472;&#9472; SAVE DB TO DISK &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 
 function saveDb() {
   if (!sqlDb) return;
@@ -29,7 +29,7 @@ process.on('exit', saveDb);
 process.on('SIGINT',  () => { saveDb(); process.exit(0); });
 process.on('SIGTERM', () => { saveDb(); process.exit(0); });
 
-// ── PARAMETER NORMALIZER ──────────────────────────────────────────────────────
+// &#9472;&#9472; PARAMETER NORMALIZER &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 
 function normalizeParams(args) {
   if (args.length === 0) return [];
@@ -37,7 +37,7 @@ function normalizeParams(args) {
   return Array.from(args);
 }
 
-// ── PREPARED STATEMENT WRAPPER ────────────────────────────────────────────────
+// &#9472;&#9472; PREPARED STATEMENT WRAPPER &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 // Provides a better-sqlite3-compatible API on top of sql.js
 
 function prepare(sql) {
@@ -82,7 +82,7 @@ function prepare(sql) {
   };
 }
 
-// ── TRANSACTION WRAPPER ───────────────────────────────────────────────────────
+// &#9472;&#9472; TRANSACTION WRAPPER &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 
 function transaction(fn) {
   return function (...args) {
@@ -99,14 +99,14 @@ function transaction(fn) {
   };
 }
 
-// ── EXEC (multi-statement SQL) ────────────────────────────────────────────────
+// &#9472;&#9472; EXEC (multi-statement SQL) &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 
 function exec(sql) {
   sqlDb.exec(sql);
   saveDb();
 }
 
-// ── SCHEMA ────────────────────────────────────────────────────────────────────
+// &#9472;&#9472; SCHEMA &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 
 const SCHEMA = `
   CREATE TABLE IF NOT EXISTS admins (
@@ -123,7 +123,7 @@ const SCHEMA = `
     slug        TEXT    UNIQUE NOT NULL,
     description TEXT,
     sort_order  INTEGER NOT NULL DEFAULT 0,
-    created_at  TEXT    NOT NULL DEFAULT (datetime('now'))
+    created_at  TEXT    NOT NULL DEFAULXT    NOT NULL DEFAULT (datetime('now'))
   );
 
   CREATE TABLE IF NOT EXISTS products (
@@ -184,7 +184,7 @@ const SCHEMA = `
   CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
 `;
 
-// ── SEED ADMIN ────────────────────────────────────────────────────────────────
+// &#9472;&#9472; SEED ADMIN &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 
 function seedAdmin() {
   const existing = prepare('SELECT id FROM admins LIMIT 1').get();
@@ -195,115 +195,98 @@ function seedAdmin() {
   const hash     = bcrypt.hashSync(password, 12);
 
   prepare('INSERT INTO admins (email, password, name) VALUES (?, ?, ?)').run(email, hash, 'Admin');
-  console.log(`✅ Admin account created: ${email}`);
+  console.log(`&#9989; Admin account created: ${email}`);
 }
 
-// ── SEED SAMPLE PRODUCTS ──────────────────────────────────────────────────────
+// &#9472;&#9472; SEED SAMPLE PRODUCTS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 
 function seedSampleData() {
-  const count = prepare('SELECT COUNT(*) as c FROM products').get().c;
-  if (count > 0) return;
+  // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
+  const SEED_VERSION = '3';
+  const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
+  if (verRow && verRow.value === SEED_VERSION) return;
 
-  // ── CATEGORIES ──────────────────────────────────────────────────────────────
-  const cat2 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Electronics',      'electronics', 'Headphones, keyboards, and tech accessories', 1).lastInsertRowid;
-  const cat3 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Streetwear',       'streetwear',  'Hoodies, tees, joggers, and sneakers',        2).lastInsertRowid;
-  const cat4 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Skincare & Beauty','skincare',    'Serums, moisturizers, and glow essentials',   3).lastInsertRowid;
-  const cat5 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Accessories',      'accessories', 'Watches, wallets, sunglasses, and bags',      4).lastInsertRowid;
+  // Clear existing catalog so we can re-seed cleanly
+  try {
+    prepare('DELETE FROM order_items').run();
+    prepare('DELETE FROM orders').run();
+    prepare('DELETE FROM products').run();
+    prepare('DELETE FROM categories').run();
+  } catch(e) { /* ignore if tables missing */ }
 
-  const IMG = 'https://images.unsplash.com/photo-';
+  // &#9472;&#9472; CATEGORIES &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  const cat2 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Pokemon',      'pokemon', 'Sealed booster boxes, ETBs, and bundles',     1).lastInsertRowid;
+  const cat3 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Sports Cards', 'sports',  'NBA, NFL, and MLB hobby boxes and blasters',  2).lastInsertRowid;
+  const cat4 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Graded Cards', 'graded',  'PSA-certified slabs guaranteed PSA 9 or 10',  3).lastInsertRowid;
+  const cat5 = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Mystery Boxes','mystery', 'CRG signature mystery boxes &#8212; every rip hits', 4).lastInsertRowid;
+
   const ins  = 'INSERT INTO products (category_id, name, slug, description, price, compare_price, stock, sku, image_url, badge, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)';
 
-  // ── ELECTRONICS ─────────────────────────────────────────────────────────────
-  prepare(ins).run(cat2, 'ANC Pro Wireless Headphones', 'anc-pro-wireless-headphones',
-    'Industry-leading active noise cancellation with 40-hour battery life. Hi-Res Audio certified, foldable design, and multipoint Bluetooth for seamless device switching.',
-    7999, 12999, 30, 'ELEC-001',
-    `${IMG}1505740420928-5e560c06d30e?w=600&h=600&fit=crop&auto=format&q=80`, 'Sale');
+  // &#9472;&#9472; POKEMON &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  prepare(ins).run(cat2, 'Pokemon Prismatic Evolutions Booster Box', 'pokemon-prismatic-evolutions-booster-box',
+    'Sealed Prismatic Evolutions booster box, 36 packs. One of the hottest Pokemon sets ever printed. Pull Eevee-lution SIRs, Tera Charizard ex, and more. Every box is a banger.',
+    18999, 22999, 20, 'PKM-PEV-BB', null, 'Hot');
 
-  prepare(ins).run(cat2, 'RGB Mechanical Keyboard TKL', 'rgb-mechanical-keyboard-tkl',
-    'Tenkeyless layout with premium tactile brown switches, per-key RGB, and aircraft-grade aluminium top case. USB-C detachable cable.',
-    14999, null, 18, 'ELEC-002',
-    `${IMG}1587829741301-dc798b83add3?w=600&h=600&fit=crop&auto=format&q=80`, 'Popular');
+  prepare(ins).run(cat2, 'Pokemon Surging Sparks Elite Trainer Box', 'pokemon-surging-sparks-etb',
+    'Surging Sparks ETB featuring Pikachu ex. 9 booster packs, 45 Energy cards, player guide, and premium accessories. Solid hit potential on every open.',
+    5499, 6499, 30, 'PKM-SS-ETB', null, 'New');
 
-  prepare(ins).run(cat2, '20,000mAh Power Bank Ultra', 'power-bank-ultra-20k',
-    '65W PD fast charging for laptops, tablets, and phones. Dual USB-A + USB-C outputs, LED battery indicator. TSA carry-on approved.',
-    3999, 5999, 55, 'ELEC-003',
-    null, 'Sale');
+  prepare(ins).run(cat2, 'Pokemon Shrouded Fable Booster Bundle', 'pokemon-shrouded-fable-bundle',
+    '6-pack booster bundle from the Shrouded Fable set. Dark-type Pokemon and Special Illustration Rares. Great value entry point for the set.',
+    3499, null, 40, 'PKM-SF-BB', null, null);
 
-  prepare(ins).run(cat2, 'USB-C 7-in-1 Docking Hub', 'usb-c-7in1-docking-hub',
-    'One cable connects it all: 4K HDMI, 100W PD pass-through, 3× USB-A, SD/microSD card readers. Plug-and-play, no drivers required.',
-    4999, 7999, 42, 'ELEC-004',
-    null, null);
+  prepare(ins).run(cat2, 'Pokemon Stellar Crown Booster Box', 'pokemon-stellar-crown-booster-box',
+    'Stellar Crown sealed booster box, 36 packs. Terastallized Pokemon with stunning ex cards. Pull Terapagos ex, Latios ex, and Special Illustration Rares.',
+    14999, 17999, 15, 'PKM-SC-BB', null, null);
 
-  // ── STREETWEAR ──────────────────────────────────────────────────────────────
-  prepare(ins).run(cat3, 'Heavyweight Oversized Hoodie', 'heavyweight-oversized-hoodie',
-    'Ultra-thick 480gsm French terry cotton. Dropped shoulders, kangaroo pocket, and a relaxed boxy cut. Garment-dyed for a premium vintage wash. Unisex sizing.',
-    6500, null, 85, 'CLO-001',
-    `${IMG}1556821840-3a63f15732ce?w=600&h=600&fit=crop&auto=format&q=80`, 'New');
+  // &#9472;&#9472; SPORTS CARDS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  prepare(ins).run(cat3, 'Panini Prizm NBA Hobby Box 2024-25', 'panini-prizm-nba-hobby-box',
+    '2024-25 Panini Prizm Basketball hobby box. 12 packs, guaranteed 3 autographs and 6 Prizm parallels. Chase rookie cards of Zaccharie Risacher, Alex Sarr, and the full 2024 NBA Draft class.',
+    21999, 24999, 12, 'PAN-PZM-NBA', null, 'Hot');
 
-  prepare(ins).run(cat3, 'Vintage Washed Graphic Tee', 'vintage-washed-graphic-tee',
-    'Heavyweight 280gsm ring-spun cotton with a retro acid-wash finish and screen-printed graphic. Slightly oversized cut, double-needle stitching.',
-    3500, null, 110, 'CLO-002',
-    `${IMG}1521572163474-6864f9cf17ab?w=600&h=600&fit=crop&auto=format&q=80`, null);
+  prepare(ins).run(cat3, 'Topps Chrome Baseball Hobby Box 2024', 'topps-chrome-baseball-hobby-box',
+    'Sealed 2024 Topps Chrome Baseball hobby box. 18 packs, 4 cards per pack. Guaranteed autographs and refractors. Iconic Chrome finish. Chase Jackson Chourio, Jackson Holliday rookies.',
+    18999, null, 15, 'TOP-CHR-BB', null, null);
 
-  prepare(ins).run(cat3, 'Cargo Utility Joggers', 'cargo-utility-joggers',
-    'Six-pocket cargo joggers in 320gsm brushed fleece. Adjustable ankle cuffs, YKK zip pockets. The #1 trending athleisure silhouette of 2025.',
-    7500, null, 60, 'CLO-003',
-    null, 'Popular');
+  prepare(ins).run(cat3, 'Panini Select NFL Blaster Box', 'panini-select-nfl-blaster-box',
+    'Panini Select NFL Football blaster box. 6 packs with exclusive Blaster-only parallels. Great entry-level football box. Pull Concourse, Premier, and Courtside level cards.',
+    3999, 4999, 35, 'PAN-SEL-NFL', null, null);
 
-  prepare(ins).run(cat3, 'Classic White Leather Sneakers', 'classic-white-leather-sneakers',
-    'Full-grain leather upper with a vulcanized cupsole. Clean minimal design that pairs with everything. Cushioned insole for all-day comfort.',
-    9500, 12000, 40, 'CLO-004',
-    `${IMG}1542291026-7eec264c27ff?w=600&h=600&fit=crop&auto=format&q=80`, 'Sale');
+  prepare(ins).run(cat3, 'Bowman Baseball Hobby Box 2024', 'bowman-baseball-hobby-box-2024',
+    '2024 Bowman Baseball hobby box &#8212; the gold standard for prospect cards. 24 packs, loaded with Chrome Prospect Autos. Future stars are born in Bowman.',
+    16999, null, 10, 'BOW-BB-24', null, 'New');
 
-  // ── SKINCARE & BEAUTY ────────────────────────────────────────────────────────
-  prepare(ins).run(cat4, '20% Vitamin C Brightening Serum', 'vitamin-c-brightening-serum',
-    'Stabilized 20% L-Ascorbic Acid with Ferulic Acid and Vitamin E. Fades dark spots, boosts collagen, and leaves skin visibly luminous in 4 weeks.',
-    4500, null, 70, 'SKIN-001',
-    `${IMG}1556228578-0d85b1a4d571?w=600&h=600&fit=crop&auto=format&q=80`, 'Popular');
+  // &#9472;&#9472; GRADED CARDS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  prepare(ins).run(cat4, 'PSA Graded Mystery Card (PSA 9+)', 'psa-graded-mystery-card',
+    'Receive 1 random PSA-graded card guaranteed PSA 9 or PSA 10. Pokemon or sports &#8212; always a fire pull. Ships double-sleeved in a premium slab protector. Every slab slaps.',
+    7999, 9999, 20, 'PSA-MYS-9+', null, 'New');
 
-  prepare(ins).run(cat4, 'Hyaluronic Acid Glow Moisturizer', 'hyaluronic-acid-glow-moisturizer',
-    'Multi-weight Hyaluronic Acid complex draws moisture deep into the skin. Fragrance-free, non-comedogenic. Dermatologist tested for all skin types.',
-    3800, null, 90, 'SKIN-002',
-    null, null);
+  prepare(ins).run(cat4, 'PSA 10 Graded Slab (Pokemon)', 'psa-10-graded-slab-pokemon',
+    'PSA 10 Gem Mint graded Pokemon card. Random selection from our collection &#8212; could be a vintage base set card, modern SIR, or a hidden gem. All slabs are PSA 10.',
+    14999, 19999, 8, 'PSA-10-PKM', null, 'Hot');
 
-  prepare(ins).run(cat4, 'Deep Cleanse Face Mask Set (3-pack)', 'deep-cleanse-face-mask-set',
-    'Three targeted masks: Kaolin Clay for pores, Overnight Retinol for renewal, and Green Tea Sheet for hydration. Spa results at home.',
-    2999, 3999, 55, 'SKIN-003',
-    null, 'Sale');
+  // &#9472;&#9472; MYSTERY BOXES &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  prepare(ins).run(cat5, 'Grail Hunter Mystery Box', 'grail-hunter-mystery-box',
+    'The CRG signature experience: 10 random packs (Pokemon + sports mix), 1 guaranteed hit (auto or relic card), and a chance at a PSA graded slab. Every box rips different. The hunt never stops.',
+    4999, 6499, 25, 'CRG-GHB', null, 'Hot');
 
-  // ── ACCESSORIES ──────────────────────────────────────────────────────────────
-  prepare(ins).run(cat5, 'Slim Minimalist Quartz Watch', 'slim-minimalist-quartz-watch',
-    'Japanese quartz movement in a 40mm case. Sapphire crystal glass, genuine leather strap, water resistant to 50m. Timeless Bauhaus-inspired design.',
-    8999, null, 25, 'ACC-001',
-    `${IMG}1523275335684-37898b6baf30?w=600&h=600&fit=crop&auto=format&q=80`, 'Popular');
-
-  prepare(ins).run(cat5, 'RFID Bifold Leather Wallet', 'rfid-bifold-leather-wallet',
-    'Full-grain vegetable-tanned leather with RFID-blocking lining. 6 card slots, 2 bill compartments, slim profile at just 8mm. Ages beautifully.',
-    4999, null, 48, 'ACC-002',
-    null, null);
-
-  prepare(ins).run(cat5, 'Polarized Aviator Sunglasses', 'polarized-aviator-sunglasses',
-    'Polarized G15 lenses with 100% UV400 protection. Spring-hinge titanium frame, feather-light at 22g. Comes with premium case and cleaning cloth.',
-    5500, null, 35, 'ACC-003',
-    `${IMG}1572635196237-14b3f281503f?w=600&h=600&fit=crop&auto=format&q=80`, null);
-
-  prepare(ins).run(cat5, 'Canvas Everyday Backpack', 'canvas-everyday-backpack',
-    '30L waxed canvas backpack with padded 16" laptop sleeve, YKK zippers, and vegetable leather trim. Water-resistant, carry-on compliant.',
-    6500, 8500, 30, 'ACC-004',
-    `${IMG}1553062407-98eeb64c6a62?w=600&h=600&fit=crop&auto=format&q=80`, 'Sale');
+  prepare(ins).run(cat5, 'Vintage Vault Mystery Box', 'vintage-vault-mystery-box',
+    'Curated vintage mystery box: 5 packs from sets released before 2020 (Pokemon Jungle, Base Set 2, XY era, or Vintage sports). Perfect for the collector chasing throwback hits.',
+    3999, 5499, 15, 'CRG-VVB', null, null);
 
   // Default settings
-  const setq = 'INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)';
-  prepare(setq).run('store_name',               process.env.STORE_NAME     || "Sofia's Store");
+  const setq = 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
+  prepare(setq).run('store_name',               process.env.STORE_NAME     || 'CRG Cards');
   prepare(setq).run('store_currency',           process.env.STORE_CURRENCY || 'USD');
   prepare(setq).run('tax_rate',                 '0');
   prepare(setq).run('shipping_flat',            '0');
   prepare(setq).run('free_shipping_threshold',  '0');
+  prepare(setq).run('seed_version',             SEED_VERSION);
 
-  console.log('✅ Sample products and categories seeded');
+  console.log('CRG Cards products and categories seeded (v' + SEED_VERSION + ')');
 }
 
-// ── HELPERS ───────────────────────────────────────────────────────────────────
+// &#9472;&#9472; HELPERS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 
 const helpers = {
   formatPrice(cents) {
@@ -327,7 +310,7 @@ const helpers = {
   }
 };
 
-// ── PUBLIC DB OBJECT ──────────────────────────────────────────────────────────
+// &#9472;&#9472; PUBLIC DB OBJECT &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 // Exposes a better-sqlite3-compatible interface
 
 const db = {
@@ -336,7 +319,7 @@ const db = {
   transaction,
   helpers,
 
-  // Async initializer — call once at startup before routes handle requests
+  // Async initializer &#8212; call once at startup before routes handle requests
   async init() {
     if (sqlDb) return this; // already initialized
 
@@ -349,10 +332,10 @@ const db = {
     if (fs.existsSync(DB_PATH)) {
       const buffer = fs.readFileSync(DB_PATH);
       sqlDb = new SQL.Database(buffer);
-      console.log('✅ Database loaded from disk');
+      console.log('&#9989; Database loaded from disk');
     } else {
       sqlDb = new SQL.Database();
-      console.log('✅ New database created');
+      console.log('&#9989; New database created');
     }
 
     // Enable foreign keys
