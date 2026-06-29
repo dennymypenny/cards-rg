@@ -3,166 +3,155 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Track Order &#8212; CRG Cards</title>
+<title>Orders — CRG Cards</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bevan&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0d0d0d;--bg2:#161616;--bg3:#1e1e1e;
-  --border:#2a2a2a;--border2:#333;
-  --teal:#14B8A6;--teal2:#0f9184;--teal-glow:rgba(20,184,166,.18);
-  --pink:#FF2D7A;--pink2:#e0205f;--pink-glow:rgba(255,45,122,.18);
-  --silver:#D1D1D1;--silver2:#a0a0a0;
-  --text:#ffffff;--text2:#D1D1D1;--muted:#777;
-  --sans:'Inter','Segoe UI',sans-serif;
-  --display:'Bevan',serif;
-  --radius:12px;
-}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+:root{--bg:#0d0d0d;--bg2:#161616;--bg3:#1f1f1f;--border:rgba(255,255,255,.08);--accent:#e879f9;--blue:#60a5fa;--red:#ef4444;--green:#22c55e;--gold:#f59e0b;--white:#ffffff;--muted:#6b7280;--sans:'Inter','Segoe UI',sans-serif;--radius:6px;--shadow:0 4px 24px rgba(0,0,0,.5)}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--white);min-height:100vh}
 a{text-decoration:none;color:inherit}
-
-nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:var(--display);font-size:1.4rem;display:flex;flex-direction:column}
-.logo-sub{font-family:var(--sans);font-size:.6rem;font-weight:600;letter-spacing:.12em;color:var(--silver2);text-transform:uppercase}
-.nav-back{display:flex;align-items:center;gap:6px;padding:.5rem .9rem;border-radius:8px;font-size:.85rem;font-weight:500;background:transparent;border:1px solid var(--border2);color:var(--text2);transition:.2s}
-.nav-back:hover{background:var(--bg2)}
-
-main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 1.5rem}
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:520px;width:100%;padding:2.5rem;box-shadow:0 8px 40px rgba(0,0,0,.6)}
-
-.page-title{font-family:var(--display);font-size:1.8rem;letter-spacing:.04em;margin-bottom:.4rem}
-.page-title .t{color:var(--teal)}
-.page-title .p{color:var(--pink)}
-.page-sub{color:var(--muted);font-size:.9rem;margin-bottom:2rem;line-height:1.6}
-
-.form-group{margin-bottom:1.25rem}
-label{display:block;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--silver2);margin-bottom:.5rem}
-input{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:.8rem 1rem;color:var(--text);font-family:var(--sans);font-size:.9rem;outline:none;transition:.2s}
-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--teal-glow)}
-input::placeholder{color:var(--muted)}
-
-.btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:.9rem;border-radius:10px;font-weight:700;font-size:.95rem;cursor:pointer;border:none;transition:.2s;font-family:var(--sans)}
-.btn-teal{background:var(--teal);color:#000}
-.btn-teal:hover{background:var(--teal2);transform:translateY(-2px)}
-
-/* RESULT */
-#result{margin-top:2rem}
-.order-block{background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:1.5rem}
-.order-num-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
-.order-num-label{font-family:var(--display);font-size:1rem;letter-spacing:.06em;color:var(--silver2)}
-.order-num-val{font-size:.95rem;font-weight:800;color:var(--teal)}
-.status-chip{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .8rem;border-radius:50px;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.s-paid{background:rgba(20,184,166,.15);color:var(--teal);border:1px solid rgba(20,184,166,.3)}
-.s-pending{background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.3)}
-.s-shipped{background:rgba(255,45,122,.1);color:var(--pink);border:1px solid rgba(255,45,122,.3)}
-.s-default{background:var(--bg2);color:var(--muted);border:1px solid var(--border2)}
-
-.info-row{display:flex;justify-content:space-between;font-size:.84rem;padding:.55rem 0;border-bottom:1px solid var(--border);color:var(--text2)}
-.info-row:last-child{border-bottom:none}
-.info-row span:first-child{color:var(--muted)}
-.info-row span:last-child{font-weight:600}
-
-.items-head{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:1.25rem 0 .75rem}
-.order-item{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;padding:.55rem 0;border-bottom:1px solid var(--border)}
+nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;gap:1.5rem}
+.nav-logo img{height:42px;width:auto;display:block}
+.nav-btn{display:flex;align-items:center;gap:6px;padding:.45rem .9rem;border-radius:var(--radius);font-size:.85rem;font-weight:500;cursor:pointer;background:transparent;border:1px solid var(--border);color:var(--white);transition:.15s;font-family:var(--sans)}
+.nav-btn:hover{background:var(--bg3);border-color:rgba(255,255,255,.18)}
+.nav-cart{background:linear-gradient(135deg,var(--accent),var(--blue));border-color:transparent!important;color:#fff}
+.nav-cart:hover{opacity:.9}
+.sec{padding:3rem 2rem;max-width:900px;margin:0 auto}
+.page-title{font-size:2rem;font-weight:900;letter-spacing:-.03em;margin-bottom:.25rem}
+.page-sub{color:var(--muted);font-size:.88rem;margin-bottom:.75rem}
+.order-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:1rem;overflow:hidden;transition:border-color .15s}
+.order-card:hover{border-color:rgba(255,255,255,.14)}
+.order-head{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.4rem;gap:1rem;flex-wrap:wrap;cursor:pointer}
+.order-head:hover{background:var(--bg3)}
+.order-meta{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+.order-id{font-size:.8rem;font-weight:700;letter-spacing:.05em;color:var(--muted)}
+.order-date{font-size:.82rem;color:var(--muted)}
+.order-total{font-size:1rem;font-weight:800;letter-spacing:-.01em}
+.status-badge{padding:.25rem .7rem;border-radius:2px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.status-pending{background:rgba(245,158,11,.15);color:var(--gold);border:1px solid rgba(245,158,11,.3)}
+.status-processing{background:rgba(96,165,250,.15);color:var(--blue);border:1px solid rgba(96,165,250,.3)}
+.status-shipped{background:rgba(232,121,249,.15);color:var(--accent);border:1px solid rgba(232,121,249,.3)}
+.status-delivered{background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3)}
+.status-cancelled{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3)}
+.order-expand{font-size:1rem;color:var(--muted);transition:.2s}
+.order-body{padding:0 1.4rem 1.25rem;border-top:1px solid var(--border)}
+.order-item{display:flex;gap:1rem;padding:.85rem 0;border-bottom:1px solid var(--border);align-items:center}
 .order-item:last-child{border-bottom:none}
-.order-item-name{color:var(--text2)}
-.order-item-qty{color:var(--muted);font-size:.78rem}
-.order-item-price{font-weight:700;color:var(--text)}
-
-.total-row{display:flex;justify-content:space-between;font-size:1rem;font-weight:800;padding-top:1rem;margin-top:.5rem;border-top:1px solid var(--border2);color:var(--text)}
-.total-row span:last-child{color:var(--pink)}
-
-.msg{text-align:center;padding:2rem;color:var(--muted);font-size:.9rem}
-.msg.err{color:#ff6b6b}
+.order-item-img{width:50px;height:50px;border-radius:var(--radius);background:var(--bg3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;overflow:hidden}
+.order-item-img img{width:100%;height:100%;object-fit:cover}
+.order-item-name{font-size:.88rem;font-weight:600;flex:1}
+.order-item-qty{font-size:.78rem;color:var(--muted);margin-top:.2rem}
+.order-item-price{font-size:.9rem;font-weight:700}
+.search-bar{display:flex;gap:.75rem;margin-bottom:1.75rem}
+.search-bar input{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:.6rem 1rem;color:var(--white);font-family:var(--sans);font-size:.88rem;outline:none;transition:.15s}
+.search-bar input:focus{border-color:rgba(255,255,255,.2)}
+.search-bar input::placeholder{color:var(--muted)}
+.search-bar button{background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff;border:none;border-radius:var(--radius);padding:.6rem 1.25rem;font-size:.85rem;font-weight:700;cursor:pointer;font-family:var(--sans)}
+.empty{text-align:center;padding:5rem 1rem;color:var(--muted)}
+.empty .ico{font-size:2.5rem;margin-bottom:.85rem}
+.empty h3{font-size:1.2rem;font-weight:800;color:var(--white);margin-bottom:.4rem}
+.loading{text-align:center;padding:3rem;color:var(--muted);font-size:.9rem}
+@media(max-width:640px){.sec{padding:2rem 1rem}.order-meta{gap:.75rem}}
 </style>
 </head>
 <body>
 <nav>
-  <a href="/" class="logo">
-    <div><span style="color:var(--silver)">C</span><span style="color:var(--teal)">R</span><span style="color:var(--pink)">G</span></div>
-    <div class="logo-sub">Rips &amp; Grails</div>
-  </a>
-  <a href="/" class="nav-back">&#8592; Shop</a>
+  <a href="/" class="nav-logo"><img src="/images/logo.png" alt="CRG Cards"/></a>
+  <div style="display:flex;gap:.5rem">
+    <a href="/" class="nav-btn">← Shop</a>
+    <a href="/cart.html" class="nav-btn nav-cart">🛒 Cart</a>
+  </div>
 </nav>
 
-<main>
-  <div class="card">
-    <div class="page-title"><span class="t">TRACK</span> <span class="p">ORDER</span></div>
-    <p class="page-sub">Enter your order number and the email used at checkout to look up your rip status.</p>
+<div class="sec">
+  <div class="page-title">Your Orders</div>
+  <div class="page-sub">Track and manage your CRG Cards purchases</div>
 
-    <div class="form-group">
-      <label>Order Number</label>
-      <input type="text" id="orderNum" placeholder="e.g. ORD-250628-1234" autocomplete="off"/>
-    </div>
-    <div class="form-group">
-      <label>Email Address</label>
-      <input type="email" id="orderEmail" placeholder="your@email.com" autocomplete="email"/>
-    </div>
-    <button class="btn btn-teal" onclick="lookup()">&#128203; Track My Order</button>
-
-    <div id="result"></div>
+  <div class="search-bar">
+    <input type="text" id="orderSearch" placeholder="Search by order ID or product name…" oninput="filterOrders(this.value)"/>
+    <button onclick="loadOrders()">Refresh</button>
   </div>
-</main>
+
+  <div id="loadingState" class="loading">Loading orders…</div>
+  <div id="ordersContainer"></div>
+  <div id="emptyState" class="empty" style="display:none">
+    <div class="ico">📦</div>
+    <h3>No orders yet</h3>
+    <p>Your orders will appear here after you make a purchase.</p>
+    <a href="/" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff;padding:.75rem 1.5rem;border-radius:var(--radius);font-weight:700;font-size:.88rem;margin-top:1.25rem">Start Shopping →</a>
+  </div>
+</div>
 
 <script>
-function statusCls(s){
-  if(!s)return's-default';
-  const v=s.toLowerCase();
-  if(v==='paid'||v==='completed')return 's-paid';
-  if(v==='shipped')return 's-shipped';
-  if(v==='pending')return 's-pending';
-  return 's-default';
-}
-function statusLabel(s){
-  if(!s)return'Unknown';
-  const v=s.toLowerCase();
-  if(v==='paid')return'&#9989; Paid';
-  if(v==='completed')return'&#9989; Completed';
-  if(v==='shipped')return'&#128230; Shipped';
-  if(v==='pending')return'&#8987; Pending';
-  return s;
-}
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+let allOrders = [];
 
-async function lookup() {
-  const num   = document.getElementById('orderNum').value.trim();
-  const email = document.getElementById('orderEmail').value.trim();
-  const res_  = document.getElementById('result');
-  if (!num||!email){res_.innerHTML='<div class="msg err">&#9888; Please enter both fields.</div>';return;}
-  res_.innerHTML='<div class="msg">Looking up your order&#8230;</div>';
+async function loadOrders() {
+  document.getElementById('loadingState').style.display = 'block';
+  document.getElementById('ordersContainer').innerHTML = '';
+  document.getElementById('emptyState').style.display = 'none';
   try {
-    const res  = await fetch(`/api/orders/lookup?order_number=${encodeURIComponent(num)}&email=${encodeURIComponent(email)}`);
-    const data = await res.json();
-    if (!res.ok||!data.order){res_.innerHTML='<div class="msg err">&#10060; Order not found. Check your order number and email.</div>';return;}
-    const o = data.order;
-    const items = o.items||[];
-    res_.innerHTML = `
-      <div class="order-block" style="margin-top:2rem">
-        <div class="order-num-row">
-          <span class="order-num-label">ORDER</span>
-          <span class="order-num-val">${esc(o.order_number)}</span>
-          <span class="status-chip ${statusCls(o.status)}">${statusLabel(o.status)}</span>
-        </div>
-        <div class="info-row"><span>Customer</span><span>${esc(o.customer_name)}</span></div>
-        <div class="info-row"><span>Email</span><span>${esc(o.customer_email)}</span></div>
-        ${o.created_at?`<div class="info-row"><span>Order Date</span><span>${new Date(o.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span></div>`:''}
-        ${items.length?`
-          <div class="items-head">Items</div>
-          ${items.map(i=>`
-            <div class="order-item">
-              <div>
-                <div class="order-item-name">${esc(i.name)}</div>
-                <div class="order-item-qty">Qty: ${i.quantity}</div>
-              </div>
-              <div class="order-item-price">${i.subtotal_formatted}</div>
-            </div>`).join('')}
-        `:''}
-        ${o.total_formatted?`<div class="total-row"><span>Total Charged</span><span>${esc(o.total_formatted)}</span></div>`:''}
-      </div>`;
-  } catch(e){res_.innerHTML='<div class="msg err">&#10060; Error looking up order. Try again.</div>';}
+    const res = await fetch('/api/orders');
+    const { orders } = await res.json();
+    allOrders = orders || [];
+    document.getElementById('loadingState').style.display = 'none';
+    renderOrders(allOrders);
+  } catch(e) {
+    document.getElementById('loadingState').textContent = 'Failed to load orders.';
+  }
 }
 
-document.addEventListener('keydown',e=>{if(e.key==='Enter')lookup();});
+function renderOrders(orders) {
+  if (!orders.length) {
+    document.getElementById('emptyState').style.display = 'block';
+    document.getElementById('ordersContainer').innerHTML = '';
+    return;
+  }
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('ordersContainer').innerHTML = orders.map(o => `
+    <div class="order-card">
+      <div class="order-head" onclick="toggleOrder(${o.id})">
+        <div class="order-meta">
+          <span class="order-id">ORDER #${o.id}</span>
+          <span class="order-date">${new Date(o.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</span>
+          <span class="status-badge status-${(o.status||'pending').toLowerCase()}">${o.status||'Pending'}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem">
+          <span class="order-total">${o.total_formatted || '$'+Number(o.total/100).toFixed(2)}</span>
+          <span class="order-expand" id="expand-${o.id}">▾</span>
+        </div>
+      </div>
+      <div class="order-body" id="body-${o.id}" style="display:none">
+        ${(o.items||[]).map(item => `
+          <div class="order-item">
+            <div class="order-item-img">${item.image_url ? `<img src="${item.image_url}" alt="${item.name}"/>` : '📦'}</div>
+            <div class="order-item-name">${item.name}<div class="order-item-qty">Qty: ${item.quantity}</div></div>
+            <div class="order-item-price">${item.subtotal_formatted || ''}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleOrder(id) {
+  const body = document.getElementById(`body-${id}`);
+  const arrow = document.getElementById(`expand-${id}`);
+  const open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  arrow.textContent = open ? '▾' : '▴';
+}
+
+function filterOrders(val) {
+  if (!val.trim()) { renderOrders(allOrders); return; }
+  const q = val.toLowerCase();
+  renderOrders(allOrders.filter(o =>
+    String(o.id).includes(q) ||
+    (o.items||[]).some(i => i.name.toLowerCase().includes(q))
+  ));
+}
+
+loadOrders();
 </script>
 </body>
 </html>

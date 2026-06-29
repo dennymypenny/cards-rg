@@ -3,128 +3,97 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Order Confirmed &#8212; CRG Cards</title>
+<title>Order Confirmed — CRG Cards</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bevan&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#0d0d0d;--bg2:#161616;--bg3:#1e1e1e;
-  --border:#2a2a2a;--border2:#333;
-  --teal:#14B8A6;--teal2:#0f9184;--teal-glow:rgba(20,184,166,.25);
-  --pink:#FF2D7A;--pink2:#e0205f;--pink-glow:rgba(255,45,122,.2);
-  --silver:#D1D1D1;--silver2:#a0a0a0;
-  --text:#ffffff;--text2:#D1D1D1;--muted:#777;
-  --sans:'Inter','Segoe UI',sans-serif;
-  --display:'Bevan',serif;
-  --radius:14px;
-}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem}
+:root{--bg:#0d0d0d;--bg2:#161616;--bg3:#1f1f1f;--border:rgba(255,255,255,.08);--accent:#e879f9;--blue:#60a5fa;--green:#22c55e;--white:#ffffff;--muted:#6b7280;--sans:'Inter','Segoe UI',sans-serif;--radius:6px}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--white);min-height:100vh;display:flex;flex-direction:column}
 a{text-decoration:none;color:inherit}
-
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:24px;max-width:560px;width:100%;padding:2.75rem 2.5rem;box-shadow:0 8px 60px rgba(0,0,0,.7),0 0 80px rgba(20,184,166,.05)}
-
-.check{width:76px;height:76px;border-radius:50%;background:rgba(20,184,166,.12);border:2px solid rgba(20,184,166,.4);display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin:0 auto 1.5rem;box-shadow:0 0 30px var(--teal-glow)}
-
-.title{font-family:var(--display);font-size:1.9rem;text-align:center;margin-bottom:.4rem;letter-spacing:.04em}
-.title .t{color:var(--teal)}
-.title .p{color:var(--pink)}
-
-.sub{color:var(--silver2);text-align:center;font-size:.9rem;margin-bottom:2rem;line-height:1.65}
-.sub strong{color:var(--text)}
-
-.order-num{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);padding:1rem 1.25rem;text-align:center;margin-bottom:1.5rem}
-.order-num label{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:600;display:block;margin-bottom:.3rem}
-.order-num strong{display:block;font-size:1.2rem;font-weight:800;color:var(--teal);letter-spacing:-.01em}
-
-.items-list{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:1.5rem}
-.item-row{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1.1rem;border-bottom:1px solid var(--border);font-size:.85rem}
-.item-row:last-child{border-bottom:none}
-.item-row .n{font-weight:600;color:var(--text)}
-.item-row .q{color:var(--muted);font-size:.78rem;margin-top:.15rem}
-.item-row .p{font-weight:800;color:var(--text)}
-
-.totals{background:var(--bg3);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.5rem}
-.tot-row{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:.5rem}
-.tot-row:last-child{margin-bottom:0;font-weight:800;font-size:1rem;color:var(--text);padding-top:.5rem;border-top:1px solid var(--border2);margin-top:.5rem}
-.tot-row:last-child span:last-child{color:var(--pink)}
-
-.btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:.85rem;border-radius:var(--radius);font-weight:700;font-size:.9rem;cursor:pointer;border:none;transition:.2s;font-family:var(--sans);text-decoration:none;margin-bottom:.6rem}
-.btn-teal{background:var(--teal);color:#000;box-shadow:0 4px 20px var(--teal-glow)}
-.btn-teal:hover{background:var(--teal2);transform:translateY(-2px)}
-.btn-outline{background:transparent;color:var(--text2);border:1.5px solid var(--border2)}
+nav{background:rgba(13,13,13,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;padding:0 2rem}
+.nav-logo img{height:42px;width:auto;display:block}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 1.5rem}
+.success-box{max-width:560px;width:100%;text-align:center}
+.check-ring{width:80px;height:80px;border-radius:50%;background:rgba(34,197,94,.1);border:2px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;margin:0 auto 1.75rem;font-size:2rem}
+.success-box h1{font-size:2rem;font-weight:900;letter-spacing:-.03em;margin-bottom:.5rem}
+.success-box .sub{font-size:.95rem;color:var(--muted);line-height:1.7;margin-bottom:2rem}
+.order-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:1.4rem;text-align:left;margin-bottom:2rem}
+.order-card h3{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.detail-row{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:.6rem;color:var(--muted)}
+.detail-row strong{color:var(--white);font-weight:600}
+.detail-row:last-child{margin-bottom:0;padding-top:.6rem;border-top:1px solid var(--border);font-weight:800;font-size:.95rem;color:var(--white)}
+.detail-row:last-child strong{font-size:1rem}
+.btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:.8rem 1.75rem;border-radius:var(--radius);font-weight:700;font-size:.9rem;cursor:pointer;border:none;transition:.2s;font-family:var(--sans)}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--blue));color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-outline{background:transparent;color:var(--white);border:1px solid var(--border)}
 .btn-outline:hover{background:var(--bg3)}
-
-.loading{text-align:center;color:var(--muted);padding:2rem}
+.confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;overflow:hidden}
+.dot{position:absolute;width:8px;height:8px;border-radius:50%;animation:fall linear forwards}
+@keyframes fall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
 </style>
 </head>
 <body>
-<div class="card" id="card">
-  <div class="loading">Loading your order&#8230;</div>
+<nav>
+  <a href="/" class="nav-logo"><img src="/images/logo.png" alt="CRG Cards"/></a>
+</nav>
+
+<div class="confetti" id="confetti"></div>
+
+<div class="main">
+  <div class="success-box">
+    <div class="check-ring">✓</div>
+    <h1>Order Confirmed!</h1>
+    <p class="sub">Thanks for shopping at CRG Cards. Your order is being processed and you'll receive a confirmation shortly.</p>
+
+    <div class="order-card" id="orderSummary" style="display:none">
+      <h3>Order Details</h3>
+      <div class="detail-row"><span>Order ID</span><strong id="orderId">—</strong></div>
+      <div class="detail-row"><span>Items</span><strong id="orderItems">—</strong></div>
+      <div class="detail-row"><span>Status</span><strong style="color:#22c55e">Processing</strong></div>
+      <div class="detail-row"><span>Total</span><strong id="orderTotal">—</strong></div>
+    </div>
+
+    <div class="btns">
+      <a href="/orders.html" class="btn btn-primary">View My Orders</a>
+      <a href="/" class="btn btn-outline">Continue Shopping</a>
+    </div>
+  </div>
 </div>
 
 <script>
-async function load() {
-  const params     = new URLSearchParams(location.search);
-  const session_id = params.get('session_id');
-  if (!session_id) { renderError('No order session found.'); return; }
-  await fetch('/api/cart/clear', { method:'DELETE' }).catch(()=>{});
-  try {
-    const res  = await fetch(`/api/checkout/order?session_id=${session_id}`);
-    const data = await res.json();
-    if (!res.ok) { renderError(data.error || 'Order not found'); return; }
-    renderOrder(data.order);
-  } catch(e) {
-    renderError('Unable to load order details.');
-  }
+// Show confetti
+const colors = ['#e879f9','#60a5fa','#f9a8d4','#818cf8','#ffffff'];
+const c = document.getElementById('confetti');
+for (let i = 0; i < 60; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'dot';
+  dot.style.left = Math.random()*100 + '%';
+  dot.style.background = colors[Math.floor(Math.random()*colors.length)];
+  dot.style.animationDuration = (2 + Math.random()*3) + 's';
+  dot.style.animationDelay = Math.random()*2 + 's';
+  dot.style.width = dot.style.height = (5 + Math.random()*8) + 'px';
+  c.appendChild(dot);
 }
 
-function renderOrder(order) {
-  document.getElementById('card').innerHTML = `
-    <div class="check">&#9989;</div>
-    <div class="title"><span class="t">ORDER</span> <span class="p">CONFIRMED!</span></div>
-    <p class="sub">
-      The rip is locked in, <strong>${order.customer_name}</strong>!<br>
-      Confirmation sent to <strong>${order.customer_email}</strong>.
-    </p>
-    <div class="order-num">
-      <label>Order Number</label>
-      <strong>${order.order_number}</strong>
-    </div>
-    ${order.items && order.items.length ? `
-    <div class="items-list">
-      ${order.items.map(i => `
-        <div class="item-row">
-          <div>
-            <div class="n">${esc(i.name)}</div>
-            <div class="q">Qty: ${i.quantity}</div>
-          </div>
-          <div class="p">$${(i.subtotal/100).toFixed(2)}</div>
-        </div>`).join('')}
-    </div>` : ''}
-    <div class="totals">
-      ${order.shipping > 0 ? `<div class="tot-row"><span>Shipping</span><span>${order.shipping_formatted}</span></div>` : `<div class="tot-row"><span>Shipping</span><span style="color:var(--teal)">Free</span></div>`}
-      ${order.tax > 0 ? `<div class="tot-row"><span>Tax</span><span>${order.tax_formatted}</span></div>` : ''}
-      <div class="tot-row"><span>Total Charged</span><span>${order.total_formatted}</span></div>
-    </div>
-    <a href="/" class="btn btn-teal">&#9889; Continue Shopping</a>
-    <a href="/orders.html" class="btn btn-outline">&#128203; Track Your Order</a>
-  `;
+// Try to load order info from URL params
+const params = new URLSearchParams(window.location.search);
+const sessionId = params.get('session_id');
+if (sessionId) {
+  fetch(`/api/orders/by-session/${sessionId}`)
+    .then(r => r.json())
+    .then(data => {
+      if (data.order) {
+        document.getElementById('orderId').textContent = '#' + data.order.id;
+        document.getElementById('orderItems').textContent = data.order.item_count + ' item(s)';
+        document.getElementById('orderTotal').textContent = data.order.total_formatted;
+        document.getElementById('orderSummary').style.display = 'block';
+      }
+    })
+    .catch(()=>{});
 }
-
-function renderError(msg) {
-  document.getElementById('card').innerHTML = `
-    <div style="text-align:center;padding:1.5rem">
-      <div style="font-size:2.5rem;margin-bottom:1rem">&#9888;&#65039;</div>
-      <div style="font-family:var(--display);font-size:1.4rem;margin-bottom:.5rem;color:var(--text);letter-spacing:.04em">SOMETHING WENT WRONG</div>
-      <div style="color:var(--muted);margin-bottom:1.5rem">${msg}</div>
-      <a href="/" class="btn btn-teal" style="display:flex">&#8592; Back to Store</a>
-    </div>
-  `;
-}
-
-function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
-load();
 </script>
 </body>
 </html>
