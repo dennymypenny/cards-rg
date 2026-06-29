@@ -41,12 +41,13 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .cart-count{position:absolute;top:-7px;right:-7px;background:var(--red);color:#fff;font-size:.6rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
 
 /* ── HERO ── */
-.hero{background:#0d0d0d;border-bottom:1px solid var(--border);padding:5.5rem 2rem 4.5rem;text-align:center;position:relative;overflow:hidden}
+.hero{background:#0d0d0d;border-bottom:1px solid var(--border);padding:4rem 2rem 4.5rem;text-align:center;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(240,33,124,.1) 0%,transparent 55%),radial-gradient(ellipse 60% 60% at 70% 50%,rgba(78,201,240,.1) 0%,transparent 55%);pointer-events:none}
 .hero-inner{max-width:800px;margin:0 auto;position:relative;z-index:1}
-.hero-label{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);background:rgba(240,33,124,.1);border:1px solid rgba(240,33,124,.25);border-radius:2px;padding:.3rem .85rem;margin-bottom:1.75rem}
-.hero h1{font-size:clamp(3rem,6.5vw,5.5rem);font-weight:900;line-height:.95;letter-spacing:-.04em;margin-bottom:1.25rem;color:var(--white)}
-.hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-logo{display:flex;justify-content:center;margin-bottom:2rem}
+.hero-logo img{height:180px;width:auto;filter:drop-shadow(0 0 40px rgba(240,33,124,.35)) drop-shadow(0 0 20px rgba(78,201,240,.25))}
+.hero-label{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);background:rgba(240,33,124,.1);border:1px solid rgba(240,33,124,.25);border-radius:2px;padding:.3rem .85rem;margin-bottom:1.25rem}
+.hero h1{font-size:clamp(2.8rem,6vw,5rem);font-weight:900;line-height:.95;letter-spacing:-.04em;margin-bottom:1.25rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero p{font-size:1.05rem;color:var(--muted);line-height:1.75;max-width:520px;margin:0 auto 2.5rem}
 .hero-stats{display:flex;justify-content:center;margin-bottom:2.5rem;width:fit-content;margin-left:auto;margin-right:auto;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .hero-stat{padding:1rem 2rem;text-align:center;border-right:1px solid var(--border)}
@@ -84,25 +85,63 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .cat-chip:hover{color:var(--white);border-color:rgba(255,255,255,.2)}
 .cat-chip.act{background:var(--white);border-color:var(--white);color:#000}
 
-/* ── PRODUCT GRID ── */
-.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1px;background:var(--border)}
-.prod-card{background:var(--bg2);transition:background .15s;cursor:pointer;position:relative}
-.prod-card:hover{background:var(--bg3)}
-.prod-img{height:220px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;overflow:hidden}
-.prod-img img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
-.prod-card:hover .prod-img img{transform:scale(1.04)}
-.prod-badge{position:absolute;top:10px;left:10px;padding:.2rem .6rem;border-radius:2px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
-.badge-sale{background:var(--pink);color:#fff}
-.badge-new{background:var(--green);color:#fff}
-.badge-pop{background:var(--teal);color:#000}
-.prod-body{padding:1rem 1.1rem 1.25rem;border-top:1px solid var(--border)}
-.prod-cat{font-size:.68rem;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
-.prod-name{font-weight:700;font-size:.93rem;margin-bottom:.35rem;line-height:1.3;color:var(--white)}
-.prod-desc{font-size:.78rem;color:var(--muted);margin-bottom:.9rem;line-height:1.55;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.prod-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
-.prod-price{font-size:1.2rem;font-weight:800;letter-spacing:-.02em}
-.prod-compare{font-size:.78rem;color:var(--muted);text-decoration:line-through;margin-left:.25rem}
-.add-btn{background:var(--grad);color:#fff;border:none;border-radius:var(--radius);padding:.4rem .85rem;font-size:.78rem;font-weight:700;cursor:pointer;transition:opacity .15s;font-family:var(--sans)}
+/* ── PRODUCT GRID — TRADING CARD STYLE ── */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem;background:transparent}
+.prod-card{
+  background:linear-gradient(170deg,#1a1a2e 0%,#161616 40%,#1a1a1a 100%);
+  border:1.5px solid rgba(255,255,255,.1);
+  border-radius:14px;
+  overflow:hidden;
+  transition:all .3s cubic-bezier(.25,.8,.25,1);
+  cursor:pointer;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 4px 24px rgba(0,0,0,.5);
+}
+.prod-card::before{
+  content:'';position:absolute;inset:0;border-radius:14px;
+  background:linear-gradient(135deg,rgba(240,33,124,.06) 0%,transparent 50%,rgba(78,201,240,.06) 100%);
+  pointer-events:none;z-index:0;
+}
+.prod-card:hover{
+  transform:translateY(-10px) scale(1.02);
+  border-color:var(--pink);
+  box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(240,33,124,.3),0 0 30px rgba(240,33,124,.12);
+}
+.prod-img{
+  height:240px;
+  background:linear-gradient(145deg,#1f1f2e,#0f0f1a);
+  display:flex;align-items:center;justify-content:center;
+  font-size:3.5rem;position:relative;overflow:hidden;flex-shrink:0;z-index:1;
+}
+.prod-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.prod-card:hover .prod-img img{transform:scale(1.06)}
+.prod-img-shine{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.04) 50%,transparent 70%);
+  pointer-events:none;
+}
+.prod-badge{position:absolute;top:10px;right:10px;padding:.2rem .6rem;border-radius:4px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;z-index:2}
+.badge-sale{background:var(--pink);color:#fff;box-shadow:0 2px 8px rgba(240,33,124,.4)}
+.badge-new{background:var(--green);color:#fff;box-shadow:0 2px 8px rgba(34,197,94,.4)}
+.badge-pop{background:var(--teal);color:#000;box-shadow:0 2px 8px rgba(78,201,240,.4)}
+.prod-body{
+  padding:.9rem 1rem 1.1rem;
+  border-top:1px solid rgba(255,255,255,.07);
+  background:rgba(0,0,0,.3);
+  flex:1;display:flex;flex-direction:column;justify-content:space-between;z-index:1;position:relative;
+}
+.prod-cat{
+  font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.3rem;
+  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.prod-name{font-weight:700;font-size:.9rem;margin-bottom:.3rem;line-height:1.3;color:var(--white)}
+.prod-desc{font-size:.75rem;color:var(--muted);margin-bottom:.8rem;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;flex:1}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-top:auto}
+.prod-price{font-size:1.15rem;font-weight:900;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.prod-compare{font-size:.75rem;color:var(--muted);text-decoration:line-through;margin-left:.2rem}
+.add-btn{background:var(--grad);color:#fff;border:none;border-radius:6px;padding:.4rem .85rem;font-size:.75rem;font-weight:800;cursor:pointer;transition:opacity .15s;font-family:var(--sans);letter-spacing:.02em;flex-shrink:0}
 .add-btn:hover{opacity:.85}
 .add-btn.added{background:var(--green)}
 
@@ -177,8 +216,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
+    <div class="hero-logo">
+      <img src="/images/logo.png" alt="CRG Cards — Rips &amp; Grails"/>
+    </div>
     <div class="hero-label">✦ New Drops Available Now</div>
-    <h1>Rip.<br><em>Pull. Collect.</em></h1>
+    <h1>Rip. Pull. Collect.</h1>
     <p>Pokemon packs, Sports singles, rare Grails, and Mystery boxes — handpicked for collectors who live for the pull.</p>
     <div class="hero-stats">
       <div class="hero-stat"><strong class="pink">12+</strong><span>Products</span></div>
@@ -338,6 +380,7 @@ async function loadProducts(cat='', search='') {
     <div class="prod-card" onclick="openModal(${p.id})">
       <div class="prod-img">
         ${p.image_url ? `<img src="${p.image_url}" alt="${p.name}" loading="lazy"/>` : emojiFor(p.category_name||'')}
+        <div class="prod-img-shine"></div>
         ${p.badge ? `<div class="prod-badge ${badgeClass(p.badge)}">${p.badge}</div>` : ''}
       </div>
       <div class="prod-body">
