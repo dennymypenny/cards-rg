@@ -13,8 +13,8 @@
 <meta property="og:site_name" content="CRG Cards"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://cards-rg.onrender.com/images/preview.png"/>
-<!-- Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!-- Supabase UMD build (creates window.supabase global) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -42,10 +42,10 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .nav-search input::placeholder{color:var(--muted)}
 .nav-search .ico{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem}
 .nav-right{display:flex;align-items:center;gap:.75rem}
-.nav-btn{display:flex;align-items:center;gap:6px;padding:.45rem .9rem;border-radius:var(--radius);font-size:.85rem;font-weight:500;cursor:pointer;background:transparent;border:1px solid var(--border);color:var(--white);transition:.15s;font-family:var(--sans)}
-.nav-btn:hover{background:var(--bg3)}
-.nav-cart{background:var(--grad);border-color:transparent!important;color:#fff;position:relative}
-.nav-cart:hover{opacity:.9}
+.nav-btn{display:flex;align-items:center;gap:6px;padding:.45rem .9rem;border-radius:var(--radius);font-size:.85rem;font-weight:500;cursor:pointer;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.22);color:var(--white);transition:.15s;font-family:var(--sans)}
+.nav-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
+.nav-cart{background:linear-gradient(135deg,#f0217c,#4EC9F0)!important;border:none!important;color:#fff!important;position:relative;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+.nav-cart:hover{opacity:.88;transform:translateY(-1px)}
 .cart-count{position:absolute;top:-7px;right:-7px;background:var(--red);color:#fff;font-size:.6rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
 
 /* ── HERO ── */
@@ -446,9 +446,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 // ── SUPABASE CONFIG — fill in after creating your project ─────────────────
 const SUPABASE_URL  = 'https://nmepvgxkfginojsaqwpm.supabase.co';
 const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tZXB2Z3hrZmdpbm9qc2Fxd3BtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5MjkzNjAsImV4cCI6MjA5ODUwNTM2MH0.9lo89nrAcmEsdpGFRS38nR7Fu6wOfH7QmK06rbDet-o';
-const supabase = (SUPABASE_URL !== 'YOUR_SUPABASE_URL')
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
-  : null;
+const supabase = (() => {
+  try {
+    if (SUPABASE_URL === 'YOUR_SUPABASE_URL') return null;
+    const lib = window.supabase || window.Supabase;
+    return lib ? lib.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+  } catch(e) { console.warn('Supabase init failed:', e); return null; }
+})();
 
 // ── GOOGLE SHEET ──────────────────────────────────────────────────────────
 const SHEET_ID = '1eeDMzQY-ch6TG83vEzaXizdDN_a08HryvLbM2w4g27k';
@@ -581,19 +585,27 @@ function parseCSV(text) {
   });
 }
 
+const FALLBACK_CARDS = [
+  {'#':'1','SUBJECT':'Lionel Messi','YEAR':'2022','BRAND / SET':'Topps ARG Fileteado','CARD #':'#DI4','VARIATION':'AFA Disc','SERIAL':'—','GRADE':'PSA 10','CERT #':'86725240','ASK PRICE':'$900','STATUS':'Available','NOTES':'GEM MINT — Argentina disc format'},
+  {'#':'2','SUBJECT':'Lionel Messi','YEAR':'2018','BRAND / SET':'Panini Adrenalyn XL','CARD #':'—','VARIATION':'FIFA WC Road to Russia Ltd. Ed.','SERIAL':'—','GRADE':'PSA 10','CERT #':'93183045','ASK PRICE':'$250','STATUS':'Available','NOTES':'Limited Edition — pre-WC card'},
+  {'#':'3','SUBJECT':'Lionel Messi','YEAR':'2023','BRAND / SET':'Topps Chrome MLS','CARD #':'#BCS7','VARIATION':'Big City Strikers Gold Refractor','SERIAL':'/50','GRADE':'PSA 10','CERT #':'89157561','ASK PRICE':'$2400','STATUS':'Available','NOTES':'Numbered /50 — Inter Miami'},
+  {'#':'4','SUBJECT':'Stan Lee','YEAR':'2011','BRAND / SET':'Topps Allen & Ginter','CARD #':'#274','VARIATION':"World's Champions Base",'SERIAL':'—','GRADE':'PSA 10','CERT #':'77779080','ASK PRICE':'$100','STATUS':'Available','NOTES':'Founder of Marvel Comics'},
+];
+
 async function loadInventory() {
   document.getElementById('prodGrid').innerHTML = [1,2,3,4].map(()=>`<div style="height:360px" class="skel"></div>`).join('');
   try {
     const res  = await fetch(CSV_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const text = await res.text();
-    allCards   = parseCSV(text);
+    // If we got HTML back (sheet not published) fall back immediately
+    if (text.trim().startsWith('<') || text.includes('<!DOCTYPE')) throw new Error('Got HTML, not CSV');
+    const parsed = parseCSV(text);
+    if (!parsed.length || !parsed[0]['CERT #']) throw new Error('Bad CSV data');
+    allCards = parsed;
   } catch(e) {
-    allCards = [
-      {'#':'1','SUBJECT':'Lionel Messi','YEAR':'2022','BRAND / SET':'Topps ARG Fileteado','CARD #':'#DI4','VARIATION':'AFA Disc','SERIAL':'—','GRADE':'PSA 10','CERT #':'86725240','ASK PRICE':'$900','STATUS':'Available','NOTES':'GEM MINT — Argentina disc format'},
-      {'#':'2','SUBJECT':'Lionel Messi','YEAR':'2018','BRAND / SET':'Panini Adrenalyn XL','CARD #':'—','VARIATION':'FIFA WC Road to Russia Ltd. Ed.','SERIAL':'—','GRADE':'PSA 10','CERT #':'93183045','ASK PRICE':'$250','STATUS':'Available','NOTES':'Limited Edition — pre-WC card'},
-      {'#':'3','SUBJECT':'Lionel Messi','YEAR':'2023','BRAND / SET':'Topps Chrome MLS','CARD #':'#BCS7','VARIATION':'Big City Strikers Gold Refractor','SERIAL':'/50','GRADE':'PSA 10','CERT #':'89157561','ASK PRICE':'$2400','STATUS':'Available','NOTES':'Numbered /50 — Inter Miami'},
-      {'#':'4','SUBJECT':'Stan Lee','YEAR':'2011','BRAND / SET':'Topps Allen & Ginter','CARD #':'#274','VARIATION':"World's Champions Base",'SERIAL':'—','GRADE':'PSA 10','CERT #':'77779080','ASK PRICE':'$100','STATUS':'Available','NOTES':'Founder of Marvel Comics'},
-    ];
+    console.log('Using fallback inventory:', e.message);
+    allCards = FALLBACK_CARDS;
   }
   renderCards(allCards);
 }
@@ -803,23 +815,29 @@ async function handleAuth() {
   }
 
   const btn = document.getElementById('authSubmitBtn');
+  const isSignup = authMode === 'signup';
   btn.disabled = true; btn.textContent = '…';
   try {
     let data, error;
-    if (authMode === 'signup') {
+    if (isSignup) {
       ({data,error} = await supabase.auth.signUp({email,password}));
+      // Supabase may require email confirmation — not a failure, just no session yet
+      if (error && error.message && error.message.toLowerCase().includes('already registered')) {
+        // User exists — try login instead
+        ({data,error} = await supabase.auth.signInWithPassword({email,password}));
+      }
     } else {
       ({data,error} = await supabase.auth.signInWithPassword({email,password}));
     }
     if (error) throw error;
-    currentUser = data.user;
+    currentUser = data.user || { email, id: 'pending' };
     closeAuth();
     updateAuthUI();
-    if (authMode === 'signup') { hasSpun = !!localStorage.getItem('crg_spun'); openSpinModal(); }
+    if (isSignup) { hasSpun = !!localStorage.getItem('crg_spun'); openSpinModal(); }
     if (pendingCartCard) { const {cert,idx}=pendingCartCard; pendingCartCard=null; toggleCart(cert,idx); }
   } catch(e) {
     errEl.textContent = e.message || 'Something went wrong'; errEl.style.display='block';
-  } finally { btn.disabled=false; btn.textContent = authMode==='signup'?'Create Account & Spin 🎰':'Sign In'; }
+  } finally { btn.disabled=false; btn.textContent = isSignup?'Create Account & Spin 🎰':'Sign In'; }
 }
 
 function updateAuthUI() {
