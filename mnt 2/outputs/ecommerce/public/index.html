@@ -145,6 +145,10 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .auth-submit{width:100%;margin-top:.5rem}
 .auth-switch{text-align:center;margin-top:1rem;font-size:.82rem;color:var(--muted)}
 .auth-switch a{color:var(--teal);cursor:pointer;font-weight:600}
+.auth-divider{display:flex;align-items:center;gap:.75rem;margin:.9rem 0;color:var(--muted);font-size:.8rem}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.guest-btn{width:100%;background:transparent!important;border:1.5px solid rgba(255,255,255,.2)!important;color:var(--white)!important;font-size:.88rem!important}
+.guest-btn:hover{background:rgba(255,255,255,.06)!important}
 .auth-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius);padding:.65rem 1rem;font-size:.82rem;color:#ef4444;margin-bottom:1rem;display:none}
 
 /* ── SPIN WHEEL MODAL ── */
@@ -365,6 +369,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
         <input type="password" id="authPassword" placeholder="Min 6 characters"/>
       </div>
       <button class="btn btn-primary auth-submit" id="authSubmitBtn" onclick="handleAuth()">Create Account &amp; Spin 🎰</button>
+      <div class="auth-divider" id="authGuestDivider" style="display:none"><span>or</span></div>
+      <button class="btn guest-btn" id="authGuestBtn" onclick="continueAsGuest()" style="display:none">Continue as Guest 🎰</button>
       <div class="auth-switch" id="authSwitch">Already have an account? <a onclick="toggleAuthMode()">Sign in</a></div>
     </div>
   </div>
@@ -782,14 +788,25 @@ function addToCartFromModal() {
 function openAuth(mode = authMode) {
   authMode = mode;
   const isSignup = mode === 'signup';
-  document.getElementById('authModalTitle').textContent   = isSignup ? 'Create Account' : 'Sign In';
+  document.getElementById('authModalTitle').textContent   = isSignup ? 'Spin to Win 🎰' : 'Sign In';
   document.getElementById('authHeading').textContent      = isSignup ? 'Join CRG Cards' : 'Welcome back';
-  document.getElementById('authSubheading').textContent   = isSignup ? 'Sign up to add cards to your cart' : 'Sign in to access your cart';
+  document.getElementById('authSubheading').textContent   = isSignup ? 'Create a free account and spin the wheel for exclusive prizes!' : 'Sign in to access your cart';
   document.getElementById('authSubmitBtn').textContent    = isSignup ? 'Create Account & Spin 🎰' : 'Sign In';
   document.getElementById('authSwitch').innerHTML         = isSignup ? 'Already have an account? <a onclick="toggleAuthMode()">Sign in</a>' : "Don't have an account? <a onclick=\"toggleAuthMode()\">Sign up</a>";
   document.getElementById('spinTeaser').style.display     = isSignup ? 'block' : 'none';
+  document.getElementById('authGuestDivider').style.display = isSignup ? 'flex' : 'none';
+  document.getElementById('authGuestBtn').style.display   = isSignup ? 'block' : 'none';
   document.getElementById('authError').style.display      = 'none';
   document.getElementById('authModal').classList.add('open');
+}
+
+function continueAsGuest() {
+  localStorage.setItem('crg_guest','1');
+  currentUser = { email: 'guest', id: 'guest' };
+  closeAuth();
+  updateAuthUI();
+  hasSpun = !!localStorage.getItem('crg_spun');
+  openSpinModal();
 }
 
 function closeAuth() { document.getElementById('authModal').classList.remove('open'); }
@@ -843,7 +860,8 @@ async function handleAuth() {
 function updateAuthUI() {
   const btn = document.getElementById('authNavBtn');
   if (currentUser) {
-    btn.textContent = '👤 ' + (currentUser.email||'Account').split('@')[0];
+    const label = currentUser.id === 'guest' ? '👤 Guest' : '👤 ' + (currentUser.email||'Account').split('@')[0];
+    btn.textContent = label;
     btn.onclick = () => { if(confirm('Sign out?')) signOut(); };
   } else {
     btn.textContent = 'Sign In';
