@@ -152,13 +152,13 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .auth-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius);padding:.65rem 1rem;font-size:.82rem;color:#ef4444;margin-bottom:1rem;display:none}
 
 /* ── SPIN WHEEL MODAL ── */
-.spin-modal{max-width:460px}
-.spin-header{text-align:center;margin-bottom:1.5rem}
+.spin-modal{max-width:500px}
+.spin-header{text-align:center;margin-bottom:1.2rem}
 .spin-header h2{font-size:1.4rem;font-weight:900;margin-bottom:.3rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .spin-header p{font-size:.85rem;color:var(--muted)}
-.wheel-wrap{position:relative;width:280px;height:280px;margin:0 auto 1.5rem}
-.wheel-pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid var(--pink);z-index:10;filter:drop-shadow(0 2px 6px rgba(240,33,124,.6))}
-#spinCanvas{border-radius:50%;box-shadow:0 0 40px rgba(240,33,124,.2),0 0 80px rgba(78,201,240,.1)}
+.wheel-wrap{position:relative;width:min(320px,calc(100vw - 72px));height:min(320px,calc(100vw - 72px));margin:0 auto 1.25rem}
+.wheel-pointer{position:absolute;top:-16px;left:50%;transform:translateX(-50%);filter:drop-shadow(0 2px 8px rgba(240,33,124,.8));z-index:10}
+#spinCanvas{border-radius:50%;width:100%;height:100%;box-shadow:0 0 50px rgba(240,33,124,.25),0 0 100px rgba(78,201,240,.12),0 0 0 3px rgba(255,255,255,.06)}
 .spin-btn-wrap{text-align:center}
 #spinBtn{min-width:180px}
 .spin-result{display:none;text-align:center;padding:1.5rem;background:linear-gradient(135deg,rgba(240,33,124,.1),rgba(78,201,240,.1));border:1px solid rgba(240,33,124,.3);border-radius:10px;margin-top:1rem}
@@ -220,7 +220,23 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 .footer-bottom span{color:var(--pink)}
 
 @media(max-width:900px){.nav-search{display:none}.features-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}.cart-panel{width:100%}}
-@media(max-width:640px){.sec{padding:2.5rem 1rem}.hero{padding:3.5rem 1rem 3rem}.hero-stats{flex-wrap:wrap}.card-modal-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}}
+@media(max-width:640px){
+  .sec{padding:2.5rem 1rem}
+  .hero{padding:3rem 1.25rem 2.5rem;text-align:center}
+  .hero p{margin:0 auto 2rem}
+  .hero-actions{justify-content:center}
+  .hero-stats{flex-wrap:wrap;justify-content:center;gap:1.25rem}
+  .card-modal-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr}
+  .spin-modal{padding:1.25rem 1rem!important;max-width:100%}
+  .spin-header{margin-bottom:.9rem}
+  .spin-header h2{font-size:1.2rem}
+  .spin-result{padding:1rem}
+  #spinBtn{width:100%;padding:.75rem 1rem}
+  .prod-grid{grid-template-columns:repeat(2,1fr)!important;gap:.75rem!important}
+  .nav{padding:.75rem 1rem}
+  .nav-logo{font-size:1.1rem}
+}
 </style>
 </head>
 <body>
@@ -389,8 +405,11 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
         <p>One spin per account. Good luck! 🍀</p>
       </div>
       <div class="wheel-wrap">
-        <div class="wheel-pointer"></div>
-        <canvas id="spinCanvas" width="280" height="280"></canvas>
+        <svg class="wheel-pointer" width="28" height="30" viewBox="0 0 28 30" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="14,28 2,2 26,2" fill="#f0217c"/>
+          <polygon points="14,28 2,2 26,2" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        </svg>
+        <canvas id="spinCanvas" width="320" height="320"></canvas>
       </div>
       <div class="spin-btn-wrap">
         <button class="btn btn-primary" id="spinBtn" onclick="spinWheel()">SPIN IT 🎰</button>
@@ -473,14 +492,15 @@ let hasSpun = false;
 
 // ── SPIN WHEEL SETUP ──────────────────────────────────────────────────────
 const PRIZES = [
-  { label: '10% Off',         emoji: '🏷️',  color: '#f0217c', code: 'CRG10',   desc: 'Use this code when you DM us your order.' },
-  { label: 'Free Shipping',   emoji: '🚚',  color: '#4EC9F0', code: 'FREECRG', desc: 'Free shipping on your next order — DM us!' },
-  { label: 'Giveaway Entry',  emoji: '🎁',  color: '#7C3AED', code: null,      desc: "You're entered in our monthly grail giveaway!" },
-  { label: '15% Off',         emoji: '💰',  color: '#f59e0b', code: 'CRG15',   desc: 'Big savings — use this code when you DM us.' },
-  { label: 'Try Again',       emoji: '😅',  color: '#374151', code: null,      desc: 'Better luck next time! Keep shopping 👀' },
-  { label: '🎴 RARE CARD',    emoji: '👑',  color: '#f0217c', code: 'RARCARD', desc: 'DM us NOW to claim your mystery rare card drop!' },
+  { label: '10% Off',        line1:'10%',      line2:'OFF',      emoji:'🏷️',  color:'#e8185f', code:'CRG10',   desc:'Use code CRG10 when you DM us your order!' },
+  { label: 'Free Shipping',  line1:'FREE',     line2:'SHIP',     emoji:'🚚',  color:'#0e9fc4', code:'FREECRG', desc:'Free shipping on your next order — DM us!' },
+  { label: 'Giveaway Entry', line1:'GIVE',     line2:'AWAY',     emoji:'🎁',  color:'#6d28d9', code:null,      desc:"You're entered in our monthly grail giveaway!" },
+  { label: '15% Off',        line1:'15%',      line2:'OFF',      emoji:'💰',  color:'#b45309', code:'CRG15',   desc:'Big savings! Use code CRG15 when you DM us.' },
+  { label: 'Try Again',      line1:'TRY',      line2:'AGAIN',    emoji:'😅',  color:'#1a1f2e', code:null,      desc:'Better luck next time! Keep shopping 👀' },
+  { label: 'Rare Card!',     line1:'RARE',     line2:'CARD!',    emoji:'👑',  color:'#7f1d1d', code:'RARCARD', desc:'DM us NOW to claim your mystery rare card drop!' },
 ];
-const WEIGHTS = [25, 20, 25, 15, 10, 5]; // probabilities
+// ── 10% real win rate internally (90% try-again) ──────────────────────────
+const WEIGHTS = [4, 2, 2, 1, 90, 1]; // Try Again = 90%
 const TOTAL_W = WEIGHTS.reduce((a,b)=>a+b,0);
 
 function weightedRandom() {
@@ -493,44 +513,89 @@ function drawWheel(rotationAngle = 0) {
   const canvas = document.getElementById('spinCanvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const cx = 140, cy = 140, radius = 136;
-  const sliceAngle = (2 * Math.PI) / PRIZES.length;
-  ctx.clearRect(0, 0, 280, 280);
+  const SIZE = canvas.width; // 320
+  const cx = SIZE/2, cy = SIZE/2, R = SIZE/2 - 4;
+  const n = PRIZES.length;
+  const sliceAngle = (2 * Math.PI) / n;
+  ctx.clearRect(0, 0, SIZE, SIZE);
+
+  // Outer glow ring
+  const glowGrd = ctx.createRadialGradient(cx, cy, R - 10, cx, cy, R + 6);
+  glowGrd.addColorStop(0, 'rgba(240,33,124,0.35)');
+  glowGrd.addColorStop(0.5, 'rgba(78,201,240,0.15)');
+  glowGrd.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.beginPath(); ctx.arc(cx, cy, R + 6, 0, Math.PI * 2);
+  ctx.fillStyle = glowGrd; ctx.fill();
+
   PRIZES.forEach((p, i) => {
     const start = rotationAngle + i * sliceAngle;
     const end   = start + sliceAngle;
+
+    // Slice fill
     ctx.beginPath();
     ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, radius, start, end);
+    ctx.arc(cx, cy, R, start, end);
     ctx.closePath();
     ctx.fillStyle = p.color;
     ctx.fill();
-    ctx.strokeStyle = '#0d0d0d';
-    ctx.lineWidth = 2;
-    ctx.stroke();
+
+    // Subtle inner highlight (alternating)
+    if (i % 2 === 0) {
+      ctx.beginPath(); ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, R, start, end); ctx.closePath();
+      ctx.fillStyle = 'rgba(255,255,255,0.07)'; ctx.fill();
+    }
+
+    // Divider lines
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + R * Math.cos(start), cy + R * Math.sin(start));
+    ctx.strokeStyle = 'rgba(0,0,0,0.55)'; ctx.lineWidth = 2.5; ctx.stroke();
+
+    // Text block — centered at 62% of radius
+    const midAngle = start + sliceAngle / 2;
+    const textR = R * 0.62;
     ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(start + sliceAngle / 2);
-    ctx.textAlign = 'right';
+    ctx.translate(cx + textR * Math.cos(midAngle), cy + textR * Math.sin(midAngle));
+    ctx.rotate(midAngle + Math.PI / 2); // rotate to read outward
+
+    // Emoji
+    ctx.font = '16px serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(p.emoji, 0, -18);
+
+    // Line 1
+    ctx.font = 'bold 10.5px Inter, system-ui, sans-serif';
     ctx.fillStyle = '#fff';
-    ctx.font = 'bold 11px Inter, sans-serif';
-    ctx.fillText(p.label, radius - 8, 4);
-    ctx.font = '14px serif';
-    ctx.fillText(p.emoji, radius - 80, 5);
+    ctx.shadowColor = 'rgba(0,0,0,0.9)';
+    ctx.shadowBlur = 4;
+    ctx.fillText(p.line1, 0, -4);
+    // Line 2
+    ctx.fillText(p.line2, 0, 9);
+    ctx.shadowBlur = 0;
     ctx.restore();
   });
-  // Center circle
-  ctx.beginPath();
-  ctx.arc(cx, cy, 22, 0, Math.PI * 2);
-  ctx.fillStyle = '#0d0d0d';
-  ctx.fill();
-  ctx.strokeStyle = '#f0217c';
-  ctx.lineWidth = 3;
-  ctx.stroke();
+
+  // Outer ring border
+  ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.18)'; ctx.lineWidth = 3; ctx.stroke();
+
+  // Center hub gradient
+  const hubGrd = ctx.createRadialGradient(cx-4, cy-4, 0, cx, cy, 30);
+  hubGrd.addColorStop(0, '#2a2040');
+  hubGrd.addColorStop(1, '#0d0d0f');
+  ctx.beginPath(); ctx.arc(cx, cy, 30, 0, Math.PI * 2);
+  ctx.fillStyle = hubGrd; ctx.fill();
+  // Hub ring — pink to teal gradient stroke
+  const hubStroke = ctx.createLinearGradient(cx-30, cy, cx+30, cy);
+  hubStroke.addColorStop(0, '#f0217c'); hubStroke.addColorStop(1, '#4EC9F0');
+  ctx.strokeStyle = hubStroke; ctx.lineWidth = 3; ctx.stroke();
+  // Hub text
   ctx.fillStyle = '#fff';
-  ctx.font = 'bold 10px Inter';
-  ctx.textAlign = 'center';
-  ctx.fillText('CRG', cx, cy + 4);
+  ctx.font = 'bold 11px Inter, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('CRG', cx, cy);
 }
 
 let spinAngle = 0;
