@@ -258,7 +258,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     </div>
     <div class="hero-btns">
       <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
-      <button class="btn btn-outline" onclick="openAuth('signup')">🎰 Free Spin</button>
+      <button class="btn btn-outline" onclick="openSpinModal()">🎰 Free Spin</button>
     </div>
   </div>
 </div>
@@ -877,6 +877,12 @@ async function signOut() {
 
 // ── SPIN MODAL ────────────────────────────────────────────────────────────
 function openSpinModal() {
+  // Auto-set guest if no user so spin always works without logging in
+  if (!currentUser) {
+    currentUser = { email: 'guest', id: 'guest' };
+    localStorage.setItem('crg_guest', '1');
+    updateAuthUI();
+  }
   hasSpun = !!localStorage.getItem('crg_spun');
   document.getElementById('spinResult').style.display = 'none';
   document.getElementById('spinBtn').style.display    = hasSpun ? 'none' : 'flex';
@@ -918,6 +924,11 @@ async function init() {
   await loadInventory();
   drawWheel();
   document.addEventListener('keydown', e => { if(e.key==='Escape'){closeCardModal();closeAuth();closeSpinModal();closeCart();} });
+  // Auto-pop spin wheel on first visit
+  if (!localStorage.getItem('crg_spin_seen')) {
+    localStorage.setItem('crg_spin_seen', '1');
+    setTimeout(() => openSpinModal(), 1200);
+  }
 }
 
 init();
