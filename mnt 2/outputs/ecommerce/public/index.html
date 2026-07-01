@@ -12,9 +12,9 @@
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="CRG Cards"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="CRG Cards — Rips &amp; Grails"/>
-<meta name="twitter:description" content="Pokemon, Sports, and Grail cards. Shop pack rips, rare singles, and mystery boxes."/>
 <meta name="twitter:image" content="https://cards-rg.onrender.com/images/preview.png"/>
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -41,9 +41,6 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .nav-search input:focus{border-color:rgba(255,255,255,.2)}
 .nav-search input::placeholder{color:var(--muted)}
 .nav-search .ico{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem}
-.nav-links{display:flex;align-items:center;gap:1.75rem}
-.nav-links a{font-size:.88rem;font-weight:500;color:var(--muted);transition:.15s}
-.nav-links a:hover{color:var(--white)}
 .nav-right{display:flex;align-items:center;gap:.75rem}
 .nav-btn{display:flex;align-items:center;gap:6px;padding:.45rem .9rem;border-radius:var(--radius);font-size:.85rem;font-weight:500;cursor:pointer;background:transparent;border:1px solid var(--border);color:var(--white);transition:.15s;font-family:var(--sans)}
 .nav-btn:hover{background:var(--bg3)}
@@ -96,97 +93,118 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,13,.97);backdrop-fil
 .cat-chip:hover{color:var(--white);border-color:rgba(255,255,255,.2)}
 .cat-chip.act{background:var(--white);border-color:var(--white);color:#000}
 
-/* ── PRODUCT GRID — TRADING CARD STYLE ── */
-.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem;background:transparent}
-.prod-card{
-  background:linear-gradient(170deg,#1a1a2e 0%,#161616 40%,#1a1a1a 100%);
-  border:1.5px solid rgba(255,255,255,.1);
-  border-radius:14px;
-  overflow:hidden;
-  transition:all .3s cubic-bezier(.25,.8,.25,1);
-  cursor:pointer;
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 4px 24px rgba(0,0,0,.5);
-}
-.prod-card::before{
-  content:'';position:absolute;inset:0;border-radius:14px;
-  background:linear-gradient(135deg,rgba(240,33,124,.06) 0%,transparent 50%,rgba(78,201,240,.06) 100%);
-  pointer-events:none;z-index:0;
-}
-.prod-card:hover{
-  transform:translateY(-10px) scale(1.02);
-  border-color:var(--pink);
-  box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(240,33,124,.3),0 0 30px rgba(240,33,124,.12);
-}
-.prod-img{
-  height:240px;
-  background:linear-gradient(145deg,#1f1f2e,#0f0f1a);
-  display:flex;align-items:center;justify-content:center;
-  font-size:3.5rem;position:relative;overflow:hidden;flex-shrink:0;z-index:1;
-}
+/* ── PRODUCT GRID ── */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.5rem}
+.prod-card{background:linear-gradient(170deg,#1a1a2e 0%,#161616 40%,#1a1a1a 100%);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;transition:all .3s cubic-bezier(.25,.8,.25,1);cursor:pointer;position:relative;display:flex;flex-direction:column;box-shadow:0 4px 24px rgba(0,0,0,.5)}
+.prod-card::before{content:'';position:absolute;inset:0;border-radius:14px;background:linear-gradient(135deg,rgba(240,33,124,.06) 0%,transparent 50%,rgba(78,201,240,.06) 100%);pointer-events:none;z-index:0}
+.prod-card:hover{transform:translateY(-10px) scale(1.02);border-color:var(--pink);box-shadow:0 24px 60px rgba(0,0,0,.6),0 0 0 1px rgba(240,33,124,.3),0 0 30px rgba(240,33,124,.12)}
+.prod-img{height:240px;background:linear-gradient(145deg,#1f1f2e,#0f0f1a);display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative;overflow:hidden;flex-shrink:0;z-index:1}
 .prod-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
 .prod-card:hover .prod-img img{transform:scale(1.06)}
-.prod-img-shine{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.04) 50%,transparent 70%);
-  pointer-events:none;
-}
+.prod-img-shine{position:absolute;inset:0;background:linear-gradient(135deg,transparent 30%,rgba(255,255,255,.04) 50%,transparent 70%);pointer-events:none}
 .prod-badge{position:absolute;top:10px;right:10px;padding:.2rem .6rem;border-radius:4px;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;z-index:2}
-.badge-sale{background:var(--pink);color:#fff;box-shadow:0 2px 8px rgba(240,33,124,.4)}
 .badge-new{background:var(--green);color:#fff;box-shadow:0 2px 8px rgba(34,197,94,.4)}
-.badge-pop{background:var(--teal);color:#000;box-shadow:0 2px 8px rgba(78,201,240,.4)}
-.prod-body{
-  padding:.9rem 1rem 1.1rem;
-  border-top:1px solid rgba(255,255,255,.07);
-  background:rgba(0,0,0,.3);
-  flex:1;display:flex;flex-direction:column;justify-content:space-between;z-index:1;position:relative;
-}
-.prod-cat{
-  font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.3rem;
-  background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.prod-name{font-weight:700;font-size:.9rem;margin-bottom:.3rem;line-height:1.3;color:var(--white)}
-.prod-desc{font-size:.75rem;color:var(--muted);margin-bottom:.8rem;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;flex:1}
-.prod-footer{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-top:auto}
-.prod-price{font-size:1.15rem;font-weight:900;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.prod-compare{font-size:.75rem;color:var(--muted);text-decoration:line-through;margin-left:.2rem}
-.add-btn{background:var(--grad);color:#fff;border:none;border-radius:6px;padding:.4rem .85rem;font-size:.75rem;font-weight:800;cursor:pointer;transition:opacity .15s;font-family:var(--sans);letter-spacing:.02em;flex-shrink:0}
-.add-btn:hover{opacity:.85}
-.add-btn.added{background:var(--green)}
+.badge-sold{background:#333;color:var(--muted)}
+.prod-body{padding:.9rem 1rem 1.1rem;border-top:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.3);flex:1;display:flex;flex-direction:column;z-index:1;position:relative}
+.prod-cat{font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.3rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.prod-name{font-weight:700;font-size:.9rem;margin-bottom:.25rem;line-height:1.3;color:var(--white)}
+.prod-desc{font-size:.75rem;color:var(--muted);margin-bottom:.75rem;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;flex:1}
+.prod-price{font-size:1.1rem;font-weight:900;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.6rem}
+.prod-actions{display:flex;gap:.4rem}
+.dm-btn{flex:1;background:transparent;border:1px solid var(--pink);color:var(--pink);border-radius:6px;padding:.38rem .5rem;font-size:.72rem;font-weight:800;cursor:pointer;font-family:var(--sans);transition:.15s;white-space:nowrap}
+.dm-btn:hover{background:var(--pink);color:#fff}
+.cart-btn{flex:1;background:var(--grad);color:#fff;border:none;border-radius:6px;padding:.38rem .5rem;font-size:.72rem;font-weight:800;cursor:pointer;font-family:var(--sans);transition:opacity .15s;white-space:nowrap}
+.cart-btn:hover{opacity:.85}
+.cart-btn.added{background:var(--green)}
 
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:800;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s}
+/* ── MODALS ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:800;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s}
 .modal-overlay.open{opacity:1;pointer-events:auto}
-.modal{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);max-width:680px;width:100%;max-height:90vh;overflow-y:auto;transform:scale(.97);transition:transform .2s}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:12px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;transform:scale(.97);transition:transform .2s}
 .modal-overlay.open .modal{transform:scale(1)}
 .modal-head{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border)}
-.modal-title{font-size:1.05rem;font-weight:800;letter-spacing:-.01em}
+.modal-title{font-size:1.05rem;font-weight:800}
 .modal-close{background:var(--bg3);border:1px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:var(--radius);cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
 .modal-close:hover{color:var(--white)}
 .modal-body{padding:1.5rem}
-.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.modal-img{border-radius:var(--radius);overflow:hidden;background:var(--bg3);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:4rem}
-.qty-row{display:flex;align-items:center;gap:.75rem;margin:1rem 0}
-.qty-btn{background:var(--bg3);border:1px solid var(--border);color:var(--white);width:32px;height:32px;border-radius:var(--radius);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.15s}
-.qty-btn:hover{border-color:var(--pink);color:var(--pink)}
-.qty-val{font-weight:700;font-size:1.05rem;min-width:28px;text-align:center}
+
+/* ── AUTH MODAL ── */
+.auth-logo{text-align:center;margin-bottom:1.25rem}
+.auth-logo img{height:64px;margin:0 auto}
+.auth-tagline{text-align:center;margin-bottom:1.5rem}
+.auth-tagline h2{font-size:1.3rem;font-weight:900;margin-bottom:.3rem}
+.auth-tagline p{font-size:.85rem;color:var(--muted)}
+.spin-teaser{background:linear-gradient(135deg,rgba(240,33,124,.12),rgba(78,201,240,.12));border:1px solid rgba(240,33,124,.25);border-radius:8px;padding:1rem;text-align:center;margin-bottom:1.5rem}
+.spin-teaser .spin-ico{font-size:2rem;margin-bottom:.4rem}
+.spin-teaser p{font-size:.82rem;color:var(--muted);line-height:1.5}
+.spin-teaser strong{color:var(--white)}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.78rem;font-weight:600;color:var(--muted);margin-bottom:.4rem;text-transform:uppercase;letter-spacing:.06em}
+.form-group input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.65rem 1rem;color:var(--white);font-family:var(--sans);font-size:.9rem;outline:none;transition:.15s}
+.form-group input:focus{border-color:rgba(255,255,255,.25)}
+.auth-submit{width:100%;margin-top:.5rem}
+.auth-switch{text-align:center;margin-top:1rem;font-size:.82rem;color:var(--muted)}
+.auth-switch a{color:var(--teal);cursor:pointer;font-weight:600}
+.auth-error{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius);padding:.65rem 1rem;font-size:.82rem;color:#ef4444;margin-bottom:1rem;display:none}
+
+/* ── SPIN WHEEL MODAL ── */
+.spin-modal{max-width:460px}
+.spin-header{text-align:center;margin-bottom:1.5rem}
+.spin-header h2{font-size:1.4rem;font-weight:900;margin-bottom:.3rem;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.spin-header p{font-size:.85rem;color:var(--muted)}
+.wheel-wrap{position:relative;width:280px;height:280px;margin:0 auto 1.5rem}
+.wheel-pointer{position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-top:24px solid var(--pink);z-index:10;filter:drop-shadow(0 2px 6px rgba(240,33,124,.6))}
+#spinCanvas{border-radius:50%;box-shadow:0 0 40px rgba(240,33,124,.2),0 0 80px rgba(78,201,240,.1)}
+.spin-btn-wrap{text-align:center}
+#spinBtn{min-width:180px}
+.spin-result{display:none;text-align:center;padding:1.5rem;background:linear-gradient(135deg,rgba(240,33,124,.1),rgba(78,201,240,.1));border:1px solid rgba(240,33,124,.3);border-radius:10px;margin-top:1rem}
+.spin-result .result-ico{font-size:3rem;margin-bottom:.5rem}
+.spin-result h3{font-size:1.3rem;font-weight:900;margin-bottom:.4rem}
+.spin-result p{font-size:.85rem;color:var(--muted)}
+.spin-code{display:inline-block;background:var(--bg3);border:1px dashed var(--teal);border-radius:4px;padding:.3rem .85rem;font-size:.9rem;font-weight:800;color:var(--teal);margin:.75rem 0;letter-spacing:.1em}
+.rare-glow{animation:rareGlow 1.5s ease-in-out infinite alternate}
+@keyframes rareGlow{from{box-shadow:0 0 20px rgba(240,33,124,.4)}to{box-shadow:0 0 60px rgba(240,33,124,.8),0 0 120px rgba(78,201,240,.4)}}
+
+/* ── CART SIDEBAR ── */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:700;opacity:0;pointer-events:none;transition:opacity .25s}
+.cart-overlay.open{opacity:1;pointer-events:auto}
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:380px;background:var(--bg2);border-left:1px solid var(--border);z-index:701;transform:translateX(100%);transition:transform .3s cubic-bezier(.25,.8,.25,1);display:flex;flex-direction:column}
+.cart-overlay.open .cart-panel{transform:translateX(0)}
+.cart-panel-head{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border)}
+.cart-panel-head h3{font-size:1rem;font-weight:800}
+.cart-items-wrap{flex:1;overflow-y:auto;padding:1rem 1.5rem}
+.cart-item{display:flex;gap:.85rem;padding:.85rem 0;border-bottom:1px solid var(--border);align-items:center}
+.cart-item-img{width:52px;height:52px;border-radius:6px;object-fit:cover;flex-shrink:0;background:var(--bg3)}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:.85rem;font-weight:700;margin-bottom:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cart-item-price{font-size:.8rem;color:var(--pink);font-weight:800}
+.cart-item-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem;padding:.25rem;transition:.15s}
+.cart-item-remove:hover{color:var(--red)}
+.cart-footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
+.cart-total-row{display:flex;justify-content:space-between;font-weight:800;font-size:1rem;margin-bottom:1rem}
+.cart-empty-msg{text-align:center;padding:3rem 1rem;color:var(--muted)}
+.cart-empty-msg .ico{font-size:2.5rem;margin-bottom:.75rem}
+.discount-badge{display:inline-block;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:var(--green);border-radius:4px;font-size:.72rem;font-weight:700;padding:.15rem .5rem;margin-left:.5rem}
+
+/* ── CARD DETAIL MODAL ── */
+.card-modal{max-width:680px}
+.card-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.card-modal-img{border-radius:8px;overflow:hidden;background:var(--bg3);aspect-ratio:.75;display:flex;align-items:center;justify-content:center;font-size:4rem}
 
 /* ── TOAST ── */
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.85rem 1.2rem;font-size:.85rem;font-weight:600;z-index:1000;transform:translateY(16px);opacity:0;transition:.25s;max-width:280px;box-shadow:var(--shadow)}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.85rem 1.2rem;font-size:.85rem;font-weight:600;z-index:1100;transform:translateY(16px);opacity:0;transition:.25s;max-width:280px;box-shadow:var(--shadow)}
 .toast.show{transform:translateY(0);opacity:1}
-.toast.success{border-color:rgba(34,197,94,.35)}
-.toast.error{border-color:rgba(239,68,68,.35)}
+.toast.success{border-color:rgba(34,197,94,.4)}
+.toast.error{border-color:rgba(239,68,68,.4)}
 
 /* ── EMPTY / SKELETON ── */
 .empty{text-align:center;padding:4rem 1rem;color:var(--muted)}
 .empty .ico{font-size:2.5rem;margin-bottom:.85rem}
 .empty h3{font-size:1.2rem;font-weight:800;color:var(--white);margin-bottom:.4rem}
-.skel{background:linear-gradient(90deg,var(--bg3) 0%,var(--bg2) 50%,var(--bg3) 100%);background-size:200% 100%;animation:skel 1.4s infinite}
+.skel{background:linear-gradient(90deg,var(--bg3) 0%,var(--bg2) 50%,var(--bg3) 100%);background-size:200% 100%;animation:skel 1.4s infinite;border-radius:14px}
 @keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2rem 2rem}
 .footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:2.5rem;margin-bottom:2rem}
 .footer-brand img{height:52px;margin-bottom:1rem}
@@ -197,8 +215,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 .footer-bottom{border-top:1px solid var(--border);padding-top:1.25rem;text-align:center;font-size:.78rem;color:var(--muted)}
 .footer-bottom span{color:var(--pink)}
 
-@media(max-width:900px){.nav-links{display:none}.nav-search{display:none}.features-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.sec{padding:2.5rem 1rem}.hero{padding:3.5rem 1rem 3rem}.hero-stats{flex-wrap:wrap}.modal-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}}
+@media(max-width:900px){.nav-search{display:none}.features-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr 1fr}.cart-panel{width:100%}}
+@media(max-width:640px){.sec{padding:2.5rem 1rem}.hero{padding:3.5rem 1rem 3rem}.hero-stats{flex-wrap:wrap}.card-modal-grid{grid-template-columns:1fr}.footer-inner{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -206,21 +224,17 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <!-- NAVBAR -->
 <nav>
   <a href="/" class="nav-logo">
-    <img src="/images/logo.png" alt="CRG Cards — Rips &amp; Grails"/>
+    <img src="/images/logo.png" alt="CRG Cards"/>
   </a>
   <div class="nav-search">
     <span class="ico">🔍</span>
-    <input type="text" placeholder="Search cards…" id="searchInput" oninput="debounceSearch(this.value)"/>
-  </div>
-  <div class="nav-links">
-    <a href="/">Shop</a>
-    <a href="/orders.html">Orders</a>
+    <input type="text" placeholder="Search cards…" id="searchInput" oninput="debounceSearch()"/>
   </div>
   <div class="nav-right">
-    <a href="/orders.html" class="nav-btn">Orders</a>
-    <a href="/cart.html" class="nav-btn nav-cart" id="cartBtn">
+    <button class="nav-btn" id="authNavBtn" onclick="openAuth()">Sign In</button>
+    <button class="nav-btn nav-cart" onclick="openCart()">
       🛒 Cart <span class="cart-count" id="cartCount" style="display:none">0</span>
-    </a>
+    </button>
   </div>
 </nav>
 
@@ -230,17 +244,17 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div class="hero-logo">
       <img src="/images/logo.png" alt="CRG Cards — Rips &amp; Grails"/>
     </div>
-    <div class="hero-label">✦ New Drops Available Now</div>
+    <div class="hero-label">✦ PSA Graded Inventory — Live Now</div>
     <h1>Rip. Pull. Collect.</h1>
-    <p>Pokemon packs, Sports singles, rare Grails, and Mystery boxes — handpicked for collectors who live for the pull.</p>
+    <p>PSA 10 graded cards, rare grails, and fire singles — handpicked for collectors who know what they want.</p>
     <div class="hero-stats">
       <div class="hero-stat"><strong class="pink">PSA 10</strong><span>All Graded</span></div>
       <div class="hero-stat"><strong class="teal">4</strong><span>Cards Listed</span></div>
-      <div class="hero-stat"><strong>DM</strong><span>to Cop</span></div>
+      <div class="hero-stat"><strong>🎴</strong><span>Spin to Win</span></div>
     </div>
     <div class="hero-btns">
       <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
-      <a href="/cart.html" class="btn btn-outline">View Cart</a>
+      <button class="btn btn-outline" onclick="openAuth('signup')">🎰 Free Spin</button>
     </div>
   </div>
 </div>
@@ -256,12 +270,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <div class="feature">
       <div class="feature-icon">💎</div>
       <h3>Grail Hunting</h3>
-      <p>The cards you've been chasing. Rare inserts, alt arts, and chase cards curated for serious collectors.</p>
+      <p>The cards you've been chasing. Rare inserts, numbered parallels, and PSA 10 slabs curated for serious collectors.</p>
     </div>
     <div class="feature">
-      <div class="feature-icon">🎁</div>
-      <h3>Mystery Boxes</h3>
-      <p>Curated mystery packs loaded with value — every box guaranteed to deliver something fire.</p>
+      <div class="feature-icon">🎰</div>
+      <h3>Mystery Spin</h3>
+      <p>Create a free account and spin the wheel — win discounts, giveaway entries, or a rare card drop.</p>
     </div>
   </div>
 </div>
@@ -269,7 +283,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <!-- CATEGORIES -->
 <section class="sec" style="padding-bottom:0">
   <div class="container">
-    <div id="catsRow" class="cats-row">
+    <div class="cats-row">
       <button class="cat-chip act" onclick="filterCat(this,'all')">All Cards</button>
       <button class="cat-chip" onclick="filterCat(this,'available')">Available</button>
       <button class="cat-chip" onclick="filterCat(this,'sold')">Sold</button>
@@ -285,42 +299,123 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
       <span id="productCount" class="sec-count"></span>
     </div>
     <div class="prod-grid" id="prodGrid">
-      <div style="height:340px" class="skel"></div>
-      <div style="height:340px" class="skel"></div>
-      <div style="height:340px" class="skel"></div>
-      <div style="height:340px" class="skel"></div>
+      <div style="height:360px" class="skel"></div>
+      <div style="height:360px" class="skel"></div>
+      <div style="height:360px" class="skel"></div>
+      <div style="height:360px" class="skel"></div>
     </div>
     <div class="empty" id="emptyState" style="display:none">
       <div class="ico">🔍</div>
       <h3>No cards found</h3>
-      <p>Try a different filter or check back soon for new drops.</p>
+      <p>Try a different filter or check back for new drops.</p>
     </div>
   </div>
 </section>
 
-<!-- PRODUCT MODAL -->
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
-  <div class="modal">
+<!-- CARD DETAIL MODAL -->
+<div class="modal-overlay" id="cardModal" onclick="if(event.target===this)closeCardModal()">
+  <div class="modal card-modal">
     <div class="modal-head">
-      <div class="modal-title" id="modalTitle">Card Details</div>
-      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <div class="modal-title" id="cardModalTitle">Card Details</div>
+      <button class="modal-close" onclick="closeCardModal()">✕</button>
     </div>
     <div class="modal-body">
-      <div class="modal-grid">
-        <div class="modal-img" id="modalImg">🎴</div>
+      <div class="card-modal-grid">
+        <div class="card-modal-img" id="cardModalImg">🎴</div>
         <div>
-          <div id="modalCat" style="font-size:.68rem;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem"></div>
-          <div id="modalDesc" style="font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.1rem"></div>
-          <div style="display:flex;align-items:baseline;gap:.75rem;margin-bottom:1rem">
-            <span id="modalPrice" style="font-size:1.75rem;font-weight:800;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></span>
+          <div id="cardModalCat" style="font-size:.68rem;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem"></div>
+          <div id="cardModalDesc" style="font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1rem"></div>
+          <div id="cardModalPrice" style="font-size:1.75rem;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:1rem"></div>
+          <div id="cardModalStatus" style="font-size:.82rem;margin-bottom:1.25rem"></div>
+          <div style="display:flex;gap:.6rem;flex-direction:column">
+            <a id="cardModalDM" href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn btn-outline" style="width:100%;justify-content:center">📲 DM to Cop</a>
+            <button id="cardModalCart" class="btn btn-primary" style="width:100%;justify-content:center" onclick="addToCartFromModal()">🛒 Add to Cart</button>
           </div>
-          <div id="modalStatus" style="font-size:.82rem;margin-bottom:1.25rem"></div>
-          <a id="modalDMBtn" href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn btn-primary" style="width:100%;justify-content:center;text-decoration:none">
-            📲 DM to Cop
-          </a>
           <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:.75rem">Open to offers & trades — slide in the DMs</p>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal" onclick="if(event.target===this)closeAuth()">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <div class="modal-title" id="authModalTitle">Create Account</div>
+      <button class="modal-close" onclick="closeAuth()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="auth-logo"><img src="/images/logo.png" alt="CRG Cards"/></div>
+      <div class="auth-tagline">
+        <h2 id="authHeading">Join CRG Cards</h2>
+        <p id="authSubheading">Sign up to add cards to your cart and save your wishlist</p>
+      </div>
+      <div class="spin-teaser" id="spinTeaser">
+        <div class="spin-ico">🎰</div>
+        <p><strong>New members get a FREE mystery spin!</strong><br/>Win 10% off, free shipping, giveaway entry, or a rare card drop.</p>
+      </div>
+      <div class="auth-error" id="authError"></div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="authEmail" placeholder="your@email.com"/>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="authPassword" placeholder="Min 6 characters"/>
+      </div>
+      <button class="btn btn-primary auth-submit" id="authSubmitBtn" onclick="handleAuth()">Create Account &amp; Spin 🎰</button>
+      <div class="auth-switch" id="authSwitch">Already have an account? <a onclick="toggleAuthMode()">Sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- SPIN WHEEL MODAL -->
+<div class="modal-overlay" id="spinModal">
+  <div class="modal spin-modal">
+    <div class="modal-head">
+      <div class="modal-title">🎰 Mystery Spin</div>
+      <button class="modal-close" onclick="closeSpinModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="spin-header">
+        <h2>Spin Your Prize</h2>
+        <p>One spin per account. Good luck! 🍀</p>
+      </div>
+      <div class="wheel-wrap">
+        <div class="wheel-pointer"></div>
+        <canvas id="spinCanvas" width="280" height="280"></canvas>
+      </div>
+      <div class="spin-btn-wrap">
+        <button class="btn btn-primary" id="spinBtn" onclick="spinWheel()">SPIN IT 🎰</button>
+      </div>
+      <div class="spin-result" id="spinResult">
+        <div class="result-ico" id="resultIco"></div>
+        <h3 id="resultTitle"></h3>
+        <p id="resultDesc"></p>
+        <div class="spin-code" id="resultCode" style="display:none"></div>
+        <button class="btn btn-primary" style="margin-top:.75rem" onclick="closeSpinModal()">Start Shopping →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
+  <div class="cart-panel">
+    <div class="cart-panel-head">
+      <h3>🛒 Your Cart</h3>
+      <button class="modal-close" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items-wrap" id="cartItemsWrap"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div id="discountRow" style="display:none;margin-bottom:.75rem;font-size:.82rem;color:var(--green)"></div>
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cartTotal">$0</span>
+      </div>
+      <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn btn-primary" style="width:100%;justify-content:center">📲 DM to Complete Purchase</a>
+      <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:.6rem">Screenshot your cart and send it to @cardsrgshop to checkout</p>
     </div>
   </div>
 </div>
@@ -331,143 +426,176 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
   <div class="footer-inner">
     <div class="footer-brand">
       <img src="/images/logo.png" alt="CRG Cards"/>
-      <p>Your spot for Pokemon, Sports, and rare Grails. We rip so you don't have to — or grab sealed and rip yourself.</p>
+      <p>Your spot for PSA graded cards, rare grails, and pack rips. DM @cardsrgshop to cop.</p>
     </div>
     <div class="footer-col">
       <h4>Shop</h4>
       <a href="/">All Cards</a>
-      <a href="/">Pokemon</a>
-      <a href="/">Sports Cards</a>
-      <a href="/">Mystery Boxes</a>
+      <a href="https://www.instagram.com/cardsrgshop" target="_blank">Instagram</a>
     </div>
     <div class="footer-col">
       <h4>Account</h4>
-      <a href="/orders.html">My Orders</a>
-      <a href="/cart.html">Shopping Cart</a>
+      <a href="#" onclick="openAuth();return false">Sign Up / Login</a>
+      <a href="#" onclick="openCart();return false">My Cart</a>
     </div>
   </div>
   <div class="footer-bottom">© 2025 <span>CRG Cards</span> — Rips &amp; Grails. All rights reserved.</div>
 </footer>
 
 <script>
-// ── Google Sheet CSV URL (published to web as CSV) ────────────────────────
+// ── SUPABASE CONFIG — fill in after creating your project ─────────────────
+const SUPABASE_URL  = 'https://nmepvgxkfginojsaqwpm.supabase.co';
+const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tZXB2Z3hrZmdpbm9qc2Fxd3BtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5MjkzNjAsImV4cCI6MjA5ODUwNTM2MH0.9lo89nrAcmEsdpGFRS38nR7Fu6wOfH7QmK06rbDet-o';
+const supabase = (SUPABASE_URL !== 'YOUR_SUPABASE_URL')
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY)
+  : null;
+
+// ── GOOGLE SHEET ──────────────────────────────────────────────────────────
 const SHEET_ID = '1eeDMzQY-ch6TG83vEzaXizdDN_a08HryvLbM2w4g27k';
 const CSV_URL  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
 
+// ── STATE ─────────────────────────────────────────────────────────────────
 let allCards = [], currentFilter = 'all', searchTimer;
+let currentUser = null, authMode = 'signup', pendingCartCard = null, currentCardIdx = null;
+let cart = JSON.parse(localStorage.getItem('crg_cart') || '[]');
+let userDiscount = localStorage.getItem('crg_discount') || null;
+let hasSpun = false;
 
-// ── CSV parser ────────────────────────────────────────────────────────────
+// ── SPIN WHEEL SETUP ──────────────────────────────────────────────────────
+const PRIZES = [
+  { label: '10% Off',         emoji: '🏷️',  color: '#f0217c', code: 'CRG10',   desc: 'Use this code when you DM us your order.' },
+  { label: 'Free Shipping',   emoji: '🚚',  color: '#4EC9F0', code: 'FREECRG', desc: 'Free shipping on your next order — DM us!' },
+  { label: 'Giveaway Entry',  emoji: '🎁',  color: '#7C3AED', code: null,      desc: "You're entered in our monthly grail giveaway!" },
+  { label: '15% Off',         emoji: '💰',  color: '#f59e0b', code: 'CRG15',   desc: 'Big savings — use this code when you DM us.' },
+  { label: 'Try Again',       emoji: '😅',  color: '#374151', code: null,      desc: 'Better luck next time! Keep shopping 👀' },
+  { label: '🎴 RARE CARD',    emoji: '👑',  color: '#f0217c', code: 'RARCARD', desc: 'DM us NOW to claim your mystery rare card drop!' },
+];
+const WEIGHTS = [25, 20, 25, 15, 10, 5]; // probabilities
+const TOTAL_W = WEIGHTS.reduce((a,b)=>a+b,0);
+
+function weightedRandom() {
+  let r = Math.random() * TOTAL_W, cumul = 0;
+  for (let i = 0; i < WEIGHTS.length; i++) { cumul += WEIGHTS[i]; if (r <= cumul) return i; }
+  return 0;
+}
+
+function drawWheel(rotationAngle = 0) {
+  const canvas = document.getElementById('spinCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const cx = 140, cy = 140, radius = 136;
+  const sliceAngle = (2 * Math.PI) / PRIZES.length;
+  ctx.clearRect(0, 0, 280, 280);
+  PRIZES.forEach((p, i) => {
+    const start = rotationAngle + i * sliceAngle;
+    const end   = start + sliceAngle;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, radius, start, end);
+    ctx.closePath();
+    ctx.fillStyle = p.color;
+    ctx.fill();
+    ctx.strokeStyle = '#0d0d0d';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(start + sliceAngle / 2);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 11px Inter, sans-serif';
+    ctx.fillText(p.label, radius - 8, 4);
+    ctx.font = '14px serif';
+    ctx.fillText(p.emoji, radius - 80, 5);
+    ctx.restore();
+  });
+  // Center circle
+  ctx.beginPath();
+  ctx.arc(cx, cy, 22, 0, Math.PI * 2);
+  ctx.fillStyle = '#0d0d0d';
+  ctx.fill();
+  ctx.strokeStyle = '#f0217c';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 10px Inter';
+  ctx.textAlign = 'center';
+  ctx.fillText('CRG', cx, cy + 4);
+}
+
+let spinAngle = 0;
+function spinWheel() {
+  if (hasSpun) { showToast('You already spun! Check your prize 👆','error'); return; }
+  const btn = document.getElementById('spinBtn');
+  btn.disabled = true;
+  btn.textContent = 'Spinning…';
+  const prizeIdx   = weightedRandom();
+  const sliceAngle = (2 * Math.PI) / PRIZES.length;
+  // Land the pointer (top = -π/2) on the chosen prize
+  const targetAngle = -Math.PI / 2 - (prizeIdx * sliceAngle + sliceAngle / 2);
+  const fullSpins   = (5 + Math.floor(Math.random() * 4)) * 2 * Math.PI;
+  const finalAngle  = targetAngle + fullSpins;
+  const duration    = 4000;
+  const start       = performance.now();
+  const startAngle  = spinAngle;
+
+  function easeOut(t) { return 1 - Math.pow(1 - t, 4); }
+
+  function frame(now) {
+    const t = Math.min((now - start) / duration, 1);
+    spinAngle = startAngle + (finalAngle - startAngle) * easeOut(t);
+    drawWheel(spinAngle);
+    if (t < 1) { requestAnimationFrame(frame); }
+    else { showPrize(prizeIdx); }
+  }
+  requestAnimationFrame(frame);
+}
+
+function showPrize(idx) {
+  hasSpun = true;
+  localStorage.setItem('crg_spun', '1');
+  const p = PRIZES[idx];
+  if (p.code) {
+    localStorage.setItem('crg_discount', p.code);
+    userDiscount = p.code;
+  }
+  const res = document.getElementById('spinResult');
+  document.getElementById('resultIco').textContent  = p.emoji;
+  document.getElementById('resultTitle').textContent = p.label;
+  document.getElementById('resultDesc').textContent  = p.desc;
+  const codeEl = document.getElementById('resultCode');
+  if (p.code) { codeEl.textContent = p.code; codeEl.style.display = 'inline-block'; } else { codeEl.style.display = 'none'; }
+  res.style.display = 'block';
+  if (idx === 5) res.classList.add('rare-glow');
+  document.getElementById('spinBtn').style.display = 'none';
+}
+
+// ── CSV / INVENTORY ───────────────────────────────────────────────────────
 function parseCSV(text) {
   const lines = text.trim().split('\n').map(l => l.split(',').map(c => c.replace(/^"|"$/g,'').trim()));
   const headers = lines[0];
   return lines.slice(1).filter(r => r.length >= headers.length && r[1]).map(r => {
     const obj = {};
-    headers.forEach((h, i) => obj[h.trim()] = (r[i]||'').trim());
+    headers.forEach((h,i) => obj[h.trim()] = (r[i]||'').trim());
     return obj;
   });
 }
 
 async function loadInventory() {
-  document.getElementById('prodGrid').innerHTML = [1,2,3,4].map(()=>`<div style="height:340px" class="skel"></div>`).join('');
+  document.getElementById('prodGrid').innerHTML = [1,2,3,4].map(()=>`<div style="height:360px" class="skel"></div>`).join('');
   try {
     const res  = await fetch(CSV_URL);
     const text = await res.text();
     allCards   = parseCSV(text);
-    renderCards(allCards);
   } catch(e) {
-    // Fallback: hardcoded inventory if sheet isn't public yet
     allCards = [
       {'#':'1','SUBJECT':'Lionel Messi','YEAR':'2022','BRAND / SET':'Topps ARG Fileteado','CARD #':'#DI4','VARIATION':'AFA Disc','SERIAL':'—','GRADE':'PSA 10','CERT #':'86725240','ASK PRICE':'$900','STATUS':'Available','NOTES':'GEM MINT — Argentina disc format'},
       {'#':'2','SUBJECT':'Lionel Messi','YEAR':'2018','BRAND / SET':'Panini Adrenalyn XL','CARD #':'—','VARIATION':'FIFA WC Road to Russia Ltd. Ed.','SERIAL':'—','GRADE':'PSA 10','CERT #':'93183045','ASK PRICE':'$250','STATUS':'Available','NOTES':'Limited Edition — pre-WC card'},
       {'#':'3','SUBJECT':'Lionel Messi','YEAR':'2023','BRAND / SET':'Topps Chrome MLS','CARD #':'#BCS7','VARIATION':'Big City Strikers Gold Refractor','SERIAL':'/50','GRADE':'PSA 10','CERT #':'89157561','ASK PRICE':'$2400','STATUS':'Available','NOTES':'Numbered /50 — Inter Miami'},
       {'#':'4','SUBJECT':'Stan Lee','YEAR':'2011','BRAND / SET':'Topps Allen & Ginter','CARD #':'#274','VARIATION':"World's Champions Base",'SERIAL':'—','GRADE':'PSA 10','CERT #':'77779080','ASK PRICE':'$100','STATUS':'Available','NOTES':'Founder of Marvel Comics'},
     ];
-    renderCards(allCards);
   }
-}
-
-function renderCards(cards) {
-  let filtered = cards;
-  if (currentFilter === 'available') filtered = cards.filter(c => c.STATUS === 'Available');
-  if (currentFilter === 'sold')      filtered = cards.filter(c => c.STATUS === 'Sold');
-
-  const search = (document.getElementById('searchInput').value || '').toLowerCase();
-  if (search) filtered = filtered.filter(c =>
-    (c.SUBJECT||'').toLowerCase().includes(search) ||
-    (c['BRAND / SET']||'').toLowerCase().includes(search) ||
-    (c.VARIATION||'').toLowerCase().includes(search)
-  );
-
-  document.getElementById('productCount').textContent = `${filtered.length} item${filtered.length!==1?'s':''}`;
-
-  if (!filtered.length) {
-    document.getElementById('prodGrid').innerHTML = '';
-    document.getElementById('emptyState').style.display = 'block';
-    return;
-  }
-  document.getElementById('emptyState').style.display = 'none';
-
-  document.getElementById('prodGrid').innerHTML = filtered.map((c, i) => {
-    const cert    = c['CERT #'] || '';
-    const imgSrc  = `/images/${cert}.jpg`;
-    const sold    = c.STATUS === 'Sold';
-    const serial  = c.SERIAL && c.SERIAL !== '—' ? ` <span style="color:var(--gold);font-weight:800">${c.SERIAL}</span>` : '';
-    const grade   = c.GRADE || 'PSA 10';
-    const price   = c['ASK PRICE'] || '';
-    const name    = `${c.SUBJECT} — ${c['BRAND / SET']}`;
-    const desc    = `${c.YEAR} ${c.VARIATION}${c['CARD #'] && c['CARD #']!=='—' ? ' '+c['CARD #'] : ''} · ${grade}`;
-
-    return `
-    <div class="prod-card${sold?' sold-card':''}" onclick="openModal(${i})" style="${sold?'opacity:.55;cursor:default':''}">
-      <div class="prod-img">
-        <img src="${imgSrc}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.fallback-ico').style.display='flex'"/>
-        <span class="fallback-ico" style="display:none;font-size:3rem;position:absolute;inset:0;align-items:center;justify-content:center">🎴</span>
-        <div class="prod-img-shine"></div>
-        <div class="prod-badge ${sold?'badge-pop':'badge-new'}">${sold?'SOLD':'Available'}</div>
-        ${serial ? `<div style="position:absolute;bottom:8px;left:10px;font-size:.7rem;background:rgba(0,0,0,.7);padding:.2rem .5rem;border-radius:4px;color:#fff">Numbered${serial}</div>` : ''}
-      </div>
-      <div class="prod-body">
-        <div class="prod-cat">${c['BRAND / SET']}</div>
-        <div class="prod-name">${c.SUBJECT}</div>
-        <div class="prod-desc">${desc}</div>
-        <div class="prod-footer">
-          <span class="prod-price">${price}</span>
-          ${!sold ? `<button class="add-btn" onclick="event.stopPropagation();dmCop()">DM to Cop</button>` : `<span style="font-size:.75rem;color:var(--muted)">Sold</span>`}
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function filterCat(btn, filter) {
-  currentFilter = filter;
-  document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('act'));
-  btn.classList.add('act');
-  const labels = {all:'All Cards', available:'Available', sold:'Sold'};
-  document.getElementById('sectionTitle').textContent = labels[filter] || 'All Cards';
   renderCards(allCards);
-}
-
-function debounceSearch(val) {
-  clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => renderCards(allCards), 300);
-}
-
-function openModal(idx) {
-  const filtered = getFiltered();
-  const c = filtered[idx];
-  if (!c || c.STATUS === 'Sold') return;
-  const cert   = c['CERT #'] || '';
-  const name   = `${c.SUBJECT} — ${c['BRAND / SET']}`;
-  const desc   = `${c.YEAR} · ${c.VARIATION}${c['CARD #'] && c['CARD #']!=='—' ? ' '+c['CARD #'] : ''}`;
-  const serial = c.SERIAL && c.SERIAL !== '—' ? ` · Numbered ${c.SERIAL}` : '';
-  document.getElementById('modalTitle').textContent = c.SUBJECT;
-  document.getElementById('modalImg').innerHTML = `<img src="/images/${cert}.jpg" alt="${name}" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML='<span style=font-size:4rem>🎴</span>'"/>`;
-  document.getElementById('modalCat').textContent  = `${c.GRADE} · ${c['BRAND / SET']}`;
-  document.getElementById('modalDesc').textContent = `${desc}${serial} · Cert #${cert}`;
-  document.getElementById('modalPrice').textContent = c['ASK PRICE'];
-  document.getElementById('modalStatus').innerHTML = '<span style="color:#22c55e;font-weight:700">✓ Available — Open to offers & trades</span>';
-  document.getElementById('modal').classList.add('open');
 }
 
 function getFiltered() {
@@ -479,19 +607,284 @@ function getFiltered() {
   return f;
 }
 
-function dmCop() { window.open('https://www.instagram.com/cardsrgshop','_blank'); }
-function closeModal(e) { if(e.target.id==='modal') closeModalDirect(); }
-function closeModalDirect() { document.getElementById('modal').classList.remove('open'); }
+function renderCards(cards) {
+  const filtered = getFiltered();
+  document.getElementById('productCount').textContent = `${filtered.length} item${filtered.length!==1?'s':''}`;
+  if (!filtered.length) { document.getElementById('prodGrid').innerHTML=''; document.getElementById('emptyState').style.display='block'; return; }
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('prodGrid').innerHTML = filtered.map((c, i) => {
+    const cert   = c['CERT #'] || '';
+    const sold   = c.STATUS === 'Sold';
+    const serial = c.SERIAL && c.SERIAL !== '—' ? ` · Numbered <strong style="color:var(--gold)">${c.SERIAL}</strong>` : '';
+    const inCart = cart.some(x => x.cert === cert);
+    return `
+    <div class="prod-card" onclick="openCardModal(${i})" style="${sold?'opacity:.5':''}">
+      <div class="prod-img">
+        <img src="/images/${cert}.jpg" alt="${c.SUBJECT}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+        <span style="display:none;font-size:3rem;position:absolute;inset:0;align-items:center;justify-content:center;background:var(--bg3)">🎴</span>
+        <div class="prod-img-shine"></div>
+        <div class="prod-badge ${sold?'badge-sold':'badge-new'}">${sold?'SOLD':'Available'}</div>
+        ${serial ? `<div style="position:absolute;bottom:8px;left:8px;font-size:.68rem;background:rgba(0,0,0,.75);padding:.18rem .5rem;border-radius:3px">${serial}</div>` : ''}
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">${c['BRAND / SET']}</div>
+        <div class="prod-name">${c.SUBJECT}</div>
+        <div class="prod-desc">${c.YEAR} · ${c.VARIATION}${c['CARD #'] && c['CARD #']!=='—'?' '+c['CARD #']:''} · ${c.GRADE}</div>
+        <div class="prod-price">${c['ASK PRICE']}</div>
+        ${!sold ? `<div class="prod-actions" onclick="event.stopPropagation()">
+          <button class="dm-btn" onclick="window.open('https://www.instagram.com/cardsrgshop','_blank')">📲 DM</button>
+          <button class="cart-btn ${inCart?'added':''}" id="cartbtn-${cert}" onclick="handleCartClick('${cert}',${i})">${inCart?'✓ Added':'+ Cart'}</button>
+        </div>` : `<div style="font-size:.75rem;color:var(--muted);margin-top:.25rem">This card has been sold</div>`}
+      </div>
+    </div>`;
+  }).join('');
+}
 
+function filterCat(btn, filter) {
+  currentFilter = filter;
+  document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById('sectionTitle').textContent = {all:'All Cards',available:'Available',sold:'Sold'}[filter];
+  renderCards(allCards);
+}
+
+function debounceSearch() { clearTimeout(searchTimer); searchTimer = setTimeout(()=>renderCards(allCards), 300); }
+
+// ── CART ──────────────────────────────────────────────────────────────────
+function handleCartClick(cert, idx) {
+  if (!currentUser && !localStorage.getItem('crg_guest')) {
+    pendingCartCard = { cert, idx };
+    openAuth('signup');
+    return;
+  }
+  toggleCart(cert, idx);
+}
+
+function toggleCart(cert, idx) {
+  const filtered = getFiltered();
+  const card = filtered[idx];
+  const existing = cart.findIndex(x => x.cert === cert);
+  if (existing >= 0) {
+    cart.splice(existing, 1);
+    showToast('Removed from cart');
+  } else {
+    cart.push({ cert, subject: card.SUBJECT, brand: card['BRAND / SET'], price: card['ASK PRICE'], variation: card.VARIATION });
+    showToast('Added to cart! 🛒', 'success');
+  }
+  saveCart();
+  renderCards(allCards);
+  updateCartCount();
+}
+
+function saveCart() { localStorage.setItem('crg_cart', JSON.stringify(cart)); }
+
+function updateCartCount() {
+  const el = document.getElementById('cartCount');
+  el.textContent = cart.length;
+  el.style.display = cart.length > 0 ? 'flex' : 'none';
+}
+
+function openCart() {
+  renderCartPanel();
+  document.getElementById('cartOverlay').classList.add('open');
+}
+
+function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); }
+
+function renderCartPanel() {
+  const wrap = document.getElementById('cartItemsWrap');
+  const footer = document.getElementById('cartFooter');
+  if (!cart.length) {
+    wrap.innerHTML = `<div class="cart-empty-msg"><div class="ico">🛒</div><p>Your cart is empty</p><button class="btn btn-primary" style="margin:1rem auto 0;display:flex" onclick="closeCart()">Browse Cards</button></div>`;
+    footer.style.display = 'none';
+    return;
+  }
+  let total = 0;
+  wrap.innerHTML = cart.map(item => {
+    const price = parseFloat((item.price||'0').replace(/[^0-9.]/g,''));
+    total += price;
+    return `<div class="cart-item">
+      <img class="cart-item-img" src="/images/${item.cert}.jpg" onerror="this.style.display='none'" alt="${item.subject}"/>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.subject}</div>
+        <div class="cart-item-price">${item.price}</div>
+        <div style="font-size:.72rem;color:var(--muted)">${item.variation||''}</div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart('${item.cert}')">✕</button>
+    </div>`;
+  }).join('');
+
+  // Apply discount
+  let discountedTotal = total;
+  const discRow = document.getElementById('discountRow');
+  if (userDiscount === 'CRG10') { discountedTotal = total * 0.9; discRow.innerHTML = `Discount applied: <strong>10% off</strong> 🎉`; discRow.style.display='block'; }
+  else if (userDiscount === 'CRG15') { discountedTotal = total * 0.85; discRow.innerHTML = `Discount applied: <strong>15% off</strong> 🎉`; discRow.style.display='block'; }
+  else if (userDiscount === 'FREECRG') { discRow.innerHTML = `Free shipping applied 🚚`; discRow.style.display='block'; }
+  else { discRow.style.display='none'; }
+
+  document.getElementById('cartTotal').textContent = `$${discountedTotal.toFixed(0)}`;
+  footer.style.display = 'block';
+}
+
+function removeFromCart(cert) {
+  cart = cart.filter(x => x.cert !== cert);
+  saveCart();
+  renderCartPanel();
+  renderCards(allCards);
+  updateCartCount();
+}
+
+// ── CARD DETAIL MODAL ─────────────────────────────────────────────────────
+function openCardModal(idx) {
+  currentCardIdx = idx;
+  const filtered = getFiltered();
+  const c = filtered[idx];
+  if (!c) return;
+  const cert = c['CERT #']||'';
+  const sold = c.STATUS === 'Sold';
+  document.getElementById('cardModalTitle').textContent  = c.SUBJECT;
+  document.getElementById('cardModalImg').innerHTML = `<img src="/images/${cert}.jpg" style="width:100%;height:100%;object-fit:cover;border-radius:8px" onerror="this.outerHTML='<span style=font-size:4rem>🎴</span>'"/>`;
+  document.getElementById('cardModalCat').textContent    = `${c.GRADE} · ${c['BRAND / SET']}`;
+  document.getElementById('cardModalDesc').textContent   = `${c.YEAR} · ${c.VARIATION}${c['CARD #'] && c['CARD #']!=='—'?' '+c['CARD #']:''} · Cert #${cert}`;
+  document.getElementById('cardModalPrice').textContent  = c['ASK PRICE'];
+  document.getElementById('cardModalStatus').innerHTML   = sold ? '<span style="color:var(--muted)">✗ Sold</span>' : '<span style="color:#22c55e;font-weight:700">✓ Available</span>';
+  const cartBtn = document.getElementById('cardModalCart');
+  cartBtn.style.display = sold ? 'none' : 'flex';
+  const inCart = cart.some(x => x.cert === cert);
+  cartBtn.textContent = inCart ? '✓ In Cart' : '🛒 Add to Cart';
+  cartBtn.style.background = inCart ? 'var(--green)' : '';
+  document.getElementById('cardModal').classList.add('open');
+}
+
+function closeCardModal() { document.getElementById('cardModal').classList.remove('open'); }
+
+function addToCartFromModal() {
+  const filtered = getFiltered();
+  const c = filtered[currentCardIdx];
+  if (!c) return;
+  handleCartClick(c['CERT #'], currentCardIdx);
+  closeCardModal();
+}
+
+// ── AUTH ──────────────────────────────────────────────────────────────────
+function openAuth(mode = authMode) {
+  authMode = mode;
+  const isSignup = mode === 'signup';
+  document.getElementById('authModalTitle').textContent   = isSignup ? 'Create Account' : 'Sign In';
+  document.getElementById('authHeading').textContent      = isSignup ? 'Join CRG Cards' : 'Welcome back';
+  document.getElementById('authSubheading').textContent   = isSignup ? 'Sign up to add cards to your cart' : 'Sign in to access your cart';
+  document.getElementById('authSubmitBtn').textContent    = isSignup ? 'Create Account & Spin 🎰' : 'Sign In';
+  document.getElementById('authSwitch').innerHTML         = isSignup ? 'Already have an account? <a onclick="toggleAuthMode()">Sign in</a>' : "Don't have an account? <a onclick=\"toggleAuthMode()\">Sign up</a>";
+  document.getElementById('spinTeaser').style.display     = isSignup ? 'block' : 'none';
+  document.getElementById('authError').style.display      = 'none';
+  document.getElementById('authModal').classList.add('open');
+}
+
+function closeAuth() { document.getElementById('authModal').classList.remove('open'); }
+
+function toggleAuthMode() { openAuth(authMode === 'signup' ? 'login' : 'signup'); }
+
+async function handleAuth() {
+  const email    = document.getElementById('authEmail').value.trim();
+  const password = document.getElementById('authPassword').value;
+  const errEl    = document.getElementById('authError');
+  errEl.style.display = 'none';
+  if (!email || !password) { errEl.textContent='Please fill in both fields'; errEl.style.display='block'; return; }
+
+  if (!supabase) {
+    // No Supabase yet — guest mode
+    localStorage.setItem('crg_guest','1');
+    currentUser = { email, id: 'guest' };
+    closeAuth();
+    updateAuthUI();
+    if (authMode === 'signup') { hasSpun = !!localStorage.getItem('crg_spun'); openSpinModal(); }
+    if (pendingCartCard) { const {cert,idx}=pendingCartCard; pendingCartCard=null; toggleCart(cert,idx); }
+    return;
+  }
+
+  const btn = document.getElementById('authSubmitBtn');
+  btn.disabled = true; btn.textContent = '…';
+  try {
+    let data, error;
+    if (authMode === 'signup') {
+      ({data,error} = await supabase.auth.signUp({email,password}));
+    } else {
+      ({data,error} = await supabase.auth.signInWithPassword({email,password}));
+    }
+    if (error) throw error;
+    currentUser = data.user;
+    closeAuth();
+    updateAuthUI();
+    if (authMode === 'signup') { hasSpun = !!localStorage.getItem('crg_spun'); openSpinModal(); }
+    if (pendingCartCard) { const {cert,idx}=pendingCartCard; pendingCartCard=null; toggleCart(cert,idx); }
+  } catch(e) {
+    errEl.textContent = e.message || 'Something went wrong'; errEl.style.display='block';
+  } finally { btn.disabled=false; btn.textContent = authMode==='signup'?'Create Account & Spin 🎰':'Sign In'; }
+}
+
+function updateAuthUI() {
+  const btn = document.getElementById('authNavBtn');
+  if (currentUser) {
+    btn.textContent = '👤 ' + (currentUser.email||'Account').split('@')[0];
+    btn.onclick = () => { if(confirm('Sign out?')) signOut(); };
+  } else {
+    btn.textContent = 'Sign In';
+    btn.onclick = () => openAuth('login');
+  }
+}
+
+async function signOut() {
+  if (supabase) await supabase.auth.signOut();
+  currentUser = null; localStorage.removeItem('crg_guest');
+  updateAuthUI(); showToast('Signed out');
+}
+
+// ── SPIN MODAL ────────────────────────────────────────────────────────────
+function openSpinModal() {
+  hasSpun = !!localStorage.getItem('crg_spun');
+  document.getElementById('spinResult').style.display = 'none';
+  document.getElementById('spinBtn').style.display    = hasSpun ? 'none' : 'flex';
+  if (hasSpun) {
+    document.getElementById('spinResult').style.display = 'block';
+    document.getElementById('resultIco').textContent    = '✅';
+    document.getElementById('resultTitle').textContent  = 'Already spun!';
+    document.getElementById('resultDesc').textContent   = userDiscount ? `Your code: ${userDiscount}` : 'Your prize is applied.';
+    const c = document.getElementById('resultCode');
+    if (userDiscount) { c.textContent=userDiscount; c.style.display='inline-block'; } else { c.style.display='none'; }
+  }
+  drawWheel(spinAngle);
+  document.getElementById('spinModal').classList.add('open');
+}
+
+function closeSpinModal() { document.getElementById('spinModal').classList.remove('open'); }
+
+// ── TOAST ─────────────────────────────────────────────────────────────────
 function showToast(msg, type='success') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast show ${type}`;
+  t.textContent = msg; t.className = `toast show ${type}`;
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeModalDirect(); });
-loadInventory();
+// ── INIT ──────────────────────────────────────────────────────────────────
+async function init() {
+  hasSpun      = !!localStorage.getItem('crg_spun');
+  userDiscount = localStorage.getItem('crg_discount');
+  // Check Supabase session
+  if (supabase) {
+    const { data } = await supabase.auth.getSession();
+    if (data?.session?.user) { currentUser = data.session.user; updateAuthUI(); }
+  } else if (localStorage.getItem('crg_guest')) {
+    currentUser = { email: 'guest', id: 'guest' };
+    updateAuthUI();
+  }
+  cart = JSON.parse(localStorage.getItem('crg_cart')||'[]');
+  updateCartCount();
+  await loadInventory();
+  drawWheel();
+  document.addEventListener('keydown', e => { if(e.key==='Escape'){closeCardModal();closeAuth();closeSpinModal();closeCart();} });
+}
+
+init();
 </script>
 </body>
 </html>
