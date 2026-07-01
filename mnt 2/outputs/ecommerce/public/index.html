@@ -234,9 +234,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <h1>Rip. Pull. Collect.</h1>
     <p>Pokemon packs, Sports singles, rare Grails, and Mystery boxes — handpicked for collectors who live for the pull.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><strong class="pink">12+</strong><span>Products</span></div>
-      <div class="hero-stat"><strong class="teal">4</strong><span>Categories</span></div>
-      <div class="hero-stat"><strong>Free</strong><span>Shipping</span></div>
+      <div class="hero-stat"><strong class="pink">PSA 10</strong><span>All Graded</span></div>
+      <div class="hero-stat"><strong class="teal">4</strong><span>Cards Listed</span></div>
+      <div class="hero-stat"><strong>DM</strong><span>to Cop</span></div>
     </div>
     <div class="hero-btns">
       <button class="btn btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
@@ -270,7 +270,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <section class="sec" style="padding-bottom:0">
   <div class="container">
     <div id="catsRow" class="cats-row">
-      <button class="cat-chip act" data-slug="" onclick="filterCat(this,'')">All Cards</button>
+      <button class="cat-chip act" onclick="filterCat(this,'all')">All Cards</button>
+      <button class="cat-chip" onclick="filterCat(this,'available')">Available</button>
+      <button class="cat-chip" onclick="filterCat(this,'sold')">Sold</button>
     </div>
   </div>
 </section>
@@ -290,8 +292,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     </div>
     <div class="empty" id="emptyState" style="display:none">
       <div class="ico">🔍</div>
-      <h3>No products found</h3>
-      <p>Try a different search or category.</p>
+      <h3>No cards found</h3>
+      <p>Try a different filter or check back soon for new drops.</p>
     </div>
   </div>
 </section>
@@ -300,7 +302,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <div class="modal">
     <div class="modal-head">
-      <div class="modal-title" id="modalTitle">Product</div>
+      <div class="modal-title" id="modalTitle">Card Details</div>
       <button class="modal-close" onclick="closeModalDirect()">✕</button>
     </div>
     <div class="modal-body">
@@ -309,19 +311,14 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
         <div>
           <div id="modalCat" style="font-size:.68rem;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem"></div>
           <div id="modalDesc" style="font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:1.1rem"></div>
-          <div style="display:flex;align-items:baseline;gap:.75rem;margin-bottom:.25rem">
-            <span id="modalPrice" style="font-size:1.75rem;font-weight:800;letter-spacing:-.02em"></span>
-            <span id="modalCompare" style="font-size:.9rem;color:var(--muted);text-decoration:line-through"></span>
+          <div style="display:flex;align-items:baseline;gap:.75rem;margin-bottom:1rem">
+            <span id="modalPrice" style="font-size:1.75rem;font-weight:800;letter-spacing:-.02em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text"></span>
           </div>
-          <div id="modalStock" style="font-size:.8rem;margin-bottom:1rem"></div>
-          <div class="qty-row">
-            <button class="qty-btn" onclick="changeQty(-1)">−</button>
-            <span class="qty-val" id="modalQty">1</span>
-            <button class="qty-btn" onclick="changeQty(1)">+</button>
-          </div>
-          <button class="btn btn-primary" style="width:100%;justify-content:center" id="modalAddBtn" onclick="addFromModal()">
-            Add to Cart
-          </button>
+          <div id="modalStatus" style="font-size:.82rem;margin-bottom:1.25rem"></div>
+          <a id="modalDMBtn" href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn btn-primary" style="width:100%;justify-content:center;text-decoration:none">
+            📲 DM to Cop
+          </a>
+          <p style="font-size:.72rem;color:var(--muted);text-align:center;margin-top:.75rem">Open to offers & trades — slide in the DMs</p>
         </div>
       </div>
     </div>
@@ -353,152 +350,148 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 </footer>
 
 <script>
-let currentProductId = null, modalQtyVal = 1, currentCat = '', searchTimer;
-let allProducts = [], allCats = [];
+// ── Google Sheet CSV URL (published to web as CSV) ────────────────────────
+const SHEET_ID = '1eeDMzQY-ch6TG83vEzaXizdDN_a08HryvLbM2w4g27k';
+const CSV_URL  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv`;
 
-async function init() {
-  try {
-    const res = await fetch('/api/products/categories');
-    const { categories } = await res.json();
-    allCats = categories;
-    renderCats(categories);
-  } catch(e) {}
-  await loadProducts();
-  updateCartCount();
-}
+let allCards = [], currentFilter = 'all', searchTimer;
 
-async function loadProducts(cat='', search='') {
-  document.getElementById('prodGrid').innerHTML = [1,2,3,4].map(()=>`<div style="height:340px" class="skel"></div>`).join('');
-  document.getElementById('emptyState').style.display = 'none';
-
-  let url = '/api/products?limit=60';
-  if (cat)    url += `&category=${encodeURIComponent(cat)}`;
-  if (search) url += `&search=${encodeURIComponent(search)}`;
-
-  const res  = await fetch(url);
-  const { products } = await res.json();
-  allProducts = products;
-
-  if (!products.length) {
-    document.getElementById('prodGrid').innerHTML = '';
-    document.getElementById('emptyState').style.display = 'block';
-    document.getElementById('productCount').textContent = '';
-    return;
-  }
-
-  document.getElementById('productCount').textContent = `${products.length} item${products.length!==1?'s':''}`;
-  document.getElementById('prodGrid').innerHTML = products.map(p => `
-    <div class="prod-card" onclick="openModal(${p.id})">
-      <div class="prod-img">
-        ${p.image_url ? `<img src="${p.image_url}" alt="${p.name}" loading="lazy"/>` : emojiFor(p.category_name||'')}
-        <div class="prod-img-shine"></div>
-        ${p.badge ? `<div class="prod-badge ${badgeClass(p.badge)}">${p.badge}</div>` : ''}
-      </div>
-      <div class="prod-body">
-        ${p.category_name ? `<div class="prod-cat">${p.category_name}</div>` : ''}
-        <div class="prod-name">${p.name}</div>
-        <div class="prod-desc">${p.description||''}</div>
-        <div class="prod-footer">
-          <div>
-            <span class="prod-price">${p.price_formatted}</span>
-            ${p.compare_price_formatted ? `<span class="prod-compare">${p.compare_price_formatted}</span>` : ''}
-          </div>
-          <button class="add-btn" id="add-${p.id}" onclick="event.stopPropagation();quickAdd(${p.id})">+ Add</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderCats(cats) {
-  const row = document.getElementById('catsRow');
-  cats.forEach(c => {
-    const btn = document.createElement('button');
-    btn.className = 'cat-chip';
-    btn.dataset.slug = c.slug;
-    btn.textContent = c.name + (c.product_count ? ` (${c.product_count})` : '');
-    btn.onclick = () => filterCat(btn, c.slug);
-    row.appendChild(btn);
+// ── CSV parser ────────────────────────────────────────────────────────────
+function parseCSV(text) {
+  const lines = text.trim().split('\n').map(l => l.split(',').map(c => c.replace(/^"|"$/g,'').trim()));
+  const headers = lines[0];
+  return lines.slice(1).filter(r => r.length >= headers.length && r[1]).map(r => {
+    const obj = {};
+    headers.forEach((h, i) => obj[h.trim()] = (r[i]||'').trim());
+    return obj;
   });
 }
 
-function filterCat(btn, slug) {
-  currentCat = slug;
+async function loadInventory() {
+  document.getElementById('prodGrid').innerHTML = [1,2,3,4].map(()=>`<div style="height:340px" class="skel"></div>`).join('');
+  try {
+    const res  = await fetch(CSV_URL);
+    const text = await res.text();
+    allCards   = parseCSV(text);
+    renderCards(allCards);
+  } catch(e) {
+    // Fallback: hardcoded inventory if sheet isn't public yet
+    allCards = [
+      {'#':'1','SUBJECT':'Lionel Messi','YEAR':'2022','BRAND / SET':'Topps ARG Fileteado','CARD #':'#DI4','VARIATION':'AFA Disc','SERIAL':'—','GRADE':'PSA 10','CERT #':'86725240','ASK PRICE':'$900','STATUS':'Available','NOTES':'GEM MINT — Argentina disc format'},
+      {'#':'2','SUBJECT':'Lionel Messi','YEAR':'2018','BRAND / SET':'Panini Adrenalyn XL','CARD #':'—','VARIATION':'FIFA WC Road to Russia Ltd. Ed.','SERIAL':'—','GRADE':'PSA 10','CERT #':'93183045','ASK PRICE':'$250','STATUS':'Available','NOTES':'Limited Edition — pre-WC card'},
+      {'#':'3','SUBJECT':'Lionel Messi','YEAR':'2023','BRAND / SET':'Topps Chrome MLS','CARD #':'#BCS7','VARIATION':'Big City Strikers Gold Refractor','SERIAL':'/50','GRADE':'PSA 10','CERT #':'89157561','ASK PRICE':'$2400','STATUS':'Available','NOTES':'Numbered /50 — Inter Miami'},
+      {'#':'4','SUBJECT':'Stan Lee','YEAR':'2011','BRAND / SET':'Topps Allen & Ginter','CARD #':'#274','VARIATION':"World's Champions Base",'SERIAL':'—','GRADE':'PSA 10','CERT #':'77779080','ASK PRICE':'$100','STATUS':'Available','NOTES':'Founder of Marvel Comics'},
+    ];
+    renderCards(allCards);
+  }
+}
+
+function renderCards(cards) {
+  let filtered = cards;
+  if (currentFilter === 'available') filtered = cards.filter(c => c.STATUS === 'Available');
+  if (currentFilter === 'sold')      filtered = cards.filter(c => c.STATUS === 'Sold');
+
+  const search = (document.getElementById('searchInput').value || '').toLowerCase();
+  if (search) filtered = filtered.filter(c =>
+    (c.SUBJECT||'').toLowerCase().includes(search) ||
+    (c['BRAND / SET']||'').toLowerCase().includes(search) ||
+    (c.VARIATION||'').toLowerCase().includes(search)
+  );
+
+  document.getElementById('productCount').textContent = `${filtered.length} item${filtered.length!==1?'s':''}`;
+
+  if (!filtered.length) {
+    document.getElementById('prodGrid').innerHTML = '';
+    document.getElementById('emptyState').style.display = 'block';
+    return;
+  }
+  document.getElementById('emptyState').style.display = 'none';
+
+  document.getElementById('prodGrid').innerHTML = filtered.map((c, i) => {
+    const cert    = c['CERT #'] || '';
+    const imgSrc  = `/images/${cert}.jpg`;
+    const sold    = c.STATUS === 'Sold';
+    const serial  = c.SERIAL && c.SERIAL !== '—' ? ` <span style="color:var(--gold);font-weight:800">${c.SERIAL}</span>` : '';
+    const grade   = c.GRADE || 'PSA 10';
+    const price   = c['ASK PRICE'] || '';
+    const name    = `${c.SUBJECT} — ${c['BRAND / SET']}`;
+    const desc    = `${c.YEAR} ${c.VARIATION}${c['CARD #'] && c['CARD #']!=='—' ? ' '+c['CARD #'] : ''} · ${grade}`;
+
+    return `
+    <div class="prod-card${sold?' sold-card':''}" onclick="openModal(${i})" style="${sold?'opacity:.55;cursor:default':''}">
+      <div class="prod-img">
+        <img src="${imgSrc}" alt="${name}" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.fallback-ico').style.display='flex'"/>
+        <span class="fallback-ico" style="display:none;font-size:3rem;position:absolute;inset:0;align-items:center;justify-content:center">🎴</span>
+        <div class="prod-img-shine"></div>
+        <div class="prod-badge ${sold?'badge-pop':'badge-new'}">${sold?'SOLD':'Available'}</div>
+        ${serial ? `<div style="position:absolute;bottom:8px;left:10px;font-size:.7rem;background:rgba(0,0,0,.7);padding:.2rem .5rem;border-radius:4px;color:#fff">Numbered${serial}</div>` : ''}
+      </div>
+      <div class="prod-body">
+        <div class="prod-cat">${c['BRAND / SET']}</div>
+        <div class="prod-name">${c.SUBJECT}</div>
+        <div class="prod-desc">${desc}</div>
+        <div class="prod-footer">
+          <span class="prod-price">${price}</span>
+          ${!sold ? `<button class="add-btn" onclick="event.stopPropagation();dmCop()">DM to Cop</button>` : `<span style="font-size:.75rem;color:var(--muted)">Sold</span>`}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterCat(btn, filter) {
+  currentFilter = filter;
   document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('act'));
   btn.classList.add('act');
-  const name = slug ? (allCats.find(c=>c.slug===slug)?.name || slug) : 'All Cards';
-  document.getElementById('sectionTitle').textContent = name;
-  loadProducts(slug, document.getElementById('searchInput').value);
+  const labels = {all:'All Cards', available:'Available', sold:'Sold'};
+  document.getElementById('sectionTitle').textContent = labels[filter] || 'All Cards';
+  renderCards(allCards);
 }
 
 function debounceSearch(val) {
   clearTimeout(searchTimer);
-  searchTimer = setTimeout(() => loadProducts(currentCat, val), 350);
+  searchTimer = setTimeout(() => renderCards(allCards), 300);
 }
 
-function openModal(id) {
-  const p = allProducts.find(x => x.id === id);
-  if (!p) return;
-  currentProductId = id; modalQtyVal = 1;
-  document.getElementById('modalTitle').textContent = p.name;
-  document.getElementById('modalImg').innerHTML    = p.image_url ? `<img src="${p.image_url}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover"/>` : emojiFor(p.category_name||'');
-  document.getElementById('modalCat').textContent  = p.category_name || '';
-  document.getElementById('modalDesc').textContent = p.description || '';
-  document.getElementById('modalPrice').textContent = p.price_formatted;
-  document.getElementById('modalCompare').textContent = p.compare_price_formatted || '';
-  document.getElementById('modalStock').innerHTML  = p.stock > 10 ? '<span style="color:#22c55e">✓ In Stock</span>' : p.stock > 0 ? `<span style="color:#f59e0b">⚠ Only ${p.stock} left</span>` : '<span style="color:#ef4444">✗ Out of Stock</span>';
-  document.getElementById('modalQty').textContent  = '1';
+function openModal(idx) {
+  const filtered = getFiltered();
+  const c = filtered[idx];
+  if (!c || c.STATUS === 'Sold') return;
+  const cert   = c['CERT #'] || '';
+  const name   = `${c.SUBJECT} — ${c['BRAND / SET']}`;
+  const desc   = `${c.YEAR} · ${c.VARIATION}${c['CARD #'] && c['CARD #']!=='—' ? ' '+c['CARD #'] : ''}`;
+  const serial = c.SERIAL && c.SERIAL !== '—' ? ` · Numbered ${c.SERIAL}` : '';
+  document.getElementById('modalTitle').textContent = c.SUBJECT;
+  document.getElementById('modalImg').innerHTML = `<img src="/images/${cert}.jpg" alt="${name}" style="width:100%;height:100%;object-fit:cover" onerror="this.outerHTML='<span style=font-size:4rem>🎴</span>'"/>`;
+  document.getElementById('modalCat').textContent  = `${c.GRADE} · ${c['BRAND / SET']}`;
+  document.getElementById('modalDesc').textContent = `${desc}${serial} · Cert #${cert}`;
+  document.getElementById('modalPrice').textContent = c['ASK PRICE'];
+  document.getElementById('modalStatus').innerHTML = '<span style="color:#22c55e;font-weight:700">✓ Available — Open to offers & trades</span>';
   document.getElementById('modal').classList.add('open');
 }
+
+function getFiltered() {
+  let f = allCards;
+  if (currentFilter === 'available') f = allCards.filter(c => c.STATUS === 'Available');
+  if (currentFilter === 'sold')      f = allCards.filter(c => c.STATUS === 'Sold');
+  const s = (document.getElementById('searchInput').value||'').toLowerCase();
+  if (s) f = f.filter(c => (c.SUBJECT||'').toLowerCase().includes(s)||(c['BRAND / SET']||'').toLowerCase().includes(s)||(c.VARIATION||'').toLowerCase().includes(s));
+  return f;
+}
+
+function dmCop() { window.open('https://www.instagram.com/cardsrgshop','_blank'); }
 function closeModal(e) { if(e.target.id==='modal') closeModalDirect(); }
 function closeModalDirect() { document.getElementById('modal').classList.remove('open'); }
-function changeQty(d) { modalQtyVal = Math.max(1,modalQtyVal+d); document.getElementById('modalQty').textContent = modalQtyVal; }
-async function addFromModal() { if (!currentProductId) return; await addToCart(currentProductId, modalQtyVal); closeModalDirect(); }
-async function quickAdd(id) { await addToCart(id, 1); }
-
-async function addToCart(product_id, quantity=1) {
-  try {
-    const res  = await fetch('/api/cart/add', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({product_id, quantity}) });
-    const data = await res.json();
-    if (!res.ok) { showToast(data.error||'Error','error'); return; }
-    showToast(data.message||'Added to cart!','success');
-    document.getElementById('cartCount').textContent = data.item_count;
-    document.getElementById('cartCount').style.display = data.item_count > 0 ? 'flex' : 'none';
-    const btn = document.getElementById(`add-${product_id}`);
-    if (btn) { btn.classList.add('added'); btn.textContent='✓'; setTimeout(()=>{btn.classList.remove('added');btn.textContent='+ Add'},1500); }
-  } catch(e) { showToast('Network error','error'); }
-}
-
-async function updateCartCount() {
-  try {
-    const res = await fetch('/api/cart');
-    const { item_count } = await res.json();
-    document.getElementById('cartCount').textContent = item_count;
-    document.getElementById('cartCount').style.display = item_count > 0 ? 'flex' : 'none';
-  } catch(e){}
-}
 
 function showToast(msg, type='success') {
   const t = document.getElementById('toast');
-  t.textContent = (type==='success'?'✅ ':'❌ ') + msg;
+  t.textContent = msg;
   t.className = `toast show ${type}`;
   setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-function emojiFor(cat) {
-  const m={'pokemon':'🎴','sports':'⚾','graded':'🏅','mystery':'🎁','default':'🃏'};
-  const k = Object.keys(m).find(k=>cat.toLowerCase().includes(k))||'default';
-  return `<span style="font-size:3rem">${m[k]}</span>`;
-}
-function badgeClass(b) {
-  const l=(b||'').toLowerCase();
-  if(l==='sale') return 'badge-sale';
-  if(l==='new') return 'badge-new';
-  return 'badge-pop';
-}
-
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeModalDirect(); });
-init();
+loadInventory();
 </script>
 </body>
 </html>
