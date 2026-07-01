@@ -446,7 +446,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
 // ── SUPABASE CONFIG — fill in after creating your project ─────────────────
 const SUPABASE_URL  = 'https://nmepvgxkfginojsaqwpm.supabase.co';
 const SUPABASE_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5tZXB2Z3hrZmdpbm9qc2Fxd3BtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5MjkzNjAsImV4cCI6MjA5ODUwNTM2MH0.9lo89nrAcmEsdpGFRS38nR7Fu6wOfH7QmK06rbDet-o';
-const supabase = (() => {
+const supabaseClient = (() => {
   try {
     if (SUPABASE_URL === 'YOUR_SUPABASE_URL') return null;
     const lib = window.supabase || window.Supabase;
@@ -803,7 +803,7 @@ async function handleAuth() {
   errEl.style.display = 'none';
   if (!email || !password) { errEl.textContent='Please fill in both fields'; errEl.style.display='block'; return; }
 
-  if (!supabase) {
+  if (!supabaseClient) {
     // No Supabase yet — guest mode
     localStorage.setItem('crg_guest','1');
     currentUser = { email, id: 'guest' };
@@ -820,14 +820,14 @@ async function handleAuth() {
   try {
     let data, error;
     if (isSignup) {
-      ({data,error} = await supabase.auth.signUp({email,password}));
+      ({data,error} = await supabaseClient.auth.signUp({email,password}));
       // Supabase may require email confirmation — not a failure, just no session yet
       if (error && error.message && error.message.toLowerCase().includes('already registered')) {
         // User exists — try login instead
-        ({data,error} = await supabase.auth.signInWithPassword({email,password}));
+        ({data,error} = await supabaseClient.auth.signInWithPassword({email,password}));
       }
     } else {
-      ({data,error} = await supabase.auth.signInWithPassword({email,password}));
+      ({data,error} = await supabaseClient.auth.signInWithPassword({email,password}));
     }
     if (error) throw error;
     currentUser = data.user || { email, id: 'pending' };
@@ -852,7 +852,7 @@ function updateAuthUI() {
 }
 
 async function signOut() {
-  if (supabase) await supabase.auth.signOut();
+  if (supabaseClient) await supabaseClient.auth.signOut();
   currentUser = null; localStorage.removeItem('crg_guest');
   updateAuthUI(); showToast('Signed out');
 }
@@ -888,8 +888,8 @@ async function init() {
   hasSpun      = !!localStorage.getItem('crg_spun');
   userDiscount = localStorage.getItem('crg_discount');
   // Check Supabase session
-  if (supabase) {
-    const { data } = await supabase.auth.getSession();
+  if (supabaseClient) {
+    const { data } = await supabaseClient.auth.getSession();
     if (data?.session?.user) { currentUser = data.session.user; updateAuthUI(); }
   } else if (localStorage.getItem('crg_guest')) {
     currentUser = { email: 'guest', id: 'guest' };
