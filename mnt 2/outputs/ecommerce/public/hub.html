@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CRG Hub — Denny's Dashboard</title>
+<style>
+  :root {
+    --bg:    #0d1117;
+    --bg2:   #161b22;
+    --bg3:   #1c2330;
+    --card:  #21262d;
+    --border:#30363d;
+    --teal:  #39d0c0;
+    --teal2: #2db8a8;
+    --gold:  #f0c040;
+    --red:   #ff5c5c;
+    --green: #3fb950;
+    --text:  #e6edf3;
+    --muted: #8b949e;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;padding:0 0 3rem}
+
+  /* ── HEADER ── */
+  header{background:var(--bg2);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:99}
+  .logo{font-size:1.1rem;font-weight:800;letter-spacing:.04em;color:var(--teal)}
+  .logo span{color:var(--gold)}
+  .tagline{font-size:.75rem;color:var(--muted)}
+  header .right{margin-left:auto;display:flex;align-items:center;gap:.75rem}
+  .status-dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+  .status-label{font-size:.78rem;color:var(--green)}
+  .login-btn{font-size:.78rem;padding:.35rem .8rem;border-radius:6px;background:var(--teal);color:#000;font-weight:700;text-decoration:none;border:none;cursor:pointer}
+
+  /* ── MAIN ── */
+  main{max-width:960px;margin:0 auto;padding:2rem 1.25rem}
+
+  h2{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.85rem}
+
+  /* ── QUICK LINKS ── */
+  .link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.85rem;margin-bottom:2.5rem}
+  .link-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem .9rem;text-decoration:none;color:var(--text);transition:border-color .18s,transform .18s,box-shadow .18s;display:flex;flex-direction:column;gap:.45rem}
+  .link-card:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 6px 18px rgba(57,208,192,.12)}
+  .link-card .icon{font-size:1.5rem}
+  .link-card .lname{font-size:.88rem;font-weight:700}
+  .link-card .ldesc{font-size:.72rem;color:var(--muted);line-height:1.35}
+  .link-card.primary{border-color:rgba(57,208,192,.35);background:rgba(57,208,192,.06)}
+
+  /* ── NOTIFY BANNER ── */
+  .notify-banner{background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.3);border-radius:var(--radius);padding:1rem 1.15rem;margin-bottom:2.5rem;display:flex;align-items:flex-start;gap:.85rem}
+  .notify-banner .bell{font-size:1.6rem;line-height:1}
+  .notify-banner h3{font-size:.88rem;font-weight:700;color:var(--gold);margin-bottom:.3rem}
+  .notify-banner p{font-size:.77rem;color:var(--muted);line-height:1.5}
+  .notify-banner a{color:var(--gold);text-decoration:underline}
+  .notify-banner code{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:.1rem .4rem;font-size:.78rem;font-family:'Courier New',monospace}
+
+  /* ── CART ACTIVITY ── */
+  .activity-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem}
+  .refresh-info{font-size:.7rem;color:var(--muted)}
+  #activityFeed{display:flex;flex-direction:column;gap:.6rem}
+  .act-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.85rem 1rem;display:grid;grid-template-columns:auto 1fr auto;gap:.75rem;align-items:center}
+  .act-icon{font-size:1.2rem}
+  .act-name{font-size:.88rem;font-weight:700;margin-bottom:.18rem}
+  .act-meta{font-size:.72rem;color:var(--muted)}
+  .act-price{font-size:.95rem;font-weight:800;color:var(--teal)}
+  .act-time{font-size:.67rem;color:var(--muted);text-align:right;margin-top:.2rem}
+  .empty-feed{text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:.85rem}
+  .empty-feed .ico{font-size:2rem;margin-bottom:.5rem}
+  .login-nudge{background:rgba(57,208,192,.07);border:1px solid rgba(57,208,192,.25);border-radius:8px;padding:1.5rem;text-align:center;color:var(--muted);font-size:.85rem}
+  .login-nudge a{color:var(--teal);text-decoration:underline}
+
+  /* ── FOOTER ── */
+  footer{text-align:center;font-size:.72rem;color:var(--muted);margin-top:3rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">CRG <span>HUB</span></div>
+    <div class="tagline">Denny's Command Center</div>
+  </div>
+  <div class="right">
+    <div id="siteStatus" style="display:flex;align-items:center;gap:.4rem">
+      <div class="status-dot"></div>
+      <span class="status-label">Live</span>
+    </div>
+    <a href="/admin" class="login-btn">Admin Panel</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── QUICK LINKS ───────────────────────────────────────── -->
+  <h2>Quick Access</h2>
+  <div class="link-grid">
+    <a class="link-card primary" href="https://cards-rg.onrender.com" target="_blank">
+      <div class="icon">🛒</div>
+      <div class="lname">Live Store</div>
+      <div class="ldesc">cards-rg.onrender.com</div>
+    </a>
+    <a class="link-card" href="/admin" target="_blank">
+      <div class="icon">🔐</div>
+      <div class="lname">Admin Panel</div>
+      <div class="ldesc">Orders, users, settings</div>
+    </a>
+    <a class="link-card" href="https://docs.google.com/spreadsheets/d/1eeDMzQY-ch6TG83vEzaXizdDN_a08HryvLbM2w4g27k" target="_blank">
+      <div class="icon">📊</div>
+      <div class="lname">Inventory Sheet</div>
+      <div class="ldesc">Google Sheets tracker</div>
+    </a>
+    <a class="link-card" href="https://dashboard.render.com/web/srv-d90smn4vikkc738ottcg" target="_blank">
+      <div class="icon">⚙️</div>
+      <div class="lname">Render</div>
+      <div class="ldesc">Deploys, logs, env vars</div>
+    </a>
+    <a class="link-card" href="https://github.com/dennymypenny/cards-rg" target="_blank">
+      <div class="icon">💻</div>
+      <div class="lname">GitHub Repo</div>
+      <div class="ldesc">Source code &amp; commits</div>
+    </a>
+    <a class="link-card" href="https://ntfy.sh/crg-denny-alerts" target="_blank">
+      <div class="icon">🔔</div>
+      <div class="lname">Push Alerts</div>
+      <div class="ldesc">ntfy.sh cart notifications</div>
+    </a>
+  </div>
+
+  <!-- ── NOTIFICATION SETUP ────────────────────────────────── -->
+  <div class="notify-banner">
+    <div class="bell">🔔</div>
+    <div>
+      <h3>Get Cart Notifications on Your Phone</h3>
+      <p>
+        Whenever a buyer adds a card to cart, you'll get a push notification instantly.
+        To set it up on your phone:
+      </p>
+      <p style="margin-top:.5rem">
+        1. Download the free <strong>ntfy</strong> app on
+        <a href="https://apps.apple.com/app/ntfy/id1625396347" target="_blank">iOS</a>
+        or
+        <a href="https://play.google.com/store/apps/details?id=io.heckel.ntfy" target="_blank">Android</a>.
+        &nbsp;2. Subscribe to topic: <code>crg-denny-alerts</code>
+        &nbsp;3. Done — you'll be notified instantly every time something enters the cart.
+      </p>
+      <p style="margin-top:.5rem">
+        Or <a href="https://ntfy.sh/crg-denny-alerts" target="_blank">view alerts in your browser</a> anytime.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── CART ACTIVITY ─────────────────────────────────────── -->
+  <div class="activity-header">
+    <h2 style="margin-bottom:0">Recent Cart Activity</h2>
+    <span class="refresh-info" id="refreshInfo">Refreshes every 30s</span>
+  </div>
+  <div id="activityFeed">
+    <div class="empty-feed"><div class="ico">⏳</div>Loading…</div>
+  </div>
+
+</main>
+
+<footer>CRG Cards &middot; <a href="https://cards-rg.onrender.com" style="color:inherit">cards-rg.onrender.com</a></footer>
+
+<script>
+const feed = document.getElementById('activityFeed');
+const refreshInfo = document.getElementById('refreshInfo');
+
+function timeAgo(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1)  return 'just now';
+  if (mins < 60) return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24)  return `${hrs}h ago`;
+  return `${Math.floor(hrs / 24)}d ago`;
+}
+
+async function loadActivity() {
+  try {
+    const res = await fetch('/api/notify/cart-activity');
+    if (res.status === 403) {
+      feed.innerHTML = `<div class="login-nudge">
+        Log in as admin to see cart activity. &nbsp;
+        <a href="/admin">Go to Admin Panel →</a>
+      </div>`;
+      return;
+    }
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      feed.innerHTML = `<div class="empty-feed">
+        <div class="ico">🛒</div>
+        No cart activity yet — when a buyer adds a card, it'll show up here.
+      </div>`;
+      return;
+    }
+    feed.innerHTML = data.slice(0, 30).map(ev => {
+      const meta = [ev.brand, ev.variation, ev.serial !== '—' ? ev.serial : null, ev.grade !== '—' ? ev.grade : null].filter(Boolean).join(' · ');
+      return `<div class="act-item">
+        <div class="act-icon">🛒</div>
+        <div>
+          <div class="act-name">${ev.subject}</div>
+          <div class="act-meta">${meta}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="act-price">${ev.price}</div>
+          <div class="act-time">${timeAgo(ev.timestamp)}</div>
+        </div>
+      </div>`;
+    }).join('');
+    refreshInfo.textContent = `Last updated ${new Date().toLocaleTimeString()} · Refreshes every 30s`;
+  } catch(e) {
+    feed.innerHTML = `<div class="empty-feed"><div class="ico">⚠️</div>Could not load activity.</div>`;
+  }
+}
+
+loadActivity();
+setInterval(loadActivity, 30000);
+</script>
+</body>
+</html>

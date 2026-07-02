@@ -758,6 +758,20 @@ function toggleCart(cert, idx) {
   } else {
     cart.push({ cert, subject: card.SUBJECT, brand: card['BRAND / SET'], price: card['ASK PRICE'], variation: card.VARIATION });
     showToast('Added to cart! 🛒', 'success');
+    // Notify owner — fire-and-forget, never blocks the cart UX
+    fetch('/api/notify/cart', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cert,
+        subject:   card.SUBJECT,
+        brand:     card['BRAND / SET'],
+        price:     card['ASK PRICE'],
+        variation: card.VARIATION,
+        serial:    card.SERIAL,
+        grade:     card.GRADE
+      })
+    }).catch(() => {});
   }
   saveCart();
   renderCards(allCards);
