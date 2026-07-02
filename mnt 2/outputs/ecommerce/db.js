@@ -186,16 +186,21 @@ const SCHEMA = `
 
 // &#9472;&#9472; SEED ADMIN &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 function seedAdmin() {
-  const existing = prepare('SELECT id FROM admins LIMIT 1').get();
-  if (existing) return;
-  const email    = process.env.ADMIN_EMAIL    || 'admin@yourstore.com';
-  const password = process.env.ADMIN_PASSWORD || 'changeme123';
+  const email    = (process.env.ADMIN_EMAIL    || 'admin@yourstore.com').trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD  || 'changeme123';
   const hash     = bcrypt.hashSync(password, 12);
+
+  const existing = prepare('SELECT id FROM admins LIMIT 1').get();
+  if (existing) {
+    prepare('UPDATE admins SET email = ?, password = ? WHERE id = ?').run(email, hash, existing.id);
+    console.log('&#9989; Admin credentials synced from env');
+    return;
+  }
+
   prepare('INSERT INTO admins (email, password, name) VALUES (?, ?, ?)').run(email, hash, 'Admin');
   console.log(`&#9989; Admin account created: ${email}`);
 }
 
-// &#9472;&#9472; SEED SAMPLE PRODUCTS &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
 function seedSampleData() {
   const SEED_VERSION = '3';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
