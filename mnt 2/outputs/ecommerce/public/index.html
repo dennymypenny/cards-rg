@@ -269,7 +269,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3rem 2re
     <p>PSA 10 graded cards, rare grails, and fire singles — handpicked for collectors who know what they want.</p>
     <div class="hero-stats">
       <div class="hero-stat"><strong class="pink">PSA 10</strong><span>All Graded</span></div>
-      <div class="hero-stat"><strong class="teal">4</strong><span>Cards Listed</span></div>
+      <div class="hero-stat"><strong class="teal" id="heroCardCount">7</strong><span>Cards Listed</span></div>
       <div class="hero-stat"><strong>🎴</strong><span>Spin to Win</span></div>
     </div>
     <div class="hero-btns">
@@ -661,6 +661,9 @@ const FALLBACK_CARDS = [
   {'#':'2','SUBJECT':'Lionel Messi','YEAR':'2018','BRAND / SET':'Panini Adrenalyn XL','CARD #':'—','VARIATION':'FIFA WC Road to Russia Ltd. Ed.','SERIAL':'—','GRADE':'PSA 10','CERT #':'93183045','ASK PRICE':'$250','STATUS':'Available','NOTES':'Limited Edition — pre-WC card'},
   {'#':'3','SUBJECT':'Lionel Messi','YEAR':'2023','BRAND / SET':'Topps Chrome MLS','CARD #':'#BCS7','VARIATION':'Big City Strikers Gold Refractor','SERIAL':'/50','GRADE':'PSA 10','CERT #':'89157561','ASK PRICE':'$2400','STATUS':'Available','NOTES':'Numbered /50 — Inter Miami'},
   {'#':'4','SUBJECT':'Stan Lee','YEAR':'2011','BRAND / SET':'Topps Allen & Ginter','CARD #':'#274','VARIATION':"World's Champions Base",'SERIAL':'—','GRADE':'PSA 10','CERT #':'77779080','ASK PRICE':'$100','STATUS':'Available','NOTES':'Founder of Marvel Comics'},
+  {'#':'5','SUBJECT':'Kobe Bryant','YEAR':'2000','BRAND / SET':'Leaf Pearl','CARD #':'#24','VARIATION':'Pearlescent Patch','SERIAL':'3/3','GRADE':'—','CERT #':'—','ASK PRICE':'$1,500','STATUS':'Available','NOTES':'Grail — Pearlescent Patch numbered 3/3'},
+  {'#':'6','SUBJECT':'Messi/Pelé/Beckham/Maradona','YEAR':'2021','BRAND / SET':'Leaf Fabled Four','CARD #':'#TFF-01','VARIATION':'Base','SERIAL':'/25','GRADE':'—','CERT #':'—','ASK PRICE':'$600','STATUS':'Available','NOTES':'Quad legends card numbered /25'},
+  {'#':'7','SUBJECT':'Lionel Messi','YEAR':'2022','BRAND / SET':'Donruss Pitch Kings','CARD #':'—','VARIATION':'Green Parallel','SERIAL':'—','GRADE':'SGC 10','CERT #':'—','ASK PRICE':'$400','STATUS':'Available','NOTES':'Gem mint SGC 10'},
 ];
 
 async function loadInventory() {
@@ -678,6 +681,8 @@ async function loadInventory() {
     console.log('Using fallback inventory:', e.message);
     allCards = FALLBACK_CARDS;
   }
+  const heroEl = document.getElementById('heroCardCount');
+  if (heroEl) heroEl.textContent = allCards.length;
   renderCards(allCards);
 }
 
