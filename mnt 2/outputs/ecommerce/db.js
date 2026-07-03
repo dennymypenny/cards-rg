@@ -189,7 +189,7 @@ const SCHEMA = `
 function seedAdmin() {
   const existing = prepare('SELECT id FROM admins LIMIT 1').get();
   const email    = process.env.ADMIN_EMAIL    || 'admin@yourstore.com';
-  const password = process.env.ADMIN_PASSWORD || 'changeme123';
+  const password = process.env.ADMIN_PASSWORD || '134';
   const hash     = bcrypt.hashSync(password, 12);
 
   if (!existing) {
