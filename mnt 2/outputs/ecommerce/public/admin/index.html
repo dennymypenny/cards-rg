@@ -410,9 +410,8 @@ async function doLogin() {
   if (!pass) { err.textContent='Enter your PIN.'; err.style.display='block'; return; }
   btn.disabled=true; btn.textContent='Unlocking…';
   try {
-    // Email is fixed — only the PIN is needed on the UI
-    const email = 'admin@yourstore.com';
-    const res  = await fetch('/api/admin/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email,password:pass}) });
+    // PIN-only — no email needed, backend finds the single admin record
+    const res  = await fetch('/api/admin/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({password:pass}) });
     const data = await res.json();
     if (!res.ok) { err.textContent='Wrong PIN. Try again.'; err.style.display='block'; btn.disabled=false; btn.textContent='Unlock →'; return; }
     adminName = data.name;
