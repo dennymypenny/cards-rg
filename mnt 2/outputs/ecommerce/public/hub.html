@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <title>CRG Hub — Denny's Dashboard</title>
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#39d0c0"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="CRG Hub"/>
+<link rel="apple-touch-icon" href="/icon-192.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
 <style>
   :root {
     --bg:    #0d1117;
@@ -218,6 +227,50 @@ async function loadActivity() {
 
 loadActivity();
 setInterval(loadActivity, 30000);
+
+// ── PWA: INSTALL PROMPT ─────────────────────────────────────────────────────
+let deferredPrompt = null;
+const installBanner = document.createElement('div');
+installBanner.id = 'installBanner';
+installBanner.style.cssText = `
+  display:none;position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);
+  background:#161b22;border:1px solid #39d0c0;border-radius:10px;
+  padding:.85rem 1.2rem;display:none;align-items:center;gap:.85rem;
+  box-shadow:0 4px 24px rgba(0,0,0,.5);z-index:999;max-width:340px;width:90%;
+`;
+installBanner.innerHTML = `
+  <span style="font-size:1.4rem">📲</span>
+  <div style="flex:1">
+    <div style="font-size:.85rem;font-weight:700;color:#e6edf3">Add to Home Screen</div>
+    <div style="font-size:.72rem;color:#8b949e">Install CRG Hub as an app on your phone</div>
+  </div>
+  <button id="installBtn" style="background:#39d0c0;color:#000;border:none;border-radius:6px;padding:.4rem .8rem;font-weight:700;font-size:.8rem;cursor:pointer">Install</button>
+  <button id="dismissBtn" style="background:none;border:none;color:#8b949e;cursor:pointer;font-size:1.1rem;padding:.2rem">✕</button>
+`;
+document.body.appendChild(installBanner);
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBanner.style.display = 'flex';
+});
+
+document.getElementById('installBtn')?.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  installBanner.style.display = 'none';
+});
+
+document.getElementById('dismissBtn')?.addEventListener('click', () => {
+  installBanner.style.display = 'none';
+});
+
+// Register service worker for offline support
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
 </script>
 </body>
 </html>

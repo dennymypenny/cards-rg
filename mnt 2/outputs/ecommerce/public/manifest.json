@@ -1,0 +1,42 @@
+{
+  "name": "CRG Cards Hub",
+  "short_name": "CRG Hub",
+  "description": "Denny's CRG Cards command center — cart activity, orders, and quick links",
+  "start_url": "/hub",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#39d0c0",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Cart Activity",
+      "url": "/hub",
+      "description": "See recent cart events"
+    },
+    {
+      "name": "Admin Panel",
+      "url": "/admin",
+      "description": "Manage your store"
+    },
+    {
+      "name": "Live Store",
+      "url": "/",
+      "description": "View the storefront"
+    }
+  ]
+}
