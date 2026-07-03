@@ -127,18 +127,19 @@ select.finp option{background:var(--bg3)}
 .toast.ok{border-color:rgba(22,163,74,.4);background:rgba(22,163,74,.1)}
 .toast.err{border-color:rgba(220,38,38,.4);background:rgba(220,38,38,.1)}
 
-/* ── LOGIN PAGE ── */
-.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:#0d1117}
-.login-card{background:#161b22;border:1px solid rgba(57,208,192,.2);border-radius:20px;padding:2.5rem 2.25rem;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.login-logo{font-family:var(--serif);font-size:2rem;font-weight:800;text-align:center;margin-bottom:.2rem;color:#e6edf3;letter-spacing:.04em}
-.login-logo span{color:#f0c040}
-.login-logo-sub{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#39d0c0;text-align:center;margin-bottom:1.75rem}
-.login-sub{color:#8b949e;font-size:.85rem;text-align:center;margin-bottom:1.5rem}
-.pin-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8b949e;text-align:center;margin-bottom:.6rem;display:block}
-.pin-input{width:100%;background:#1c2330;border:2px solid rgba(57,208,192,.25);border-radius:14px;color:#e6edf3;padding:1.1rem;font-size:2.8rem;font-weight:800;text-align:center;letter-spacing:.6em;font-family:'Courier New',monospace;outline:none;transition:.25s;-webkit-text-security:disc}
-.pin-input:focus{border-color:#39d0c0;box-shadow:0 0 0 4px rgba(57,208,192,.12)}
-.login-btn{width:100%;padding:.9rem;background:#39d0c0;color:#000;border:none;border-radius:50px;font-weight:800;font-size:1rem;cursor:pointer;font-family:var(--sans);transition:.2s;margin-top:1.2rem;letter-spacing:.04em}
-.login-btn:hover{background:#2db8a8;transform:translateY(-1px)}
+/* ── LOGIN PAGE — Miami Vice ── */
+.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:#0d0d0d;position:relative;overflow:hidden}
+.login-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 30% 50%,rgba(240,33,124,.13) 0%,transparent 55%),radial-gradient(ellipse 60% 60% at 70% 50%,rgba(78,201,240,.13) 0%,transparent 55%);pointer-events:none}
+.login-card{background:#161616;border:1px solid rgba(240,33,124,.28);border-radius:20px;padding:2.5rem 2.25rem;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.7),0 0 48px rgba(240,33,124,.1);position:relative;z-index:1}
+.login-logo{font-family:var(--serif);font-size:2rem;font-weight:800;text-align:center;margin-bottom:.2rem;color:#ffffff;letter-spacing:.04em}
+.login-logo span{color:#4EC9F0}
+.login-logo-sub{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#f0217c;text-align:center;margin-bottom:1.75rem}
+.login-sub{color:#6b7280;font-size:.85rem;text-align:center;margin-bottom:1.5rem}
+.pin-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;text-align:center;margin-bottom:.6rem;display:block}
+.pin-input{width:100%;background:#1a1a1a;border:2px solid rgba(240,33,124,.25);border-radius:14px;color:#ffffff;padding:1.1rem;font-size:2.8rem;font-weight:800;text-align:center;letter-spacing:.6em;font-family:'Courier New',monospace;outline:none;transition:.25s;-webkit-text-security:disc}
+.pin-input:focus{border-color:#f0217c;box-shadow:0 0 0 4px rgba(240,33,124,.15)}
+.login-btn{width:100%;padding:.9rem;background:linear-gradient(135deg,#f0217c,#4EC9F0);color:#fff;border:none;border-radius:50px;font-weight:800;font-size:1rem;cursor:pointer;font-family:var(--sans);transition:.2s;margin-top:1.2rem;letter-spacing:.04em;text-shadow:0 1px 4px rgba(0,0,0,.3);box-shadow:0 4px 20px rgba(240,33,124,.3)}
+.login-btn:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 6px 28px rgba(240,33,124,.4)}
 .login-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 .login-err{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);border-radius:8px;padding:.75rem;color:#f87171;font-size:.85rem;margin-top:.85rem;display:none;text-align:center}
 .inp-wrap{margin-bottom:1rem}
@@ -410,7 +411,7 @@ async function doLogin() {
   btn.disabled=true; btn.textContent='Unlocking…';
   try {
     // Email is fixed — only the PIN is needed on the UI
-    const email = 'dennisvaldesjr@gmail.com';
+    const email = 'admin@yourstore.com';
     const res  = await fetch('/api/admin/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email,password:pass}) });
     const data = await res.json();
     if (!res.ok) { err.textContent='Wrong PIN. Try again.'; err.style.display='block'; btn.disabled=false; btn.textContent='Unlock →'; return; }
