@@ -128,15 +128,19 @@ select.finp option{background:var(--bg3)}
 .toast.err{border-color:rgba(220,38,38,.4);background:rgba(220,38,38,.1)}
 
 /* ── LOGIN PAGE ── */
-.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:var(--bg)}
-.login-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2.25rem;max-width:400px;width:100%}
-.login-logo{font-family:var(--serif);font-size:1.5rem;font-weight:800;text-align:center;margin-bottom:.25rem}
-.login-logo span{color:var(--accent)}
-.login-sub{color:var(--muted);font-size:.88rem;text-align:center;margin-bottom:1.75rem}
-.login-btn{width:100%;padding:.85rem;background:var(--accent);color:#fff;border:none;border-radius:50px;font-weight:700;font-size:.95rem;cursor:pointer;font-family:var(--sans);transition:.2s}
-.login-btn:hover{background:var(--accent2)}
-.login-btn:disabled{opacity:.5;cursor:not-allowed}
-.login-err{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);border-radius:8px;padding:.75rem;color:#f87171;font-size:.85rem;margin-top:.85rem;display:none}
+.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;background:#0d1117}
+.login-card{background:#161b22;border:1px solid rgba(57,208,192,.2);border-radius:20px;padding:2.5rem 2.25rem;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.login-logo{font-family:var(--serif);font-size:2rem;font-weight:800;text-align:center;margin-bottom:.2rem;color:#e6edf3;letter-spacing:.04em}
+.login-logo span{color:#f0c040}
+.login-logo-sub{font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#39d0c0;text-align:center;margin-bottom:1.75rem}
+.login-sub{color:#8b949e;font-size:.85rem;text-align:center;margin-bottom:1.5rem}
+.pin-label{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8b949e;text-align:center;margin-bottom:.6rem;display:block}
+.pin-input{width:100%;background:#1c2330;border:2px solid rgba(57,208,192,.25);border-radius:14px;color:#e6edf3;padding:1.1rem;font-size:2.8rem;font-weight:800;text-align:center;letter-spacing:.6em;font-family:'Courier New',monospace;outline:none;transition:.25s;-webkit-text-security:disc}
+.pin-input:focus{border-color:#39d0c0;box-shadow:0 0 0 4px rgba(57,208,192,.12)}
+.login-btn{width:100%;padding:.9rem;background:#39d0c0;color:#000;border:none;border-radius:50px;font-weight:800;font-size:1rem;cursor:pointer;font-family:var(--sans);transition:.2s;margin-top:1.2rem;letter-spacing:.04em}
+.login-btn:hover{background:#2db8a8;transform:translateY(-1px)}
+.login-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.login-err{background:rgba(220,38,38,.1);border:1px solid rgba(220,38,38,.3);border-radius:8px;padding:.75rem;color:#f87171;font-size:.85rem;margin-top:.85rem;display:none;text-align:center}
 .inp-wrap{margin-bottom:1rem}
 .inp-lbl{display:block;font-size:.8rem;font-weight:600;color:var(--muted);margin-bottom:.4rem}
 .inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:9px;color:var(--white);padding:.72rem 1rem;font-size:.93rem;font-family:var(--sans);outline:none;transition:.25s}
@@ -158,11 +162,12 @@ select.finp option{background:var(--bg3)}
 <!-- ── LOGIN PAGE ── -->
 <div id="loginPage" class="login-wrap">
   <div class="login-card">
-    <div class="login-logo">CRG<span> Admin</span></div>
-    <p class="login-sub">Sign in to manage your store</p>
-    <div class="inp-wrap"><label class="inp-lbl">Email</label><input class="inp" type="email" id="loginEmail" placeholder="admin@yourstore.com"/></div>
-    <div class="inp-wrap"><label class="inp-lbl">Password</label><input class="inp" type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/></div>
-    <button class="login-btn" id="loginBtn" onclick="doLogin()">Sign In →</button>
+    <div class="login-logo">CRG<span> Cards</span></div>
+    <div class="login-logo-sub">Admin Access</div>
+    <p class="login-sub">Enter your PIN to continue</p>
+    <label class="pin-label">Access PIN</label>
+    <input class="pin-input" type="password" inputmode="numeric" maxlength="4" id="loginPass" placeholder="····" onkeydown="if(event.key==='Enter')doLogin()" autocomplete="off"/>
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Unlock →</button>
     <div class="login-err" id="loginErr"></div>
   </div>
 </div>
@@ -397,20 +402,21 @@ function showDashboard() {
 
 // ── LOGIN ──
 async function doLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
   const pass  = document.getElementById('loginPass').value;
   const btn   = document.getElementById('loginBtn');
   const err   = document.getElementById('loginErr');
   err.style.display = 'none';
-  if (!email||!pass) { err.textContent='Please fill in all fields.'; err.style.display='block'; return; }
-  btn.disabled=true; btn.textContent='Signing in…';
+  if (!pass) { err.textContent='Enter your PIN.'; err.style.display='block'; return; }
+  btn.disabled=true; btn.textContent='Unlocking…';
   try {
+    // Email is fixed — only the PIN is needed on the UI
+    const email = 'dennisvaldesjr@gmail.com';
     const res  = await fetch('/api/admin/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email,password:pass}) });
     const data = await res.json();
-    if (!res.ok) { err.textContent=data.error||'Login failed'; err.style.display='block'; btn.disabled=false; btn.textContent='Sign In →'; return; }
+    if (!res.ok) { err.textContent='Wrong PIN. Try again.'; err.style.display='block'; btn.disabled=false; btn.textContent='Unlock →'; return; }
     adminName = data.name;
     showDashboard();
-  } catch(e) { err.textContent='Network error'; err.style.display='block'; btn.disabled=false; btn.textContent='Sign In →'; }
+  } catch(e) { err.textContent='Network error — try again.'; err.style.display='block'; btn.disabled=false; btn.textContent='Unlock →'; }
 }
 
 async function logout() {
