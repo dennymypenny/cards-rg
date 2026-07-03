@@ -17,17 +17,17 @@ function requireAdmin(req, res, next) {
 
 // POST /api/admin/login
 router.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
+  const { password } = req.body;
+  if (!password) return res.status(400).json({ error: 'PIN required' });
 
-  const admin = db.prepare('SELECT * FROM admins WHERE email = ?').get(email.trim().toLowerCase());
-  if (!admin || !bcrypt.compareSync(password, admin.password)) {
-    return res.status(401).json({ error: 'Invalid email or password' });
+  const storedPin = process.env.ADMIN_PASSWORD || '1134';
+  if (password !== storedPin) {
+    return res.status(401).json({ error: 'Wrong PIN' });
   }
 
-  req.session.adminId   = admin.id;
-  req.session.adminName = admin.name;
-  res.json({ success: true, name: admin.name });
+  req.session.adminId   = 1;
+  req.session.adminName = 'Admin';
+  res.json({ success: true, name: 'Admin' });
 });
 
 // POST /api/admin/logout
