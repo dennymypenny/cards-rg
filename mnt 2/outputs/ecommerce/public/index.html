@@ -37,8 +37,8 @@ button{cursor:pointer;font-family:var(--sans)}
 
 /* ── NAVBAR ── */
 nav{position:sticky;top:0;z-index:500;background:rgba(13,13,26,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,45,120,.25);height:64px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem}
-.nav-logo{color:var(--white);font-size:1.35rem;font-weight:900;letter-spacing:-.02em;white-space:nowrap}
-.nav-logo span{color:var(--pink)}
+.nav-logo{display:flex;align-items:center;white-space:nowrap}
+.nav-logo img{height:44px;width:auto;object-fit:contain}
 .nav-spacer{flex:1}
 .nav-search{position:relative;max-width:320px;width:100%}
 .nav-search input{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(0,240,255,.2);border-radius:var(--radius);padding:.45rem 1rem .45rem 2.2rem;color:var(--white);font-family:var(--sans);font-size:.85rem;outline:none;transition:.15s}
@@ -81,10 +81,16 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,26,.95);backdrop-fil
 .prod-badge.badge-hot{background:var(--pink);color:#fff;box-shadow:0 0 10px rgba(255,45,120,.4)}
 .prod-badge.badge-numbered{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
 .prod-badge.badge-sgc10{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;box-shadow:0 0 10px rgba(0,240,255,.3)}
-.prod-body{padding:.65rem 0 1rem}
-.prod-name{font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.02em;line-height:1.35;margin-bottom:.35rem;color:var(--white)}
-.prod-price{font-size:.9rem;font-weight:800;color:var(--cyan);text-shadow:0 0 12px rgba(0,240,255,.4)}
-.prod-compare-price{font-size:.8rem;text-decoration:line-through;color:var(--muted);margin-left:.35rem;font-weight:400}
+.prod-body{padding:.65rem 0 .75rem}
+.prod-name{font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.02em;line-height:1.3;margin-bottom:.3rem;color:var(--white)}
+.prod-price{font-size:.88rem;font-weight:800;color:var(--cyan);text-shadow:0 0 12px rgba(0,240,255,.4);margin-bottom:.6rem}
+.prod-compare-price{font-size:.78rem;text-decoration:line-through;color:var(--muted);margin-left:.3rem;font-weight:400}
+.prod-actions{display:grid;grid-template-columns:1fr 1fr;gap:.35rem}
+.btn-card-dm{background:transparent;border:1.5px solid var(--pink);color:var(--pink);font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.45rem .3rem;border-radius:var(--radius);cursor:pointer;transition:.15s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.25rem}
+.btn-card-dm:hover{background:rgba(255,45,120,.12);box-shadow:0 0 10px rgba(255,45,120,.25)}
+.btn-card-cart{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.45rem .3rem;border-radius:var(--radius);cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;gap:.25rem}
+.btn-card-cart:hover{box-shadow:0 0 14px rgba(255,45,120,.4)}
+.btn-card-cart.in-cart{background:transparent;border:1.5px solid var(--cyan);color:var(--cyan)}
 
 /* ── SKELETON ── */
 .skel{background:linear-gradient(90deg,var(--bg2) 0%,var(--bg3) 50%,var(--bg2) 100%);background-size:200% 100%;animation:skel 1.4s infinite;border-radius:4px}
@@ -184,7 +190,7 @@ footer{background:var(--bg2);border-top:1px solid rgba(255,45,120,.15);color:var
 
 <!-- NAVBAR -->
 <nav>
-  <a href="/" class="nav-logo">CRG <span>CARDS</span></a>
+  <a href="/" class="nav-logo"><img src="/images/crg-logo.png" alt="CRG Cards — Rips &amp; Grails"/></a>
   <div class="nav-search">
     <span class="search-ico">🔍</span>
     <input type="text" id="searchInput" placeholder="Search cards…" oninput="debounceSearch()"/>
@@ -292,11 +298,13 @@ footer{background:var(--bg2);border-top:1px solid rgba(255,45,120,.15);color:var
 </footer>
 
 <script>
+// ── STATE ─────────────────────────────────────────────────────────────────
 let allProducts = [], currentCat = 'all', currentSort = 'newest', searchTimer;
 let currentProductId = null;
 let cart = JSON.parse(localStorage.getItem('crg_cart') || '[]');
 let categories = [];
 
+// ── BADGE STYLE ───────────────────────────────────────────────────────────
 function badgeClass(badge) {
   if (!badge) return '';
   const b = badge.toLowerCase();
@@ -308,6 +316,7 @@ function badgeClass(badge) {
   return '';
 }
 
+// ── LOAD CATEGORIES ───────────────────────────────────────────────────────
 async function loadCategories() {
   try {
     const r = await fetch('/api/products/categories');
@@ -316,18 +325,23 @@ async function loadCategories() {
     const row = document.getElementById('catsRow');
     const extra = cats.map(c => `<button class="cat-chip" onclick="filterCat(this,'${c.slug}')">${c.name}</button>`).join('');
     row.innerHTML = `<button class="cat-chip act" onclick="filterCat(this,'all')">All</button>${extra}`;
-  } catch(e) {}
+  } catch(e) { /* ignore */ }
 }
 
+// ── LOAD PRODUCTS ─────────────────────────────────────────────────────────
 async function loadProducts() {
   try {
     const r = await fetch('/api/products?limit=100');
     const { products } = await r.json();
     allProducts = products;
-  } catch(e) { allProducts = []; }
+  } catch(e) {
+    console.warn('Could not load products:', e);
+    allProducts = [];
+  }
   renderProducts();
 }
 
+// ── FILTER & SORT ─────────────────────────────────────────────────────────
 function getFiltered() {
   let p = [...allProducts];
   if (currentCat !== 'all') p = p.filter(x => x.category_slug === currentCat);
@@ -348,17 +362,24 @@ function filterCat(btn, cat) {
   renderProducts();
 }
 
-function handleSort() { currentSort = document.getElementById('sortSelect').value; renderProducts(); }
+function handleSort() {
+  currentSort = document.getElementById('sortSelect').value;
+  renderProducts();
+}
+
 function debounceSearch() { clearTimeout(searchTimer); searchTimer = setTimeout(renderProducts, 300); }
 
+// ── RENDER ────────────────────────────────────────────────────────────────
 function renderProducts() {
   const filtered = getFiltered();
   const grid = document.getElementById('prodGrid');
   document.getElementById('countBadge').textContent = `${filtered.length} product${filtered.length!==1?'s':''}`;
+
   if (!filtered.length) {
     grid.innerHTML = `<div class="empty"><div class="empty-ico">🔍</div><h3>No cards found</h3><p>Try a different filter or check back for new drops.</p></div>`;
     return;
   }
+
   grid.innerHTML = filtered.map(p => {
     const imgSrc = p.image_url || '';
     const badge  = p.badge ? `<div class="prod-badge ${badgeClass(p.badge)}">${p.badge}</div>` : '';
@@ -366,21 +387,30 @@ function renderProducts() {
       ? `<img src="${imgSrc}" alt="${escHtml(p.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=prod-img-placeholder>🎴</div>'"/>`
       : `<div class="prod-img-placeholder">🎴</div>`;
     const compare = p.compare_price_formatted ? `<span class="prod-compare-price">${p.compare_price_formatted}</span>` : '';
-    return `<div class="prod-card" onclick="openCardModal(${p.id})">
-      <div class="prod-img">${badge}${imgHtml}</div>
+    const inCart  = cart.some(x => x.id === p.id);
+    return `
+    <div class="prod-card">
+      <div class="prod-img" onclick="openCardModal(${p.id})">${badge}${imgHtml}</div>
       <div class="prod-body">
-        <div class="prod-name">${escHtml(p.name)}</div>
+        <div class="prod-name" onclick="openCardModal(${p.id})">${escHtml(p.name)}</div>
         <div class="prod-price">${p.price_formatted} USD${compare}</div>
+        <div class="prod-actions">
+          <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn-card-dm">📲 DM</a>
+          <button class="btn-card-cart${inCart?' in-cart':''}" onclick="quickAddCart(event,${p.id})">${inCart?'✓ Added':'+ Cart'}</button>
+        </div>
       </div>
     </div>`;
   }).join('');
 }
 
+// ── PRODUCT MODAL ─────────────────────────────────────────────────────────
 function openCardModal(id) {
   const p = allProducts.find(x => x.id === id);
   if (!p) return;
   currentProductId = id;
   const inCart = cart.some(x => x.id === id);
+  const imgSrc = p.image_url || '';
+
   document.getElementById('modalCat').textContent   = p.category_name || '';
   document.getElementById('modalTitle').textContent  = p.name;
   document.getElementById('modalPrice').textContent  = p.price_formatted + ' USD';
@@ -389,35 +419,45 @@ function openCardModal(id) {
   const avail = p.stock > 0;
   statusEl.textContent = avail ? '✓ In Stock' : '✗ Sold Out';
   statusEl.className = 'modal-status ' + (avail ? 'avail' : 'sold');
+
   const atcBtn = document.getElementById('modalAtcBtn');
   atcBtn.textContent = inCart ? '✓ Added to Cart' : 'Add to Cart';
   atcBtn.className   = 'btn-atc' + (inCart ? ' btn-green' : '');
   atcBtn.disabled    = !avail;
+
   const imgEl = document.getElementById('modalImg');
-  const imgSrc = p.image_url || '';
   if (imgSrc) { imgEl.src = imgSrc; imgEl.style.display = 'block'; }
   else        { imgEl.style.display = 'none'; }
+
   document.getElementById('cardOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function closeCardModal() { document.getElementById('cardOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+function closeCardModal() {
+  document.getElementById('cardOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 
 function addToCartFromModal() {
   const p = allProducts.find(x => x.id === currentProductId);
   if (!p || p.stock < 1) return;
   const existing = cart.findIndex(x => x.id === p.id);
-  if (existing >= 0) { cart.splice(existing, 1); showToast('Removed from cart'); }
-  else {
+  if (existing >= 0) {
+    cart.splice(existing, 1);
+    showToast('Removed from cart');
+  } else {
     cart.push({ id: p.id, name: p.name, price: p.price_formatted, image_url: p.image_url });
     showToast('Added to cart!');
     fetch('/api/notify/cart', { method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ cert: p.slug, subject: p.name, price: p.price_formatted, brand: p.category_name })
     }).catch(()=>{});
   }
-  saveCart(); updateCartCount(); openCardModal(currentProductId);
+  saveCart();
+  updateCartCount();
+  openCardModal(currentProductId);
 }
 
+// ── CART ──────────────────────────────────────────────────────────────────
 function saveCart() { localStorage.setItem('crg_cart', JSON.stringify(cart)); }
 
 function updateCartCount() {
@@ -426,15 +466,24 @@ function updateCartCount() {
   el.style.display = cart.length > 0 ? 'flex' : 'none';
 }
 
-function openCart() { renderCartPanel(); document.getElementById('cartOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
-function closeCart() { document.getElementById('cartOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+function openCart() {
+  renderCartPanel();
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
 
 function renderCartPanel() {
   const items = document.getElementById('cartItems');
   const foot  = document.getElementById('cartFoot');
   if (!cart.length) {
     items.innerHTML = `<div class="cart-empty"><div class="ico">🛒</div><p>Your cart is empty</p></div>`;
-    foot.style.display = 'none'; return;
+    foot.style.display = 'none';
+    return;
   }
   let total = 0;
   items.innerHTML = cart.map(item => {
@@ -443,23 +492,57 @@ function renderCartPanel() {
     const imgTag = item.image_url
       ? `<img class="cart-item-img" src="${item.image_url}" alt="${escHtml(item.name)}" onerror="this.style.display='none'"/>`
       : `<div class="cart-item-img" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem">🎴</div>`;
-    return `<div class="cart-item">${imgTag}<div class="cart-item-info"><div class="cart-item-name">${escHtml(item.name)}</div><div class="cart-item-price">${item.price} USD</div></div><button class="cart-item-rm" onclick="removeFromCart(${item.id})">✕</button></div>`;
+    return `<div class="cart-item">
+      ${imgTag}
+      <div class="cart-item-info">
+        <div class="cart-item-name">${escHtml(item.name)}</div>
+        <div class="cart-item-price">${item.price} USD</div>
+      </div>
+      <button class="cart-item-rm" onclick="removeFromCart(${item.id})">✕</button>
+    </div>`;
   }).join('');
   document.getElementById('cartTotalAmt').textContent = `$${total.toFixed(0)}`;
   foot.style.display = 'block';
 }
 
-function removeFromCart(id) { cart = cart.filter(x => x.id !== id); saveCart(); renderCartPanel(); updateCartCount(); }
+function quickAddCart(e, id) {
+  e.stopPropagation();
+  const p = allProducts.find(x => x.id === id);
+  if (!p) return;
+  const idx = cart.findIndex(x => x.id === id);
+  if (idx >= 0) { cart.splice(idx, 1); showToast('Removed from cart'); }
+  else { cart.push({id:p.id, name:p.name, price:p.price_formatted, image_url:p.image_url}); showToast('Added to cart!'); }
+  saveCart(); updateCartCount(); renderProducts();
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(x => x.id !== id);
+  saveCart();
+  renderCartPanel();
+  updateCartCount();
+}
+
+// ── UTILS ─────────────────────────────────────────────────────────────────
 function escHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2500); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
 function openInstagram() { window.open('https://www.instagram.com/cardsrgshop','_blank'); }
 
+// ── INIT ──────────────────────────────────────────────────────────────────
 async function init() {
   cart = JSON.parse(localStorage.getItem('crg_cart')||'[]');
   updateCartCount();
   await Promise.all([loadCategories(), loadProducts()]);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeCardModal(); closeCart(); } });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeCardModal(); closeCart(); }
+  });
 }
+
 init();
 </script>
 </body>
