@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '6';
+  const SEED_VERSION = '7';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -219,67 +219,68 @@ function seedSampleData() {
   } catch(e) { /* ignore if tables missing */ }
 
   // ── CATEGORIES ──────────────────────────────────────────────────────────────
-  const catNBA    = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('NBA Basketball', 'nba', 'Iconic NBA rookie cards and game-used memorabilia', 1).lastInsertRowid;
-  const catSoccer = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Soccer',         'soccer', 'Grail soccer cards featuring the world\'s greatest players', 2).lastInsertRowid;
+  const catSoccer = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Soccer',         'soccer',       'Grail soccer cards featuring the world\'s greatest players', 1).lastInsertRowid;
+  const catNBA    = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('NBA Basketball', 'nba',          'Iconic NBA cards and game-used memorabilia', 2).lastInsertRowid;
+  const catOther  = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Collectibles',   'collectibles', 'Rare non-sport and pop culture collectible cards', 3).lastInsertRowid;
 
   const ins = 'INSERT INTO products (category_id, name, slug, description, price, compare_price, stock, sku, image_url, badge, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)';
 
-  // ── NBA BASKETBALL ───────────────────────────────────────────────────────────
-  prepare(ins).run(catNBA,
-    'LeBron James 2003-04 Topps Chrome Refractor RC #111',
-    'lebron-james-2003-04-topps-chrome-refractor-rc',
-    'LeBron James 2003-04 Topps Chrome Refractor Rookie Card #111. One of the most iconic rookie cards in basketball history. The Topps Chrome Refractor is LeBron\'s most sought-after base-brand RC and a cornerstone piece of any serious NBA collection. Sharp corners, great centering, clean surface. Ships in a penny sleeve inside a rigid top-loader, bubble-wrapped for protection.',
-    25000, null, 1, 'CRG-LBJ-03-REF', null, 'Hot');
-
-  prepare(ins).run(catNBA,
-    'Kobe Bryant 1996-97 Topps Chrome RC #138',
-    'kobe-bryant-1996-97-topps-chrome-rc',
-    'Kobe Bryant 1996-97 Topps Chrome Rookie Card #138. The original Kobe Chrome rookie — still one of the most recognizable cards in the hobby. Hall of Famer, Los Angeles Lakers legend. A must-have for any Lakers or Kobe collection. Ships double-sleeved in a rigid top-loader, bubble-wrapped and packed securely.',
-    80000, null, 1, 'CRG-KB-96-RC', null, 'Hot');
-
-  prepare(ins).run(catNBA,
-    'Michael Jordan 1997-98 Fleer Showcase Row 0 #15',
-    'michael-jordan-1997-98-fleer-showcase-row-0',
-    'Michael Jordan 1997-98 Fleer Showcase Row 0 #15. Fleer Showcase Row 0 is the short-printed top tier of the iconic Showcase set — notoriously hard to find. A true grail piece for any MJ or 90s NBA collection. 6× NBA Champion, Hall of Famer, Chicago Bulls. Ships double-sleeved in a rigid top-loader, securely bubble-wrapped.',
-    120000, null, 1, 'CRG-MJ-97-ROW0', null, 'Grail');
-
-  prepare(ins).run(catNBA,
-    'Stephen Curry 2009-10 Topps Gold Refractor RC /2009',
-    'stephen-curry-2009-10-topps-gold-refractor-rc',
-    'Stephen Curry 2009-10 Topps Gold Refractor Rookie Card, serial numbered /2009. A numbered Steph Curry rookie — the man who changed basketball forever. The Gold Refractor parallel is one of the most collectible from his debut year. Serial numbered to 2009. Ships double-sleeved in a rigid top-loader, securely packed.',
-    45000, null, 1, 'CRG-SC-09-GOLD', null, 'Numbered');
-
-  prepare(ins).run(catNBA,
-    'Kobe Bryant 2000 Leaf Pearl Pearlescent Patch #24 — 3/3',
-    'kobe-bryant-2000-leaf-pearl-pearlescent-patch-3-3',
-    'Kobe Bryant 2000 Leaf Pearl Pearlescent Patch #24, serial 3/3. ONE OF ONLY THREE IN EXISTENCE. This is one of only three copies of this card ever made — a Kobe Pearlescent Patch numbered 3/3. A once-in-a-collection opportunity. Ultra-premium, ultra-rare. Ships fully insured, signature required. Message for high-value shipping details.',
-    150000, null, 1, 'CRG-KB-00-PATCH-3', null, 'Grail');
-
   // ── SOCCER ──────────────────────────────────────────────────────────────────
   prepare(ins).run(catSoccer,
-    'Messi / Pelé / Beckham / Maradona 2021 Leaf Fabled Four Quad Auto /25',
-    'messi-pele-beckham-maradona-2021-leaf-fabled-four-quad-auto',
-    'Messi / Pelé / Beckham / Maradona — 2021 Leaf Fabled Four #TFF-01, serial /25. Four of the greatest footballers in history on a single quad-autograph card, serial numbered to just 25. Lionel Messi, Pelé, David Beckham, and Diego Maradona — a piece of soccer history. Rare and visually stunning. Ships double-sleeved in a rigid top-loader, securely bubble-wrapped.',
-    60000, null, 1, 'CRG-QUAD-AUTO-25', null, 'Grail');
+    'Lionel Messi 2022 Topps ARG Fileteado AFA Disc #DI4 PSA 10',
+    'messi-2022-topps-arg-fileteado-afa-disc-psa10',
+    'Lionel Messi 2022 Topps ARG Fileteado — AFA Disc #DI4, graded PSA 10 Gem Mint (cert #86725240). An incredibly unique Argentine format — the Fileteado disc card is a one-of-a-kind design exclusive to the Argentine market, featuring Messi in the iconic Albiceleste. PSA 10 GEM MINT: perfect corners, perfect centering, flawless surface. Comes in original PSA slab.',
+    90000, null, 1, 'CRG-MESSI-ARG-DISC-PSA10', '/images/messi_psa10_post.jpg', 'PSA 10');
+
+  prepare(ins).run(catSoccer,
+    'Lionel Messi 2018 Panini Adrenalyn XL FIFA WC Road to Russia Ltd. Ed. PSA 10',
+    'messi-2018-panini-adrenalyn-xl-wc-road-russia-psa10',
+    'Lionel Messi 2018 Panini Adrenalyn XL FIFA World Cup — Road to Russia Limited Edition, graded PSA 10 Gem Mint (cert #93183045). A Limited Edition from the iconic 2018 WC cycle. PSA 10 Gem Mint in the original slab. Pre-WC Messi in pristine condition — a clean, sharp piece for any collection.',
+    25000, null, 1, 'CRG-MESSI-ADRENALYN-PSA10', '/images/messi_adrenalyn_front.jpg', 'PSA 10');
+
+  prepare(ins).run(catSoccer,
+    'Lionel Messi 2023 Topps Chrome MLS Big City Strikers Gold Refractor #BCS7 /50 PSA 10',
+    'messi-2023-topps-chrome-mls-big-city-strikers-gold-refractor-psa10',
+    'Lionel Messi 2023 Topps Chrome MLS — Big City Strikers Gold Refractor #BCS7, serial numbered /50, graded PSA 10 Gem Mint (cert #89157561). Messi in his Inter Miami era on a stunning Gold Refractor, numbered to just 50. PSA 10 perfection. One of the hottest Messi MLS cards in the hobby.',
+    240000, null, 1, 'CRG-MESSI-MLS-GOLD-50-PSA10', '/images/messi_chrome_gold_front.jpg', 'Numbered');
 
   prepare(ins).run(catSoccer,
     'Lionel Messi 2022 Donruss Pitch Kings Green Parallel SGC 10',
-    'lionel-messi-2022-donruss-pitch-kings-green-parallel-sgc-10',
-    'Lionel Messi 2022 Donruss Pitch Kings Green Parallel, graded SGC 10 Gem Mint — the highest possible grade. Clean corners, perfect centering, flawless surface. Comes in the original SGC slab. SGC 10 is the pinnacle of card grading. Ships in original SGC slab, bubble-wrapped and boxed securely.',
-    40000, null, 1, 'CRG-MESSI-SGC10', null, 'SGC 10');
-
-  // ── NEW CARDS ────────────────────────────────────────────────────────────────
-  prepare(ins).run(catSoccer,
-    'Lamine Yamal 2026 Panini Monopoly Prizm FIFA World Cup 26 #41 Gold Prizm',
-    'lamine-yamal-2026-panini-monopoly-prizm-wc26-gold',
-    'Lamine Yamal 2026 Panini Monopoly Prizm FIFA World Cup 26™ #41 — Gold/Rainbow Prizm parallel. The hottest young player on the planet on one of the most eye-catching parallels of the year. Yamal was instrumental in Spain\'s 2024 Euro championship campaign and is widely regarded as the face of the next generation of soccer. The Monopoly Prizm Gold is a stunning holo prizm that catches light from every angle. Ungraded, near-mint condition. Ships double-sleeved in a rigid top-loader, bubble-wrapped for protection.',
-    12500, null, 1, 'CRG-LY-26-MONOPOLY-GOLD', '/images/lamine-yamal-2026-prizm-monopoly.jpg', 'Hot');
+    'messi-2022-donruss-pitch-kings-green-parallel-sgc10',
+    'Lionel Messi 2022 Donruss Pitch Kings — Green Parallel, graded SGC 10 Gem Mint. The highest possible grade. Clean corners, perfect centering, flawless surface. A bold and vibrant design — the Pitch Kings insert is one of the most visually striking in the Donruss Soccer lineup. Comes in original SGC slab.',
+    40000, null, 1, 'CRG-MESSI-PITCH-KINGS-SGC10', '/images/messi_pitch_kings_front_post.jpg', 'SGC 10');
 
   prepare(ins).run(catSoccer,
-    'Lionel Messi 2022-23 Topps Crystal Premium UCL Clear Cut Careers #LM-1 PSA 10',
-    'messi-2022-23-topps-crystal-ucl-clear-cut-careers-psa10',
-    'Lionel Messi 2022-23 Topps Crystal Premium UEFA Champions League — Clear Cut Careers #LM-1, graded PSA 10 Gem Mint (cert #82317682). The highest grade possible. This stunning Crystal Premium card captures three different eras of Messi\'s legendary Barcelona career in a single, visually striking design. PSA 10 Gem Mint: perfect corners, perfect centering, flawless surface — as good as it gets. Comes in the original PSA slab. Messi. PSA 10. Need we say more? Ships in original PSA slab, bubble-wrapped and double-boxed securely.',
+    'Messi / Pelé / Beckham / Maradona 2021 Leaf Fabled Four #TFF-01 /25',
+    'messi-pele-beckham-maradona-2021-leaf-fabled-four-25',
+    'Messi / Pelé / Beckham / Maradona — 2021 Leaf Fabled Four #TFF-01, serial numbered /25. Four of the greatest footballers in history on one card, numbered to just 25. Lionel Messi, Pelé, David Beckham, and Diego Maradona — an absolutely iconic piece of soccer history. Raw but stunning.',
+    60000, null, 1, 'CRG-FABLED-FOUR-25', '/images/fabled_four_front_post.jpg', 'Numbered');
+
+  prepare(ins).run(catSoccer,
+    'Lionel Messi 2022-23 Topps Crystal UCL Clear Cut Careers #LM-1 PSA 10',
+    'messi-2022-topps-crystal-ucl-psa10',
+    'Lionel Messi 2022-23 Topps Crystal Premium UEFA Champions League — Clear Cut Careers #LM-1, graded PSA 10 Gem Mint (cert #82317682). A stunning Crystal Premium card capturing Messi\'s legendary Barcelona career. PSA 10: perfect corners, perfect centering, flawless surface. Comes in original PSA slab.',
     38000, null, 1, 'CRG-MESSI-CRYSTAL-PSA10', '/images/messi-2022-crystal-ucl-psa10.jpg', 'PSA 10');
+
+  prepare(ins).run(catSoccer,
+    'Lamine Yamal 2026 Panini Monopoly Prizm FIFA World Cup 26',
+    'lamine-yamal-2026-panini-monopoly-prizm-wc26',
+    'Lamine Yamal 2026 Panini Monopoly Prizm FIFA World Cup 26™ — the hottest young player on the planet. Yamal was instrumental in Spain\'s 2024 Euro championship and is widely regarded as the face of the next generation of soccer. Eye-catching prizm design, near-mint condition. Ships double-sleeved in a rigid top-loader, bubble-wrapped.',
+    12500, null, 1, 'CRG-LY-26-MONOPOLY', '/images/lamine-yamal-2026-prizm-monopoly.jpg', 'Hot');
+
+  // ── NBA BASKETBALL ───────────────────────────────────────────────────────────
+  prepare(ins).run(catNBA,
+    'Kobe Bryant 2000 Leaf Pearl Pearlescent Patch #24 — 3/3',
+    'kobe-bryant-2000-leaf-pearl-pearlescent-patch-3-3',
+    'Kobe Bryant 2000 Leaf Pearl Pearlescent Patch #24, serial 3/3. ONE OF ONLY THREE IN EXISTENCE. This is one of only three copies of this card ever made. A Kobe Pearlescent Patch numbered 3/3 — a true once-in-a-collection grail. Ultra-premium and ultra-rare. Ships fully insured, signature required.',
+    150000, null, 1, 'CRG-KB-00-PATCH-3', '/images/kobe_leaf_pearl_full.jpg', 'Grail');
+
+  // ── COLLECTIBLES ─────────────────────────────────────────────────────────────
+  prepare(ins).run(catOther,
+    'Stan Lee 2011 Topps Allen & Ginter World\'s Champions #274 PSA 10',
+    'stan-lee-2011-topps-allen-ginter-psa10',
+    'Stan Lee 2011 Topps Allen & Ginter — World\'s Champions #274, graded PSA 10 Gem Mint (cert #77779080). The Founder of Marvel Comics himself, immortalized in the iconic Allen & Ginter format. PSA 10 Gem Mint — a true pop culture grail. Perfect for any Marvel or comic book fan.',
+    10000, null, 1, 'CRG-STAN-LEE-PSA10', '/images/stanlee_allen_ginter_front.jpg', 'PSA 10');
 
   // Default settings
   const setq = 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
