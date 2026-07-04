@@ -150,9 +150,12 @@ nav{position:sticky;top:0;z-index:500;background:rgba(13,13,26,.95);backdrop-fil
 .cart-total span:last-child{color:var(--cyan)}
 .cart-empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
 .cart-empty .ico{font-size:2rem;margin-bottom:.75rem}
-.btn-checkout{width:100%;padding:.85rem 1rem;background:linear-gradient(135deg,var(--pink),var(--purple));color:var(--white);border:none;font-size:.88rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:var(--radius);box-shadow:0 0 24px rgba(255,45,120,.3)}
-.btn-checkout:hover{box-shadow:0 0 36px rgba(255,45,120,.5)}
-.cart-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:.6rem}
+.cart-actions{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.65rem}
+.btn-cart-dm{background:transparent;border:2px solid var(--pink);color:var(--pink);font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.72rem .4rem;border-radius:var(--radius);text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.25rem;transition:.15s;white-space:nowrap}
+.btn-cart-dm:hover{background:rgba(255,45,120,.1);box-shadow:0 0 12px rgba(255,45,120,.3)}
+.btn-cart-checkout{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.72rem .4rem;border-radius:var(--radius);cursor:not-allowed;opacity:.5;white-space:nowrap;transition:.15s}
+.cart-coming{font-size:.68rem;color:var(--cyan);text-align:center;margin-bottom:.5rem;letter-spacing:.04em;opacity:.8}
+.cart-note{font-size:.7rem;color:var(--muted);text-align:center;margin-top:.5rem;line-height:1.4}
 
 /* ── TOAST ── */
 .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg2);border:1px solid var(--pink);color:var(--white);border-radius:var(--radius);padding:.75rem 1.1rem;font-size:.83rem;font-weight:600;z-index:1100;transform:translateY(12px);opacity:0;transition:.2s;max-width:260px;box-shadow:0 0 20px rgba(255,45,120,.3)}
@@ -268,8 +271,12 @@ footer{background:var(--bg2);border-top:1px solid rgba(255,45,120,.15);color:var
     <div class="cart-items" id="cartItems"></div>
     <div class="cart-foot" id="cartFoot" style="display:none">
       <div class="cart-total"><span>Total</span><span id="cartTotalAmt">$0</span></div>
-      <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn-checkout">📲 DM to Complete Purchase</a>
-      <p class="cart-note">Screenshot your cart &amp; DM @cardsrgshop to checkout</p>
+      <div class="cart-actions">
+        <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn-cart-dm">📲 DM to Buy</a>
+        <button class="btn-cart-checkout" disabled title="Stripe checkout coming soon">Checkout →</button>
+      </div>
+      <p class="cart-coming">⚡ Online checkout coming soon</p>
+      <p class="cart-note">Screenshot your cart &amp; DM <strong>@cardsrgshop</strong> on Instagram to complete your order</p>
     </div>
   </div>
 </div>
