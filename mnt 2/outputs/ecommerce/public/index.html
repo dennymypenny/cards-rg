@@ -186,13 +186,18 @@ footer{background:var(--bg2);border-top:1px solid rgba(255,45,120,.15);color:var
   .prod-grid{grid-template-columns:repeat(2,1fr);gap:.75rem}
   .products-wrap{padding:1rem}
   .filter-bar{padding:.75rem 1rem;flex-wrap:wrap}
-  .page-header{padding:1.5rem 1rem .85rem}
+  .page-header{padding:2.5rem 1rem 1rem}
   .modal-box{grid-template-columns:1fr}
   .modal-box .modal-img-side{min-height:260px;padding:1.5rem}
   .cart-panel{width:100%}
   .footer-inner{grid-template-columns:1fr}
 }
-@media(max-width:480px){.prod-grid{grid-template-columns:repeat(2,1fr);gap:.5rem}}
+@media(max-width:480px){
+  .nav-links{display:none}
+  .prod-grid{grid-template-columns:repeat(2,1fr);gap:.5rem}
+  .prod-actions{grid-template-columns:1fr}
+  .btn-card-dm,.btn-card-cart{padding:.5rem .5rem;font-size:.68rem}
+}
 </style>
 </head>
 <body>
