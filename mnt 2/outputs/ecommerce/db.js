@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '8';
+  const SEED_VERSION = '9';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -219,9 +219,10 @@ function seedSampleData() {
   } catch(e) { /* ignore if tables missing */ }
 
   // ── CATEGORIES ──────────────────────────────────────────────────────────────
-  const catSoccer = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Soccer',         'soccer',       'Grail soccer cards featuring the world\'s greatest players', 1).lastInsertRowid;
-  const catNBA    = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('NBA Basketball', 'nba',          'Iconic NBA cards and game-used memorabilia', 2).lastInsertRowid;
-  const catOther  = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Collectibles',   'collectibles', 'Rare non-sport and pop culture collectible cards', 3).lastInsertRowid;
+  const catSoccer  = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Soccer',         'soccer',       'Grail soccer cards featuring the world\'s greatest players', 1).lastInsertRowid;
+  const catNBA     = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('NBA Basketball', 'nba',          'Iconic NBA cards and game-used memorabilia', 2).lastInsertRowid;
+  const catOther   = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Collectibles',   'collectibles', 'Rare non-sport and pop culture collectible cards', 3).lastInsertRowid;
+  const catPokemon = prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)').run('Pokémon',        'pokemon',      'Rare and graded Pokémon cards — holos, slabs, and fire pulls', 4).lastInsertRowid;
 
   const ins = 'INSERT INTO products (category_id, name, slug, description, price, compare_price, stock, sku, image_url, badge, active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)';
 
