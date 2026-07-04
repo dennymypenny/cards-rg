@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '7';
+  const SEED_VERSION = '8';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -248,13 +248,13 @@ function seedSampleData() {
     'Lionel Messi 2022 Donruss Pitch Kings Green Parallel SGC 10',
     'messi-2022-donruss-pitch-kings-green-parallel-sgc10',
     'Lionel Messi 2022 Donruss Pitch Kings — Green Parallel, graded SGC 10 Gem Mint. The highest possible grade. Clean corners, perfect centering, flawless surface. A bold and vibrant design — the Pitch Kings insert is one of the most visually striking in the Donruss Soccer lineup. Comes in original SGC slab.',
-    40000, null, 1, 'CRG-MESSI-PITCH-KINGS-SGC10', '/images/messi_pitch_kings_front_post.jpg', 'SGC 10');
+    40000, null, 1, 'CRG-MESSI-PITCH-KINGS-SGC10', '/images/messi-pitch-kings-2022.jpg', 'SGC 10');
 
   prepare(ins).run(catSoccer,
     'Messi / Pelé / Beckham / Maradona 2021 Leaf Fabled Four #TFF-01 /25',
     'messi-pele-beckham-maradona-2021-leaf-fabled-four-25',
     'Messi / Pelé / Beckham / Maradona — 2021 Leaf Fabled Four #TFF-01, serial numbered /25. Four of the greatest footballers in history on one card, numbered to just 25. Lionel Messi, Pelé, David Beckham, and Diego Maradona — an absolutely iconic piece of soccer history. Raw but stunning.',
-    60000, null, 1, 'CRG-FABLED-FOUR-25', '/images/fabled_four_front_post.jpg', 'Numbered');
+    60000, null, 1, 'CRG-FABLED-FOUR-25', '/images/leaf-fabled-four-tff01.jpg', 'Numbered');
 
   prepare(ins).run(catSoccer,
     'Lionel Messi 2022-23 Topps Crystal UCL Clear Cut Careers #LM-1 PSA 10',
