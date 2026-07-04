@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '5';
+  const SEED_VERSION = '6';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -279,7 +279,7 @@ function seedSampleData() {
     'Lionel Messi 2022-23 Topps Crystal Premium UCL Clear Cut Careers #LM-1 PSA 10',
     'messi-2022-23-topps-crystal-ucl-clear-cut-careers-psa10',
     'Lionel Messi 2022-23 Topps Crystal Premium UEFA Champions League — Clear Cut Careers #LM-1, graded PSA 10 Gem Mint (cert #82317682). The highest grade possible. This stunning Crystal Premium card captures three different eras of Messi\'s legendary Barcelona career in a single, visually striking design. PSA 10 Gem Mint: perfect corners, perfect centering, flawless surface — as good as it gets. Comes in the original PSA slab. Messi. PSA 10. Need we say more? Ships in original PSA slab, bubble-wrapped and double-boxed securely.',
-    35000, null, 1, 'CRG-MESSI-CRYSTAL-PSA10', '/images/messi-2022-crystal-ucl-psa10.jpg', 'PSA 10');
+    38000, null, 1, 'CRG-MESSI-CRYSTAL-PSA10', '/images/messi-2022-crystal-ucl-psa10.jpg', 'PSA 10');
 
   // Default settings
   const setq = 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
