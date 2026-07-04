@@ -36,17 +36,23 @@ img{max-width:100%;display:block}
 button{cursor:pointer;font-family:var(--sans)}
 
 /* ── NAVBAR ── */
-nav{position:sticky;top:0;z-index:500;background:rgba(13,13,26,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,45,120,.25);height:64px;display:flex;align-items:center;padding:0 2rem;gap:1.5rem}
-.nav-logo{display:flex;align-items:center;white-space:nowrap}
+nav{position:sticky;top:0;z-index:500;background:rgba(13,13,26,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,45,120,.25);height:64px;display:flex;align-items:center;padding:0 1.5rem;gap:.5rem}
+.nav-logo{display:flex;align-items:center;white-space:nowrap;flex-shrink:0;margin-right:.75rem}
 .nav-logo img{height:44px;width:auto;object-fit:contain}
-.nav-spacer{flex:1}
-.nav-search{position:relative;max-width:320px;width:100%}
-.nav-search input{width:100%;background:rgba(255,255,255,.07);border:1px solid rgba(0,240,255,.2);border-radius:var(--radius);padding:.45rem 1rem .45rem 2.2rem;color:var(--white);font-family:var(--sans);font-size:.85rem;outline:none;transition:.15s}
-.nav-search input:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,240,255,.15)}
-.nav-search input::placeholder{color:rgba(255,255,255,.35)}
-.nav-search .search-ico{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.35);font-size:.8rem;pointer-events:none}
-.nav-icons{display:flex;align-items:center;gap:1rem}
-.nav-icon-btn{background:none;border:none;color:var(--white);display:flex;align-items:center;gap:.35rem;font-size:.85rem;font-weight:500;padding:.3rem .5rem;position:relative}
+.nav-links{display:flex;align-items:center;gap:.1rem;flex:1;min-width:0}
+.nav-link{background:none;border:none;color:rgba(255,255,255,.5);font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.38rem .75rem;border-radius:var(--radius);cursor:pointer;transition:.15s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem}
+.nav-link:hover{color:var(--white);background:rgba(255,255,255,.07)}
+.nav-link.act{color:var(--pink)}
+.nav-link-ig{opacity:.65}
+.nav-link-ig:hover{opacity:1;color:var(--pink) !important;background:rgba(255,45,120,.08) !important}
+.nav-right{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.nav-search{position:relative;width:185px}
+.nav-search input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(0,240,255,.18);border-radius:var(--radius);padding:.42rem .9rem .42rem 2rem;color:var(--white);font-family:var(--sans);font-size:.8rem;outline:none;transition:.15s}
+.nav-search input:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,240,255,.12);background:rgba(255,255,255,.09)}
+.nav-search input::placeholder{color:rgba(255,255,255,.3)}
+.nav-search .search-ico{position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.3);font-size:.75rem;pointer-events:none}
+.nav-icons{display:flex;align-items:center;gap:.5rem}
+.nav-icon-btn{background:none;border:none;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem;font-size:.82rem;font-weight:500;padding:.3rem .55rem;position:relative;transition:.15s}
 .nav-icon-btn:hover{color:var(--cyan)}
 .cart-count{background:var(--pink);color:#fff;font-size:.58rem;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:absolute;top:-4px;right:-4px;box-shadow:0 0 8px var(--pink)}
 
@@ -194,17 +200,25 @@ footer{background:var(--bg2);border-top:1px solid rgba(255,45,120,.15);color:var
 <!-- NAVBAR -->
 <nav>
   <a href="/" class="nav-logo"><img src="/images/logo.png" alt="CRG Cards — Rips &amp; Grails"/></a>
-  <div class="nav-search">
-    <span class="search-ico">🔍</span>
-    <input type="text" id="searchInput" placeholder="Search cards…" oninput="debounceSearch()"/>
+  <div class="nav-links">
+    <button class="nav-link act" data-cat="all" onclick="navFilter(this,'all')">All Cards</button>
+    <button class="nav-link" data-cat="soccer" onclick="navFilter(this,'soccer')">⚽ Soccer</button>
+    <button class="nav-link" data-cat="nba" onclick="navFilter(this,'nba')">🏀 NBA</button>
+    <button class="nav-link" data-cat="collectibles" onclick="navFilter(this,'collectibles')">✨ Collectibles</button>
+    <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="nav-link nav-link-ig">📸 Instagram</a>
   </div>
-  <div class="nav-spacer"></div>
-  <div class="nav-icons">
-    <button class="nav-icon-btn" onclick="openInstagram()">👤 Account</button>
-    <button class="nav-icon-btn" onclick="openCart()">
-      🛒 Cart
-      <span class="cart-count" id="cartCount" style="display:none">0</span>
-    </button>
+  <div class="nav-right">
+    <div class="nav-search">
+      <span class="search-ico">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search cards…" oninput="debounceSearch()"/>
+    </div>
+    <div class="nav-icons">
+      <button class="nav-icon-btn" onclick="openInstagram()">👤 Account</button>
+      <button class="nav-icon-btn" onclick="openCart()">
+        🛒 Cart
+        <span class="cart-count" id="cartCount" style="display:none">0</span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -359,14 +373,35 @@ function getFiltered() {
   return p;
 }
 
+function syncNavLinks(cat) {
+  document.querySelectorAll('.nav-link[data-cat]').forEach(l=>l.classList.remove('act'));
+  const nl = document.querySelector(`.nav-link[data-cat="${cat}"]`);
+  if (nl) nl.classList.add('act');
+}
+
 function filterCat(btn, cat) {
   currentCat = cat;
   document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('act'));
   btn.classList.add('act');
+  syncNavLinks(cat);
   const titles = {all:'All Cards'};
   categories.forEach(c => titles[c.slug] = c.name);
   document.getElementById('pageTitle').textContent = titles[cat] || 'Cards';
   renderProducts();
+}
+
+function navFilter(navBtn, slug) {
+  document.querySelectorAll('.nav-link[data-cat]').forEach(l=>l.classList.remove('act'));
+  navBtn.classList.add('act');
+  currentCat = slug;
+  document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('act'));
+  const chip = Array.from(document.querySelectorAll('.cat-chip')).find(c=>(c.getAttribute('onclick')||'').includes(`'${slug}'`));
+  if (chip) chip.classList.add('act');
+  const titles = {all:'All Cards'};
+  categories.forEach(c=>titles[c.slug]=c.name);
+  document.getElementById('pageTitle').textContent = titles[slug] || 'All Cards';
+  renderProducts();
+  document.querySelector('.products-wrap')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function handleSort() {
