@@ -95,7 +95,7 @@ nav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid rg
 /* ── LIGHT BAND: CATEGORY TILES ── */
 .light-band{background:var(--light);color:var(--dark-ink)}
 .light-band .section-head h2{background:linear-gradient(90deg,#d40f5c,#0093a3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.cat-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;max-width:1180px;margin:0 auto;padding:0 2rem 3.2rem}
+.cat-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:1.1rem;max-width:1220px;margin:0 auto;padding:0 2rem 3.2rem}
 .cat-tile{background:var(--light2);border-radius:6px;overflow:hidden;cursor:pointer;box-shadow:0 4px 18px rgba(18,18,42,.08);transition:.2s;border:1px solid rgba(18,18,42,.06)}
 .cat-tile:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(255,45,120,.18)}
 .cat-tile-img{aspect-ratio:1/.85;overflow:hidden;background:linear-gradient(135deg,var(--bg2),var(--bg3));display:flex;align-items:center;justify-content:center}
@@ -239,7 +239,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   .hero-tiles{grid-template-columns:repeat(2,1fr)}
   .hero-tile{min-height:320px}
   .trust-inner{grid-template-columns:repeat(3,1fr);row-gap:2rem}
-  .cat-tiles{grid-template-columns:repeat(2,1fr)}
+  .cat-tiles{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:768px){
   nav{height:auto;flex-wrap:wrap;padding:.5rem .75rem .3rem;row-gap:.1rem}
@@ -308,6 +308,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
     <button class="nav-link act" data-cat="all" onclick="navFilter(this,'all')">All Cards</button>
     <button class="nav-link" data-cat="soccer" onclick="navFilter(this,'soccer')">⚽ Soccer</button>
     <button class="nav-link" data-cat="nba" onclick="navFilter(this,'nba')">🏀 NBA</button>
+    <button class="nav-link" data-cat="football" onclick="navFilter(this,'football')">🏈 Football</button>
     <button class="nav-link" data-cat="collectibles" onclick="navFilter(this,'collectibles')">✨ Collectibles</button>
     <button class="nav-link" data-cat="pokemon" onclick="navFilter(this,'pokemon')">🎴 Pokémon</button>
   </div>
@@ -403,6 +404,10 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
     <div class="cat-tile" onclick="goCat('nba')">
       <div class="cat-tile-img"><img src="/images/kobe-leaf-pearl-2000.jpg" alt="NBA cards" onerror="this.outerHTML='<span class=cat-emoji>🏀</span>'"/></div>
       <div class="cat-tile-label">🏀 NBA</div>
+    </div>
+    <div class="cat-tile" onclick="goCat('football')">
+      <div class="cat-tile-img"><img src="/images/marino-2022-panini-one-quad-patch-auto-10-15.jpg" alt="Football cards" onerror="this.outerHTML='<span class=cat-emoji>🏈</span>'"/></div>
+      <div class="cat-tile-label">🏈 Football</div>
     </div>
     <div class="cat-tile" onclick="goCat('pokemon')">
       <div class="cat-tile-img"><img src="/images/pokemon-sv151-ultra-premium.jpg" alt="Pokémon sealed" style="object-position:center 58%" onerror="this.outerHTML='<span class=cat-emoji>🎴</span>'"/></div>
@@ -528,6 +533,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
       <h4>Categories</h4>
       <a href="#featured" onclick="goCat('soccer');return false;">Soccer</a>
       <a href="#featured" onclick="goCat('nba');return false;">NBA</a>
+      <a href="#featured" onclick="goCat('football');return false;">Football</a>
       <a href="#featured" onclick="goCat('pokemon');return false;">Pokémon</a>
       <a href="#featured" onclick="goCat('collectibles');return false;">Collectibles</a>
     </div>
@@ -591,7 +597,7 @@ async function loadProducts() {
 // ── FILTER & SORT ─────────────────────────────────────────────────────────
 function getFiltered() {
   let p = [...allProducts];
-  if (currentCat === 'sports')   p = p.filter(x => ['soccer','nba'].includes(x.category_slug));
+  if (currentCat === 'sports')   p = p.filter(x => ['soccer','nba','football'].includes(x.category_slug));
   else if (currentCat === 'tcg') p = p.filter(x => ['pokemon'].includes(x.category_slug));
   else if (currentCat !== 'all') p = p.filter(x => x.category_slug === currentCat);
   const s = (document.getElementById('searchInput').value||'').toLowerCase().trim();
