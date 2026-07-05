@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '19';
+  const SEED_VERSION = '20';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -313,7 +313,7 @@ prepare(ins).run(catPokemon,
   'Pokémon Mythical Collection — Genesect Box (Sealed)',
     'pokemon-mythical-collection-genesect-box-sealed',
       'Pokémon TCG Mythical Pokémon Collection — Genesect. Factory sealed box from the 2016 20th Anniversary Generations series. Includes the Genesect promo card, 2 Generations booster packs, 1 Pokémon TCG Online code card, and a Genesect collector\'s pin. One of the most sought-after sealed Mythical Collection boxes — Genesect\'s Generations-era promo is a favorite among collectors. Ships double-boxed and fully insured.',
-        5000, null, 1, 'CRG-POKEMON-GENESECT-MYTHICAL-BOX', '/images/pokemon-genesect-mythical-box.jpg', 'Sealed');
+        75000, null, 1, 'CRG-POKEMON-GENESECT-MYTHICAL-BOX', '/images/pokemon-genesect-mythical-box.jpg', 'Sealed');
         
         prepare(ins).run(catPokemon,
           'Pokémon Scarlet & Violet 151 Ultra-Premium Collection (Sealed)',
