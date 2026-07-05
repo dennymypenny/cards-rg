@@ -45,25 +45,26 @@ button{cursor:pointer;font-family:var(--sans)}
 /* ── MIAMI VICE STRIPE ── */
 .vice-stripe{height:3px;background:linear-gradient(90deg,var(--pink) 0%,var(--purple) 45%,var(--cyan) 100%);flex-shrink:0}
 /* ── NAVBAR ── */
-nav{position:sticky;top:0;z-index:500;background:linear-gradient(135deg,rgba(13,13,26,.98) 0%,rgba(22,5,42,.98) 50%,rgba(10,18,35,.98) 100%);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,45,120,.25);height:90px;display:flex;align-items:center;padding:0 1.5rem;gap:.5rem}
-.nav-logo{display:flex;flex-direction:column;align-items:center;white-space:nowrap;flex-shrink:0;margin-right:1.25rem;gap:2px}
-.nav-logo img{height:64px;width:auto;object-fit:contain;filter:drop-shadow(0 0 14px rgba(255,45,120,.45)) drop-shadow(0 0 30px rgba(159,63,224,.2))}
-.nav-slogan{font-size:.56rem;font-weight:800;letter-spacing:.32em;text-transform:uppercase;background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;padding-left:.32em}
+nav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid rgba(18,18,42,.08);height:90px;display:flex;align-items:center;padding:0 1.5rem;gap:.5rem;box-shadow:0 2px 14px rgba(18,18,42,.08)}
+.nav-logo{display:flex;align-items:center;white-space:nowrap;flex-shrink:0;margin-right:1.25rem}
+.nav-logo img{height:72px;width:auto;object-fit:contain;filter:drop-shadow(0 2px 10px rgba(18,18,42,.25))}
 .nav-links{display:flex;align-items:center;gap:.1rem;flex:1;min-width:0}
-.nav-link{background:none;border:none;color:rgba(255,255,255,.5);font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.38rem .75rem;border-radius:var(--radius);cursor:pointer;transition:.15s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem}
-.nav-link:hover{color:var(--white);background:rgba(255,255,255,.07)}
-.nav-link.act{color:var(--pink)}
-.nav-link-ig{opacity:.65}
-.nav-link-ig:hover{opacity:1;color:var(--pink) !important;background:rgba(255,45,120,.08) !important}
+.nav-link{background:none;border:none;color:rgba(18,18,42,.6);font-family:var(--sans);font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.38rem .75rem;border-radius:var(--radius);cursor:pointer;transition:.15s;white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:.3rem}
+.nav-link:hover{color:var(--dark-ink);background:rgba(255,45,120,.07)}
+.nav-link.act{color:#d40f5c}
+.nav-link-ig{opacity:.75}
+.nav-link-ig:hover{opacity:1;color:#d40f5c !important;background:rgba(255,45,120,.07) !important}
 .nav-right{display:flex;align-items:center;gap:.6rem;flex-shrink:0;margin-left:auto}
-.nav-search{position:relative;width:185px;flex-shrink:0}
-.nav-search input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(0,240,255,.18);border-radius:var(--radius);padding:.42rem .9rem .42rem 2rem;color:var(--white);font-family:var(--sans);font-size:.8rem;outline:none;transition:.15s}
-.nav-search input:focus{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(0,240,255,.12);background:rgba(255,255,255,.09)}
-.nav-search input::placeholder{color:rgba(255,255,255,.3)}
-.nav-search .search-ico{position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.3);font-size:.75rem;pointer-events:none}
+.nav-search{position:relative;flex-shrink:0}
+.nav-search input{display:none;position:absolute;right:0;top:calc(100% + 10px);width:240px;background:#fff;border:1.5px solid #d40f5c;border-radius:30px;padding:.5rem 1rem;color:var(--dark-ink);font-family:var(--sans);font-size:.85rem;outline:none;box-shadow:0 10px 28px rgba(18,18,42,.2);z-index:600}
+.nav-search.open input{display:block}
+.nav-search input::placeholder{color:rgba(18,18,42,.35)}
 .nav-icons{display:flex;align-items:center;gap:.5rem}
-.nav-icon-btn{background:none;border:none;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:.3rem;font-size:.82rem;font-weight:500;padding:.3rem .55rem;position:relative;transition:.15s}
-.nav-icon-btn:hover{color:var(--cyan)}
+.nav-icon-btn{background:none;border:none;color:rgba(18,18,42,.7);display:flex;align-items:center;gap:.3rem;font-size:.82rem;font-weight:600;padding:.3rem .55rem;position:relative;transition:.15s;cursor:pointer}
+.nav-icon-btn:hover{color:#d40f5c}
+/* ── SLOGAN BAND ── */
+.slogan-band{background:linear-gradient(90deg,#1a0530 0%,#2a0845 45%,#0a1a30 100%);text-align:center;padding:.85rem 1rem;border-bottom:1px solid rgba(255,45,120,.2)}
+.slogan-band span{font-size:.92rem;font-weight:900;letter-spacing:.45em;text-transform:uppercase;background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;padding-left:.45em}
 .cart-count{background:var(--pink);color:#fff;font-size:.58rem;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:absolute;top:-4px;right:-4px;box-shadow:0 0 8px var(--pink)}
 
 /* ── HERO TILES (AA Mint style) ── */
@@ -242,11 +243,12 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
 }
 @media(max-width:768px){
   nav{height:auto;flex-wrap:wrap;padding:.5rem 1rem .35rem;row-gap:.15rem}
-  .nav-logo img{height:46px}
-  .nav-slogan{font-size:.48rem}
+  .nav-logo img{height:48px}
   .nav-links{order:3;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;padding-bottom:.35rem;scrollbar-width:none}
   .nav-links::-webkit-scrollbar{display:none}
-  .nav-search{display:none}
+  .nav-search input{position:fixed;left:1rem;right:1rem;width:auto;top:auto}
+  .slogan-band{padding:.6rem 1rem}
+  .slogan-band span{font-size:.68rem;letter-spacing:.32em;padding-left:.32em}
   .tile-emoji{font-size:4rem}
   .hero-tile.tile-wide{min-height:300px}
   .tile-wide .tile-title{font-size:1.6rem}
@@ -297,10 +299,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
 
 <!-- NAVBAR -->
 <nav>
-  <a href="/" class="nav-logo">
-    <img src="/images/logo.png" alt="CardsRG — Cards, Rips, and Grails"/>
-    <span class="nav-slogan">Rip • Pull • Collect</span>
-  </a>
+  <a href="/" class="nav-logo"><img src="/images/logo.png" alt="CardsRG — Cards, Rips, and Grails"/></a>
   <div class="nav-links">
     <button class="nav-link act" data-cat="all" onclick="navFilter(this,'all')">All Cards</button>
     <button class="nav-link" data-cat="soccer" onclick="navFilter(this,'soccer')">⚽ Soccer</button>
@@ -309,8 +308,8 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
     <button class="nav-link" data-cat="pokemon" onclick="navFilter(this,'pokemon')">🎴 Pokémon</button>
   </div>
   <div class="nav-right">
-    <div class="nav-search">
-      <span class="search-ico">🔍</span>
+    <div class="nav-search" id="navSearch">
+      <button class="nav-icon-btn" onclick="toggleSearch()" aria-label="Search">🔍</button>
       <input type="text" id="searchInput" placeholder="Search cards…" oninput="debounceSearch()"/>
     </div>
     <div class="nav-icons">
@@ -323,6 +322,9 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   </div>
 </nav>
 <div class="vice-stripe"></div>
+
+<!-- SLOGAN BAND -->
+<div class="slogan-band"><span>Rip • Pull • Collect</span></div>
 
 <!-- HERO: SPORTS / TCG SPLIT -->
 <section class="hero-tiles">
@@ -645,6 +647,12 @@ function handleSort() {
 }
 
 function debounceSearch() { clearTimeout(searchTimer); searchTimer = setTimeout(renderProducts, 300); }
+
+function toggleSearch() {
+  const s = document.getElementById('navSearch');
+  s.classList.toggle('open');
+  if (s.classList.contains('open')) document.getElementById('searchInput').focus();
+}
 
 // ── RENDER ────────────────────────────────────────────────────────────────
 function renderProducts() {
