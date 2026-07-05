@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '11';
+  const SEED_VERSION = '12';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -274,6 +274,12 @@ function seedSampleData() {
     'messi-2019-chronicles-pitch-kings-psa10',
     'Lionel Messi 2019 Panini Chronicles Pitch Kings #PK1, graded PSA 10 Gem Mint (cert #61933251). One of the most stunning Messi cards ever produced — a watercolor-art masterpiece from the Chronicles Pitch Kings set. PSA 10: perfect corners, flawless surface, perfect centering. The GOAT in a slab. Ships in original PSA holder, fully insured.',
     20000, null, 1, 'CRG-MESSI-19-PK1-PSA10', '/images/messi-2019-chronicles-pitch-kings-psa10.jpg', 'PSA 10');
+
+  prepare(ins).run(catSoccer,
+    'Lionel Messi 2022-23 Donruss Pitch Kings Green #1 SGC 10',
+    'messi-2022-donruss-pitch-kings-green-sgc10',
+    'Lionel Messi 2022-23 Panini Donruss Soccer Pitch Kings Green #1, graded SGC 10 GEM (cert #8030909). Messi in the Argentina white — the year he lifted the World Cup. The Green parallel pops hard in hand with a stunning card back design. SGC 10: flawless across all four corners. Sealed and certified forever. Ships in original SGC slab.',
+    12500, null, 1, 'CRG-MESSI-22-DPK-GREEN-SGC10', '/images/messi-2022-donruss-pitch-kings-green-sgc10.jpg', 'SGC 10');
 
   // ── NBA BASKETBALL ───────────────────────────────────────────────────────────
   prepare(ins).run(catNBA,
