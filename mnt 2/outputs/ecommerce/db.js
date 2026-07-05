@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '15';
+  const SEED_VERSION = '16';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -307,7 +307,20 @@ function seedSampleData() {
     'Dan Marino 1996 Upper Deck Memorabilia NFL All-Time Records — 50,000 Yards Passing. Limited Edition 2420/5000. A commemorative oversized card celebrating the moment Marino became the first QB in history to throw for 50,000 yards — a record that stood for over a decade. Nearly 30 years old, well preserved in its original case. A must for any Marino or Dolphins collector.',
     8000, null, 1, 'CRG-MARINO-96-UD-50K', '/images/marino-1996-ud-alltime-records-2420-5000.jpg', 'Vintage');
 
-  // Default settings
+// ── POKÉMON ──────────────────────────────────────────────────────────────────
+prepare(ins).run(catPokemon,
+  'Pokémon Mythical Collection — Genesect Box (Sealed)',
+    'pokemon-mythical-collection-genesect-box-sealed',
+      'Pokémon TCG Mythical Pokémon Collection — Genesect. Factory sealed box from the 2016 20th Anniversary Generations series. Includes the Genesect promo card, 2 Generations booster packs, 1 Pokémon TCG Online code card, and a Genesect collector\'s pin. One of the most sought-after sealed Mythical Collection boxes — Genesect\'s Generations-era promo is a favorite among collectors. Ships double-boxed and fully insured.',
+        54000, null, 1, 'CRG-POKEMON-GENESECT-MYTHICAL-BOX', '/images/pokemon-genesect-mythical-box.jpg', 'Sealed');
+        
+        prepare(ins).run(catPokemon,
+          'Pokémon Scarlet & Violet 151 Ultra-Premium Collection (Sealed)',
+            'pokemon-sv151-ultra-premium-collection-sealed',
+              'Pokémon TCG Scarlet & Violet — 151 Ultra-Premium Collection. Factory sealed. The ultimate Mew-themed set celebrating the original 151 Pokémon. Includes 16 booster packs, a special foil promo card, an oversized foil Mew card, Mew VMAX & Mew V alternate art promos, premium card sleeves, a collector\'s portfolio, a coin, and an acrylic display stand. One of the most premium sealed products ever produced for the TCG. Ships double-boxed, fully insured.',
+                98000, null, 1, 'CRG-POKEMON-SV151-UPC', '/images/pokemon-sv151-ultra-premium.jpg', 'Sealed');
+                
+                  // Default settings
   const setq = 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
   prepare(setq).run('store_name',               process.env.STORE_NAME     || 'CRG Cards');
   prepare(setq).run('store_currency',           process.env.STORE_CURRENCY || 'USD');
