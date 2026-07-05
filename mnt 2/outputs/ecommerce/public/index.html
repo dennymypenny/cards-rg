@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>CRG Cards — Rips &amp; Grails</title>
-<meta name="description" content="PSA graded cards, rare grails, and fire singles — handpicked for serious collectors."/>
-<meta property="og:title" content="CRG Cards — Rips &amp; Grails"/>
+<title>CardsRG — Cards, Rips, and Grails</title>
+<meta name="description" content="CardsRG — Cards, Rips, and Grails. PSA graded cards, rare grails, sealed wax, and fire singles — handpicked for serious collectors."/>
+<meta property="og:title" content="CardsRG — Cards, Rips, and Grails"/>
 <meta property="og:description" content="PSA graded cards, rare grails, and fire singles — handpicked for serious collectors."/>
 <meta property="og:image" content="https://cardsrg.com/images/preview.png"/>
 <meta property="og:url" content="https://cardsrg.com"/>
@@ -24,6 +24,9 @@
   --white:#fff;
   --muted:#9ca3af;
   --border:rgba(255,255,255,.1);
+  --light:#f4f5fa;
+  --light2:#ffffff;
+  --dark-ink:#12122a;
   --red:#FF2D78;
   --green:#00F0FF;
   --sans:'Inter','Segoe UI',sans-serif;
@@ -62,12 +65,51 @@ nav{position:sticky;top:0;z-index:500;background:linear-gradient(135deg,rgba(13,
 .nav-icon-btn:hover{color:var(--cyan)}
 .cart-count{background:var(--pink);color:#fff;font-size:.58rem;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:absolute;top:-4px;right:-4px;box-shadow:0 0 8px var(--pink)}
 
-/* ── PAGE HEADER ── */
-.page-header{padding:2rem 2rem 1rem;border-bottom:1px solid var(--border)}
-.page-header h1{font-size:1.6rem;font-weight:700;margin-bottom:1rem;background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+/* ── HERO TILES (AA Mint style) ── */
+.hero-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:var(--bg);padding:5px}
+.hero-tile{position:relative;min-height:400px;display:flex;align-items:flex-end;overflow:hidden;cursor:pointer;background:var(--bg3)}
+.hero-tile img.tile-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform .5s ease}
+.hero-tile:hover img.tile-bg{transform:scale(1.06)}
+.hero-tile::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,26,.05) 30%,rgba(13,13,26,.9) 85%)}
+.hero-tile .tile-content{position:relative;z-index:2;padding:1.6rem 1.4rem;width:100%}
+.tile-kicker{font-size:.62rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);margin-bottom:.4rem;text-shadow:0 0 12px rgba(0,240,255,.5)}
+.tile-title{font-size:1.45rem;font-weight:900;line-height:1.05;text-transform:uppercase;letter-spacing:.01em;margin-bottom:.35rem;color:var(--white)}
+.tile-sub{font-size:.74rem;color:rgba(255,255,255,.75);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.9rem}
+.tile-btn{display:inline-block;border:2px solid var(--white);color:var(--white);background:transparent;font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:.55rem 1.3rem;transition:.15s}
+.hero-tile:hover .tile-btn{background:var(--pink);border-color:var(--pink);box-shadow:0 0 18px rgba(255,45,120,.5)}
+/* wide split tiles (Shop Sports / Shop TCG) */
+.hero-tile.tile-wide{grid-column:span 2;min-height:440px}
+.tile-wide .tile-title{font-size:2.3rem}
+.tile-wide .tile-btn{font-size:.78rem;padding:.7rem 1.7rem}
+.tile-wide .tile-btn.btn-cyan{border-color:var(--cyan);color:var(--cyan)}
+.hero-tile:hover .tile-btn.btn-cyan{background:var(--cyan);border-color:var(--cyan);color:#000;box-shadow:0 0 18px rgba(0,240,255,.5)}
+
+/* ── SECTION HEADS (AA Mint style) ── */
+.section-head{text-align:center;padding:3.2rem 1rem 1.6rem}
+.section-head h1,.section-head h2{font-size:1.9rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em;background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;margin:0}
+.section-head .rule{width:64px;height:3px;margin:.8rem auto 0;background:linear-gradient(90deg,var(--pink),var(--cyan));border-radius:2px}
+
+/* ── LIGHT BAND: CATEGORY TILES ── */
+.light-band{background:var(--light);color:var(--dark-ink)}
+.light-band .section-head h2{background:linear-gradient(90deg,#d40f5c,#0093a3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cat-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;max-width:1180px;margin:0 auto;padding:0 2rem 3.2rem}
+.cat-tile{background:var(--light2);border-radius:6px;overflow:hidden;cursor:pointer;box-shadow:0 4px 18px rgba(18,18,42,.08);transition:.2s;border:1px solid rgba(18,18,42,.06)}
+.cat-tile:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(255,45,120,.18)}
+.cat-tile-img{aspect-ratio:1/.85;overflow:hidden;background:linear-gradient(135deg,var(--bg2),var(--bg3));display:flex;align-items:center;justify-content:center}
+.cat-tile-img img{width:100%;height:100%;object-fit:cover;object-position:center 15%}
+.cat-tile-img .cat-emoji{font-size:4rem;filter:drop-shadow(0 0 14px rgba(0,240,255,.6))}
+.cat-tile-label{padding:.9rem;text-align:center;font-size:.8rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--dark-ink)}
+.cat-tile:hover .cat-tile-label{color:#d40f5c}
+
+/* ── LIGHT BAND: TRUST STRIP ── */
+.trust-band{background:var(--light);padding:2.6rem 2rem}
+.trust-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem;text-align:center}
+.trust-item .t-ico{font-size:1.9rem;margin-bottom:.55rem}
+.trust-item h3{font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--dark-ink);line-height:1.5}
+.trust-item h3 span{display:block;color:#d40f5c}
 
 /* ── FILTER BAR ── */
-.filter-bar{display:flex;align-items:center;justify-content:space-between;padding:.85rem 2rem;border-bottom:1px solid var(--border);gap:1rem;background:var(--bg)}
+.filter-bar{display:flex;align-items:center;justify-content:center;padding:.4rem 2rem 1.4rem;gap:1.25rem;background:var(--bg);flex-wrap:wrap}
 .filter-left{display:flex;align-items:center;gap:.5rem}
 .filter-label{font-size:.85rem;color:var(--muted)}
 .cats-row{display:flex;gap:.4rem;flex-wrap:wrap}
@@ -80,7 +122,7 @@ nav{position:sticky;top:0;z-index:500;background:linear-gradient(135deg,rgba(13,
 .count-badge{font-size:.82rem;color:var(--muted)}
 
 /* ── PRODUCT GRID ── */
-.products-wrap{padding:2rem;background:var(--bg)}
+.products-wrap{padding:0 2rem 3.2rem;background:var(--bg);max-width:1280px;margin:0 auto}
 .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
 .prod-card{cursor:pointer;position:relative}
 .prod-card:hover .prod-img img{transform:scale(1.04)}
@@ -173,36 +215,54 @@ nav{position:sticky;top:0;z-index:500;background:linear-gradient(135deg,rgba(13,
 .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg2);border:1px solid var(--pink);color:var(--white);border-radius:var(--radius);padding:.75rem 1.1rem;font-size:.83rem;font-weight:600;z-index:1100;transform:translateY(12px);opacity:0;transition:.2s;max-width:260px;box-shadow:0 0 20px rgba(255,45,120,.3)}
 .toast.show{transform:translateY(0);opacity:1}
 
-/* ── FOOTER ── */
-footer{background:var(--bg2);border-top:1px solid rgba(255,45,120,.15);color:var(--white);padding:3rem 2rem}
-.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2rem}
-.footer-brand{font-size:1.2rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.85rem}
+/* ── FOOTER (AA Mint 4-col) ── */
+footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var(--white);padding:3.2rem 2rem 2rem}
+.footer-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.25rem}
+.footer-brand{font-size:1.25rem;font-weight:900;letter-spacing:-.02em;margin-bottom:.6rem}
 .footer-brand span{color:var(--pink)}
-.footer-tagline{font-size:.83rem;color:var(--muted);line-height:1.65;max-width:240px}
-.footer-col h4{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:.85rem}
-.footer-col a{display:block;font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:.5rem;transition:.15s}
+.footer-tagline{font-size:.83rem;color:var(--muted);line-height:1.65;max-width:260px;margin-bottom:1rem}
+.footer-contact{font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.9}
+.footer-contact strong{color:var(--cyan);font-weight:700}
+.footer-col h4{font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.95rem;padding-bottom:.55rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-col a{display:block;font-size:.85rem;color:rgba(255,255,255,.55);margin-bottom:.55rem;transition:.15s}
 .footer-col a:hover{color:var(--cyan)}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.25rem;font-size:.78rem;color:rgba(255,255,255,.25)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:1.25rem;font-size:.78rem;color:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;max-width:1280px;margin:0 auto}
+.footer-pay{display:flex;gap:.45rem;font-size:.72rem;color:rgba(255,255,255,.35);font-weight:700;letter-spacing:.06em}
 
 /* ── RESPONSIVE ── */
-@media(max-width:1100px){.prod-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:1100px){
+  .prod-grid{grid-template-columns:repeat(3,1fr)}
+  .hero-tiles{grid-template-columns:repeat(2,1fr)}
+  .hero-tile{min-height:320px}
+  .trust-inner{grid-template-columns:repeat(3,1fr);row-gap:2rem}
+  .cat-tiles{grid-template-columns:repeat(2,1fr)}
+}
 @media(max-width:768px){
   nav{padding:0 1rem}
   .nav-links{display:none}
   .nav-search{display:none}
   .prod-grid{grid-template-columns:repeat(2,1fr);gap:.75rem}
-  .products-wrap{padding:1rem}
-  .filter-bar{padding:.75rem 1rem;flex-wrap:wrap}
-  .page-header{padding:2.5rem 1rem 1rem}
+  .products-wrap{padding:0 1rem 2.4rem}
+  .filter-bar{padding:.4rem 1rem 1rem}
+  .hero-tile{min-height:250px}
+  .tile-title{font-size:1.1rem}
+  .section-head{padding:2.4rem 1rem 1.2rem}
+  .section-head h1,.section-head h2{font-size:1.4rem}
+  .trust-inner{grid-template-columns:repeat(2,1fr)}
+  .cat-tiles{padding:0 1rem 2.4rem;gap:.75rem}
   .modal-box{grid-template-columns:1fr}
   .modal-box .modal-img-side{min-height:260px;padding:1.5rem}
   .cart-panel{width:100%}
-  .footer-inner{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr;gap:2rem}
 }
 @media(max-width:480px){
+  .hero-tiles{grid-template-columns:1fr 1fr;gap:4px;padding:4px}
+  .hero-tile{min-height:210px}
+  .tile-btn{padding:.4rem .8rem;font-size:.6rem}
   .prod-grid{grid-template-columns:repeat(2,1fr);gap:.5rem}
   .prod-actions{grid-template-columns:1fr}
   .btn-card-dm,.btn-card-cart{padding:.5rem .5rem;font-size:.68rem}
+  .trust-inner{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -248,9 +308,95 @@ footer{background:var(--bg2);border-top:1px solid rgba(255,45,120,.15);color:var
 </nav>
 <div class="vice-stripe"></div>
 
-<!-- PAGE HEADER -->
-<div class="page-header">
+<!-- HERO: SPORTS / TCG SPLIT -->
+<section class="hero-tiles">
+  <div class="hero-tile tile-wide" onclick="goCat('sports')">
+    <img class="tile-bg" src="/images/messi_psa10_post.jpg" alt="" onerror="this.remove()"/>
+    <div class="tile-content">
+      <div class="tile-kicker">Graded Slabs &amp; Fire Singles</div>
+      <div class="tile-title">Shop Sports</div>
+      <div class="tile-sub">Soccer — NBA — Legends</div>
+      <span class="tile-btn">Shop Sports</span>
+    </div>
+  </div>
+  <div class="hero-tile tile-wide" onclick="goCat('tcg')" style="background:linear-gradient(135deg,#2a0845 0%,#1a0530 45%,#0a1a30 100%)">
+    <img class="tile-bg" src="/images/pokemon-sv151-ultra-premium.jpg" alt="" onerror="this.remove()" onload="this.nextElementSibling.style.display='none'"/>
+    <span style="position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);font-size:6rem;filter:drop-shadow(0 0 24px rgba(0,240,255,.6));z-index:1">🎴</span>
+    <div class="tile-content">
+      <div class="tile-kicker">Sealed Wax &amp; Slabs</div>
+      <div class="tile-title">Shop TCG</div>
+      <div class="tile-sub">Pokémon — Sealed Boxes</div>
+      <span class="tile-btn btn-cyan">Shop TCG</span>
+    </div>
+  </div>
+  <div class="hero-tile" onclick="goCat('all')">
+    <img class="tile-bg" src="/images/messi_chrome_gold_front.jpg" alt="" onerror="this.remove()"/>
+    <div class="tile-content">
+      <div class="tile-kicker">CardsRG</div>
+      <div class="tile-title">Cards, Rips<br/>&amp; Grails</div>
+      <div class="tile-sub">Buy — Sell — Trade</div>
+      <span class="tile-btn">Shop All</span>
+    </div>
+  </div>
+  <div class="hero-tile" onclick="goCat('collectibles')">
+    <img class="tile-bg" src="/images/kobe_leaf_pearl_full.jpg" alt="" onerror="this.remove()"/>
+    <div class="tile-content">
+      <div class="tile-kicker">Slabs &amp; Gems</div>
+      <div class="tile-title">PSA 10<br/>Grails</div>
+      <div class="tile-sub">Graded &amp; Authenticated</div>
+      <span class="tile-btn">Explore</span>
+    </div>
+  </div>
+  <div class="hero-tile" onclick="openInstagram()">
+    <img class="tile-bg" src="/images/messi-2022-crystal-ucl-psa10.jpg" alt="" onerror="this.remove()"/>
+    <div class="tile-content">
+      <div class="tile-kicker">Offers &amp; Trades</div>
+      <div class="tile-title">DM to<br/>Deal</div>
+      <div class="tile-sub">Slide in — we're listening</div>
+      <span class="tile-btn">Message Us</span>
+    </div>
+  </div>
+  <div class="hero-tile" onclick="openInstagram()">
+    <img class="tile-bg" src="/images/lamine-yamal-2026-prizm-monopoly.jpg" alt="" onerror="this.remove()"/>
+    <div class="tile-content">
+      <div class="tile-kicker">Get Social</div>
+      <div class="tile-title">Follow<br/>The Rips</div>
+      <div class="tile-sub">@cardsrgshop</div>
+      <span class="tile-btn">Follow Us</span>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHT BAND: SHOP BY CATEGORY -->
+<section class="light-band">
+  <div class="section-head">
+    <h2>Shop By Category</h2>
+    <div class="rule"></div>
+  </div>
+  <div class="cat-tiles">
+    <div class="cat-tile" onclick="goCat('soccer')">
+      <div class="cat-tile-img"><img src="/images/messi_chrome_gold_front.jpg" alt="Soccer cards" onerror="this.outerHTML='<span class=cat-emoji>⚽</span>'"/></div>
+      <div class="cat-tile-label">⚽ Soccer</div>
+    </div>
+    <div class="cat-tile" onclick="goCat('nba')">
+      <div class="cat-tile-img"><img src="/images/kobe-leaf-pearl-2000.jpg" alt="NBA cards" onerror="this.outerHTML='<span class=cat-emoji>🏀</span>'"/></div>
+      <div class="cat-tile-label">🏀 NBA</div>
+    </div>
+    <div class="cat-tile" onclick="goCat('pokemon')">
+      <div class="cat-tile-img"><img src="/images/pokemon-sv151-ultra-premium.jpg" alt="Pokémon sealed" onerror="this.outerHTML='<span class=cat-emoji>🎴</span>'"/></div>
+      <div class="cat-tile-label">🎴 Pokémon</div>
+    </div>
+    <div class="cat-tile" onclick="goCat('collectibles')">
+      <div class="cat-tile-img"><img src="/images/stanlee_allen_ginter_front.jpg" alt="Collectibles" onerror="this.outerHTML='<span class=cat-emoji>✨</span>'"/></div>
+      <div class="cat-tile-label">✨ Collectibles</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION HEAD -->
+<div class="section-head" id="featured">
   <h1 id="pageTitle">All Cards</h1>
+  <div class="rule"></div>
 </div>
 
 <!-- FILTER BAR -->
@@ -323,25 +469,53 @@ footer{background:var(--bg2);border-top:1px solid rgba(255,45,120,.15);color:var
 
 <div class="toast" id="toast"></div>
 
+<!-- LIGHT BAND: TRUST STRIP -->
+<section class="trust-band">
+  <div class="trust-inner">
+    <div class="trust-item"><div class="t-ico">💎</div><h3>Guaranteed <span>Authenticity</span></h3></div>
+    <div class="trust-item"><div class="t-ico">🏆</div><h3>PSA &amp; SGC <span>Graded Slabs</span></h3></div>
+    <div class="trust-item"><div class="t-ico">🚚</div><h3>Fast &amp; Secure <span>Shipping</span></h3></div>
+    <div class="trust-item"><div class="t-ico">🤝</div><h3>Open to <span>Offers &amp; Trades</span></h3></div>
+    <div class="trust-item"><div class="t-ico">⭐</div><h3>Trusted <span>Collector Shop</span></h3></div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div>
-      <div class="footer-brand">CRG <span>CARDS</span></div>
-      <p class="footer-tagline">PSA graded cards, rare grails, and fire singles — handpicked for serious collectors.</p>
+      <div class="footer-brand">Cards<span>RG</span></div>
+      <p class="footer-tagline">Cards, Rips, and Grails. PSA graded cards, rare grails, sealed wax, and fire singles — handpicked for serious collectors.</p>
+      <div class="footer-contact">
+        Instagram: <strong>@cardsrgshop</strong><br/>
+        DMs always open — buy, sell &amp; trade
+      </div>
     </div>
     <div class="footer-col">
-      <h4>Shop</h4>
-      <a href="/">All Cards</a>
+      <h4>Navigate</h4>
+      <a href="/">Home</a>
+      <a href="#featured" onclick="goCat('all');return false;">Shop All</a>
+      <a href="https://www.instagram.com/cardsrgshop" target="_blank">About Us</a>
+      <a href="https://www.instagram.com/cardsrgshop" target="_blank">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Categories</h4>
+      <a href="#featured" onclick="goCat('soccer');return false;">Soccer</a>
+      <a href="#featured" onclick="goCat('nba');return false;">NBA</a>
+      <a href="#featured" onclick="goCat('pokemon');return false;">Pokémon</a>
+      <a href="#featured" onclick="goCat('collectibles');return false;">Collectibles</a>
+    </div>
+    <div class="footer-col">
+      <h4>Connect With Us</h4>
       <a href="https://www.instagram.com/cardsrgshop" target="_blank">Instagram</a>
-    </div>
-    <div class="footer-col">
-      <h4>Info</h4>
-      <a href="https://www.instagram.com/cardsrgshop" target="_blank">Contact Us</a>
       <a href="https://www.instagram.com/cardsrgshop" target="_blank">DM for Offers</a>
+      <a href="https://www.instagram.com/cardsrgshop" target="_blank">Trade Inquiries</a>
     </div>
   </div>
-  <div class="footer-bottom">© 2025 CRG Cards — Rips &amp; Grails. All rights reserved.</div>
+  <div class="footer-bottom">
+    <span>© 2026 CardsRG — Cards, Rips, and Grails. All rights reserved.</span>
+    <span class="footer-pay">VISA • MASTERCARD • APPLE PAY • PAYPAL</span>
+  </div>
 </footer>
 
 <script>
@@ -391,7 +565,9 @@ async function loadProducts() {
 // ── FILTER & SORT ─────────────────────────────────────────────────────────
 function getFiltered() {
   let p = [...allProducts];
-  if (currentCat !== 'all') p = p.filter(x => x.category_slug === currentCat);
+  if (currentCat === 'sports')   p = p.filter(x => ['soccer','nba'].includes(x.category_slug));
+  else if (currentCat === 'tcg') p = p.filter(x => ['pokemon'].includes(x.category_slug));
+  else if (currentCat !== 'all') p = p.filter(x => x.category_slug === currentCat);
   const s = (document.getElementById('searchInput').value||'').toLowerCase().trim();
   if (s) p = p.filter(x => (x.name||'').toLowerCase().includes(s)||(x.description||'').toLowerCase().includes(s));
   if (currentSort === 'price-asc')  p.sort((a,b) => a.price - b.price);
@@ -427,7 +603,20 @@ function navFilter(navBtn, slug) {
   categories.forEach(c=>titles[c.slug]=c.name);
   document.getElementById('pageTitle').textContent = titles[slug] || 'All Cards';
   renderProducts();
-  document.querySelector('.products-wrap')?.scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('featured')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// Filter helper for hero tiles / category tiles / footer links
+function goCat(slug) {
+  const btn = document.querySelector(`.nav-link[data-cat="${slug}"]`);
+  if (btn) { navFilter(btn, slug); return; }
+  currentCat = slug;
+  document.querySelectorAll('.nav-link[data-cat]').forEach(l=>l.classList.remove('act'));
+  document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('act'));
+  const specialTitles = { sports:'Sports Cards', tcg:'TCG — Pokémon & Sealed' };
+  document.getElementById('pageTitle').textContent = specialTitles[slug] || 'All Cards';
+  renderProducts();
+  document.getElementById('featured')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 function handleSort() {
