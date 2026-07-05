@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '14';
+  const SEED_VERSION = '15';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -305,7 +305,7 @@ function seedSampleData() {
     'Dan Marino 1996 Upper Deck NFL All-Time Records 50,000 Yards Passing — 2420/5000',
     'marino-1996-ud-alltime-records-2420-5000',
     'Dan Marino 1996 Upper Deck Memorabilia NFL All-Time Records — 50,000 Yards Passing. Limited Edition 2420/5000. A commemorative oversized card celebrating the moment Marino became the first QB in history to throw for 50,000 yards — a record that stood for over a decade. Nearly 30 years old, well preserved in its original case. A must for any Marino or Dolphins collector.',
-    8500, null, 1, 'CRG-MARINO-96-UD-50K', '/images/marino-1996-ud-alltime-records-2420-5000.jpg', 'Vintage');
+    8000, null, 1, 'CRG-MARINO-96-UD-50K', '/images/marino-1996-ud-alltime-records-2420-5000.jpg', 'Vintage');
 
   // Default settings
   const setq = 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
