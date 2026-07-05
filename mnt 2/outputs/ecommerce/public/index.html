@@ -178,7 +178,8 @@ nav{position:sticky;top:0;z-index:500;background:linear-gradient(135deg,rgba(13,
 .btn-atc{width:100%;padding:.85rem 1rem;background:var(--pink);color:var(--white);border:none;font-size:.9rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:.15s;margin-bottom:.6rem;border-radius:var(--radius);box-shadow:0 0 20px rgba(255,45,120,.3)}
 .btn-atc:hover{background:#e0205f;box-shadow:0 0 28px rgba(255,45,120,.5)}
 .btn-atc.btn-green{background:transparent;border:2px solid var(--cyan);color:var(--cyan);box-shadow:0 0 12px rgba(0,240,255,.2)}
-.btn-dm{width:100%;padding:.75rem 1rem;background:transparent;color:var(--cyan);border:1.5px solid var(--cyan);font-size:.85rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:.15s;border-radius:var(--radius)}
+.modal-cta-row{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.btn-dm{width:100%;padding:.75rem .5rem;background:transparent;color:var(--cyan);border:1.5px solid var(--cyan);font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;transition:.15s;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;gap:.3rem;text-align:center}
 .btn-dm:hover{background:rgba(0,240,255,.1);box-shadow:0 0 12px rgba(0,240,255,.2)}
 .modal-note{font-size:.72rem;color:var(--muted);text-align:center;margin-top:.6rem}
 
@@ -320,7 +321,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
     </div>
   </div>
   <div class="hero-tile tile-wide" onclick="goCat('tcg')" style="background:linear-gradient(135deg,#2a0845 0%,#1a0530 45%,#0a1a30 100%)">
-    <img class="tile-bg" src="/images/pokemon-sv151-ultra-premium.jpg" alt="" onerror="this.remove()" onload="this.nextElementSibling.style.display='none'"/>
+    <img class="tile-bg" src="/images/pokemon-sv151-ultra-premium.jpg" alt="" style="object-position:center 62%" onerror="this.remove()" onload="this.nextElementSibling.style.display='none'"/>
     <span style="position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);font-size:6rem;filter:drop-shadow(0 0 24px rgba(0,240,255,.6));z-index:1">🎴</span>
     <div class="tile-content">
       <div class="tile-kicker">Sealed Wax &amp; Slabs</div>
@@ -347,12 +348,12 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
       <span class="tile-btn">Explore</span>
     </div>
   </div>
-  <div class="hero-tile" onclick="openInstagram()">
-    <img class="tile-bg" src="/images/messi-2022-crystal-ucl-psa10.jpg" alt="" onerror="this.remove()"/>
+  <div class="hero-tile" onclick="openInstagram()" style="background:linear-gradient(135deg,#833AB4 0%,#FD1D1D 55%,#FCB045 100%)">
+    <span style="position:absolute;top:34%;left:50%;transform:translate(-50%,-50%);font-size:5.5rem;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45));z-index:1">📲</span>
     <div class="tile-content">
-      <div class="tile-kicker">Offers &amp; Trades</div>
+      <div class="tile-kicker" style="color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.4)">Offers &amp; Trades</div>
       <div class="tile-title">DM to<br/>Deal</div>
-      <div class="tile-sub">Slide in — we're listening</div>
+      <div class="tile-sub">@cardsrgshop on Instagram</div>
       <span class="tile-btn">Message Us</span>
     </div>
   </div>
@@ -383,7 +384,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
       <div class="cat-tile-label">🏀 NBA</div>
     </div>
     <div class="cat-tile" onclick="goCat('pokemon')">
-      <div class="cat-tile-img"><img src="/images/pokemon-sv151-ultra-premium.jpg" alt="Pokémon sealed" onerror="this.outerHTML='<span class=cat-emoji>🎴</span>'"/></div>
+      <div class="cat-tile-img"><img src="/images/pokemon-sv151-ultra-premium.jpg" alt="Pokémon sealed" style="object-position:center 58%" onerror="this.outerHTML='<span class=cat-emoji>🎴</span>'"/></div>
       <div class="cat-tile-label">🎴 Pokémon</div>
     </div>
     <div class="cat-tile" onclick="goCat('collectibles')">
@@ -441,8 +442,11 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
       <div class="modal-desc" id="modalDesc"></div>
       <div class="modal-status" id="modalStatus"></div>
       <button class="btn-atc" id="modalAtcBtn" onclick="addToCartFromModal()">Add to Cart</button>
-      <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn-dm">📲 DM to Enquire</a>
-      <p class="modal-note">Open to offers &amp; trades — slide in the DMs</p>
+      <div class="modal-cta-row">
+        <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn-dm">📲 Make an Offer</a>
+        <a href="mailto:cardsrgshop@gmail.com" id="modalEmailBtn" class="btn-dm">✉️ Email Us</a>
+      </div>
+      <p class="modal-note">Open to offers &amp; trades — DMs get the fastest reply</p>
     </div>
   </div>
 </div>
@@ -682,6 +686,9 @@ function openCardModal(id) {
   atcBtn.textContent = inCart ? '✓ Added to Cart' : 'Add to Cart';
   atcBtn.className   = 'btn-atc' + (inCart ? ' btn-green' : '');
   atcBtn.disabled    = !avail;
+
+  const emailBtn = document.getElementById('modalEmailBtn');
+  if (emailBtn) emailBtn.href = 'mailto:cardsrgshop@gmail.com?subject=' + encodeURIComponent('Offer: ' + p.name);
 
   const imgEl = document.getElementById('modalImg');
   if (imgSrc) { imgEl.src = imgSrc; imgEl.style.display = 'block'; }
