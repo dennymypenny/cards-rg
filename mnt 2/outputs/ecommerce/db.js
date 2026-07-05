@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '17';
+  const SEED_VERSION = '18';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -318,7 +318,7 @@ prepare(ins).run(catPokemon,
           'Pokémon Scarlet & Violet 151 Ultra-Premium Collection (Sealed)',
             'pokemon-sv151-ultra-premium-collection-sealed',
               'Pokémon TCG Scarlet & Violet — 151 Ultra-Premium Collection. Factory sealed. The ultimate Mew-themed set celebrating the original 151 Pokémon. Includes 16 booster packs, a special foil promo card, an oversized foil Mew card, Mew VMAX & Mew V alternate art promos, premium card sleeves, a collector\'s portfolio, a coin, and an acrylic display stand. One of the most premium sealed products ever produced for the TCG. Ships double-boxed, fully insured.',
-                17500, null, 1, 'CRG-POKEMON-SV151-UPC', '/images/pokemon-sv151-ultra-premium.jpg', 'Sealed');
+                96000, null, 1, 'CRG-POKEMON-SV151-UPC', '/images/pokemon-sv151-ultra-premium.jpg', 'Sealed');
                 
                   // Default settings
   const setq = 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
