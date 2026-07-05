@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '10';
+  const SEED_VERSION = '11';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -269,6 +269,12 @@ function seedSampleData() {
     'Lamine Yamal 2026 Panini Monopoly Prizm FIFA World Cup 26™ — the hottest young player on the planet. Yamal was instrumental in Spain\'s 2024 Euro championship and is widely regarded as the face of the next generation of soccer. Eye-catching prizm design, near-mint condition. Ships double-sleeved in a rigid top-loader, bubble-wrapped.',
     23000, null, 1, 'CRG-LY-26-MONOPOLY', '/images/lamine-yamal-2026-prizm-monopoly.jpg', 'Hot');
 
+  prepare(ins).run(catSoccer,
+    'Lionel Messi 2019 Panini Chronicles Pitch Kings #PK1 PSA 10',
+    'messi-2019-chronicles-pitch-kings-psa10',
+    'Lionel Messi 2019 Panini Chronicles Pitch Kings #PK1, graded PSA 10 Gem Mint (cert #61933251). One of the most stunning Messi cards ever produced — a watercolor-art masterpiece from the Chronicles Pitch Kings set. PSA 10: perfect corners, flawless surface, perfect centering. The GOAT in a slab. Ships in original PSA holder, fully insured.',
+    20000, null, 1, 'CRG-MESSI-19-PK1-PSA10', '/images/messi-2019-chronicles-pitch-kings-psa10.jpg', 'PSA 10');
+
   // ── NBA BASKETBALL ───────────────────────────────────────────────────────────
   prepare(ins).run(catNBA,
     'Kobe Bryant 2000 Leaf Pearl Pearlescent Patch #24 — 3/3',
@@ -282,6 +288,18 @@ function seedSampleData() {
     'stan-lee-2011-topps-allen-ginter-psa10',
     'Stan Lee 2011 Topps Allen & Ginter — World\'s Champions #274, graded PSA 10 Gem Mint (cert #77779080). The Founder of Marvel Comics himself, immortalized in the iconic Allen & Ginter format. PSA 10 Gem Mint — a true pop culture grail. Perfect for any Marvel or comic book fan.',
     10000, null, 1, 'CRG-STAN-LEE-PSA10', '/images/stanlee_allen_ginter_front.jpg', 'PSA 10');
+
+  prepare(ins).run(catOther,
+    'Dan Marino 2022 Panini One Quad Patch Auto #63 — 10/15',
+    'marino-2022-panini-one-quad-patch-auto-10-15',
+    'Dan Marino 2022 Panini One #63 — Quad Jersey Patch Auto, serial numbered 10/15. One of the most premium football cards you can own: four authentic game-worn Marino jersey swatches, a hard-signed on-card autograph, and an oversized format that makes it a true showpiece. Only 15 exist in the world. Miami Dolphins Hall of Famer. Ships fully insured.',
+    45000, null, 1, 'CRG-MARINO-22-ONE-QUAD-10-15', '/images/marino-2022-panini-one-quad-patch-auto-10-15.jpg', 'Grail');
+
+  prepare(ins).run(catOther,
+    'Dan Marino 1996 Upper Deck NFL All-Time Records 50,000 Yards Passing — 2420/5000',
+    'marino-1996-ud-alltime-records-2420-5000',
+    'Dan Marino 1996 Upper Deck Memorabilia NFL All-Time Records — 50,000 Yards Passing. Limited Edition 2420/5000. A commemorative oversized card celebrating the moment Marino became the first QB in history to throw for 50,000 yards — a record that stood for over a decade. Nearly 30 years old, well preserved in its original case. A must for any Marino or Dolphins collector.',
+    8500, null, 1, 'CRG-MARINO-96-UD-50K', '/images/marino-1996-ud-alltime-records-2420-5000.jpg', 'Vintage');
 
   // Default settings
   const setq = 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
