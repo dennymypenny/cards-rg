@@ -66,7 +66,8 @@ nav{position:sticky;top:0;z-index:500;background:linear-gradient(135deg,rgba(13,
 .cart-count{background:var(--pink);color:#fff;font-size:.58rem;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:absolute;top:-4px;right:-4px;box-shadow:0 0 8px var(--pink)}
 
 /* ── HERO TILES (AA Mint style) ── */
-.hero-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:var(--bg);padding:5px}
+.hero-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:var(--bg);padding:5px 5px 2.25rem}
+.tile-emoji{font-size:6rem}
 .hero-tile{position:relative;min-height:400px;display:flex;align-items:flex-end;overflow:hidden;cursor:pointer;background:var(--bg3)}
 .hero-tile img.tile-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform .5s ease}
 .hero-tile:hover img.tile-bg{transform:scale(1.06)}
@@ -239,9 +240,14 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   .cat-tiles{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:768px){
-  nav{padding:0 1rem}
-  .nav-links{display:none}
+  nav{height:auto;flex-wrap:wrap;padding:.5rem 1rem .35rem;row-gap:.15rem}
+  .nav-logo img{height:52px}
+  .nav-links{order:3;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;padding-bottom:.35rem;scrollbar-width:none}
+  .nav-links::-webkit-scrollbar{display:none}
   .nav-search{display:none}
+  .tile-emoji{font-size:4rem}
+  .hero-tile.tile-wide{min-height:300px}
+  .tile-wide .tile-title{font-size:1.6rem}
   .prod-grid{grid-template-columns:repeat(2,1fr);gap:.75rem}
   .products-wrap{padding:0 1rem 2.4rem}
   .filter-bar{padding:.4rem 1rem 1rem}
@@ -257,13 +263,17 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   .footer-inner{grid-template-columns:1fr;gap:2rem}
 }
 @media(max-width:480px){
-  .hero-tiles{grid-template-columns:1fr 1fr;gap:4px;padding:4px}
+  .hero-tiles{grid-template-columns:1fr 1fr;gap:4px;padding:4px 4px 1.75rem}
   .hero-tile{min-height:210px}
+  .hero-tile.tile-wide{min-height:240px}
+  .tile-wide .tile-title{font-size:1.35rem}
+  .tile-emoji{font-size:3.2rem}
   .tile-btn{padding:.4rem .8rem;font-size:.6rem}
   .prod-grid{grid-template-columns:repeat(2,1fr);gap:.5rem}
   .prod-actions{grid-template-columns:1fr}
   .btn-card-dm,.btn-card-cart{padding:.5rem .5rem;font-size:.68rem}
   .trust-inner{grid-template-columns:repeat(2,1fr)}
+  .modal-cta-row{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -322,7 +332,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   </div>
   <div class="hero-tile tile-wide" onclick="goCat('tcg')" style="background:linear-gradient(135deg,#2a0845 0%,#1a0530 45%,#0a1a30 100%)">
     <img class="tile-bg" src="/images/pokemon-sv151-ultra-premium.jpg" alt="" style="object-position:center 62%" onerror="this.remove()" onload="this.nextElementSibling.style.display='none'"/>
-    <span style="position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);font-size:6rem;filter:drop-shadow(0 0 24px rgba(0,240,255,.6));z-index:1">🎴</span>
+    <span class="tile-emoji" style="position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 0 24px rgba(0,240,255,.6));z-index:1">🎴</span>
     <div class="tile-content">
       <div class="tile-kicker">Sealed Wax &amp; Slabs</div>
       <div class="tile-title">Shop TCG</div>
@@ -349,7 +359,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
     </div>
   </div>
   <div class="hero-tile" onclick="openInstagram()" style="background:linear-gradient(135deg,#833AB4 0%,#FD1D1D 55%,#FCB045 100%)">
-    <span style="position:absolute;top:34%;left:50%;transform:translate(-50%,-50%);font-size:5.5rem;filter:drop-shadow(0 6px 18px rgba(0,0,0,.45));z-index:1">📲</span>
+    <span class="tile-emoji" style="position:absolute;top:34%;left:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 18px rgba(0,0,0,.45));z-index:1">📲</span>
     <div class="tile-content">
       <div class="tile-kicker" style="color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.4)">Offers &amp; Trades</div>
       <div class="tile-title">DM to<br/>Deal</div>
