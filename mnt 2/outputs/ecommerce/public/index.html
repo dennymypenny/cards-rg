@@ -140,6 +140,7 @@ nav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid rg
 .prod-badge.badge-hot{background:var(--pink);color:#fff;box-shadow:0 0 10px rgba(255,45,120,.4)}
 .prod-badge.badge-numbered{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
 .prod-badge.badge-sgc10{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;box-shadow:0 0 10px rgba(0,240,255,.3)}
+.prod-badge.badge-sealed{background:#e11d2e;color:#fff;box-shadow:0 0 10px rgba(225,29,46,.55)}
 .prod-body{padding:.65rem 0 .75rem}
 .prod-name{font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.02em;line-height:1.3;margin-bottom:.3rem;color:var(--white)}
 .prod-price{font-size:.88rem;font-weight:800;color:var(--cyan);text-shadow:0 0 12px rgba(0,240,255,.4);margin-bottom:.6rem}
@@ -587,6 +588,7 @@ function badgeClass(badge) {
   if (b.includes('sgc 10'))   return 'badge-sgc10';
   if (b.includes('hot'))      return 'badge-hot';
   if (b.includes('numbered')) return 'badge-numbered';
+  if (b.includes('sealed'))   return 'badge-sealed';
   return '';
 }
 
