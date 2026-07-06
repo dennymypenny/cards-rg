@@ -939,17 +939,26 @@ async function startCheckout() {
   try {
     // Sync local cart to server session (server validates real prices & stock)
     await fetch('/api/cart/clear', { method: 'DELETE' });
-    for (const item of cart) {
+    const dropped = [];
+    for (const item of [...cart]) {
       const r = await fetch('/api/cart/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ product_id: item.id, quantity: 1 })
       });
       if (!r.ok) {
-        const e = await r.json().catch(() => ({}));
-        throw new Error(e.error || `Couldn't add ${item.name}`);
+        // Item no longer available (removed or sold out) — drop it instead of blocking checkout
+        dropped.push(item.name);
+        cart = cart.filter(c => c.id !== item.id);
       }
     }
+    saveCart();
+    updateCartCount();
+    if (dropped.length) {
+      renderCartPanel();
+      showToast(`Removed from cart (no longer available): ${dropped.join(', ')}`);
+    }
+    if (!cart.length) throw new Error('Your cart is empty');
     // Create Stripe Checkout session and redirect
     const res = await fetch('/api/checkout/session', { method: 'POST' });
     const data = await res.json();
