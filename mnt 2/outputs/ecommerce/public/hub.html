@@ -107,20 +107,20 @@
   <!-- ── QUICK LINKS ───────────────────────────────────────── -->
   <h2>Quick Access</h2>
   <div class="link-grid">
-    <a class="link-card primary" href="https://cards-rg.onrender.com" target="_blank">
+    <a class="link-card primary" href="https://cardsrg.com" target="_blank">
       <div class="icon">🛒</div>
       <div class="lname">Live Store</div>
-      <div class="ldesc">cards-rg.onrender.com</div>
+      <div class="ldesc">cardsrg.com</div>
     </a>
     <a class="link-card" href="/admin" target="_blank">
       <div class="icon">🔐</div>
       <div class="lname">Admin Panel</div>
       <div class="ldesc">Orders, users, settings</div>
     </a>
-    <a class="link-card" href="https://docs.google.com/spreadsheets/d/1eeDMzQY-ch6TG83vEzaXizdDN_a08HryvLbM2w4g27k" target="_blank">
+    <a class="link-card" href="#inventory">
       <div class="icon">📊</div>
-      <div class="lname">Inventory Sheet</div>
-      <div class="ldesc">Google Sheets tracker</div>
+      <div class="lname">Inventory</div>
+      <div class="ldesc">Live from the store — what's listed right now</div>
     </a>
     <a class="link-card" href="https://dashboard.render.com/web/srv-d90smn4vikkc738ottcg" target="_blank">
       <div class="icon">⚙️</div>
@@ -162,6 +162,15 @@
     </div>
   </div>
 
+  <!-- ── LIVE INVENTORY ────────────────────────────────────── -->
+  <div class="activity-header" id="inventory">
+    <h2 style="margin-bottom:0">Live Inventory</h2>
+    <span class="refresh-info" id="invCount"></span>
+  </div>
+  <div id="inventoryList" style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem">
+    <div class="empty-feed"><div class="ico">⏳</div>Loading…</div>
+  </div>
+
   <!-- ── CART ACTIVITY ─────────────────────────────────────── -->
   <div class="activity-header">
     <h2 style="margin-bottom:0">Recent Cart Activity</h2>
@@ -173,7 +182,7 @@
 
 </main>
 
-<footer>CRG Cards &middot; <a href="https://cards-rg.onrender.com" style="color:inherit">cards-rg.onrender.com</a></footer>
+<footer>CardsRG &middot; <a href="https://cardsrg.com" style="color:inherit">cardsrg.com</a></footer>
 
 <script>
 const feed = document.getElementById('activityFeed');
@@ -229,6 +238,37 @@ async function loadActivity() {
 
 loadActivity();
 setInterval(loadActivity, 30000);
+
+// ── LIVE INVENTORY (public products API — always matches the store) ────────
+async function loadInventory() {
+  const list = document.getElementById('inventoryList');
+  const count = document.getElementById('invCount');
+  try {
+    const res = await fetch('/api/products?limit=100');
+    const { products } = await res.json();
+    if (!products || !products.length) {
+      list.innerHTML = `<div class="empty-feed"><div class="ico">📦</div>No products listed.</div>`;
+      return;
+    }
+    const totalValue = products.reduce((s, p) => s + (p.price || 0), 0);
+    count.textContent = `${products.length} listed · $${(totalValue/100).toLocaleString('en-US')} total`;
+    list.innerHTML = products.map(p => `
+      <div class="act-item">
+        <div class="act-icon">${p.stock > 0 ? '🃏' : '❌'}</div>
+        <div>
+          <div class="act-name">${p.name}</div>
+          <div class="act-meta">${p.category_name || ''}${p.badge ? ' · ' + p.badge : ''}${p.stock < 1 ? ' · SOLD OUT' : ''}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="act-price">${p.price_formatted}</div>
+        </div>
+      </div>`).join('');
+  } catch(e) {
+    list.innerHTML = `<div class="empty-feed"><div class="ico">⚠️</div>Could not load inventory.</div>`;
+  }
+}
+loadInventory();
+setInterval(loadInventory, 60000);
 
 // ── PWA: INSTALL PROMPT ─────────────────────────────────────────────────────
 let deferredPrompt = null;
