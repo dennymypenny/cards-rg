@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '20';
+  const SEED_VERSION = '21';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -320,6 +320,54 @@ prepare(ins).run(catPokemon,
             'pokemon-sv151-ultra-premium-collection-sealed',
               'Pokémon TCG Scarlet & Violet — 151 Ultra-Premium Collection. Factory sealed. The ultimate Mew-themed set celebrating the original 151 Pokémon. Includes 16 booster packs, a special foil promo card, an oversized foil Mew card, Mew VMAX & Mew V alternate art promos, premium card sleeves, a collector\'s portfolio, a coin, and an acrylic display stand. One of the most premium sealed products ever produced for the TCG. Ships double-boxed, fully insured.',
                 96000, null, 1, 'CRG-POKEMON-SV151-UPC', '/images/pokemon-sv151-ultra-premium.jpg', 'Sealed');
+
+  prepare(ins).run(catPokemon,
+    'Pokémon Kleavor VSTAR Premium Collection (Sealed)',
+    'pokemon-kleavor-vstar-premium-collection-sealed',
+    'Pokémon TCG Kleavor VSTAR Premium Collection — factory sealed. Includes Kleavor VSTAR and Kleavor V foil promos, an oversize Kleavor VSTAR card, a VSTAR marker, and 6 Pokémon TCG booster packs from the Sword & Shield era. Ships double-boxed and fully insured.',
+    8900, null, 1, 'CRG-POKEMON-KLEAVOR-VSTAR-PREMIUM', '/images/pokemon-kleavor-vstar-premium.jpg', 'Sealed');
+
+  prepare(ins).run(catPokemon,
+    'Pokémon Kleavor VSTAR Special Collection (Sealed)',
+    'pokemon-kleavor-vstar-special-collection-sealed',
+    'Pokémon TCG Kleavor VSTAR Special Collection — factory sealed. Includes Kleavor VSTAR and Kleavor V foil promos, a VSTAR marker, and 4 Pokémon TCG booster packs. A clean sealed piece from the Sword & Shield era. Ships double-boxed and fully insured.',
+    7500, null, 1, 'CRG-POKEMON-KLEAVOR-VSTAR-SPECIAL', '/images/pokemon-kleavor-vstar-special.jpg', 'Sealed');
+
+  prepare(ins).run(catPokemon,
+    'Pokémon Mabosstiff ex Box (Sealed)',
+    'pokemon-mabosstiff-ex-box-sealed',
+    'Pokémon TCG Mabosstiff ex Box — factory sealed. Includes a foil Mabosstiff ex promo, foil Maschiff, an oversize Mabosstiff ex card, and 4 Pokémon TCG booster packs. Ships double-boxed and fully insured.',
+    4000, null, 1, 'CRG-POKEMON-MABOSSTIFF-EX-BOX', '/images/pokemon-mabosstiff-ex-box.jpg', 'Sealed');
+
+  prepare(ins).run(catPokemon,
+    'Pokémon Hop\'s Zacian ex Box (Sealed)',
+    'pokemon-hops-zacian-ex-box-sealed',
+    'Pokémon TCG Hop\'s Zacian ex Box — factory sealed. Includes foil promos of Hop\'s Zacian ex, Hop\'s Wooloo, and Hop\'s Dubwool, an oversize Hop\'s Zacian ex card, a sticker, and 4 Pokémon TCG booster packs. Ships double-boxed and fully insured.',
+    4000, null, 1, 'CRG-POKEMON-HOPS-ZACIAN-EX-BOX', '/images/pokemon-hops-zacian-ex-box.jpg', 'Sealed');
+
+  prepare(ins).run(catPokemon,
+    'Pokémon Charizard ex Premium Collection (Sealed)',
+    'pokemon-charizard-ex-premium-collection-sealed',
+    'Pokémon TCG Charizard ex Premium Collection — factory sealed. Includes an etched foil Charizard ex promo, foil Charmander and Charmeleon, 6 booster packs, a magnetic card protector with display base, and 65 Charizard Tera card sleeves. One of the most in-demand modern Charizard sealed products. Ships double-boxed and fully insured.',
+    12000, null, 1, 'CRG-POKEMON-CHARIZARD-EX-PREMIUM', '/images/pokemon-charizard-ex-premium.jpg', 'Sealed');
+
+  prepare(ins).run(catPokemon,
+    'Pokémon Iono\'s Bellibolt ex Premium Collection (Sealed)',
+    'pokemon-ionos-bellibolt-ex-premium-collection-sealed',
+    'Pokémon TCG Iono\'s Bellibolt ex Premium Collection — factory sealed. Includes a full-art foil Iono\'s Bellibolt ex promo, foil Iono\'s Tadbulb, acrylic standees of Iono and friends, a double-sided backdrop display, a photo sticker, and 6 Pokémon TCG booster packs. Ships double-boxed and fully insured.',
+    6000, null, 1, 'CRG-POKEMON-IONOS-BELLIBOLT-PREMIUM', '/images/pokemon-ionos-bellibolt-ex-premium.jpg', 'Sealed');
+
+  prepare(ins).run(catPokemon,
+    'Pokémon Snorlax GX Box (Sealed)',
+    'pokemon-snorlax-gx-box-sealed',
+    'Pokémon TCG Snorlax GX Box (2016) — factory sealed. Includes a never-before-seen Snorlax GX foil promo, an oversize Snorlax GX card, and 4 booster packs including sought-after Evolutions and Fates Collide era packs. A tough sealed box to find in this condition — strong long-term hold. Ships double-boxed and fully insured.',
+    34000, null, 1, 'CRG-POKEMON-SNORLAX-GX-BOX', '/images/pokemon-snorlax-gx-box.jpg', 'Sealed');
+
+  prepare(ins).run(catPokemon,
+    'Pokémon 151 Mini Tins 5-Pack + 4 Promos — Costco Exclusive (Sealed)',
+    'pokemon-151-mini-tins-5-pack-costco-sealed',
+    'Pokémon TCG Scarlet & Violet 151 Mini Tin 5-Pack Bundle — Costco exclusive, factory sealed. Includes 5 mini tins (each with 2 booster packs, coin, and art card) plus 4 exclusive Cosmos foil promos: Pikachu, Bulbasaur, Charmander, and Squirtle. Heavily sought after since it left shelves. Ships double-boxed and fully insured.',
+    29900, null, 1, 'CRG-POKEMON-151-MINI-TINS-5PACK', '/images/pokemon-151-mini-tins-5pack.jpg', 'Sealed');
                 
                   // Default settings
   const setq = 'INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)';
