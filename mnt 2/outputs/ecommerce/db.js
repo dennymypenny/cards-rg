@@ -206,7 +206,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '21';
+  const SEED_VERSION = '22';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -374,8 +374,8 @@ prepare(ins).run(catPokemon,
   prepare(setq).run('store_name',               process.env.STORE_NAME     || 'CRG Cards');
   prepare(setq).run('store_currency',           process.env.STORE_CURRENCY || 'USD');
   prepare(setq).run('tax_rate',                 '0');
-  prepare(setq).run('shipping_flat',            '0');
-  prepare(setq).run('free_shipping_threshold',  '0');
+  prepare(setq).run('shipping_flat',            '499');   // $4.99 standard shipping
+  prepare(setq).run('free_shipping_threshold',  '10000'); // free shipping on orders $100+
   prepare(setq).run('seed_version',             SEED_VERSION);
 
   console.log('CRG Cards products and categories seeded (v' + SEED_VERSION + ')');

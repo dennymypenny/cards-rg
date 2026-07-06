@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>CardsRG — Cards, Rips, and Grails</title>
@@ -220,7 +224,9 @@ nav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid rg
 .cart-actions{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.65rem}
 .btn-cart-dm{background:transparent;border:2px solid var(--pink);color:var(--pink);font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.72rem .4rem;border-radius:var(--radius);text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:.25rem;transition:.15s;white-space:nowrap}
 .btn-cart-dm:hover{background:rgba(255,45,120,.1);box-shadow:0 0 12px rgba(255,45,120,.3)}
-.btn-cart-checkout{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.72rem .4rem;border-radius:var(--radius);cursor:not-allowed;opacity:.5;white-space:nowrap;transition:.15s}
+.btn-cart-checkout{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;font-family:var(--sans);font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.72rem .4rem;border-radius:var(--radius);cursor:pointer;white-space:nowrap;transition:.15s}
+.btn-cart-checkout:hover{box-shadow:0 0 14px rgba(255,45,120,.45)}
+.btn-cart-checkout:disabled{cursor:wait;opacity:.6}
 .cart-coming{font-size:.68rem;color:var(--cyan);text-align:center;margin-bottom:.5rem;letter-spacing:.04em;opacity:.8}
 .cart-note{font-size:.7rem;color:var(--muted);text-align:center;margin-top:.5rem;line-height:1.4}
 
@@ -303,7 +309,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   <span class="sep">·</span>
   <span>Graded Cards</span>
   <span class="sep">·</span>
-  <span>Sealed Wax</span>
+  <span>Sealed Slabs</span>
   <span class="sep">·</span>
   <span>Fire Singles</span>
   <span class="sep">·</span>
@@ -505,10 +511,10 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
       <div class="cart-total"><span>Total</span><span id="cartTotalAmt">$0</span></div>
       <div class="cart-actions">
         <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn-cart-dm">📲 DM to Buy</a>
-        <button class="btn-cart-checkout" disabled title="Stripe checkout coming soon">Checkout →</button>
+        <button class="btn-cart-checkout" id="checkoutBtn" onclick="startCheckout()">Checkout →</button>
       </div>
-      <p class="cart-coming">⚡ Online checkout coming soon</p>
-      <p class="cart-note">Screenshot your cart &amp; DM <strong>@cardsrgshop</strong> on Instagram to complete your order</p>
+      <p class="cart-coming">🔒 Secure checkout powered by Stripe · Free shipping over $100</p>
+      <p class="cart-note">Or DM <strong>@cardsrgshop</strong> on Instagram to complete your order</p>
     </div>
   </div>
 </div>
@@ -792,6 +798,38 @@ function addToCartFromModal() {
 
 // ── CART ──────────────────────────────────────────────────────────────────
 function saveCart() { localStorage.setItem('crg_cart', JSON.stringify(cart)); }
+
+/* ── STRIPE CHECKOUT ── */
+async function startCheckout() {
+  if (!cart.length) { showToast('Your cart is empty'); return; }
+  const btn = document.getElementById('checkoutBtn');
+  btn.disabled = true;
+  btn.textContent = 'Loading…';
+  try {
+    // Sync local cart to server session (server validates real prices & stock)
+    await fetch('/api/cart/clear', { method: 'DELETE' });
+    for (const item of cart) {
+      const r = await fetch('/api/cart/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ product_id: item.id, quantity: 1 })
+      });
+      if (!r.ok) {
+        const e = await r.json().catch(() => ({}));
+        throw new Error(e.error || `Couldn't add ${item.name}`);
+      }
+    }
+    // Create Stripe Checkout session and redirect
+    const res = await fetch('/api/checkout/session', { method: 'POST' });
+    const data = await res.json();
+    if (!res.ok || !data.url) throw new Error(data.error || 'Checkout unavailable');
+    window.location.href = data.url;
+  } catch (err) {
+    showToast(err.message || 'Checkout failed — try again');
+    btn.disabled = false;
+    btn.textContent = 'Checkout →';
+  }
+}
 
 function updateCartCount() {
   const el = document.getElementById('cartCount');

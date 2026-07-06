@@ -1,6 +1,6 @@
 // CRG Hub Service Worker — enables "Add to Home Screen" PWA
-const CACHE = 'crg-hub-v1';
-const PRECACHE = ['/hub', '/manifest.json', '/icons/icon-192.png', '/icons/icon-512.png'];
+const CACHE = 'crg-hub-v2';
+const PRECACHE = ['/hub', '/manifest.json', '/icon-192.png', '/icon-512.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(

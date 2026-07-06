@@ -28,20 +28,27 @@ router.post('/session', async (req, res, next) => {
     const settings  = db.helpers.getSettings();
     const storeName = settings.store_name || 'My Store';
     const taxRate   = parseFloat(settings.tax_rate || 0) / 100;
-    const flatShip  = parseInt(settings.shipping_flat || 0);
+    const threshold = parseInt(settings.free_shipping_threshold || 0);
+    const subtotal  = cart.items.reduce((s, i) => s + i.price * i.quantity, 0);
+    let   flatShip  = parseInt(settings.shipping_flat || 0);
+    if (threshold > 0 && subtotal >= threshold) flatShip = 0; // free shipping over threshold
 
-    // Build Stripe line items
-    const lineItems = cart.items.map(item => ({
-      price_data: {
-        currency:     'usd',
-        unit_amount:  item.price,   // already in cents
-        product_data: {
-          name:   item.name,
-          ...(item.image_url ? { images: [item.image_url] } : {}),
+    // Build Stripe line items (images must be absolute URLs)
+    const absImage = (u) => !u ? null : (u.startsWith('http') ? u : storeUrl.replace(/\/$/, '') + u);
+    const lineItems = cart.items.map(item => {
+      const img = absImage(item.image_url);
+      return {
+        price_data: {
+          currency:     'usd',
+          unit_amount:  item.price,   // already in cents
+          product_data: {
+            name:   item.name,
+            ...(img && img.startsWith('https://') ? { images: [img] } : {}),
+          },
         },
-      },
-      quantity: item.quantity,
-    }));
+        quantity: item.quantity,
+      };
+    });
 
     // Shipping options
     const shippingOptions = flatShip === 0
@@ -79,15 +86,9 @@ router.post('/session', async (req, res, next) => {
   }
 });
 
-// ── POST /api/webhook ──────────────────────────────────────────────────────
-// Stripe sends events here. Must be raw body.
-router.post('/../../api/webhook', express_raw_handler);
-
-async function express_raw_handler(req, res) {
-  // Handled below — this block kept for reference
-}
-
-// Real webhook handler mounted in server.js at /api/webhook
+// ── POST /api/checkout/webhook ─────────────────────────────────────────────
+// Stripe sends events here (raw body applied in server.js). Optional:
+// orders are also fulfilled from the success page if no webhook is set up.
 router.post('/webhook', async (req, res) => {
   const stripe = getStripe();
   const sig    = req.headers['stripe-signature'];
@@ -205,11 +206,32 @@ router.get('/order', async (req, res, next) => {
       });
     }
 
-    // Fallback: fetch from Stripe (webhook may be delayed)
+    // Fallback: fetch from Stripe (webhook may be delayed or not configured)
     const stripe  = getStripe();
     const session = await stripe.checkout.sessions.retrieve(session_id, {
       expand: ['line_items', 'payment_intent']
     });
+
+    // Fulfill directly if paid — makes the webhook optional (fulfillOrder is idempotent)
+    if (session.payment_status === 'paid') {
+      await fulfillOrder(session);
+      if (req.session) req.session.cart = { items: [] }; // clear server cart
+
+      const fulfilled = db.prepare('SELECT * FROM orders WHERE stripe_session = ?').get(session.id);
+      if (fulfilled) {
+        const items = db.prepare('SELECT * FROM order_items WHERE order_id = ?').all(fulfilled.id);
+        return res.json({
+          order: {
+            ...fulfilled,
+            items,
+            subtotal_formatted: `$${db.helpers.formatPrice(fulfilled.subtotal)}`,
+            shipping_formatted: `$${db.helpers.formatPrice(fulfilled.shipping)}`,
+            tax_formatted:      `$${db.helpers.formatPrice(fulfilled.tax)}`,
+            total_formatted:    `$${db.helpers.formatPrice(fulfilled.total)}`,
+          }
+        });
+      }
+    }
 
     res.json({
       order: {

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Order Confirmed — CRG Cards</title>
@@ -84,17 +88,20 @@ for (let i = 0; i < 60; i++) {
   c.appendChild(dot);
 }
 
-// Try to load order info from URL params
+// Load order info (this call also records the order server-side)
 const params = new URLSearchParams(window.location.search);
 const sessionId = params.get('session_id');
 if (sessionId) {
-  fetch(`/api/orders/by-session/${sessionId}`)
+  localStorage.removeItem('crg_cart'); // clear the cart — order is placed
+  fetch(`/api/checkout/order?session_id=${encodeURIComponent(sessionId)}`)
     .then(r => r.json())
     .then(data => {
       if (data.order) {
-        document.getElementById('orderId').textContent = '#' + data.order.id;
-        document.getElementById('orderItems').textContent = data.order.item_count + ' item(s)';
-        document.getElementById('orderTotal').textContent = data.order.total_formatted;
+        const o = data.order;
+        const count = (o.items || []).reduce((s, i) => s + (i.quantity || 1), 0);
+        document.getElementById('orderId').textContent = o.order_number || ('#' + (o.id || '—'));
+        document.getElementById('orderItems').textContent = count + ' item(s)';
+        document.getElementById('orderTotal').textContent = o.total_formatted || '—';
         document.getElementById('orderSummary').style.display = 'block';
       }
     })
