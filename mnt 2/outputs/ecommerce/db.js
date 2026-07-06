@@ -316,12 +316,6 @@ function seedSampleData() {
     'Dan Marino 2022 Panini One #63 — Quad Jersey Patch Auto, serial numbered 10/15. One of the most premium football cards you can own: four authentic game-worn Marino jersey swatches, a hard-signed on-card autograph, and an oversized format that makes it a true showpiece. Only 15 exist in the world. Miami Dolphins Hall of Famer. Ships fully insured.',
     45000, null, 1, 'CRG-MARINO-22-ONE-QUAD-10-15', '/images/marino-2022-panini-one-quad-patch-auto-10-15.jpg', 'Grail');
 
-  prepare(ins).run(catFootball,
-    'Dan Marino 1996 Upper Deck NFL All-Time Records 50,000 Yards Passing — 2420/5000',
-    'marino-1996-ud-alltime-records-2420-5000',
-    'Dan Marino 1996 Upper Deck Memorabilia NFL All-Time Records — 50,000 Yards Passing. Limited Edition 2420/5000. A commemorative oversized card celebrating the moment Marino became the first QB in history to throw for 50,000 yards — a record that stood for over a decade. Nearly 30 years old, well preserved in its original case. A must for any Marino or Dolphins collector.',
-    2000, null, 1, 'CRG-MARINO-96-UD-50K', '/images/marino-1996-ud-alltime-records-2420-5000.jpg', 'Vintage');
-
 // ── POKÉMON ──────────────────────────────────────────────────────────────────
 prepare(ins).run(catPokemon,
   'Pokémon Mythical Collection — Genesect Box (Sealed)',
@@ -458,9 +452,9 @@ const db = {
     seedAdmin();
     seedSampleData();
 
-    // One-off price fixes (idempotent — no re-seed, orders untouched)
-    prepare('UPDATE products SET price = ?, updated_at = datetime(\'now\') WHERE slug = ? AND price != ?')
-      .run(2000, 'marino-1996-ud-alltime-records-2420-5000', 2000);
+    // One-off catalog fixes (idempotent — no re-seed, orders untouched)
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('marino-1996-ud-alltime-records-2420-5000');
 
     return this;
   }
