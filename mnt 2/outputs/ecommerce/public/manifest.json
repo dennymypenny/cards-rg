@@ -1,11 +1,11 @@
 {
-  "name": "CRG Cards Hub",
+  "name": "CardsRG Hub",
   "short_name": "CRG Hub",
-  "description": "Denny's CRG Cards command center — cart activity, orders, and quick links",
+  "description": "Denny's CardsRG command center — offers, cart activity, inventory, and quick links",
   "start_url": "/hub",
   "display": "standalone",
-  "background_color": "#0d1117",
-  "theme_color": "#39d0c0",
+  "background_color": "#0d0d1a",
+  "theme_color": "#FF2D78",
   "orientation": "portrait-primary",
   "icons": [
     {

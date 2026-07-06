@@ -10,40 +10,43 @@
 <title>CRG Hub — Denny's Dashboard</title>
 <!-- PWA -->
 <link rel="manifest" href="/manifest.json"/>
-<meta name="theme-color" content="#39d0c0"/>
+<meta name="theme-color" content="#FF2D78"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="CRG Hub"/>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
   :root {
-    --bg:    #0d1117;
-    --bg2:   #161b22;
-    --bg3:   #1c2330;
-    --card:  #21262d;
-    --border:#30363d;
-    --teal:  #39d0c0;
-    --teal2: #2db8a8;
-    --gold:  #f0c040;
-    --red:   #ff5c5c;
-    --green: #3fb950;
-    --text:  #e6edf3;
-    --muted: #8b949e;
+    --bg:    #0d0d1a;
+    --bg2:   #16162a;
+    --bg3:   #1e1e36;
+    --card:  #1b1b32;
+    --border:rgba(255,255,255,.1);
+    --teal:  #00F0FF;
+    --teal2: #00cede;
+    --gold:  #FF2D78;
+    --purple:#9F3FE0;
+    --red:   #FF2D78;
+    --green: #00F0FF;
+    --text:  #ffffff;
+    --muted: #9ca3af;
     --radius:10px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;padding:0 0 3rem}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;padding:0 0 3rem}
+  .vice-stripe{height:3px;background:linear-gradient(90deg,#FF2D78 0%,#9F3FE0 45%,#00F0FF 100%)}
 
   /* ── HEADER ── */
-  header{background:var(--bg2);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:99}
-  .logo{font-size:1.1rem;font-weight:800;letter-spacing:.04em;color:var(--teal)}
-  .logo span{color:var(--gold)}
+  header{background:var(--bg2);border-bottom:1px solid rgba(255,45,120,.25);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;position:sticky;top:0;z-index:99}
+  .logo{font-size:1.1rem;font-weight:900;letter-spacing:.04em;background:linear-gradient(90deg,#FF2D78,#00F0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .logo span{-webkit-text-fill-color:transparent}
   .tagline{font-size:.75rem;color:var(--muted)}
   header .right{margin-left:auto;display:flex;align-items:center;gap:.75rem}
   .status-dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
   .status-label{font-size:.78rem;color:var(--green)}
-  .login-btn{font-size:.78rem;padding:.35rem .8rem;border-radius:6px;background:var(--teal);color:#000;font-weight:700;text-decoration:none;border:none;cursor:pointer}
+  .login-btn{font-size:.78rem;padding:.35rem .8rem;border-radius:6px;background:linear-gradient(135deg,#FF2D78,#9F3FE0);color:#fff;font-weight:700;text-decoration:none;border:none;cursor:pointer;box-shadow:0 0 12px rgba(255,45,120,.35)}
 
   /* ── MAIN ── */
   main{max-width:960px;margin:0 auto;padding:2rem 1.25rem}
@@ -53,14 +56,14 @@
   /* ── QUICK LINKS ── */
   .link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.85rem;margin-bottom:2.5rem}
   .link-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem .9rem;text-decoration:none;color:var(--text);transition:border-color .18s,transform .18s,box-shadow .18s;display:flex;flex-direction:column;gap:.45rem}
-  .link-card:hover{border-color:var(--teal);transform:translateY(-2px);box-shadow:0 6px 18px rgba(57,208,192,.12)}
+  .link-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 6px 18px rgba(255,45,120,.18)}
   .link-card .icon{font-size:1.5rem}
   .link-card .lname{font-size:.88rem;font-weight:700}
   .link-card .ldesc{font-size:.72rem;color:var(--muted);line-height:1.35}
-  .link-card.primary{border-color:rgba(57,208,192,.35);background:rgba(57,208,192,.06)}
+  .link-card.primary{border-color:rgba(255,45,120,.4);background:rgba(255,45,120,.06)}
 
   /* ── NOTIFY BANNER ── */
-  .notify-banner{background:rgba(240,192,64,.08);border:1px solid rgba(240,192,64,.3);border-radius:var(--radius);padding:1rem 1.15rem;margin-bottom:2.5rem;display:flex;align-items:flex-start;gap:.85rem}
+  .notify-banner{background:rgba(159,63,224,.1);border:1px solid rgba(159,63,224,.35);border-radius:var(--radius);padding:1rem 1.15rem;margin-bottom:2.5rem;display:flex;align-items:flex-start;gap:.85rem}
   .notify-banner .bell{font-size:1.6rem;line-height:1}
   .notify-banner h3{font-size:.88rem;font-weight:700;color:var(--gold);margin-bottom:.3rem}
   .notify-banner p{font-size:.77rem;color:var(--muted);line-height:1.5}
@@ -79,7 +82,7 @@
   .act-time{font-size:.67rem;color:var(--muted);text-align:right;margin-top:.2rem}
   .empty-feed{text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:.85rem}
   .empty-feed .ico{font-size:2rem;margin-bottom:.5rem}
-  .login-nudge{background:rgba(57,208,192,.07);border:1px solid rgba(57,208,192,.25);border-radius:8px;padding:1.5rem;text-align:center;color:var(--muted);font-size:.85rem}
+  .login-nudge{background:rgba(0,240,255,.06);border:1px solid rgba(0,240,255,.25);border-radius:8px;padding:1.5rem;text-align:center;color:var(--muted);font-size:.85rem}
   .login-nudge a{color:var(--teal);text-decoration:underline}
 
   /* ── FOOTER ── */
@@ -101,6 +104,7 @@
     <a href="/admin" class="login-btn">Admin Panel</a>
   </div>
 </header>
+<div class="vice-stripe"></div>
 
 <main>
 
@@ -143,9 +147,9 @@
   <div class="notify-banner">
     <div class="bell">🔔</div>
     <div>
-      <h3>Get Cart Notifications on Your Phone</h3>
+      <h3>Get Offer &amp; Cart Notifications on Your Phone</h3>
       <p>
-        Whenever a buyer adds a card to cart, you'll get a push notification instantly.
+        Whenever a buyer makes an offer or adds a card to cart, you'll get a push notification instantly.
         To set it up on your phone:
       </p>
       <p style="margin-top:.5rem">
@@ -276,17 +280,17 @@ const installBanner = document.createElement('div');
 installBanner.id = 'installBanner';
 installBanner.style.cssText = `
   display:none;position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);
-  background:#161b22;border:1px solid #39d0c0;border-radius:10px;
+  background:#16162a;border:1px solid #FF2D78;border-radius:10px;
   padding:.85rem 1.2rem;display:none;align-items:center;gap:.85rem;
   box-shadow:0 4px 24px rgba(0,0,0,.5);z-index:999;max-width:340px;width:90%;
 `;
 installBanner.innerHTML = `
   <span style="font-size:1.4rem">📲</span>
   <div style="flex:1">
-    <div style="font-size:.85rem;font-weight:700;color:#e6edf3">Add to Home Screen</div>
-    <div style="font-size:.72rem;color:#8b949e">Install CRG Hub as an app on your phone</div>
+    <div style="font-size:.85rem;font-weight:700;color:#fff">Add to Home Screen</div>
+    <div style="font-size:.72rem;color:#9ca3af">Install CRG Hub as an app on your phone</div>
   </div>
-  <button id="installBtn" style="background:#39d0c0;color:#000;border:none;border-radius:6px;padding:.4rem .8rem;font-weight:700;font-size:.8rem;cursor:pointer">Install</button>
+  <button id="installBtn" style="background:linear-gradient(135deg,#FF2D78,#9F3FE0);color:#fff;border:none;border-radius:6px;padding:.4rem .8rem;font-weight:700;font-size:.8rem;cursor:pointer">Install</button>
   <button id="dismissBtn" style="background:none;border:none;color:#8b949e;cursor:pointer;font-size:1.1rem;padding:.2rem">✕</button>
 `;
 document.body.appendChild(installBanner);
