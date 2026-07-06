@@ -177,11 +177,25 @@ const SCHEMA = `
     value TEXT
   );
 
+  CREATE TABLE IF NOT EXISTS offers (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    product_id   INTEGER REFERENCES products(id) ON DELETE SET NULL,
+    product_name TEXT    NOT NULL,
+    list_price   INTEGER,
+    amount       INTEGER NOT NULL,
+    name         TEXT,
+    email        TEXT    NOT NULL,
+    message      TEXT,
+    status       TEXT    NOT NULL DEFAULT 'new',
+    created_at   TEXT    NOT NULL DEFAULT (datetime('now'))
+  );
+
   CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
   CREATE INDEX IF NOT EXISTS idx_products_active   ON products(active);
   CREATE INDEX IF NOT EXISTS idx_orders_status     ON orders(status);
   CREATE INDEX IF NOT EXISTS idx_orders_email      ON orders(customer_email);
   CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
+  CREATE INDEX IF NOT EXISTS idx_offers_status     ON offers(status);
 `;
 
 // ── SEED ADMIN ────────────────────────────────────────────────────────────────

@@ -230,6 +230,35 @@ nav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid rg
 .cart-coming{font-size:.68rem;color:var(--cyan);text-align:center;margin-bottom:.5rem;letter-spacing:.04em;opacity:.8}
 .cart-note{font-size:.7rem;color:var(--muted);text-align:center;margin-top:.5rem;line-height:1.4}
 
+/* ── MAKE OFFER MODAL ── */
+.offer-box{background:var(--bg2);border:1px solid rgba(0,240,255,.25);max-width:440px;width:100%;border-radius:6px;box-shadow:0 0 60px rgba(0,240,255,.12);padding:1.75rem;position:relative;max-height:90vh;overflow-y:auto}
+.offer-head{font-size:1.05rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.35rem;padding-right:2rem}
+.offer-product{font-size:.8rem;color:var(--white);font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.35;margin-bottom:.25rem}
+.offer-listprice{font-size:.78rem;color:var(--muted);margin-bottom:1.1rem}
+.offer-listprice b{color:var(--cyan);font-weight:700}
+.offer-field{margin-bottom:.85rem}
+.offer-field label{display:block;font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+.offer-field label .req{color:var(--pink)}
+.offer-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:.65rem .8rem;color:var(--white);font-family:var(--sans);font-size:.9rem;outline:none;transition:.15s}
+.offer-input:focus{border-color:var(--cyan);box-shadow:0 0 10px rgba(0,240,255,.2)}
+.offer-input::placeholder{color:rgba(255,255,255,.25)}
+textarea.offer-input{resize:vertical;min-height:70px}
+.offer-amount-wrap{position:relative}
+.offer-amount-wrap .dollar{position:absolute;left:.8rem;top:50%;transform:translateY(-50%);color:var(--cyan);font-weight:800;font-size:.95rem}
+.offer-amount-wrap .offer-input{padding-left:1.7rem;font-weight:700;font-size:1rem}
+.offer-error{font-size:.78rem;color:var(--pink);margin-bottom:.75rem;display:none}
+.offer-error.show{display:block}
+.btn-offer-submit{width:100%;padding:.85rem 1rem;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;font-size:.88rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:var(--radius);transition:.15s;box-shadow:0 0 20px rgba(255,45,120,.3)}
+.btn-offer-submit:hover{box-shadow:0 0 28px rgba(255,45,120,.5)}
+.btn-offer-submit:disabled{opacity:.6;cursor:wait}
+.offer-note{font-size:.7rem;color:var(--muted);text-align:center;margin-top:.7rem;line-height:1.5}
+.offer-success{text-align:center;padding:1.5rem 0 .5rem;display:none}
+.offer-success .big{font-size:2.4rem;margin-bottom:.6rem}
+.offer-success h3{font-size:1rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--cyan);margin-bottom:.5rem}
+.offer-success p{font-size:.82rem;color:var(--muted);line-height:1.6}
+.btn-card-offer{background:transparent;border:1.5px solid var(--cyan);color:var(--cyan);font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.45rem .3rem;border-radius:var(--radius);cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;gap:.25rem}
+.btn-card-offer:hover{background:rgba(0,240,255,.1);box-shadow:0 0 10px rgba(0,240,255,.25)}
+
 /* ── TOAST ── */
 .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg2);border:1px solid var(--pink);color:var(--white);border-radius:var(--radius);padding:.75rem 1.1rem;font-size:.83rem;font-weight:600;z-index:1100;transform:translateY(12px);opacity:0;transition:.2s;max-width:260px;box-shadow:0 0 20px rgba(255,45,120,.3)}
 .toast.show{transform:translateY(0);opacity:1}
@@ -491,10 +520,10 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
       <div class="modal-status" id="modalStatus"></div>
       <button class="btn-atc" id="modalAtcBtn" onclick="addToCartFromModal()">Add to Cart</button>
       <div class="modal-cta-row">
-        <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn-dm">📲 Make an Offer</a>
-        <a href="mailto:cardsrgshop@gmail.com" id="modalEmailBtn" class="btn-dm">✉️ Email Us</a>
+        <button class="btn-dm" onclick="openOfferModal(currentProductId)">💰 Make an Offer</button>
+        <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn-dm">📲 DM Us</a>
       </div>
-      <p class="modal-note">Open to offers &amp; trades — DMs get the fastest reply</p>
+      <p class="modal-note">Open to offers &amp; trades — we reply fast</p>
     </div>
   </div>
 </div>
@@ -515,6 +544,45 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
       </div>
       <p class="cart-coming">🔒 Secure checkout powered by Stripe · Free shipping over $100</p>
       <p class="cart-note">Or DM <strong>@cardsrgshop</strong> on Instagram to complete your order</p>
+    </div>
+  </div>
+</div>
+
+<!-- MAKE OFFER MODAL -->
+<div class="overlay" id="offerOverlay" onclick="if(event.target===this)closeOfferModal()">
+  <div class="offer-box modal-relative">
+    <button class="modal-close-btn" onclick="closeOfferModal()">✕</button>
+    <div id="offerFormWrap">
+      <div class="offer-head">💰 Make an Offer</div>
+      <div class="offer-product" id="offerProductName"></div>
+      <div class="offer-listprice">Listed at <b id="offerListPrice"></b></div>
+      <div class="offer-field">
+        <label>Your Offer (USD) <span class="req">*</span></label>
+        <div class="offer-amount-wrap">
+          <span class="dollar">$</span>
+          <input class="offer-input" id="offerAmount" type="number" min="1" step="1" inputmode="decimal" placeholder="0"/>
+        </div>
+      </div>
+      <div class="offer-field">
+        <label>Email <span class="req">*</span></label>
+        <input class="offer-input" id="offerEmail" type="email" placeholder="you@email.com" autocomplete="email"/>
+      </div>
+      <div class="offer-field">
+        <label>Name</label>
+        <input class="offer-input" id="offerName" type="text" placeholder="Optional" autocomplete="name"/>
+      </div>
+      <div class="offer-field">
+        <label>Message</label>
+        <textarea class="offer-input" id="offerMessage" maxlength="500" placeholder="Optional — trades welcome too"></textarea>
+      </div>
+      <div class="offer-error" id="offerError"></div>
+      <button class="btn-offer-submit" id="offerSubmitBtn" onclick="submitOffer()">Submit Offer</button>
+      <p class="offer-note">We review every offer and reply by email — usually within 24 hours.<br/>Prefer Instagram? DM <b>@cardsrgshop</b></p>
+    </div>
+    <div class="offer-success" id="offerSuccess">
+      <div class="big">🤝</div>
+      <h3>Offer Sent!</h3>
+      <p id="offerSuccessMsg">We got your offer and will get back to you by email — usually within 24 hours.</p>
     </div>
   </div>
 </div>
@@ -719,7 +787,7 @@ function renderProducts() {
         <div class="prod-name" onclick="openCardModal(${p.id})">${escHtml(p.name)}</div>
         <div class="prod-price">${p.price_formatted} USD${compare}</div>
         <div class="prod-actions">
-          <a href="https://www.instagram.com/cardsrgshop" target="_blank" class="btn-card-dm">📲 DM</a>
+          <button class="btn-card-offer" onclick="event.stopPropagation();openOfferModal(${p.id})">💰 Offer</button>
           <button class="btn-card-cart${inCart?' in-cart':''}" onclick="quickAddCart(event,${p.id})">${inCart?'✓ Added':'+ Cart'}</button>
         </div>
       </div>
@@ -794,6 +862,69 @@ function addToCartFromModal() {
   saveCart();
   updateCartCount();
   openCardModal(currentProductId);
+}
+
+// ── MAKE OFFER ────────────────────────────────────────────────────────────
+let offerProductId = null;
+
+function openOfferModal(id) {
+  const p = allProducts.find(x => x.id === id);
+  if (!p) return;
+  offerProductId = id;
+  document.getElementById('offerProductName').textContent = p.name;
+  document.getElementById('offerListPrice').textContent = p.price_formatted + ' USD';
+  document.getElementById('offerFormWrap').style.display = 'block';
+  document.getElementById('offerSuccess').style.display = 'none';
+  document.getElementById('offerError').classList.remove('show');
+  document.getElementById('offerAmount').value = '';
+  document.getElementById('offerMessage').value = '';
+  document.getElementById('offerEmail').value = localStorage.getItem('crg_offer_email') || '';
+  document.getElementById('offerName').value  = localStorage.getItem('crg_offer_name')  || '';
+  const btn = document.getElementById('offerSubmitBtn');
+  btn.disabled = false; btn.textContent = 'Submit Offer';
+  closeCardModal();
+  document.getElementById('offerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('offerAmount').focus(), 150);
+}
+
+function closeOfferModal() {
+  document.getElementById('offerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+async function submitOffer() {
+  const amount  = parseFloat(document.getElementById('offerAmount').value);
+  const email   = document.getElementById('offerEmail').value.trim();
+  const name    = document.getElementById('offerName').value.trim();
+  const message = document.getElementById('offerMessage').value.trim();
+  const errEl   = document.getElementById('offerError');
+  errEl.classList.remove('show');
+
+  if (!amount || amount <= 0) { errEl.textContent = 'Please enter your offer amount.'; errEl.classList.add('show'); return; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Please enter a valid email so we can respond.'; errEl.classList.add('show'); return; }
+
+  const btn = document.getElementById('offerSubmitBtn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+
+  try {
+    const r = await fetch('/api/offers', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ productId: offerProductId, amount, email, name, message })
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || 'Could not submit offer');
+    localStorage.setItem('crg_offer_email', email);
+    if (name) localStorage.setItem('crg_offer_name', name);
+    document.getElementById('offerFormWrap').style.display = 'none';
+    document.getElementById('offerSuccess').style.display = 'block';
+    if (data.message) document.getElementById('offerSuccessMsg').textContent = data.message;
+  } catch (err) {
+    errEl.textContent = err.message || 'Something went wrong — try again.';
+    errEl.classList.add('show');
+    btn.disabled = false; btn.textContent = 'Submit Offer';
+  }
 }
 
 // ── CART ──────────────────────────────────────────────────────────────────
@@ -913,7 +1044,7 @@ async function init() {
     if (e.key === 'Escape') {
       const lb = document.getElementById('lightbox');
       if (lb.classList.contains('open')) { closeLightbox(); return; }
-      closeCardModal(); closeCart();
+      closeCardModal(); closeCart(); closeOfferModal();
     }
   });
 }

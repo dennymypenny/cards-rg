@@ -64,6 +64,7 @@ async function start() {
   app.use('/api/orders',    require('./routes/orders'));
   app.use('/api/admin',     require('./routes/admin'));
   app.use('/api/notify',    require('./routes/notify').router);
+  app.use('/api/offers',    require('./routes/offers'));
 
   // ── SPA FALLBACK ────────────────────────────────────────────────────────────
 
