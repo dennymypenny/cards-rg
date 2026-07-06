@@ -168,7 +168,13 @@ nav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid rg
 .overlay.open{opacity:1;pointer-events:auto}
 .modal-box{background:var(--bg2);border:1px solid rgba(255,45,120,.2);max-width:820px;width:100%;max-height:90vh;overflow-y:auto;display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:6px;box-shadow:0 0 60px rgba(255,45,120,.15)}
 .modal-box .modal-img-side{background:var(--bg3);display:flex;align-items:center;justify-content:center;min-height:400px;padding:2rem}
-.modal-box .modal-img-side img{max-width:100%;max-height:460px;object-fit:contain}
+.modal-box .modal-img-side img{max-width:100%;max-height:460px;object-fit:contain;cursor:zoom-in}
+.zoom-hint{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.6rem;letter-spacing:.06em;text-transform:uppercase}
+/* ── IMAGE LIGHTBOX ── */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:1200;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s;cursor:zoom-out;padding:1.25rem}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox img{max-width:96vw;max-height:92vh;object-fit:contain;border-radius:4px;box-shadow:0 0 80px rgba(255,45,120,.25)}
+.lightbox-hint{position:absolute;bottom:1.1rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.55);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
 .modal-box .modal-info-side{padding:2rem;display:flex;flex-direction:column}
 .modal-close-btn{position:absolute;top:1rem;right:1rem;background:rgba(255,45,120,.2);border:1px solid rgba(255,45,120,.3);color:var(--white);width:32px;height:32px;border-radius:50%;font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;transition:.15s}
 .modal-close-btn:hover{background:var(--pink)}
@@ -465,7 +471,10 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   <div class="modal-box modal-relative" id="cardModal">
     <button class="modal-close-btn" onclick="closeCardModal()">✕</button>
     <div class="modal-img-side">
-      <img id="modalImg" src="" alt="" onerror="this.style.display='none'"/>
+      <div>
+        <img id="modalImg" src="" alt="" onclick="openLightbox()" onerror="this.style.display='none'"/>
+        <p class="zoom-hint">🔍 Tap image for close-up</p>
+      </div>
     </div>
     <div class="modal-info-side">
       <div class="modal-category" id="modalCat"></div>
@@ -504,6 +513,12 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- IMAGE LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightboxImg" src="" alt="Card close-up"/>
+  <span class="lightbox-hint">Tap anywhere to close</span>
+</div>
 
 <!-- LIGHT BAND: TRUST STRIP -->
 <section class="trust-band">
@@ -742,6 +757,18 @@ function closeCardModal() {
   document.body.style.overflow = '';
 }
 
+// ── IMAGE LIGHTBOX ────────────────────────────────────────────────────────
+function openLightbox() {
+  const src = document.getElementById('modalImg').src;
+  if (!src) return;
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
 function addToCartFromModal() {
   const p = allProducts.find(x => x.id === currentProductId);
   if (!p || p.stock < 1) return;
@@ -843,7 +870,11 @@ async function init() {
   updateCartCount();
   await Promise.all([loadCategories(), loadProducts()]);
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeCardModal(); closeCart(); }
+    if (e.key === 'Escape') {
+      const lb = document.getElementById('lightbox');
+      if (lb.classList.contains('open')) { closeLightbox(); return; }
+      closeCardModal(); closeCart();
+    }
   });
 }
 
