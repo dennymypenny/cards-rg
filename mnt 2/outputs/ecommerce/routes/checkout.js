@@ -24,6 +24,14 @@ router.post('/session', async (req, res, next) => {
       return res.status(400).json({ error: 'Your cart is empty' });
     }
 
+    // Re-validate stock right before creating the session (cards are 1-of-1)
+    for (const item of cart.items) {
+      const p = db.prepare('SELECT name, stock FROM products WHERE id = ?').get(item.product_id);
+      if (!p || p.stock < item.quantity) {
+        return res.status(400).json({ error: `Sorry, "${item.name}" just sold out` });
+      }
+    }
+
     const storeUrl  = process.env.STORE_URL || 'http://localhost:3000';
     const settings  = db.helpers.getSettings();
     const storeName = settings.store_name || 'My Store';

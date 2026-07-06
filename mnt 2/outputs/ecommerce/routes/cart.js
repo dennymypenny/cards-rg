@@ -47,6 +47,7 @@ router.post('/add', (req, res) => {
 
   const product = db.prepare('SELECT * FROM products WHERE id = ? AND active = 1').get(product_id);
   if (!product) return res.status(404).json({ error: 'Product not found' });
+  if (product.stock <= 0) return res.status(400).json({ error: `${product.name} is sold out` });
 
   const qty = Math.max(1, parseInt(quantity));
   const cart = getCart(req);
@@ -54,12 +55,12 @@ router.post('/add', (req, res) => {
 
   if (existing) {
     const newQty = existing.quantity + qty;
-    if (product.stock > 0 && newQty > product.stock) {
+    if (newQty > product.stock) {
       return res.status(400).json({ error: `Only ${product.stock} in stock` });
     }
     existing.quantity = newQty;
   } else {
-    if (product.stock > 0 && qty > product.stock) {
+    if (qty > product.stock) {
       return res.status(400).json({ error: `Only ${product.stock} in stock` });
     }
     cart.items.push({
