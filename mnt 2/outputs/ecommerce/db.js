@@ -243,6 +243,12 @@ function seedSampleData() {
 
   // ── SOCCER ──────────────────────────────────────────────────────────────────
   prepare(ins).run(catSoccer,
+    'Lionel Messi 2023 Leaf Metal Anime Nation "Leo the Lion" #ANB-30 /373 PSA 10',
+    'messi-2023-leaf-anime-nation-anb30-psa10',
+    'Lionel Messi 2023 Leaf Metal Anime Nation — "Leo the Lion" #ANB-30, serial numbered 45/373, graded PSA 10 Gem Mint (cert #76705063). Stunning anime artwork by Japanese manga/caricature artist Shion Minabe: Messi in the Albiceleste alongside a roaring lion on a color-shifting metal foil canvas. Leaf Web Exclusive with a tiny print run. PSA 10 GEM MINT in the original slab.',
+    47500, null, 1, 'CRG-MESSI-ANIME-NATION-PSA10', '/images/messi-anime-nation-anb30.jpg', 'Numbered');
+
+  prepare(ins).run(catSoccer,
     'Lionel Messi 2022 Topps ARG Fileteado AFA Disc #DI4 PSA 10',
     'messi-2022-topps-arg-fileteado-afa-disc-psa10',
     'Lionel Messi 2022 Topps ARG Fileteado — AFA Disc #DI4, graded PSA 10 Gem Mint (cert #86725240). An incredibly unique Argentine format — the Fileteado disc card is a one-of-a-kind design exclusive to the Argentine market, featuring Messi in the iconic Albiceleste. PSA 10 GEM MINT: perfect corners, perfect centering, flawless surface. Comes in original PSA slab.',
@@ -309,6 +315,12 @@ function seedSampleData() {
     'stan-lee-2011-topps-allen-ginter-psa10',
     'Stan Lee 2011 Topps Allen & Ginter — World\'s Champions #274, graded PSA 10 Gem Mint (cert #77779080). The Founder of Marvel Comics himself, immortalized in the iconic Allen & Ginter format. PSA 10 Gem Mint — a true pop culture grail. Perfect for any Marvel or comic book fan.',
     10000, null, 1, 'CRG-STAN-LEE-PSA10', '/images/stanlee_allen_ginter_front.jpg', 'PSA 10');
+
+  prepare(ins).run(catOther,
+    'Mickey Mouse 2023 Disney Lorcana D100 Collector\'s Edition #18/P1 PSA 10',
+    'mickey-2023-lorcana-d100-collectors-edition-psa10',
+    'Mickey Mouse — Friendly Face, 2023 Disney Lorcana Disney100 Collector\'s Edition promo #18/P1, graded PSA 10 Gem Mint (cert #84532044). The crown jewel of the D100 Collector\'s Edition gift set: golden art deco alt-art of Mickey with animator Mark Henn\'s printed signature on a stunning foil treatment. One of the most sought-after Lorcana cards — the market for this card has been on fire. PSA 10 GEM MINT in the original slab.',
+    94000, null, 1, 'CRG-MICKEY-LORCANA-D100-PSA10', '/images/mickey-lorcana-d100.jpg', 'PSA 10');
 
   prepare(ins).run(catFootball,
     'Dan Marino 2022 Panini One Quad Patch Auto #63 — 10/15',
@@ -455,6 +467,26 @@ const db = {
     // One-off catalog fixes (idempotent — no re-seed, orders untouched)
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('marino-1996-ud-alltime-records-2420-5000');
+
+    // New products added without re-seed (idempotent by slug; also in seed for future re-seeds)
+    const addIfMissing = (catSlug, name, slug, desc, price, sku, image, badge) => {
+      if (prepare('SELECT id FROM products WHERE slug = ?').get(slug)) return;
+      const cat = prepare('SELECT id FROM categories WHERE slug = ?').get(catSlug);
+      if (!cat) return;
+      prepare('INSERT INTO products (category_id, name, slug, description, price, compare_price, stock, sku, image_url, badge, active) VALUES (?, ?, ?, ?, ?, null, 1, ?, ?, ?, 1)')
+        .run(cat.id, name, slug, desc, price, sku, image, badge);
+    };
+    addIfMissing('soccer',
+      'Lionel Messi 2023 Leaf Metal Anime Nation "Leo the Lion" #ANB-30 /373 PSA 10',
+      'messi-2023-leaf-anime-nation-anb30-psa10',
+      'Lionel Messi 2023 Leaf Metal Anime Nation — "Leo the Lion" #ANB-30, serial numbered 45/373, graded PSA 10 Gem Mint (cert #76705063). Stunning anime artwork by Japanese manga/caricature artist Shion Minabe: Messi in the Albiceleste alongside a roaring lion on a color-shifting metal foil canvas. Leaf Web Exclusive with a tiny print run. PSA 10 GEM MINT in the original slab.',
+      47500, 'CRG-MESSI-ANIME-NATION-PSA10', '/images/messi-anime-nation-anb30.jpg', 'Numbered');
+    addIfMissing('collectibles',
+      'Mickey Mouse 2023 Disney Lorcana D100 Collector\'s Edition #18/P1 PSA 10',
+      'mickey-2023-lorcana-d100-collectors-edition-psa10',
+      'Mickey Mouse — Friendly Face, 2023 Disney Lorcana Disney100 Collector\'s Edition promo #18/P1, graded PSA 10 Gem Mint (cert #84532044). The crown jewel of the D100 Collector\'s Edition gift set: golden art deco alt-art of Mickey with animator Mark Henn\'s printed signature on a stunning foil treatment. One of the most sought-after Lorcana cards — the market for this card has been on fire. PSA 10 GEM MINT in the original slab.',
+      94000, 'CRG-MICKEY-LORCANA-D100-PSA10', '/images/mickey-lorcana-d100.jpg', 'PSA 10');
+    saveDb();
 
     return this;
   }
