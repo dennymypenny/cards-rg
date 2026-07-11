@@ -179,7 +179,10 @@
   <!-- ── LIVE INVENTORY ────────────────────────────────────── -->
   <div class="activity-header" id="inventory">
     <h2 style="margin-bottom:0">Live Inventory</h2>
-    <span class="refresh-info" id="invCount"></span>
+    <span class="refresh-info">
+      <span id="invCount"></span>
+      <a href="/api/products/export.csv" style="color:var(--teal);margin-left:.6rem">Download spreadsheet ↓</a>
+    </span>
   </div>
   <div id="inventoryList" style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem">
     <div class="empty-feed"><div class="ico">⏳</div>Loading…</div>

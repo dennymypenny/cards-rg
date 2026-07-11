@@ -59,6 +59,24 @@ router.get('/categories', (req, res) => {
   res.json({ categories: cats });
 });
 
+// GET /api/products/export.csv — active inventory as a spreadsheet (linked from /hub)
+router.get('/export.csv', (req, res) => {
+  const rows = db.prepare(`
+    SELECT p.name, c.name AS category, p.price, p.badge, p.sku, p.stock, p.created_at
+    FROM products p
+    LEFT JOIN categories c ON p.category_id = c.id
+    WHERE p.active = 1
+    ORDER BY c.sort_order, p.price DESC
+  `).all();
+  const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  const csv = ['card,category,ask_price_usd,badge,sku,in_stock,listed_at']
+    .concat(rows.map(r => [r.name, r.category, (r.price / 100).toFixed(2), r.badge, r.sku, r.stock, r.created_at].map(esc).join(',')))
+    .join('\n');
+  res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+  res.setHeader('Content-Disposition', 'attachment; filename="crg-active-inventory.csv"');
+  res.send(csv);
+});
+
 // GET /api/products/:slug — single product
 router.get('/:slug', (req, res) => {
   const product = db.prepare(`

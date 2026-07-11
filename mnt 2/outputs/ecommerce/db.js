@@ -254,7 +254,7 @@ function seedSampleData() {
     'Lionel Messi 2023 Leaf Metal Anime Nation "Leo the Lion" #ANB-30 /373 PSA 10',
     'messi-2023-leaf-anime-nation-anb30-psa10',
     'Lionel Messi 2023 Leaf Metal Anime Nation — "Leo the Lion" #ANB-30, serial numbered 45/373, graded PSA 10 Gem Mint (cert #76705063). Stunning anime artwork by Japanese manga/caricature artist Shion Minabe: Messi in the Albiceleste alongside a roaring lion on a color-shifting metal foil canvas. Leaf Web Exclusive with a tiny print run. PSA 10 GEM MINT in the original slab.',
-    47500, null, 1, 'CRG-MESSI-ANIME-NATION-PSA10', '/images/messi-anime-nation-anb30.jpg', 'Numbered');
+    32000, null, 1, 'CRG-MESSI-ANIME-NATION-PSA10', '/images/messi-anime-nation-anb30.jpg', 'Numbered');
 
   prepare(ins).run(catSoccer,
     'Lionel Messi 2022 Topps ARG Fileteado AFA Disc #DI4 PSA 10',
@@ -494,6 +494,16 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('marino-1996-ud-alltime-records-2420-5000');
 
+    // SOLD (Jul 11 2026): Marino Quad Patch Auto + Mickey Lorcana D100 — remove from storefront
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('marino-2022-panini-one-quad-patch-auto-10-15');
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('mickey-2023-lorcana-d100-collectors-edition-psa10');
+
+    // Price drop (Jul 11 2026): Messi Anime Nation "Leo the Lion" → $320
+    prepare('UPDATE products SET price = 32000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 32000')
+      .run('messi-2023-leaf-anime-nation-anb30-psa10');
+
     // Kobe/Messi Leaf Pearl: corrected to dual-sided PP2-3 with Messi front (Jul 2026)
     prepare('UPDATE products SET name = ?, description = ?, image_url = ?, updated_at = datetime(\'now\') WHERE slug = ?')
       .run(
@@ -514,7 +524,7 @@ const db = {
       'Lionel Messi 2023 Leaf Metal Anime Nation "Leo the Lion" #ANB-30 /373 PSA 10',
       'messi-2023-leaf-anime-nation-anb30-psa10',
       'Lionel Messi 2023 Leaf Metal Anime Nation — "Leo the Lion" #ANB-30, serial numbered 45/373, graded PSA 10 Gem Mint (cert #76705063). Stunning anime artwork by Japanese manga/caricature artist Shion Minabe: Messi in the Albiceleste alongside a roaring lion on a color-shifting metal foil canvas. Leaf Web Exclusive with a tiny print run. PSA 10 GEM MINT in the original slab.',
-      47500, 'CRG-MESSI-ANIME-NATION-PSA10', '/images/messi-anime-nation-anb30.jpg', 'Numbered');
+      32000, 'CRG-MESSI-ANIME-NATION-PSA10', '/images/messi-anime-nation-anb30.jpg', 'Numbered');
     addIfMissing('collectibles',
       'Mickey Mouse 2023 Disney Lorcana D100 Collector\'s Edition #18/P1 PSA 10',
       'mickey-2023-lorcana-d100-collectors-edition-psa10',
