@@ -317,6 +317,12 @@ function seedSampleData() {
     'Kobe Bryant 2000 Leaf Pearl Pearlescent Patch #24, serial 3/3. ONE OF ONLY THREE IN EXISTENCE. This is one of only three copies of this card ever made. A Kobe Pearlescent Patch numbered 3/3 — a true once-in-a-collection grail. Ultra-premium and ultra-rare. Ships fully insured, signature required.',
     150000, null, 1, 'CRG-KB-00-PATCH-3', '/images/kobe_leaf_pearl_full.jpg', 'Grail');
 
+  prepare(ins).run(catNBA,
+    'Magic Johnson Leaf Sports Heroes Signature Decade \'80s Auto #SD-MJ1 — 7/10',
+    'magic-johnson-leaf-signature-decade-80s-auto-7-10',
+    'Magic Johnson — Leaf Sports Heroes "Signature Decade \'80s" autograph #SD-MJ1, serial numbered 7/10. A bold on-card style Magic auto on a dazzling cracked-ice finish celebrating the decade Showtime ran the NBA. Only 10 copies exist. The Lakers legend\'s signature, certified by Leaf. Ships in a magnetic one-touch, bubble-wrapped and fully insured.',
+    10000, null, 1, 'CRG-MAGIC-LEAF-SIGDECADE-7-10', '/images/magic-johnson-leaf-signature-decade-80s-auto-7-10.jpg', 'Numbered');
+
   // ── COLLECTIBLES ─────────────────────────────────────────────────────────────
   prepare(ins).run(catOther,
     'Stan Lee 2011 Topps Allen & Ginter World\'s Champions #274 PSA 10',
@@ -329,6 +335,12 @@ function seedSampleData() {
     'mickey-2023-lorcana-d100-collectors-edition-psa10',
     'Mickey Mouse — Friendly Face, 2023 Disney Lorcana Disney100 Collector\'s Edition promo #18/P1, graded PSA 10 Gem Mint (cert #84532044). The crown jewel of the D100 Collector\'s Edition gift set: golden art deco alt-art of Mickey with animator Mark Henn\'s printed signature on a stunning foil treatment. One of the most sought-after Lorcana cards — the market for this card has been on fire. PSA 10 GEM MINT in the original slab.',
     94000, null, 1, 'CRG-MICKEY-LORCANA-D100-PSA10', '/images/mickey-lorcana-d100.jpg', 'PSA 10');
+
+  prepare(ins).run(catOther,
+    'Rafael Nadal 2003 NetPro #70 Rookie Card PSA 10',
+    'nadal-2003-netpro-70-rookie-psa10',
+    'Rafael Nadal 2003 NetPro #70 — the King of Clay\'s true rookie card, graded PSA 10 GEM MINT (cert #49612693). Teenage Rafa crouched on the grass, years before 22 Grand Slams and 14 French Opens made him a legend. The 2003 NetPro is THE recognized Nadal rookie, and gem mint copies are the ones collectors fight over. Ships in the original PSA slab, bubble-wrapped and fully insured.',
+    8500, null, 1, 'CRG-NADAL-03-NETPRO-70-PSA10', '/images/nadal-2003-netpro-70-rookie-psa10.jpg', 'PSA 10');
 
   prepare(ins).run(catFootball,
     'Randy Moss 2020 Panini Mosaic Old School Orange Fluorescent #OS14 — 1/25',
@@ -505,6 +517,16 @@ const db = {
       'randy-moss-2020-mosaic-old-school-orange-fluorescent-1-25',
       'Randy Moss 2020 Panini Mosaic Football — Old School insert #OS14, Orange Fluorescent parallel, serial numbered 1/25. The FIRST copy off the press of only 25 in existence. The Freak in the iconic Vikings purple on a blazing orange fluorescent mosaic finish. Raw, pack-fresh condition. Ships in a magnetic one-touch, bubble-wrapped and fully insured.',
       10000, 'CRG-MOSS-20-MOSAIC-OS14-ORANGE-1-25', '/images/randy-moss-2020-mosaic-old-school-orange-fluorescent-1-25.jpg', 'Numbered');
+    addIfMissing('collectibles',
+      'Rafael Nadal 2003 NetPro #70 Rookie Card PSA 10',
+      'nadal-2003-netpro-70-rookie-psa10',
+      'Rafael Nadal 2003 NetPro #70 — the King of Clay\'s true rookie card, graded PSA 10 GEM MINT (cert #49612693). Teenage Rafa crouched on the grass, years before 22 Grand Slams and 14 French Opens made him a legend. The 2003 NetPro is THE recognized Nadal rookie, and gem mint copies are the ones collectors fight over. Ships in the original PSA slab, bubble-wrapped and fully insured.',
+      8500, 'CRG-NADAL-03-NETPRO-70-PSA10', '/images/nadal-2003-netpro-70-rookie-psa10.jpg', 'PSA 10');
+    addIfMissing('nba',
+      'Magic Johnson Leaf Sports Heroes Signature Decade \'80s Auto #SD-MJ1 — 7/10',
+      'magic-johnson-leaf-signature-decade-80s-auto-7-10',
+      'Magic Johnson — Leaf Sports Heroes "Signature Decade \'80s" autograph #SD-MJ1, serial numbered 7/10. A bold on-card style Magic auto on a dazzling cracked-ice finish celebrating the decade Showtime ran the NBA. Only 10 copies exist. The Lakers legend\'s signature, certified by Leaf. Ships in a magnetic one-touch, bubble-wrapped and fully insured.',
+      10000, 'CRG-MAGIC-LEAF-SIGDECADE-7-10', '/images/magic-johnson-leaf-signature-decade-80s-auto-7-10.jpg', 'Numbered');
     saveDb();
 
     return this;
