@@ -331,6 +331,12 @@ function seedSampleData() {
     94000, null, 1, 'CRG-MICKEY-LORCANA-D100-PSA10', '/images/mickey-lorcana-d100.jpg', 'PSA 10');
 
   prepare(ins).run(catFootball,
+    'Randy Moss 2020 Panini Mosaic Old School Orange Fluorescent #OS14 — 1/25',
+    'randy-moss-2020-mosaic-old-school-orange-fluorescent-1-25',
+    'Randy Moss 2020 Panini Mosaic Football — Old School insert #OS14, Orange Fluorescent parallel, serial numbered 1/25. The FIRST copy off the press of only 25 in existence. The Freak in the iconic Vikings purple on a blazing orange fluorescent mosaic finish. Raw, pack-fresh condition. Ships in a magnetic one-touch, bubble-wrapped and fully insured.',
+    10000, null, 1, 'CRG-MOSS-20-MOSAIC-OS14-ORANGE-1-25', '/images/randy-moss-2020-mosaic-old-school-orange-fluorescent-1-25.jpg', 'Numbered');
+
+  prepare(ins).run(catFootball,
     'Dan Marino 2022 Panini One Quad Patch Auto #63 — 10/15',
     'marino-2022-panini-one-quad-patch-auto-10-15',
     'Dan Marino 2022 Panini One #63 — Quad Jersey Patch Auto, serial numbered 10/15. One of the most premium football cards you can own: four authentic game-worn Marino jersey swatches, a hard-signed on-card autograph, and an oversized format that makes it a true showpiece. Only 15 exist in the world. Miami Dolphins Hall of Famer. Ships fully insured.',
@@ -494,6 +500,11 @@ const db = {
       'mickey-2023-lorcana-d100-collectors-edition-psa10',
       'Mickey Mouse — Friendly Face, 2023 Disney Lorcana Disney100 Collector\'s Edition promo #18/P1, graded PSA 10 Gem Mint (cert #84532044). The crown jewel of the D100 Collector\'s Edition gift set: golden art deco alt-art of Mickey with animator Mark Henn\'s printed signature on a stunning foil treatment. One of the most sought-after Lorcana cards — the market for this card has been on fire. PSA 10 GEM MINT in the original slab.',
       94000, 'CRG-MICKEY-LORCANA-D100-PSA10', '/images/mickey-lorcana-d100.jpg', 'PSA 10');
+    addIfMissing('football',
+      'Randy Moss 2020 Panini Mosaic Old School Orange Fluorescent #OS14 — 1/25',
+      'randy-moss-2020-mosaic-old-school-orange-fluorescent-1-25',
+      'Randy Moss 2020 Panini Mosaic Football — Old School insert #OS14, Orange Fluorescent parallel, serial numbered 1/25. The FIRST copy off the press of only 25 in existence. The Freak in the iconic Vikings purple on a blazing orange fluorescent mosaic finish. Raw, pack-fresh condition. Ships in a magnetic one-touch, bubble-wrapped and fully insured.',
+      10000, 'CRG-MOSS-20-MOSAIC-OS14-ORANGE-1-25', '/images/randy-moss-2020-mosaic-old-school-orange-fluorescent-1-25.jpg', 'Numbered');
     saveDb();
 
     return this;
