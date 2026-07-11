@@ -259,6 +259,34 @@ textarea.offer-input{resize:vertical;min-height:70px}
 .btn-card-offer{background:transparent;border:1.5px solid var(--cyan);color:var(--cyan);font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.45rem .3rem;border-radius:var(--radius);cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;gap:.25rem}
 .btn-card-offer:hover{background:rgba(0,240,255,.1);box-shadow:0 0 10px rgba(0,240,255,.25)}
 
+/* ── EMAIL SIGNUP POPUP ── */
+.signup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(4px);z-index:750;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .25s}
+.signup-overlay.open{opacity:1;pointer-events:auto}
+.signup-box{background:var(--bg2);border:1px solid rgba(255,45,120,.35);max-width:420px;width:100%;border-radius:8px;box-shadow:0 0 60px rgba(255,45,120,.18);padding:0;position:relative;overflow:hidden;transform:translateY(14px);transition:transform .25s}
+.signup-overlay.open .signup-box{transform:translateY(0)}
+.signup-stripe{height:4px;background:linear-gradient(90deg,var(--pink) 0%,var(--purple) 45%,var(--cyan) 100%)}
+.signup-inner{padding:1.9rem 1.75rem 1.6rem}
+.signup-brand{font-size:.8rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--white);margin-bottom:.9rem}
+.signup-brand b{background:linear-gradient(135deg,var(--pink),var(--purple) 60%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.signup-head{font-size:1.45rem;font-weight:900;line-height:1.15;text-transform:uppercase;letter-spacing:.02em;background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.55rem}
+.signup-sub{font-size:.85rem;color:var(--muted);line-height:1.55;margin-bottom:1.15rem}
+.signup-sub b{color:var(--cyan);font-weight:700}
+.signup-row{display:flex;gap:.5rem}
+.signup-row .offer-input{flex:1}
+.btn-signup{padding:.7rem 1.05rem;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;border:none;font-size:.8rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border-radius:var(--radius);transition:.15s;box-shadow:0 0 16px rgba(255,45,120,.3);white-space:nowrap;cursor:pointer}
+.btn-signup:hover{box-shadow:0 0 26px rgba(255,45,120,.5)}
+.btn-signup:disabled{opacity:.6;cursor:wait}
+.signup-error{font-size:.78rem;color:var(--pink);margin-top:.6rem;display:none}
+.signup-error.show{display:block}
+.signup-no{display:block;width:100%;background:none;border:none;color:var(--muted);font-size:.72rem;letter-spacing:.04em;text-transform:uppercase;margin-top:1rem;cursor:pointer;text-align:center;font-family:var(--sans)}
+.signup-no:hover{color:var(--white);text-decoration:underline}
+.signup-note{font-size:.68rem;color:var(--muted);text-align:center;margin-top:.75rem;line-height:1.5;opacity:.75}
+.signup-success{text-align:center;padding:1rem 0 .25rem;display:none}
+.signup-success .big{font-size:2.6rem;margin-bottom:.55rem}
+.signup-success h3{font-size:1.05rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--cyan);margin-bottom:.45rem}
+.signup-success p{font-size:.83rem;color:var(--muted);line-height:1.6}
+@media(max-width:480px){.signup-row{flex-direction:column}.btn-signup{width:100%}}
+
 /* ── TOAST ── */
 .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg2);border:1px solid var(--pink);color:var(--white);border-radius:var(--radius);padding:.75rem 1.1rem;font-size:.83rem;font-weight:600;z-index:1100;transform:translateY(12px);opacity:0;transition:.2s;max-width:260px;box-shadow:0 0 20px rgba(255,45,120,.3)}
 .toast.show{transform:translateY(0);opacity:1}
@@ -587,6 +615,33 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   </div>
 </div>
 
+<!-- EMAIL SIGNUP POPUP (CRG List) -->
+<div class="signup-overlay" id="signupOverlay" onclick="if(event.target===this)closeSignup()">
+  <div class="signup-box">
+    <button class="modal-close-btn" onclick="closeSignup()" aria-label="Close">✕</button>
+    <div class="signup-stripe"></div>
+    <div class="signup-inner">
+      <div id="signupFormWrap">
+        <div class="signup-brand">Cards<b>RG</b> — Cards, Rips &amp; Grails</div>
+        <div class="signup-head">Get First Dibs 🔥</div>
+        <p class="signup-sub">Join the <b>CRG List</b> for new drops, <b>giveaways</b>, and subscriber-only deals. No spam — just heat.</p>
+        <div class="signup-row">
+          <input class="offer-input" id="signupEmail" type="email" placeholder="you@email.com" autocomplete="email" onkeydown="if(event.key==='Enter')submitSignup()"/>
+          <button class="btn-signup" id="signupBtn" onclick="submitSignup()">Count Me In</button>
+        </div>
+        <div class="signup-error" id="signupError"></div>
+        <button class="signup-no" onclick="closeSignup()">No thanks</button>
+        <p class="signup-note">Unsubscribe anytime · We never share your email</p>
+      </div>
+      <div class="signup-success" id="signupSuccess">
+        <div class="big">🎉</div>
+        <h3>You're on the list!</h3>
+        <p id="signupSuccessMsg">First dibs on drops &amp; giveaways — straight to your inbox.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <!-- IMAGE LIGHTBOX -->
@@ -614,6 +669,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
       <p class="footer-tagline">Cards, Rips, and Grails. PSA graded cards, rare grails, sealed wax, and fire singles — handpicked for serious collectors.</p>
       <div class="footer-contact">
         Instagram: <strong>@cardsrgshop</strong><br/>
+        eBay: <a href="https://www.ebay.com/usr/cardsrgshop" target="_blank" rel="noopener"><strong>ebay.com/usr/cardsrgshop</strong></a><br/>
         Email: <a href="mailto:cardsrgshop@gmail.com"><strong>cardsrgshop@gmail.com</strong></a><br/>
         DMs always open — buy, sell &amp; trade
       </div>
@@ -636,8 +692,10 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
     <div class="footer-col">
       <h4>Connect With Us</h4>
       <a href="https://www.instagram.com/cardsrgshop" target="_blank">Instagram</a>
+      <a href="https://www.ebay.com/usr/cardsrgshop" target="_blank" rel="noopener">eBay Store</a>
       <a href="https://www.instagram.com/cardsrgshop" target="_blank">DM for Offers</a>
       <a href="https://www.instagram.com/cardsrgshop" target="_blank">Trade Inquiries</a>
+      <a href="#" onclick="openSignup(true);return false;">Join the CRG List 🔥</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1044,6 +1102,69 @@ function showToast(msg) {
 
 function openInstagram() { window.open('https://www.instagram.com/cardsrgshop','_blank'); }
 
+// ── EMAIL SIGNUP POPUP (CRG List) ─────────────────────────────────────────
+const SIGNUP_SNOOZE_DAYS = 7;
+
+function shouldShowSignup() {
+  try {
+    if (localStorage.getItem('crg_list_joined')) return false;
+    const dismissed = Number(localStorage.getItem('crg_list_dismissed_at') || 0);
+    if (dismissed && Date.now() - dismissed < SIGNUP_SNOOZE_DAYS * 24 * 60 * 60 * 1000) return false;
+    return true;
+  } catch(e) { return false; }
+}
+
+function openSignup(manual) {
+  // Don't pop over an open modal/cart unless manually requested
+  if (!manual) {
+    const busy = document.querySelector('.overlay.open, .cart-overlay.open, .lightbox.open');
+    if (busy) { setTimeout(() => openSignup(false), 15000); return; }
+  }
+  document.getElementById('signupFormWrap').style.display = '';
+  document.getElementById('signupSuccess').style.display  = 'none';
+  document.getElementById('signupOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('signupEmail')?.focus(), 300);
+}
+
+function closeSignup() {
+  document.getElementById('signupOverlay').classList.remove('open');
+  try { localStorage.setItem('crg_list_dismissed_at', String(Date.now())); } catch(e){}
+}
+
+async function submitSignup() {
+  const emailEl = document.getElementById('signupEmail');
+  const errEl   = document.getElementById('signupError');
+  const btn     = document.getElementById('signupBtn');
+  const email   = emailEl.value.trim();
+  errEl.classList.remove('show');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = 'Please enter a valid email.';
+    errEl.classList.add('show');
+    return;
+  }
+  btn.disabled = true; btn.textContent = 'Joining…';
+  try {
+    const res  = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ email, source: 'popup' })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Something went wrong — try again.');
+    try { localStorage.setItem('crg_list_joined', email); } catch(e){}
+    document.getElementById('signupFormWrap').style.display = 'none';
+    const s = document.getElementById('signupSuccess');
+    if (data.message) document.getElementById('signupSuccessMsg').textContent = data.message;
+    s.style.display = 'block';
+    setTimeout(() => document.getElementById('signupOverlay').classList.remove('open'), 2600);
+  } catch(err) {
+    errEl.textContent = err.message;
+    errEl.classList.add('show');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Count Me In';
+  }
+}
+
 // ── INIT ──────────────────────────────────────────────────────────────────
 async function init() {
   cart = JSON.parse(localStorage.getItem('crg_cart')||'[]');
@@ -1053,9 +1174,11 @@ async function init() {
     if (e.key === 'Escape') {
       const lb = document.getElementById('lightbox');
       if (lb.classList.contains('open')) { closeLightbox(); return; }
+      if (document.getElementById('signupOverlay').classList.contains('open')) { closeSignup(); return; }
       closeCardModal(); closeCart(); closeOfferModal();
     }
   });
+  if (shouldShowSignup()) setTimeout(() => openSignup(false), 6000);
 }
 
 init();

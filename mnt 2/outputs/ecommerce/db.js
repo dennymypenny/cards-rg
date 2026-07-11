@@ -190,6 +190,14 @@ const SCHEMA = `
     created_at   TEXT    NOT NULL DEFAULT (datetime('now'))
   );
 
+  CREATE TABLE IF NOT EXISTS subscribers (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    email      TEXT    UNIQUE NOT NULL,
+    name       TEXT,
+    source     TEXT    NOT NULL DEFAULT 'popup',
+    created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+  );
+
   CREATE INDEX IF NOT EXISTS idx_products_category ON products(category_id);
   CREATE INDEX IF NOT EXISTS idx_products_active   ON products(active);
   CREATE INDEX IF NOT EXISTS idx_orders_status     ON orders(status);

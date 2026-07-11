@@ -141,6 +141,16 @@
       <div class="lname">Push Alerts</div>
       <div class="ldesc">ntfy.sh cart notifications</div>
     </a>
+    <a class="link-card" href="https://www.ebay.com/usr/cardsrgshop" target="_blank">
+      <div class="icon">🏷️</div>
+      <div class="lname">eBay Store</div>
+      <div class="ldesc">ebay.com/usr/cardsrgshop</div>
+    </a>
+    <a class="link-card" href="#emailList">
+      <div class="icon">📧</div>
+      <div class="lname">CRG List</div>
+      <div class="ldesc">Email signups — drops &amp; giveaways</div>
+    </a>
   </div>
 
   <!-- ── NOTIFICATION SETUP ────────────────────────────────── -->
@@ -181,6 +191,18 @@
     <span class="refresh-info" id="refreshInfo">Refreshes every 30s</span>
   </div>
   <div id="activityFeed">
+    <div class="empty-feed"><div class="ico">⏳</div>Loading…</div>
+  </div>
+
+  <!-- ── EMAIL LIST (CRG List signups) ─────────────────────── -->
+  <div class="activity-header" id="emailList" style="margin-top:2.5rem">
+    <h2 style="margin-bottom:0">CRG List — Email Signups</h2>
+    <span class="refresh-info">
+      <span id="subCount"></span>
+      <a href="/api/subscribe/export.csv" style="color:var(--teal);margin-left:.6rem">Download CSV ↓</a>
+    </span>
+  </div>
+  <div id="subscriberList" style="display:flex;flex-direction:column;gap:.6rem">
     <div class="empty-feed"><div class="ico">⏳</div>Loading…</div>
   </div>
 
@@ -273,6 +295,44 @@ async function loadInventory() {
 }
 loadInventory();
 setInterval(loadInventory, 60000);
+
+// ── CRG LIST SUBSCRIBERS (admin session required) ──────────────────────────
+async function loadSubscribers() {
+  const list  = document.getElementById('subscriberList');
+  const count = document.getElementById('subCount');
+  try {
+    const res = await fetch('/api/subscribe');
+    if (res.status === 403) {
+      list.innerHTML = `<div class="login-nudge">
+        Log in as admin to see the email list. &nbsp;
+        <a href="/admin">Go to Admin Panel →</a>
+      </div>`;
+      return;
+    }
+    const subs = await res.json();
+    if (!Array.isArray(subs) || subs.length === 0) {
+      list.innerHTML = `<div class="empty-feed">
+        <div class="ico">📧</div>
+        No signups yet — the popup on cardsrg.com will start collecting emails.
+      </div>`;
+      return;
+    }
+    count.textContent = `${subs.length} subscriber${subs.length === 1 ? '' : 's'}`;
+    list.innerHTML = subs.slice(0, 100).map(s => `
+      <div class="act-item">
+        <div class="act-icon">📧</div>
+        <div>
+          <div class="act-name">${s.email}</div>
+          <div class="act-meta">${s.name ? s.name + ' · ' : ''}via ${s.source || 'popup'}</div>
+        </div>
+        <div class="act-time">${timeAgo(s.created_at.replace(' ', 'T') + 'Z')}</div>
+      </div>`).join('');
+  } catch(e) {
+    list.innerHTML = `<div class="empty-feed"><div class="ico">⚠️</div>Could not load email list.</div>`;
+  }
+}
+loadSubscribers();
+setInterval(loadSubscribers, 60000);
 
 // ── PWA: INSTALL PROMPT ─────────────────────────────────────────────────────
 let deferredPrompt = null;
