@@ -312,10 +312,10 @@ function seedSampleData() {
 
   // ── NBA BASKETBALL ───────────────────────────────────────────────────────────
   prepare(ins).run(catNBA,
-    'Kobe Bryant 2000 Leaf Pearl Pearlescent Patch #24 — 3/3',
+    'Lionel Messi / Kobe Bryant 2021-22 Leaf Pearl Dual Pearlescent Patch #PP2-3 — 3/3',
     'kobe-bryant-2000-leaf-pearl-pearlescent-patch-3-3',
-    'Kobe Bryant 2000 Leaf Pearl Pearlescent Patch #24, serial 3/3. ONE OF ONLY THREE IN EXISTENCE. This is one of only three copies of this card ever made. A Kobe Pearlescent Patch numbered 3/3 — a true once-in-a-collection grail. Ultra-premium and ultra-rare. Ships fully insured, signature required.',
-    150000, null, 1, 'CRG-KB-00-PATCH-3', '/images/kobe_leaf_pearl_full.jpg', 'Grail');
+    'Lionel Messi / Kobe Bryant 2021-22 Leaf Pearl Multi-Sport — Dual Pearlescent Patch #PP2-3, serial numbered 3/3. ONE OF ONLY THREE COPIES IN EXISTENCE. Two of the greatest athletes who ever lived, united on one card. The front: Lionel Messi with an authentic game-used patch set in a shimmering pearlescent frame. Flip it over: Kobe Bryant with a stunning three-color Lakers patch of his own. Game-used memorabilia from BOTH legends, authenticity guaranteed by Leaf Trading Cards, sealed in the original Leaf case. The GOAT of football and the Black Mamba do not share cardboard often — and never this rare. This is not just a card, it is a museum piece and the centerpiece of any collection. Ships double-boxed, fully insured, signature required.',
+    150000, null, 1, 'CRG-KB-00-PATCH-3', '/images/kobe-messi-leaf-pearl-pp2-3.jpg', 'Grail');
 
   prepare(ins).run(catNBA,
     'Magic Johnson Leaf Sports Heroes Signature Decade \'80s Auto #SD-MJ1 — 7/10',
@@ -493,6 +493,14 @@ const db = {
     // One-off catalog fixes (idempotent — no re-seed, orders untouched)
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('marino-1996-ud-alltime-records-2420-5000');
+
+    // Kobe/Messi Leaf Pearl: corrected to dual-sided PP2-3 with Messi front (Jul 2026)
+    prepare('UPDATE products SET name = ?, description = ?, image_url = ?, updated_at = datetime(\'now\') WHERE slug = ?')
+      .run(
+        'Lionel Messi / Kobe Bryant 2021-22 Leaf Pearl Dual Pearlescent Patch #PP2-3 — 3/3',
+        'Lionel Messi / Kobe Bryant 2021-22 Leaf Pearl Multi-Sport — Dual Pearlescent Patch #PP2-3, serial numbered 3/3. ONE OF ONLY THREE COPIES IN EXISTENCE. Two of the greatest athletes who ever lived, united on one card. The front: Lionel Messi with an authentic game-used patch set in a shimmering pearlescent frame. Flip it over: Kobe Bryant with a stunning three-color Lakers patch of his own. Game-used memorabilia from BOTH legends, authenticity guaranteed by Leaf Trading Cards, sealed in the original Leaf case. The GOAT of football and the Black Mamba do not share cardboard often — and never this rare. This is not just a card, it is a museum piece and the centerpiece of any collection. Ships double-boxed, fully insured, signature required.',
+        '/images/kobe-messi-leaf-pearl-pp2-3.jpg',
+        'kobe-bryant-2000-leaf-pearl-pearlescent-patch-3-3');
 
     // New products added without re-seed (idempotent by slug; also in seed for future re-seeds)
     const addIfMissing = (catSlug, name, slug, desc, price, sku, image, badge) => {
