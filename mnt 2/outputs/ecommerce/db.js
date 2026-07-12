@@ -545,6 +545,38 @@ const db = {
       'magic-johnson-leaf-signature-decade-80s-auto-7-10',
       'Magic Johnson — Leaf Sports Heroes "Signature Decade \'80s" autograph #SD-MJ1, serial numbered 7/10. A bold on-card style Magic auto on a dazzling cracked-ice finish celebrating the decade Showtime ran the NBA. Only 10 copies exist. The Lakers legend\'s signature, certified by Leaf. Ships in a magnetic one-touch, bubble-wrapped and fully insured.',
       10000, 'CRG-MAGIC-LEAF-SIGDECADE-7-10', '/images/magic-johnson-leaf-signature-decade-80s-auto-7-10.jpg', 'Numbered');
+
+    // PSA 10 Pokémon slab drop (Jul 12 2026) — six new graded singles
+    addIfMissing('pokemon',
+      'Iono\'s Kilowattrel 2025 Journey Together #163 Illustration Rare PSA 10',
+      'ionos-kilowattrel-jtg-163-psa10',
+      'Iono\'s Kilowattrel — 2025 Pokémon Scarlet & Violet: Journey Together, Illustration Rare #163/159, graded PSA 10 GEM MINT (cert #120038268). One of the most beloved Illustration Rares in Journey Together: streamer superstar Iono and her Kilowattrel lighting up a gorgeous full-art scene. Flawless gem mint copy. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      9000, 'CRG-IONO-KILOWATTREL-JTG163-PSA10', '/images/ionos-kilowattrel-jtg-163-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Volcanion ex 2025 Journey Together #182 Special Illustration Rare PSA 10',
+      'volcanion-ex-jtg-182-sir-psa10',
+      'Volcanion ex — 2025 Pokémon Scarlet & Violet: Journey Together, Special Illustration Rare #182/159, graded PSA 10 GEM MINT (cert #141084648). The Steam Pokémon erupting across a molten full-art canvas — one of the hardest-hitting SIRs in the set and an absolute showpiece in gem mint. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      11000, 'CRG-VOLCANION-EX-JTG182-PSA10', '/images/volcanion-ex-jtg-182-sir-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Mega Latias ex 2025 Mega Evolution #181 Special Illustration Rare PSA 10',
+      'mega-latias-ex-meg-181-sir-psa10',
+      'Mega Latias ex — 2025 Pokémon Mega Evolution, Special Illustration Rare #181/132, graded PSA 10 GEM MINT (cert #137960092). A top chase card of the Mega Evolution base set: Mega Latias tearing across the sky in breathtaking full-bleed art. Demand for this SIR has been relentless, and gem mint copies are the ones that hold. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      30000, 'CRG-MEGA-LATIAS-EX-MEG181-PSA10', '/images/mega-latias-ex-meg-181-sir-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Pikachu VMAX 2020 Vivid Voltage #044 Full Art PSA 10',
+      'pikachu-vmax-vivid-voltage-044-psa10',
+      'Pikachu VMAX — 2020 Pokémon Sword & Shield: Vivid Voltage, Full Art #044/185, graded PSA 10 GEM MINT (cert #59950458). The legendary "Chonkachu" — Gigantamax Pikachu in all his oversized glory, the card that defined the Vivid Voltage era and a modern Pikachu staple every collection needs. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      11500, 'CRG-PIKACHU-VMAX-VV044-PSA10', '/images/pikachu-vmax-vivid-voltage-044-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Tapu Bulu GX 2019 Hidden Fates Shiny Vault #SV91 Gold Full Art PSA 10',
+      'tapu-bulu-gx-hidden-fates-sv91-psa10',
+      'Tapu Bulu GX — 2019 Pokémon Sun & Moon: Hidden Fates Shiny Vault, Gold Secret Rare Full Art #SV91/SV94, graded PSA 10 GEM MINT (cert #119716792). Solid gold from the most iconic subset of the modern era: the Shiny Vault. The island guardian rendered in stunning gold foil, one of the final secret rares in the set. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      8000, 'CRG-TAPU-BULU-GX-SV91-PSA10', '/images/tapu-bulu-gx-hidden-fates-sv91-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Mega Greninja ex 2026 Chaos Rising #116 Special Illustration Rare PSA 10',
+      'mega-greninja-ex-cri-116-sir-psa10',
+      'Mega Greninja ex — 2026 Pokémon Mega Evolution: Chaos Rising, Special Illustration Rare #116/086, graded PSA 10 GEM MINT (cert #163077710). The undisputed king of Chaos Rising. Mega Greninja mid-strike in cinematic full-art — the most hunted card of the newest era of the TCG, already commanding grail status. Fresh PSA 10, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured with signature confirmation, from a smoke-free shop.',
+      100000, 'CRG-MEGA-GRENINJA-EX-CRI116-PSA10', '/images/mega-greninja-ex-cri-116-sir-psa10.jpg', 'PSA 10');
     saveDb();
 
     return this;
