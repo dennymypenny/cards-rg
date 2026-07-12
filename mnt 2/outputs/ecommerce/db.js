@@ -605,6 +605,11 @@ const db = {
       'jolteon-ex-sv8a-209-sar-psa10',
       'Jolteon ex — 2024 Pokémon Japanese SV8a: Terastal Festival ex, Special Art Rare #209/187, graded PSA 10 GEM MINT (cert #128287129). Jolteon streaking through a lightning-charged cityscape in electric SAR artwork — one of the standout Eeveelution chase cards of Terastal Festival. Flawless gem mint. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
       13500, 'CRG-JOLTEON-EX-SV8A209-PSA10', '/images/jolteon-ex-sv8a-209-sar-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Feraligatr 2000 Japanese Neo Premium File #160 Holo PSA 10',
+      'feraligatr-neo-premium-file-160-psa10',
+      'Feraligatr — 2000 Pokémon Japanese Neo Genesis Premium File, Holo #160, graded PSA 10 GEM MINT (cert #118892901). The Big Jaw Pokémon roaring off the card in classic Ken Sugimori holo art from the sought-after Neo Premium File promo set. True vintage Japanese Pokémon, 25+ years old and immaculate in gem mint — the perfect partner to its Meganium sibling. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      40000, 'CRG-FERALIGATR-NEO-PF160-PSA10', '/images/feraligatr-neo-premium-file-160-psa10.jpg', 'PSA 10');
     saveDb();
 
     return this;
