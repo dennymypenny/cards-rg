@@ -546,6 +546,14 @@ const db = {
       'Magic Johnson — Leaf Sports Heroes "Signature Decade \'80s" autograph #SD-MJ1, serial numbered 7/10. A bold on-card style Magic auto on a dazzling cracked-ice finish celebrating the decade Showtime ran the NBA. Only 10 copies exist. The Lakers legend\'s signature, certified by Leaf. Ships in a magnetic one-touch, bubble-wrapped and fully insured.',
       10000, 'CRG-MAGIC-LEAF-SIGDECADE-7-10', '/images/magic-johnson-leaf-signature-decade-80s-auto-7-10.jpg', 'Numbered');
 
+    // Removed from sale (Jul 12 2026): Kobe/Messi Leaf Pearl, Messi Crystal UCL, Fabled Four
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('kobe-bryant-2000-leaf-pearl-pearlescent-patch-3-3');
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('messi-2022-topps-crystal-ucl-psa10');
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('messi-pele-beckham-maradona-2021-leaf-fabled-four-25');
+
     // PSA 10 Pokémon slab drop (Jul 12 2026) — six new graded singles
     addIfMissing('pokemon',
       'Iono\'s Kilowattrel 2025 Journey Together #163 Illustration Rare PSA 10',
@@ -577,6 +585,11 @@ const db = {
       'mega-greninja-ex-cri-116-sir-psa10',
       'Mega Greninja ex — 2026 Pokémon Mega Evolution: Chaos Rising, Special Illustration Rare #116/086, graded PSA 10 GEM MINT (cert #163077710). The undisputed king of Chaos Rising. Mega Greninja mid-strike in cinematic full-art — the most hunted card of the newest era of the TCG, already commanding grail status. Fresh PSA 10, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured with signature confirmation, from a smoke-free shop.',
       100000, 'CRG-MEGA-GRENINJA-EX-CRI116-PSA10', '/images/mega-greninja-ex-cri-116-sir-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Gengar EX 2014 XY Phantom Forces #34 PSA 10',
+      'gengar-ex-phantom-forces-34-psa10',
+      'Gengar EX — 2014 Pokémon XY: Phantom Forces #34, graded PSA 10 GEM MINT (cert #97283003). A true modern-vintage classic: Gengar grinning through a swirling haunted cosmos on one of the most beloved EX cards of the XY era. Over a decade old and brutally tough in gem mint — PSA 10 copies keep disappearing into collections. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      75000, 'CRG-GENGAR-EX-XY34-PSA10', '/images/gengar-ex-phantom-forces-34-psa10.jpg', 'PSA 10');
     saveDb();
 
     return this;
