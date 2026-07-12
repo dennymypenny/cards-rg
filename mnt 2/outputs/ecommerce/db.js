@@ -590,6 +590,21 @@ const db = {
       'gengar-ex-phantom-forces-34-psa10',
       'Gengar EX — 2014 Pokémon XY: Phantom Forces #34, graded PSA 10 GEM MINT (cert #97283003). A true modern-vintage classic: Gengar grinning through a swirling haunted cosmos on one of the most beloved EX cards of the XY era. Over a decade old and brutally tough in gem mint — PSA 10 copies keep disappearing into collections. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       75000, 'CRG-GENGAR-EX-XY34-PSA10', '/images/gengar-ex-phantom-forces-34-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Eevee ex 2024 Terastal Festival (JP) #224 Special Art Rare PSA 10',
+      'eevee-ex-sv8a-224-sar-psa10',
+      'Eevee ex — 2024 Pokémon Japanese SV8a: Terastal Festival ex, Special Art Rare #224/187, graded PSA 10 GEM MINT (cert #106408852). One of the most adored cards of the modern era: Eevee surrounded by Tera crystals hinting at every evolution, in gorgeous SAR art by Naoyo Kimura. The Eevee card of the set everyone chases. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      10000, 'CRG-EEVEE-EX-SV8A224-PSA10', '/images/eevee-ex-sv8a-224-sar-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Meganium 2000 Japanese Neo Premium File #154 Holo PSA 10',
+      'meganium-neo-premium-file-154-psa10',
+      'Meganium — 2000 Pokémon Japanese Neo Genesis Premium File, Holo #154, graded PSA 10 GEM MINT (cert #113086406). True vintage Japanese Pokémon from the Neo era: Meganium in classic Ken Sugimori holo art from the sought-after Premium File promo set. 25+ years old and stunning in gem mint — these do not surface often. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      32500, 'CRG-MEGANIUM-NEO-PF154-PSA10', '/images/meganium-neo-premium-file-154-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Jolteon ex 2024 Terastal Festival (JP) #209 Special Art Rare PSA 10',
+      'jolteon-ex-sv8a-209-sar-psa10',
+      'Jolteon ex — 2024 Pokémon Japanese SV8a: Terastal Festival ex, Special Art Rare #209/187, graded PSA 10 GEM MINT (cert #128287129). Jolteon streaking through a lightning-charged cityscape in electric SAR artwork — one of the standout Eeveelution chase cards of Terastal Festival. Flawless gem mint. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      13500, 'CRG-JOLTEON-EX-SV8A209-PSA10', '/images/jolteon-ex-sv8a-209-sar-psa10.jpg', 'PSA 10');
     saveDb();
 
     return this;
