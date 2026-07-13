@@ -39,16 +39,19 @@ router.post('/cart', async (req, res) => {
       .filter(Boolean).join(' · ');
     const body = `${subject} — ${price}${extras ? '\n' + extras : ''}`;
 
+    // JSON publish format — HTTP headers can't carry emoji/em-dashes
+    // (Node fetch throws on non-Latin-1 header values)
     try {
-      await fetch(`https://ntfy.sh/${topic}`, {
+      await fetch('https://ntfy.sh', {
         method:  'POST',
-        headers: {
-          'Title':        '🛒 Cart Activity — CRG Cards',
-          'Priority':     'default',
-          'Tags':         'shopping_cart',
-          'Content-Type': 'text/plain; charset=utf-8',
-        },
-        body,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic,
+          title:    '🛒 Cart Activity — CRG Cards',
+          message:  body,
+          priority: 3,
+          tags:     ['shopping_cart'],
+        }),
         signal: AbortSignal.timeout(4000) // 4 s max — never block cart UX
       });
     } catch (ntfyErr) {

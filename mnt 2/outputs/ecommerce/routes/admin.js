@@ -282,11 +282,17 @@ router.patch('/products/:id/price', requireAdmin, async (req, res) => {
 router.get('/ntfy-test', requireAdmin, async (req, res) => {
   const topic = process.env.NTFY_TOPIC || 'crg-denny-alerts';
   try {
-    const r = await fetch(`https://ntfy.sh/${topic}`, {
+    // JSON publish format — headers can't carry emoji (non-Latin-1)
+    const r = await fetch('https://ntfy.sh', {
       method:  'POST',
-      headers: { 'Title': '🔔 CRG Hub Test', 'Tags': 'white_check_mark', 'Content-Type': 'text/plain; charset=utf-8' },
-      body:    'Test notification from the CRG Hub — alerts are working!',
-      signal:  AbortSignal.timeout(6000),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        topic,
+        title:   '🔔 CRG Hub Test',
+        message: 'Test notification from the CRG Hub — alerts are working!',
+        tags:    ['white_check_mark'],
+      }),
+      signal: AbortSignal.timeout(6000),
     });
     res.json({ topic, ok: r.ok, status: r.status });
   } catch (e) {

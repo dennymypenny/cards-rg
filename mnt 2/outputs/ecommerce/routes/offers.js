@@ -71,23 +71,55 @@ router.post('/', async (req, res) => {
       `From: ${cleanName || 'No name'} — ${cleanEmail}` +
       (cleanMessage ? `\n"${cleanMessage}"` : '');
 
+    // NOTE: ntfy's JSON publish format is used (POST to the root URL) because
+    // HTTP headers can't carry emoji/em-dashes — Node fetch throws on
+    // non-Latin-1 header values, which silently killed every push before.
     try {
-      const r = await fetch(`https://ntfy.sh/${topic}`, {
+      const r = await fetch('https://ntfy.sh', {
         method:  'POST',
-        headers: {
-          'Title':        '💰 New Offer — CardsRG',
-          'Priority':     'high',
-          'Tags':         'moneybag',
-          // ntfy forwards the notification to this inbox as an email too
-          'Email':        process.env.OFFER_EMAIL || 'cardsrgshop@gmail.com',
-          'Content-Type': 'text/plain; charset=utf-8',
-        },
-        body,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic,
+          title:    '💰 New Offer — CardsRG',
+          message:  body,
+          priority: 4,
+          tags:     ['moneybag'],
+        }),
         signal: AbortSignal.timeout(6000)
       });
       if (!r.ok) console.warn('[offers] ntfy.sh push rejected: HTTP', r.status, await r.text().catch(() => ''));
     } catch (ntfyErr) {
       console.warn('[offers] ntfy.sh push failed:', ntfyErr.message);
+    }
+
+    // ── Email the offer to the shop inbox via FormSubmit (free, non-fatal) ──
+    // First-ever send triggers a one-time activation email to the inbox —
+    // click "Activate" once and every offer after that lands as an email.
+    try {
+      const inbox = process.env.OFFER_EMAIL || 'cardsrgshop@gmail.com';
+      const er = await fetch(`https://formsubmit.co/ajax/${inbox}`, {
+        method:  'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept':       'application/json',
+          // FormSubmit requires a web origin or it rejects the request
+          'Origin':       'https://cardsrg.com',
+          'Referer':      'https://cardsrg.com/',
+        },
+        body: JSON.stringify({
+          _subject: `💰 New Offer: ${fmt(amountCents)} on ${product.name}`,
+          _replyto: cleanEmail,
+          _template: 'box',
+          card:      product.name,
+          offer:     fmt(amountCents) + (pct ? ` (${pct}% of asking ${fmt(product.price)})` : ''),
+          from:      `${cleanName || 'No name'} <${cleanEmail}>`,
+          message:   cleanMessage || '(no message)',
+        }),
+        signal: AbortSignal.timeout(8000)
+      });
+      if (!er.ok) console.warn('[offers] FormSubmit email rejected: HTTP', er.status, await er.text().catch(() => ''));
+    } catch (mailErr) {
+      console.warn('[offers] FormSubmit email failed:', mailErr.message);
     }
 
     console.log(`[offers] #${result.lastInsertRowid}: ${fmt(amountCents)} on "${product.name}" from ${cleanEmail}`);
