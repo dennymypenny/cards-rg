@@ -610,6 +610,16 @@ const db = {
       'feraligatr-neo-premium-file-160-psa10',
       'Feraligatr — 2000 Pokémon Japanese Neo Genesis Premium File, Holo #160, graded PSA 10 GEM MINT (cert #118892901). The Big Jaw Pokémon roaring off the card in classic Ken Sugimori holo art from the sought-after Neo Premium File promo set. True vintage Japanese Pokémon, 25+ years old and immaculate in gem mint — the perfect partner to its Meganium sibling. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       40000, 'CRG-FERALIGATR-NEO-PF160-PSA10', '/images/feraligatr-neo-premium-file-160-psa10.jpg', 'PSA 10');
+
+    // Removed from sale (Jul 13 2026): Messi 2018 Adrenalyn XL WC Road to Russia PSA 10, Messi 2022-23 Donruss Pitch Kings Green SGC 10 ($125)
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('messi-2018-panini-adrenalyn-xl-wc-road-russia-psa10');
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('messi-2022-donruss-pitch-kings-green-sgc10');
+
+    // Price drop (Jul 13 2026): Messi 2023 Topps Chrome MLS Big City Strikers Gold /50 → $1700
+    prepare('UPDATE products SET price = 170000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 170000')
+      .run('messi-2023-topps-chrome-mls-big-city-strikers-gold-refractor-psa10');
     saveDb();
 
     return this;
