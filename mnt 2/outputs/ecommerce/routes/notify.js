@@ -66,7 +66,7 @@ router.post('/cart', async (req, res) => {
 
 // GET /api/notify/cart-activity  — recent additions (admin-session required)
 router.get('/cart-activity', (req, res) => {
-  if (!req.session?.user?.isAdmin) {
+  if (!req.session?.adminId) {
     return res.status(403).json({ error: 'Forbidden' });
   }
   res.json(cartActivity);

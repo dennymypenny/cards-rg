@@ -76,7 +76,7 @@ router.post('/', async (req, res) => {
 
 // GET /api/subscribe — admin only
 router.get('/', (req, res) => {
-  if (!req.session?.user?.isAdmin) {
+  if (!req.session?.adminId) {
     return res.status(403).json({ error: 'Forbidden' });
   }
   const subs = db.prepare('SELECT * FROM subscribers ORDER BY created_at DESC LIMIT 1000').all();
@@ -85,7 +85,7 @@ router.get('/', (req, res) => {
 
 // GET /api/subscribe/export.csv — admin only
 router.get('/export.csv', (req, res) => {
-  if (!req.session?.user?.isAdmin) {
+  if (!req.session?.adminId) {
     return res.status(403).json({ error: 'Forbidden' });
   }
   const subs = db.prepare('SELECT email, name, source, created_at FROM subscribers ORDER BY created_at DESC').all();

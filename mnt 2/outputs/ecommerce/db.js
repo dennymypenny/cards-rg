@@ -620,6 +620,26 @@ const db = {
     // Price drop (Jul 13 2026): Messi 2023 Topps Chrome MLS Big City Strikers Gold /50 → $1700
     prepare('UPDATE products SET price = 170000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 170000')
       .run('messi-2023-topps-chrome-mls-big-city-strikers-gold-refractor-psa10');
+
+    // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
+    // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
+    // changes survive Render's ephemeral disk. The hub's price endpoint keeps
+    // this file current (and commits it to GitHub when GITHUB_TOKEN is set).
+    try {
+      const ovPath = path.join(__dirname, 'price-overrides.json');
+      if (fs.existsSync(ovPath)) {
+        const overrides = JSON.parse(fs.readFileSync(ovPath, 'utf8')) || {};
+        for (const [slug, cents] of Object.entries(overrides)) {
+          const c = Math.round(Number(cents));
+          if (Number.isFinite(c) && c >= 100) {
+            prepare('UPDATE products SET price = ?, updated_at = datetime(\'now\') WHERE slug = ? AND price <> ?')
+              .run(c, slug, c);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Warning: could not apply price-overrides.json:', e.message);
+    }
     saveDb();
 
     return this;

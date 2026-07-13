@@ -198,6 +198,102 @@ router.delete('/products/:id', requireAdmin, (req, res) => {
   res.json({ success: true });
 });
 
+// ── QUICK PRICE CHANGE (from /hub) ────────────────────────────────────────────
+// PATCH /api/admin/products/:id/price  { price: 1700 }   (price in DOLLARS)
+//
+// 1. Updates the live DB instantly (site reflects it immediately).
+// 2. Writes the override to price-overrides.json so db.init() re-applies it
+//    on every boot — Render's disk is ephemeral, so without this the price
+//    would silently revert on the next deploy.
+// 3. If GITHUB_TOKEN is set (Render env var, needs repo write access), commits
+//    the overrides file to GitHub so the change is permanent and triggers a
+//    Render deploy on its own.
+router.patch('/products/:id/price', requireAdmin, async (req, res) => {
+  const fs   = require('fs');
+  const path = require('path');
+
+  const cents = Math.round(parseFloat(req.body?.price) * 100);
+  if (!Number.isFinite(cents) || cents < 100 || cents > 100000000) {
+    return res.status(400).json({ error: 'Please enter a valid price.' });
+  }
+
+  const product = db.prepare('SELECT id, slug, name, price FROM products WHERE id = ?')
+                    .get(req.params.id);
+  if (!product) return res.status(404).json({ error: 'Product not found' });
+
+  db.prepare(`UPDATE products SET price = ?, updated_at = datetime('now') WHERE id = ?`)
+    .run(cents, product.id);
+
+  // Persist locally so a same-instance restart keeps it
+  const ovPath = path.join(__dirname, '..', 'price-overrides.json');
+  let overrides = {};
+  try { overrides = JSON.parse(fs.readFileSync(ovPath, 'utf8')) || {}; } catch (e) { /* fresh file */ }
+  overrides[product.slug] = cents;
+  const ovJson = JSON.stringify(overrides, null, 2) + '\n';
+  try { fs.writeFileSync(ovPath, ovJson); } catch (e) { console.warn('[admin] could not write price-overrides.json:', e.message); }
+
+  // Commit to GitHub so the change survives redeploys (and auto-deploys)
+  let committed = false, commitError = null;
+  if (process.env.GITHUB_TOKEN) {
+    try {
+      const repo     = process.env.GITHUB_REPO || 'dennymypenny/cards-rg';
+      const filePath = 'mnt 2/outputs/ecommerce/price-overrides.json';
+      const apiUrl   = `https://api.github.com/repos/${repo}/contents/` +
+                       filePath.split('/').map(encodeURIComponent).join('/');
+      const headers  = {
+        'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+        'Accept':        'application/vnd.github+json',
+        'User-Agent':    'cardsrg-hub',
+      };
+      const cur = await fetch(apiUrl, { headers, signal: AbortSignal.timeout(8000) });
+      const sha = cur.ok ? (await cur.json()).sha : undefined;
+      const put = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: { ...headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: `Hub price change: ${product.name} → $${(cents / 100).toFixed(2)}`,
+          content: Buffer.from(ovJson).toString('base64'),
+          ...(sha ? { sha } : {}),
+        }),
+        signal: AbortSignal.timeout(8000),
+      });
+      committed = put.ok;
+      if (!put.ok) commitError = `GitHub API ${put.status}`;
+    } catch (e) {
+      commitError = e.message;
+    }
+  } else {
+    commitError = 'GITHUB_TOKEN not set';
+  }
+
+  console.log(`[admin] price change: ${product.slug} $${(product.price / 100).toFixed(2)} → $${(cents / 100).toFixed(2)} (committed: ${committed})`);
+  res.json({
+    ok: true,
+    price: cents,
+    price_formatted: `$${db.helpers.formatPrice(cents)}`,
+    committed,
+    commitError,
+  });
+});
+
+// ── NTFY DIAGNOSTIC (from /hub) ───────────────────────────────────────────────
+// GET /api/admin/ntfy-test — sends a test push and reports the topic used,
+// so we can see exactly where offer/cart alerts are going in production.
+router.get('/ntfy-test', requireAdmin, async (req, res) => {
+  const topic = process.env.NTFY_TOPIC || 'crg-denny-alerts';
+  try {
+    const r = await fetch(`https://ntfy.sh/${topic}`, {
+      method:  'POST',
+      headers: { 'Title': '🔔 CRG Hub Test', 'Tags': 'white_check_mark', 'Content-Type': 'text/plain; charset=utf-8' },
+      body:    'Test notification from the CRG Hub — alerts are working!',
+      signal:  AbortSignal.timeout(6000),
+    });
+    res.json({ topic, ok: r.ok, status: r.status });
+  } catch (e) {
+    res.json({ topic, ok: false, error: e.message });
+  }
+});
+
 // ── CATEGORIES ────────────────────────────────────────────────────────────────
 
 router.get('/categories', requireAdmin, (req, res) => {

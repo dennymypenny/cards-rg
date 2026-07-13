@@ -74,6 +74,11 @@ async function start() {
     res.sendFile(path.join(__dirname, 'public', 'hub.html'));
   });
 
+  // Public shareable inventory list — send cardsrg.com/list to anyone
+  app.get('/list', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'list.html'));
+  });
+
   app.get('*', (req, res) => {
     if (req.path.startsWith('/admin')) {
       return res.sendFile(path.join(__dirname, 'public', 'admin', 'index.html'));

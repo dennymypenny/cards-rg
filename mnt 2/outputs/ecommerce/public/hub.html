@@ -101,7 +101,8 @@
       <div class="status-dot"></div>
       <span class="status-label">Live</span>
     </div>
-    <a href="/admin" class="login-btn">Admin Panel</a>
+    <button id="pinBtn" class="login-btn" onclick="pinLogin()">Enter PIN</button>
+    <a href="/admin" class="login-btn" style="background:var(--bg3);box-shadow:none">Admin Panel</a>
   </div>
 </header>
 <div class="vice-stripe"></div>
@@ -151,6 +152,11 @@
       <div class="lname">CRG List</div>
       <div class="ldesc">Email signups — drops &amp; giveaways</div>
     </a>
+    <a class="link-card" href="https://cardsrg.com/list" target="_blank">
+      <div class="icon">📋</div>
+      <div class="lname">Active Sheet</div>
+      <div class="ldesc">Shareable list of everything for sale — send this link</div>
+    </a>
   </div>
 
   <!-- ── NOTIFICATION SETUP ────────────────────────────────── -->
@@ -174,6 +180,18 @@
         Or <a href="https://ntfy.sh/crg-denny-alerts" target="_blank">view alerts in your browser</a> anytime.
       </p>
     </div>
+  </div>
+
+  <!-- ── OFFERS ────────────────────────────────────────────── -->
+  <div class="activity-header" id="offers">
+    <h2 style="margin-bottom:0">Offers</h2>
+    <span class="refresh-info">
+      <span id="offerCount"></span>
+      <button onclick="ntfyTest()" style="background:none;border:1px solid var(--border);border-radius:6px;color:var(--teal);font-size:.7rem;padding:.25rem .6rem;cursor:pointer;margin-left:.6rem">Send test alert 🔔</button>
+    </span>
+  </div>
+  <div id="offersFeed" style="display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem">
+    <div class="empty-feed"><div class="ico">⏳</div>Loading…</div>
   </div>
 
   <!-- ── LIVE INVENTORY ────────────────────────────────────── -->
@@ -216,6 +234,111 @@
 <script>
 const feed = document.getElementById('activityFeed');
 const refreshInfo = document.getElementById('refreshInfo');
+
+// ── ADMIN SESSION ───────────────────────────────────────────────────────────
+let isAdmin = false;
+
+async function checkAdmin() {
+  try {
+    const res = await fetch('/api/admin/me');
+    isAdmin = res.ok;
+  } catch (e) { isAdmin = false; }
+  const btn = document.getElementById('pinBtn');
+  if (btn) btn.textContent = isAdmin ? '✓ Unlocked' : 'Enter PIN';
+}
+
+async function pinLogin() {
+  if (isAdmin) return;
+  const pin = window.prompt('Enter your admin PIN:');
+  if (!pin) return;
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pin })
+    });
+    if (!res.ok) { alert('Wrong PIN'); return; }
+    await checkAdmin();
+    loadOffers(); loadActivity(); loadSubscribers(); loadInventory();
+  } catch (e) { alert('Login failed — try again.'); }
+}
+
+// ── NTFY TEST (shows which topic production is pushing to) ─────────────────
+async function ntfyTest() {
+  if (!isAdmin) { pinLogin(); return; }
+  try {
+    const res = await fetch('/api/admin/ntfy-test');
+    const d = await res.json();
+    alert(d.ok
+      ? `Test sent to ntfy topic "${d.topic}" ✓\n\nIf it didn't hit your phone, open the ntfy app and subscribe to that exact topic.`
+      : `Push FAILED for topic "${d.topic}"${d.error ? ' — ' + d.error : ' (HTTP ' + d.status + ')'}`);
+  } catch (e) { alert('Test failed: ' + e.message); }
+}
+
+// ── OFFERS ──────────────────────────────────────────────────────────────────
+async function loadOffers() {
+  const list  = document.getElementById('offersFeed');
+  const count = document.getElementById('offerCount');
+  try {
+    const res = await fetch('/api/offers');
+    if (res.status === 403 || res.status === 401) {
+      list.innerHTML = `<div class="login-nudge">
+        Enter your PIN to see offers. &nbsp;
+        <a href="javascript:pinLogin()">Unlock →</a>
+      </div>`;
+      return;
+    }
+    const offers = await res.json();
+    if (!Array.isArray(offers) || offers.length === 0) {
+      list.innerHTML = `<div class="empty-feed">
+        <div class="ico">💰</div>
+        No offers yet — when a buyer makes an offer, it shows up here (and pings your phone via ntfy).
+      </div>`;
+      count.textContent = '';
+      return;
+    }
+    count.textContent = `${offers.length} offer${offers.length === 1 ? '' : 's'}`;
+    const fmt = c => '$' + (c / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
+    list.innerHTML = offers.slice(0, 50).map(o => {
+      const pct = o.list_price ? Math.round((o.amount / o.list_price) * 100) : null;
+      return `<div class="act-item">
+        <div class="act-icon">💰</div>
+        <div>
+          <div class="act-name">${o.product_name}</div>
+          <div class="act-meta">${o.name || 'No name'} · ${o.email}${o.message ? ' · “' + o.message + '”' : ''}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="act-price">${fmt(o.amount)}</div>
+          <div class="act-time">${pct ? pct + '% of ' + fmt(o.list_price) + ' · ' : ''}${timeAgo((o.created_at || '').replace(' ', 'T') + 'Z')}</div>
+        </div>
+      </div>`;
+    }).join('');
+  } catch (e) {
+    list.innerHTML = `<div class="empty-feed"><div class="ico">⚠️</div>Could not load offers.</div>`;
+  }
+}
+
+// ── QUICK PRICE EDIT ────────────────────────────────────────────────────────
+async function editPrice(id, name, currentCents) {
+  if (!isAdmin) { pinLogin(); return; }
+  const input = window.prompt(`New price for:\n${name}\n\n(current: $${(currentCents / 100).toFixed(2)})`, (currentCents / 100).toFixed(2));
+  if (input === null) return;
+  const price = parseFloat(String(input).replace(/[$,\s]/g, ''));
+  if (!Number.isFinite(price) || price < 1) { alert('Please enter a valid price.'); return; }
+  try {
+    const res = await fetch(`/api/admin/products/${id}/price`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ price })
+    });
+    const d = await res.json();
+    if (!res.ok || !d.ok) { alert(d.error || 'Price change failed.'); return; }
+    alert(d.committed
+      ? `✓ ${d.price_formatted} — live on the site now, and committed to GitHub so it sticks permanently.`
+      : `✓ ${d.price_formatted} — live on the site NOW.\n\n⚠️ Not committed to GitHub (${d.commitError}), so it will reset on the next deploy. Add a GITHUB_TOKEN env var on Render to make hub price changes permanent.`);
+    loadInventory();
+  } catch (e) { alert('Price change failed: ' + e.message); }
+}
 
 function timeAgo(iso) {
   const diff = Date.now() - new Date(iso).getTime();
@@ -265,8 +388,9 @@ async function loadActivity() {
   }
 }
 
-loadActivity();
+checkAdmin().then(() => { loadActivity(); loadOffers(); });
 setInterval(loadActivity, 30000);
+setInterval(loadOffers, 60000);
 
 // ── LIVE INVENTORY (public products API — always matches the store) ────────
 async function loadInventory() {
@@ -289,7 +413,7 @@ async function loadInventory() {
           <div class="act-meta">${p.category_name || ''}${p.badge ? ' · ' + p.badge : ''}${p.stock < 1 ? ' · SOLD OUT' : ''}</div>
         </div>
         <div style="text-align:right">
-          <div class="act-price">${p.price_formatted}</div>
+          <div class="act-price" onclick="editPrice(${p.id}, ${JSON.stringify(p.name).replace(/"/g, '&quot;')}, ${p.price})" style="cursor:pointer" title="Tap to change price">${p.price_formatted} <span style="font-size:.7rem;opacity:.55">✏️</span></div>
         </div>
       </div>`).join('');
   } catch(e) {

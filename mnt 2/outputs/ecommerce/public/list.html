@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>CardsRG — Active Inventory</title>
+<meta name="description" content="Everything currently for sale at CardsRG — Cards, Rips, and Grails. PSA slabs, grails, and fire singles."/>
+<meta property="og:title" content="CardsRG — Active Inventory"/>
+<meta property="og:description" content="Live list of every card currently for sale at CardsRG."/>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+  :root {
+    --bg:#0d0d1a; --bg2:#16162a; --bg3:#1e1e36; --card:#1b1b32;
+    --border:rgba(255,255,255,.1);
+    --pink:#FF2D78; --teal:#00F0FF; --purple:#9F3FE0;
+    --text:#fff; --muted:#9ca3af;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;padding-bottom:3rem}
+  .vice-stripe{height:3px;background:linear-gradient(90deg,#FF2D78 0%,#9F3FE0 45%,#00F0FF 100%)}
+  header{background:var(--bg2);border-bottom:1px solid rgba(255,45,120,.25);padding:1.15rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+  .logo{font-size:1.15rem;font-weight:900;letter-spacing:.04em;background:linear-gradient(90deg,#FF2D78,#00F0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .tagline{font-size:.75rem;color:var(--muted)}
+  header .right{margin-left:auto;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+  .btn{font-size:.78rem;padding:.42rem .9rem;border-radius:6px;font-weight:700;text-decoration:none;cursor:pointer;border:none}
+  .btn.primary{background:linear-gradient(135deg,#FF2D78,#9F3FE0);color:#fff;box-shadow:0 0 12px rgba(255,45,120,.35)}
+  .btn.ghost{background:var(--bg3);color:var(--teal);border:1px solid var(--border)}
+  main{max-width:860px;margin:0 auto;padding:1.75rem 1.25rem}
+  .summary{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.1rem;flex-wrap:wrap}
+  .summary h1{font-size:1.05rem;font-weight:800}
+  .summary .meta{font-size:.75rem;color:var(--muted)}
+  .cat-title{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:1.6rem 0 .6rem}
+  .row{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;display:flex;align-items:center;gap:.8rem;margin-bottom:.55rem;text-decoration:none;color:var(--text);transition:border-color .15s}
+  .row:hover{border-color:var(--pink)}
+  .row .ico{font-size:1.1rem}
+  .row .info{flex:1;min-width:0}
+  .row .name{font-size:.87rem;font-weight:700;line-height:1.35}
+  .row .badge{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.05em;padding:.12rem .45rem;border-radius:4px;background:rgba(0,240,255,.12);color:var(--teal);border:1px solid rgba(0,240,255,.3);margin-top:.25rem}
+  .row .price{font-size:1rem;font-weight:800;color:var(--teal);white-space:nowrap}
+  .empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
+  footer{text-align:center;font-size:.74rem;color:var(--muted);margin-top:2.5rem;line-height:1.8}
+  footer a{color:var(--pink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">CARDS RG</div>
+    <div class="tagline">Cards, Rips, and Grails — Active Inventory</div>
+  </div>
+  <div class="right">
+    <a class="btn ghost" href="/api/products/export.csv">Spreadsheet ↓</a>
+    <a class="btn primary" href="https://cardsrg.com">Shop the Store →</a>
+  </div>
+</header>
+<div class="vice-stripe"></div>
+
+<main>
+  <div class="summary">
+    <h1>🃏 Everything For Sale Right Now</h1>
+    <div class="meta" id="summaryMeta">Loading…</div>
+  </div>
+  <div id="listBody">
+    <div class="empty">⏳ Loading the list…</div>
+  </div>
+</main>
+
+<footer>
+  CardsRG · <a href="https://cardsrg.com">cardsrg.com</a> · IG <a href="https://instagram.com/cardsrgshop">@cardsrgshop</a><br>
+  Every card authenticated · Fast, insured shipping · Make an offer on any card at the store
+</footer>
+
+<script>
+async function load() {
+  const body = document.getElementById('listBody');
+  const meta = document.getElementById('summaryMeta');
+  try {
+    const res = await fetch('/api/products?limit=100&sort=price&order=desc');
+    const { products } = await res.json();
+    if (!products || !products.length) {
+      body.innerHTML = '<div class="empty">Nothing listed right now — check back soon!</div>';
+      return;
+    }
+    const total = products.reduce((s, p) => s + (p.price || 0), 0);
+    meta.textContent = products.length + ' cards · $' + (total / 100).toLocaleString('en-US') + ' total · updated live';
+
+    // Group by category, keep price-desc order inside each
+    const groups = {};
+    for (const p of products) {
+      const cat = p.category_name || 'Other';
+      (groups[cat] = groups[cat] || []).push(p);
+    }
+    body.innerHTML = Object.entries(groups).map(([cat, items]) => `
+      <div class="cat-title">${cat} — ${items.length}</div>
+      ${items.map(p => `
+        <a class="row" href="https://cardsrg.com">
+          <span class="ico">🃏</span>
+          <span class="info">
+            <span class="name">${p.name}</span>
+            ${p.badge ? `<br><span class="badge">${p.badge}</span>` : ''}
+          </span>
+          <span class="price">${p.price_formatted}</span>
+        </a>`).join('')}
+    `).join('');
+  } catch (e) {
+    body.innerHTML = '<div class="empty">⚠️ Could not load the list — try refreshing.</div>';
+  }
+}
+load();
+</script>
+</body>
+</html>

@@ -72,17 +72,20 @@ router.post('/', async (req, res) => {
       (cleanMessage ? `\n"${cleanMessage}"` : '');
 
     try {
-      await fetch(`https://ntfy.sh/${topic}`, {
+      const r = await fetch(`https://ntfy.sh/${topic}`, {
         method:  'POST',
         headers: {
           'Title':        '💰 New Offer — CardsRG',
           'Priority':     'high',
           'Tags':         'moneybag',
+          // ntfy forwards the notification to this inbox as an email too
+          'Email':        process.env.OFFER_EMAIL || 'cardsrgshop@gmail.com',
           'Content-Type': 'text/plain; charset=utf-8',
         },
         body,
-        signal: AbortSignal.timeout(4000)
+        signal: AbortSignal.timeout(6000)
       });
+      if (!r.ok) console.warn('[offers] ntfy.sh push rejected: HTTP', r.status, await r.text().catch(() => ''));
     } catch (ntfyErr) {
       console.warn('[offers] ntfy.sh push failed:', ntfyErr.message);
     }
@@ -97,7 +100,7 @@ router.post('/', async (req, res) => {
 
 // GET /api/offers — admin only
 router.get('/', (req, res) => {
-  if (!req.session?.user?.isAdmin) {
+  if (!req.session?.adminId) {
     return res.status(403).json({ error: 'Forbidden' });
   }
   const offers = db.prepare('SELECT * FROM offers ORDER BY created_at DESC LIMIT 200').all();
