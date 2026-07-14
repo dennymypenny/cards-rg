@@ -228,7 +228,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '22';
+  const SEED_VERSION = '23';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -267,12 +267,6 @@ function seedSampleData() {
     'messi-2018-panini-adrenalyn-xl-wc-road-russia-psa10',
     'Lionel Messi 2018 Panini Adrenalyn XL FIFA World Cup — Road to Russia Limited Edition, graded PSA 10 Gem Mint (cert #93183045). A Limited Edition from the iconic 2018 WC cycle. PSA 10 Gem Mint in the original slab. Pre-WC Messi in pristine condition — a clean, sharp piece for any collection.',
     25000, null, 1, 'CRG-MESSI-ADRENALYN-PSA10', '/images/messi_adrenalyn_front.jpg', 'PSA 10');
-
-  prepare(ins).run(catSoccer,
-    'Lionel Messi 2023 Topps Chrome MLS Big City Strikers Gold Refractor #BCS7 /50 PSA 10',
-    'messi-2023-topps-chrome-mls-big-city-strikers-gold-refractor-psa10',
-    'Lionel Messi 2023 Topps Chrome MLS — Big City Strikers Gold Refractor #BCS7, serial numbered /50, graded PSA 10 Gem Mint (cert #89157561). Messi in his Inter Miami era on a stunning Gold Refractor, numbered to just 50. PSA 10 perfection. One of the hottest Messi MLS cards in the hobby.',
-    240000, null, 1, 'CRG-MESSI-MLS-GOLD-50-PSA10', '/images/messi_chrome_gold_front.jpg', 'Numbered');
 
   prepare(ins).run(catSoccer,
     'Lionel Messi 2022 Donruss Pitch Kings Green Parallel SGC 10',
