@@ -625,6 +625,10 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('randy-moss-2020-mosaic-old-school-orange-fluorescent-1-25');
 
+    // Removed from sale (Jul 13 2026): Pokemon Snorlax GX Box (Sealed)
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('pokemon-snorlax-gx-box-sealed');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
