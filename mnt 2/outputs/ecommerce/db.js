@@ -629,6 +629,18 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('pokemon-snorlax-gx-box-sealed');
 
+    // New adds (Jul 15 2026): Nico Paz Optic Pink Ice /25 + Patrick "Hambino" Renna signed Sandlot custom
+    addIfMissing('soccer',
+      'Nico Paz 2025-26 Donruss Road to FIFA World Cup 26 Optic Pink Ice #164 — 02/25',
+      'nico-paz-2025-donruss-rtwc-optic-pink-ice-2-25',
+      'Nico Paz — 2025-26 Panini Donruss Road to FIFA World Cup 26, Optic Pink Ice parallel #164, serial numbered 02/25. Only 25 copies exist of Argentina\'s next great playmaker on the blazing pink cracked ice Optic finish — one of the loudest, rarest parallels in the set, released as the world gears up for the 2026 World Cup. Paz announced himself with an assist in his Argentina debut and has been one of the most hyped young No. 10s in world football since. Cards of La Albiceleste\'s heirs numbered this low do not sit around. Pack-fresh and stunning in hand. Ships in a magnetic one-touch, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      30000, 'CRG-NICO-PAZ-RTWC-OPTIC-PINK-ICE-2-25', '/images/nico-paz-2025-donruss-rtwc-optic-pink-ice-2-25.jpg', 'Numbered');
+    addIfMissing('collectibles',
+      'Patrick "Hambino" Renna Signed The Sandlot Custom Card — "HAM" Inscription',
+      'hambino-patrick-renna-signed-sandlot-custom-auto',
+      'Patrick "The Great Hambino" Renna hand-signed official Hambino custom trading card (2023), autographed in blue ink with the "HAM" inscription. "You\'re killing me, Smalls!" — the most quotable character from The Sandlot on a perfect retro 1960s-style All-Stars catcher card, bat-barrel nameplate and all. A must-have for any Sandlot fan, movie memorabilia collector, or baseball nostalgia junkie. Bold, clean signature across the front. Ships in a protective acrylic case, bubble-wrapped, double-boxed with tracking, from a smoke-free shop. Legends never die.',
+      10000, 'CRG-HAMBINO-RENNA-SIGNED-CUSTOM', '/images/hambino-patrick-renna-signed-sandlot-custom-auto.jpg', 'Autograph');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
