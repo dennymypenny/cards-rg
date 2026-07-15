@@ -635,6 +635,117 @@ const db = {
       'Patrick "The Great Hambino" Renna hand-signed official Hambino custom trading card (2023), autographed in blue ink with the "HAM" inscription. "You\'re killing me, Smalls!" — the most quotable character from The Sandlot on a perfect retro 1960s-style All-Stars catcher card, bat-barrel nameplate and all. A must-have for any Sandlot fan, movie memorabilia collector, or baseball nostalgia junkie. Bold, clean signature across the front. Ships in a protective acrylic case, bubble-wrapped, double-boxed with tracking, from a smoke-free shop. Legends never die.',
       10000, 'CRG-HAMBINO-RENNA-SIGNED-CUSTOM', '/images/hambino-patrick-renna-signed-sandlot-custom-auto.jpg', 'Autograph');
 
+    // New add (Jul 15 2026): Spider-Man 30th Anniversary Prism ISA 5
+    addIfMissing('collectibles',
+      'Spider-Man 1992 Comic Images 30th Anniversary #P9 "Promoted" Prism ISA 5',
+      'spiderman-1992-comic-images-30th-p9-prism-isa5',
+      'Spider-Man — 1992 Comic Images Spider-Man II: 30th Anniversary, Prism insert #P9 "Promoted", graded ISA 5 EX (cert #61595908). Web-slinging 90s nostalgia at its finest: Spidey swinging across a dazzling cracked-ice prism celebrating 30 years of the wall-crawler, with Stan Lee\'s 1942 promotion at Timely Comics chronicled on the back. These early-90s prisms are notorious for surface wear — a clean graded copy is a great way to own one of the era\'s most iconic inserts. Ships in the ISA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      2000, 'CRG-SPIDERMAN-92-30TH-P9-PRISM-ISA5', '/images/spiderman-1992-comic-images-30th-p9-prism-isa5.jpg', 'Graded');
+
+    // New add (Jul 15 2026): Udonis Haslem Select Tie-Dye Swatches /25 BGS 9.5
+    addIfMissing('nba',
+      'Udonis Haslem 2016-17 Select Swatches Tie-Dye Prizm #37 — 1/25 BGS 9.5',
+      'udonis-haslem-2016-select-swatches-tie-dye-bgs95',
+      'Udonis Haslem — 2016-17 Panini Select Swatches, Tie-Dye Prizm parallel #37 with game-worn jersey swatch, serial numbered 1/25, graded BGS 9.5 GEM MINT (cert #0010219560) with killer subgrades: 10 centering, 10 edges, 9.5 corners, 9.5 surface. THE FIRST COPY off the press of only 25 in existence. Mr. Miami Heat himself — 21 seasons, three championships, one franchise — in the iconic 40 on a psychedelic tie-dye prizm with an authentic piece of his jersey. 305 legend, hometown hero, forever Heat. Ships in the BGS slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      6000, 'CRG-HASLEM-16-SELECT-TIEDYE-1-25-BGS95', '/images/udonis-haslem-2016-select-swatches-tie-dye-bgs95.jpg', 'Numbered');
+
+    // New add (Jul 15 2026): Michael Jordan UD Milk Caps Foil CCG 10
+    addIfMissing('nba',
+      'Michael Jordan 1995 Upper Deck Milk Caps #S6 Foil — CCG 10 GEM MINT',
+      'jordan-1995-ud-milk-caps-s6-foil-ccg10',
+      'Michael Jordan — 1995 Upper Deck Milk Caps #S6, FOIL, graded CCG 10 GEM MINT (cert #798267625) with near-perfect subgrades: 10 corners, 10 centering, 10 edges, 9.5 surface. His Airness mid-90s at the height of the second three-peat era on one of the quirkiest, hardest-to-find Jordan oddball collectibles of the decade — a foil milk cap (POG) from Upper Deck, nearly impossible to find this clean 30 years later. A conversation piece for any MJ collection. Ships in the CCG slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      3500, 'CRG-JORDAN-95-UD-MILKCAP-S6-CCG10', '/images/jordan-1995-ud-milk-caps-s6-foil-ccg10.jpg', 'Graded');
+
+    // New adds (Jul 15 2026): 23KT Gold cards — Kobe/MJ combo + Jordan Prism Holo
+    addIfMissing('nba',
+      'Kobe Bryant + Michael Jordan 23KT Gold Rookie Cards — Both WCG 10 (2-Card Lot)',
+      'kobe-jordan-23kt-gold-rookie-combo-wcg10',
+      'THE GOAT AND THE MAMBA — 2-card 23KT gold lot, both graded WCG 10 GEM-MT. Card 1: Kobe Bryant 1996-97 Fleer Flair Showcase Legacy "Rookie — Feel the Game (Away)" 23KT Gold (cert #64771718), young Kobe rising in the Lakers 8 on a basketball-textured gold canvas. Card 2: Michael Jordan 1986 Rookie "Feel the Game" 23KT Gold, \'86 Signature Series with printed signature (cert #64764850), MJ soaring on solid gold. Two legends, two slabs, one price. The ultimate 90s novelty grails for any basketball collection or display shelf. Both ship in their WCG slabs, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      7000, 'CRG-KOBE-MJ-23KT-GOLD-COMBO-WCG10', '/images/kobe-jordan-23kt-gold-rookie-combo-wcg10.jpg', 'Graded');
+    addIfMissing('nba',
+      'Michael Jordan 1998 Fleer 23KT Gold "1986 Rookie" Prism Holo Refractor WCG 10',
+      'jordan-1998-fleer-23kt-gold-prism-holo-wcg10',
+      'Michael Jordan — 1998 Fleer 23KT Gold "1986 Rookie" PRISM HOLO REFRACTOR, Signature Series with printed signature, graded WCG 10 GEM-MT (cert #64756250). MJ\'s iconic 1986 Fleer rookie pose reimagined in solid 23-karat gold with a stunning rainbow prism holo finish that dances in the light — the flashiest version of the most famous card pose in the hobby. Ships in the WCG slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      3500, 'CRG-JORDAN-98-FLEER-23KT-PRISM-WCG10', '/images/jordan-1998-fleer-23kt-gold-prism-holo-wcg10.jpg', 'Graded');
+
+    // New adds (Jul 15 2026): Messi Leaf Legends ISA 10 + Messi/Ronaldo Double ISA 10
+    addIfMissing('soccer',
+      'Lionel Messi 2022 Leaf Legends Achievement #LA-05 — ISA 10 GEM MINT',
+      'messi-2022-leaf-legends-la05-isa10',
+      'Lionel Messi — 2022 Leaf Legends Achievement #LA-05, graded ISA 10 GEM MINT (cert #68481877). The GOAT in his Barcelona stripes on a classy black-and-white newsprint-style Legends design befitting the greatest to ever do it. Graded a perfect 10 the year he lifted the World Cup. A clean, elegant Messi slab at an entry price every collector can love. Ships in the ISA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      3500, 'CRG-MESSI-22-LEAF-LEGENDS-LA05-ISA10', '/images/messi-2022-leaf-legends-la05-isa10.jpg', 'Graded');
+    addIfMissing('soccer',
+      'Lionel Messi / Cristiano Ronaldo 2022 Leaf Legends Double #LM-CR — ISA 10',
+      'messi-ronaldo-2022-leaf-legends-double-isa10',
+      'Lionel Messi / Cristiano Ronaldo — 2022 Leaf Legends Exclusive Edition DOUBLE #LM-CR, graded ISA 10 GEM MINT (cert #60754422). The two defining players of a generation, together on one card: Messi in the Blaugrana and Ronaldo in the famous white, the eternal debate sealed in a perfect-10 slab. The ultimate conversation piece for any football collection. Ships in the ISA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      3500, 'CRG-MESSI-CR7-22-LEAF-DOUBLE-ISA10', '/images/messi-ronaldo-2022-leaf-legends-double-isa10.jpg', 'Graded');
+
+    // New add (Jul 15 2026): Mickey Mantle 1964 All-Star Game patch card
+    addIfMissing('collectibles',
+      'Mickey Mantle 2010 Topps 1964 MLB All-Star Game Commemorative Patch #MCP-16',
+      'mantle-2010-topps-1964-allstar-patch-mcp16',
+      'Mickey Mantle — 2010 Topps Baseball Series 1, 1964 MLB All-Star Game Commemorative Patch #MCP-16. The Commerce Comet in pinstripes alongside a beautiful embroidered patch honoring the 1964 Midsummer Classic at brand-new Shea Stadium — a game The Mick himself played in. A classy, display-worthy Mantle for any Yankees or vintage baseball collection. Ships in a protective one-touch, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      3500, 'CRG-MANTLE-10-TOPPS-ASG-PATCH-MCP16', '/images/mantle-2010-topps-1964-allstar-patch-mcp16.jpg', 'Patch');
+
+    // New add (Jul 15 2026): Mahomes Dynasty Collectibles MVP custom
+    addIfMissing('football',
+      'Patrick Mahomes 2024 Dynasty Collectibles "MVP" Cracked Ice Custom #15',
+      'mahomes-2024-dynasty-mvp-custom',
+      'Patrick Mahomes — 2024 Dynasty Collectibles "MVP" custom art card #15, cracked ice foil finish with printed signature and Lombardi trophy tribute back. The face of the NFL hoisting hardware on a dazzling gold-framed, cracked-ice canvas that lights up in hand. A striking display piece for any Chiefs or Mahomes collection. Ships in a magnetic one-touch, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      4000, 'CRG-MAHOMES-24-DYNASTY-MVP-CUSTOM', '/images/mahomes-2024-dynasty-mvp-custom.jpg', 'Custom');
+
+    // New add (Jul 15 2026): Mahomes Select Premier Level Shock /249
+    addIfMissing('football',
+      'Patrick Mahomes 2024 Select Premier Level Red & Blue Shock Prizm #120 — /249',
+      'mahomes-2024-select-premier-shock-249',
+      'Patrick Mahomes — 2024 Panini Select, Premier Level Red & Blue Shock Prizm parallel #120, serial numbered 203/249. The two-time MVP and three-time champ slinging it in the Chiefs red on a wild black wave prizm crackling with red and blue shock energy. Select Premier Level parallels this loud always move fast. Pack-fresh in a one-touch. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      4000, 'CRG-MAHOMES-24-SELECT-PREMIER-SHOCK-249', '/images/mahomes-2024-select-premier-shock-249.jpg', 'Numbered');
+
+    // New add (Jul 15 2026): Magic/Kareem Legendary Tandems Red Cracked Ice
+    addIfMissing('nba',
+      'Magic Johnson / Kareem Abdul-Jabbar 2022-23 Contenders Optic Legendary Tandems #9 Red Cracked Ice',
+      'magic-kareem-2022-optic-legendary-tandems-red-ice',
+      'Magic Johnson / Kareem Abdul-Jabbar — 2022-23 Panini Contenders Optic, Legendary Tandems insert #9, Red Cracked Ice prizm. Showtime\'s two pillars — the no-look wizard and the skyhook king, six MVPs and five rings together in Tinseltown — sharing one card on a blazing red cracked ice finish. Pure Lakers royalty for the PC or the display shelf. Ships in a one-touch, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      2000, 'CRG-MAGIC-KAREEM-22-TANDEMS-RED-ICE', '/images/magic-kareem-2022-optic-legendary-tandems-red-ice.jpg', 'Insert');
+
+    // New adds (Jul 15 2026): Wade RC lot + Magic Phazes
+    addIfMissing('nba',
+      'Dwyane Wade 2003-04 Topps Chrome Rookie Card #111 — Lot of 2',
+      'wade-2003-topps-chrome-rc-111-lot-of-2',
+      'Dwyane Wade — 2003-04 Topps Chrome Rookie Card #111, LOT OF TWO copies. Flash\'s true chrome rookie: Draft Pick #5 soaring to the rack in the Heat black, from the legendary 2003 draft class (LeBron, Melo, Bosh, Wade). Two raw copies, each in its own protective case — keep one, grade one, or flip the extra. Miami legend, three rings, one of the greatest value RCs of the 2000s. Both ship bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      5000, 'CRG-WADE-03-TOPPS-CHROME-RC-LOT2', '/images/wade-2003-topps-chrome-rc-111-lot-of-2.jpg', 'Rookie');
+    addIfMissing('nba',
+      'Magic Johnson 2023-24 Donruss Optic Phazes #24 Holo Prizm',
+      'magic-2023-optic-phazes-24-holo',
+      'Magic Johnson — 2023-24 Panini Donruss Optic, Phazes insert #24, Holo Prizm. Four phases of Showtime brilliance on one card: Magic through the eras in the purple and gold, splashed across a psychedelic rainbow holo canvas. One of the best-looking Magic inserts in years, pack-fresh in a one-touch. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      4500, 'CRG-MAGIC-23-OPTIC-PHAZES-24-HOLO', '/images/magic-2023-optic-phazes-24-holo.jpg', 'Insert');
+
+    // New adds (Jul 15 2026): Venom Suspended Animation + Pulisic Monopoly Red
+    addIfMissing('collectibles',
+      'Venom 1994 Fleer Marvel Suspended Animation #4 of 12 — Limited Edition',
+      'venom-1994-fleer-suspended-animation-4',
+      'Venom — 1994 Fleer Amazing Spider-Man, Suspended Animation limited edition subset card, FOUR OF TWELVE. The symbiote at his menacing 90s best, tongue out and mid-lunge on a stained-glass web design with clear acetate-style borders — one of the coolest Venom inserts of the era, from the golden age of Marvel cards. Clean copy in a protective case. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      2000, 'CRG-VENOM-94-FLEER-SUSPENDED-4', '/images/venom-1994-fleer-suspended-animation-4.jpg', 'Insert');
+    addIfMissing('soccer',
+      'Christian Pulisic 2026 Prizm Monopoly FIFA World Cup Red Prizm #47',
+      'pulisic-2026-prizm-monopoly-red-47',
+      'Christian Pulisic — 2026 Panini Prizm Monopoly FIFA World Cup, Red Prizm #47. Captain America in the USA white on a blazing red prizm finish, from the World Cup edition of the wildly popular Prizm Monopoly line — right as the tournament kicks off on home soil. Pack-fresh in a one-touch. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      2000, 'CRG-PULISIC-26-MONOPOLY-RED-47', '/images/pulisic-2026-prizm-monopoly-red-47.jpg', 'Prizm');
+
+    // New add (Jul 15 2026): Di Maria Trinity auto patch 1/20
+    addIfMissing('soccer',
+      'Ángel Di María 2022 Leaf Trinity Auto + Match-Worn Patch #PA-ADM — 1/20',
+      'di-maria-2022-leaf-trinity-auto-patch-1-20',
+      'Ángel Di María — 2022 Leaf Trinity #PA-ADM, authentic on-card style autograph + two-color MATCH-WORN patch, serial numbered 1/20 — THE FIRST COPY off the press. The World Cup final hero who scored in Argentina\'s 2022 triumph, with a gorgeous white-and-blue patch straight off his match-worn kit and a bold signature beneath it. Authenticity guaranteed by Leaf Trading Cards, sealed in the original case. Ships bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      8000, 'CRG-DIMARIA-22-TRINITY-AUTO-PATCH-1-20', '/images/di-maria-2022-leaf-trinity-auto-patch-1-20.jpg', 'Auto Patch');
+
+    // New add (Jul 15 2026): Di Maria Futera Maestro match-worn 17/25
+    addIfMissing('soccer',
+      'Ángel Di María 2022 Futera Unique Maestro #MS06 Match-Worn Jersey — 17/25',
+      'di-maria-2022-futera-maestro-ms06-17-25',
+      'Ángel Di María — 2022 Futera Unique, MAESTRO #MS06 with game-worn memorabilia, serial numbered 17/25. An elegant sepia-toned tribute to El Fideo featuring a piece of his PSG jersey worn in the Champions League clash vs Real Madrid at the Parc des Princes on October 21, 2015 — match provenance printed right on the card. Futera\'s premium Unique line, only 25 copies in the world. Ships in a protective case, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      4500, 'CRG-DIMARIA-22-FUTERA-MAESTRO-17-25', '/images/di-maria-2022-futera-maestro-ms06-17-25.jpg', 'Match-Worn');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
