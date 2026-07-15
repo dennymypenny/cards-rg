@@ -710,10 +710,16 @@ const db = {
 
     // New adds (Jul 15 2026): Wade RC lot + Magic Phazes
     addIfMissing('nba',
-      'Dwyane Wade 2003-04 Topps Chrome Rookie Card #111 — Lot of 2',
+      'Dwyane Wade 2003-04 Topps Chrome Rookie Card #111',
       'wade-2003-topps-chrome-rc-111-lot-of-2',
-      'Dwyane Wade — 2003-04 Topps Chrome Rookie Card #111, LOT OF TWO copies. Flash\'s true chrome rookie: Draft Pick #5 soaring to the rack in the Heat black, from the legendary 2003 draft class (LeBron, Melo, Bosh, Wade). Two raw copies, each in its own protective case — keep one, grade one, or flip the extra. Miami legend, three rings, one of the greatest value RCs of the 2000s. Both ship bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
-      5000, 'CRG-WADE-03-TOPPS-CHROME-RC-LOT2', '/images/wade-2003-topps-chrome-rc-111-lot-of-2.jpg', 'Rookie');
+      'Dwyane Wade — 2003-04 Topps Chrome Rookie Card #111. Flash\'s true chrome rookie: Draft Pick #5 soaring to the rack in the Heat black, from the legendary 2003 draft class (LeBron, Melo, Bosh, Wade). Miami legend, three rings, one of the greatest value RCs of the 2000s. Raw copy in a protective case — two available, so grab yours! Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      2500, 'CRG-WADE-03-TOPPS-CHROME-RC', '/images/wade-2003-topps-chrome-rc-111-lot-of-2.jpg', 'Rookie');
+    // Wade sold individually (Jul 15 2026): $25 each, qty 2 — runs every boot (addIfMissing inserts stock 1)
+    prepare('UPDATE products SET name = ?, description = ?, price = 2500, stock = 2, updated_at = datetime(\'now\') WHERE slug = ?')
+      .run(
+        'Dwyane Wade 2003-04 Topps Chrome Rookie Card #111',
+        'Dwyane Wade — 2003-04 Topps Chrome Rookie Card #111. Flash\'s true chrome rookie: Draft Pick #5 soaring to the rack in the Heat black, from the legendary 2003 draft class (LeBron, Melo, Bosh, Wade). Miami legend, three rings, one of the greatest value RCs of the 2000s. Raw copy in a protective case — two available, so grab yours! Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+        'wade-2003-topps-chrome-rc-111-lot-of-2');
     addIfMissing('nba',
       'Magic Johnson 2023-24 Donruss Optic Phazes #24 Holo Prizm',
       'magic-2023-optic-phazes-24-holo',
