@@ -756,6 +756,10 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('di-maria-2022-leaf-trinity-auto-patch-1-20');
 
+    // Removed (Jul 16 2026): Udonis Haslem Tie-Dye 1/25 BGS 9.5 — remove from storefront
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('udonis-haslem-2016-select-swatches-tie-dye-bgs95');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
