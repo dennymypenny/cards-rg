@@ -764,6 +764,10 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('mahomes-2024-dynasty-mvp-custom');
 
+    // Removed (Jul 16 2026): Rafael Nadal NetPro rookie PSA 10 — remove from storefront
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('nadal-2003-netpro-70-rookie-psa10');
+
     // Edit (Jul 16 2026): Messi Anime Nation — drop "#ANB-30" from title/description per Denny
     prepare('UPDATE products SET name = ?, description = ?, updated_at = datetime(\'now\') WHERE slug = ?')
       .run(
