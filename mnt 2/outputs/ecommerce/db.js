@@ -752,6 +752,10 @@ const db = {
       'Ángel Di María — 2022 Futera Unique, MAESTRO #MS06 with game-worn memorabilia, serial numbered 17/25. An elegant sepia-toned tribute to El Fideo featuring a piece of his PSG jersey worn in the Champions League clash vs Real Madrid at the Parc des Princes on October 21, 2015 — match provenance printed right on the card. Futera\'s premium Unique line, only 25 copies in the world. Ships in a protective case, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
       4500, 'CRG-DIMARIA-22-FUTERA-MAESTRO-17-25', '/images/di-maria-2022-futera-maestro-ms06-17-25.jpg', 'Match-Worn');
 
+    // SOLD on eBay (Jul 15 2026): Di Maria Trinity auto patch 1/20 — remove from storefront
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('di-maria-2022-leaf-trinity-auto-patch-1-20');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
