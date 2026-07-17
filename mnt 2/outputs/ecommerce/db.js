@@ -780,6 +780,13 @@ const db = {
       'Nico Paz — 2026 Panini FIFA World Cup sticker ARG 14, GOLD FOIL parallel. Argentina\'s rising star in the Albiceleste on a gleaming gold textured foil, from the official Panini World Cup 2026 sticker collection. Paz hype is only heating up as the tournament arrives — gold foils of the Albiceleste are the first ones collectors chase. Pack-fresh in a protective one-touch. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
       4000, 'CRG-PAZ-26-WC-STICKER-GOLD-ARG14', '/images/nico-paz-2026-panini-wc-sticker-gold-arg14.jpg', 'Gold Foil');
 
+    // New add (Jul 16 2026): Roberto Ayala Topps AFA pink 19/50
+    addIfMissing('soccer',
+      'Roberto Ayala 2023 Topps AFA Pink Swirl #50 — 19/50',
+      'ayala-2023-topps-afa-pink-19-50',
+      'Roberto Ayala — 2023 Topps AFA Argentina team set #50, PINK SWIRL parallel serial numbered 19/50. The legendary Albiceleste captain and cultured centre-back — 115 caps, 63 as captain — on a vivid pink swirl foil with ornate artwork honoring La Selección. From the official Topps AFA product. Pack-fresh in a protective one-touch. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      3500, 'CRG-AYALA-23-TOPPS-AFA-PINK-19-50', '/images/ayala-2023-topps-afa-pink-19-50.jpg', 'Numbered');
+
     // SOLD on eBay (Jul 15 2026): Di Maria Trinity auto patch 1/20 — remove from storefront
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('di-maria-2022-leaf-trinity-auto-patch-1-20');
