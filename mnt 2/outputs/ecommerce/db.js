@@ -752,6 +752,20 @@ const db = {
       'Ángel Di María — 2022 Futera Unique, MAESTRO #MS06 with game-worn memorabilia, serial numbered 17/25. An elegant sepia-toned tribute to El Fideo featuring a piece of his PSG jersey worn in the Champions League clash vs Real Madrid at the Parc des Princes on October 21, 2015 — match provenance printed right on the card. Futera\'s premium Unique line, only 25 copies in the world. Ships in a protective case, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
       4500, 'CRG-DIMARIA-22-FUTERA-MAESTRO-17-25', '/images/di-maria-2022-futera-maestro-ms06-17-25.jpg', 'Match-Worn');
 
+    // New add (Jul 16 2026): Di Maria Donruss Elite Pink Disco 01/25
+    addIfMissing('soccer',
+      'Ángel Di María 2022-23 Donruss Elite FIFA Pink Disco #14 — 01/25',
+      'di-maria-2022-donruss-elite-pink-disco-1-25',
+      'Ángel Di María — 2022-23 Panini Donruss Elite FIFA #14, PINK DISCO parallel serial numbered 01/25 — the FIRST COPY off the press. El Fideo in the Albiceleste on a dazzling pink disco-foil canvas that sparkles from every angle, fresh off his World Cup 2022 heroics. Elite Disco parallels this rare are true casehits. Pack-fresh in a protective case. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      4500, 'CRG-DIMARIA-22-ELITE-PINK-DISCO-1-25', '/images/di-maria-2022-donruss-elite-pink-disco-1-25.jpg', 'Numbered');
+
+    // New add (Jul 16 2026): Muhammad Ali Kayo hologram ASG 10
+    addIfMissing('collectibles',
+      'Muhammad Ali 1991 Kayo "The Greatest" Hologram — ASG 10',
+      'ali-1991-kayo-hologram-asg-10',
+      'Muhammad Ali — 1991 Kayo Boxing "The Greatest" HOLOGRAM card, graded a perfect 10 (Mint or Higher) by All-Star Grading Co. (cert #142255). The most iconic image in boxing history — Ali standing over Sonny Liston — rendered in stunning golden hologram foil that comes alive in the light. A vintage tribute to the three-time heavyweight champion of the world. Ships in the grading slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      4000, 'CRG-ALI-91-KAYO-HOLOGRAM-ASG10', '/images/ali-1991-kayo-hologram-asg-10.jpg', 'Graded 10');
+
     // SOLD on eBay (Jul 15 2026): Di Maria Trinity auto patch 1/20 — remove from storefront
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('di-maria-2022-leaf-trinity-auto-patch-1-20');
