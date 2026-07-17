@@ -773,6 +773,13 @@ const db = {
       'Emiliano Martínez — 2022-23 Panini Select Premier League, Terrace Level Prizm #12, serial numbered 17/49. The World Cup-winning keeper and Aston Villa wall celebrating in the Villa kit on a wild multicolor prizm finish that erupts with color from every angle. Dibu\'s cards keep climbing and parallels this loud numbered under 50 never last. Pack-fresh in a protective case. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
       5500, 'CRG-MARTINEZ-22-SELECT-TERRACE-17-49', '/images/martinez-2022-select-terrace-prizm-17-49.jpg', 'Numbered');
 
+    // New add (Jul 16 2026): Nico Paz WC 2026 gold foil sticker ARG 14
+    addIfMissing('soccer',
+      'Nico Paz 2026 Panini FIFA World Cup Sticker ARG 14 — Gold Foil',
+      'nico-paz-2026-panini-wc-sticker-gold-arg14',
+      'Nico Paz — 2026 Panini FIFA World Cup sticker ARG 14, GOLD FOIL parallel. Argentina\'s rising star in the Albiceleste on a gleaming gold textured foil, from the official Panini World Cup 2026 sticker collection. Paz hype is only heating up as the tournament arrives — gold foils of the Albiceleste are the first ones collectors chase. Pack-fresh in a protective one-touch. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      4000, 'CRG-PAZ-26-WC-STICKER-GOLD-ARG14', '/images/nico-paz-2026-panini-wc-sticker-gold-arg14.jpg', 'Gold Foil');
+
     // SOLD on eBay (Jul 15 2026): Di Maria Trinity auto patch 1/20 — remove from storefront
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('di-maria-2022-leaf-trinity-auto-patch-1-20');
