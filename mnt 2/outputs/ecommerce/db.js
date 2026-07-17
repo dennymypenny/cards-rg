@@ -766,6 +766,13 @@ const db = {
       'Muhammad Ali — 1991 Kayo Boxing "The Greatest" HOLOGRAM card, graded a perfect 10 (Mint or Higher) by All-Star Grading Co. (cert #142255). The most iconic image in boxing history — Ali standing over Sonny Liston — rendered in stunning golden hologram foil that comes alive in the light. A vintage tribute to the three-time heavyweight champion of the world. Ships in the grading slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
       4000, 'CRG-ALI-91-KAYO-HOLOGRAM-ASG10', '/images/ali-1991-kayo-hologram-asg-10.jpg', 'Graded 10');
 
+    // New add (Jul 16 2026): Emiliano Martinez Select Terrace Prizm 17/49
+    addIfMissing('soccer',
+      'Emiliano Martínez 2022-23 Select Premier League Terrace Prizm #12 — 17/49',
+      'martinez-2022-select-terrace-prizm-17-49',
+      'Emiliano Martínez — 2022-23 Panini Select Premier League, Terrace Level Prizm #12, serial numbered 17/49. The World Cup-winning keeper and Aston Villa wall celebrating in the Villa kit on a wild multicolor prizm finish that erupts with color from every angle. Dibu\'s cards keep climbing and parallels this loud numbered under 50 never last. Pack-fresh in a protective case. Ships bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      5500, 'CRG-MARTINEZ-22-SELECT-TERRACE-17-49', '/images/martinez-2022-select-terrace-prizm-17-49.jpg', 'Numbered');
+
     // SOLD on eBay (Jul 15 2026): Di Maria Trinity auto patch 1/20 — remove from storefront
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('di-maria-2022-leaf-trinity-auto-patch-1-20');
