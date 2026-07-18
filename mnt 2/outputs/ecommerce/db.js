@@ -810,6 +810,15 @@ const db = {
         'Lionel Messi 2023 Leaf Metal Anime Nation — "Leo the Lion", serial numbered 45/373, graded PSA 10 Gem Mint (cert #76705063). Stunning anime artwork by Japanese manga/caricature artist Shion Minabe: Messi in the Albiceleste alongside a roaring lion on a color-shifting metal foil canvas. Leaf Web Exclusive with a tiny print run. PSA 10 GEM MINT in the original slab.',
         'messi-2023-leaf-anime-nation-anb30-psa10');
 
+    // Removed (Jul 18 2026): Messi Anime Nation "Leo the Lion", Lamine Yamal Monopoly Prizm,
+    // Pokémon 151 Ultra-Premium Collection — remove from storefront
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('messi-2023-leaf-anime-nation-anb30-psa10');
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('lamine-yamal-2026-panini-monopoly-prizm-wc26');
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('pokemon-sv151-ultra-premium-collection-sealed');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
