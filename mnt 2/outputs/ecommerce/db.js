@@ -819,6 +819,21 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('pokemon-sv151-ultra-premium-collection-sealed');
 
+    // Removed (Jul 18 2026): batch of sold cards per Denny's X'd screenshots
+    for (const soldSlug of [
+      'messi-2019-chronicles-pitch-kings-psa10',
+      'magic-johnson-leaf-signature-decade-80s-auto-7-10',
+      'mantle-2010-topps-1964-allstar-patch-mcp16',
+      'mahomes-2024-select-premier-shock-249',
+      'magic-kareem-2022-optic-legendary-tandems-red-ice',
+      'magic-2023-optic-phazes-24-holo',
+      'venom-1994-fleer-suspended-animation-4',
+      'tapu-bulu-gx-hidden-fates-sv91-psa10',
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(soldSlug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
