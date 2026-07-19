@@ -863,6 +863,13 @@ const db = {
       'Monkey D. Luffy — 2025 One Piece Card Game OP13 EN #118, graded PSA 10 GEM MINT (cert #155324312). The future Pirate King unleashing a haymaker in gorgeous alt-art — One Piece cards have been on an absolute tear and Luffy is THE face of the game. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       19000, 'CRG-LUFFY-OP13-118-PSA10', '/images/luffy-op13-118-psa10.jpg', 'PSA 10');
 
+    // New add (Jul 19 2026): Jolteon ex Prismatic Surprise Box exclusive
+    addIfMissing('pokemon',
+      'Jolteon ex 2025 Prismatic Evolutions Surprise Box #030 Stamped PSA 10',
+      'jolteon-ex-pre-030-surprise-box-psa10',
+      'Jolteon ex — 2025 Pokémon Scarlet & Violet: Prismatic Evolutions #030/131, Surprise Box Exclusive stamp, graded PSA 10 GEM MINT (cert #142472458). The lightning Eeveelution from the most hyped set in years, with the exclusive Prismatic Evolutions stamp you can only pull from the Surprise Box. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      6000, 'CRG-JOLTEON-EX-PRE030-PSA10', '/images/jolteon-ex-pre-030-surprise-box-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
