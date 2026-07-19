@@ -834,6 +834,35 @@ const db = {
         .run(soldSlug);
     }
 
+    // New adds (Jul 19 2026): PSA 10 Pokémon trio — Mega Charizard X ex, Rayquaza VMAX, Charizard ex
+    addIfMissing('pokemon',
+      'Mega Charizard X ex 2025 Phantasmal Flames #109/094 Ultra Rare PSA 10',
+      'mega-charizard-x-ex-pfl-109-psa10',
+      'Mega Charizard X ex — 2025 Pokémon Mega Evolution: Phantasmal Flames, Ultra Rare #109/094, graded PSA 10 GEM MINT (cert #146834547). The king is back in Mega form: Mega Charizard X tearing across a dark full-art canvas from the hottest new era of the TCG. A secret-rare Charizard in flawless gem mint — these do not sit around. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      20000, 'CRG-MEGA-CHARIZARD-X-EX-PFL109-PSA10', '/images/mega-charizard-x-ex-pfl-109-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Rayquaza VMAX 2021 Evolving Skies #111/203 Full Art PSA 10',
+      'rayquaza-vmax-evolving-skies-111-psa10',
+      'Rayquaza VMAX — 2021 Pokémon Sword & Shield: Evolving Skies, Full Art #111/203, graded PSA 10 GEM MINT (cert #93418850). One of the most iconic modern Pokémon cards, period. The sky-high legend from the most chased set of the SWSH era, in flawless gem mint. Evolving Skies hits keep climbing and the Rayquaza VMAX full art is THE card everyone wants. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      22000, 'CRG-RAYQUAZA-VMAX-EVS111-PSA10', '/images/rayquaza-vmax-evolving-skies-111-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Charizard ex 2024 Paldean Fates Tin Promo #SVP-074 PSA 10',
+      'charizard-ex-svp-074-paldean-fates-psa10',
+      'Charizard ex — 2024 Pokémon Scarlet & Violet Black Star Promo #SVP-074, the Paldean Fates Tin shiny Charizard, graded PSA 10 GEM MINT (cert #124615880). The black shiny Charizard in crystalline art — one of the most popular promos of the entire Scarlet & Violet era. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      10000, 'CRG-CHARIZARD-EX-SVP074-PSA10', '/images/charizard-ex-svp-074-paldean-fates-psa10.jpg', 'PSA 10');
+
+    // New adds (Jul 19 2026, batch 2): Mega Kangaskhan ex + One Piece Luffy
+    addIfMissing('pokemon',
+      'Mega Kangaskhan ex 2025 Mega Evolution #164/182 Ultra Rare PSA 10',
+      'mega-kangaskhan-ex-meg-164-psa10',
+      'Mega Kangaskhan ex — 2025 Pokémon Mega Evolution, Ultra Rare #164/182, graded PSA 10 GEM MINT (cert #144566647). Mama and baby throwing hands in stunning full-art from the newest era of the TCG. Flawless gem mint copy of a fan-favorite Mega. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      7000, 'CRG-MEGA-KANGASKHAN-EX-MEG164-PSA10', '/images/mega-kangaskhan-ex-meg-164-psa10.jpg', 'PSA 10');
+    addIfMissing('collectibles',
+      'Monkey D. Luffy 2025 One Piece OP13 #118 Alt-Art PSA 10',
+      'luffy-op13-118-psa10',
+      'Monkey D. Luffy — 2025 One Piece Card Game OP13 EN #118, graded PSA 10 GEM MINT (cert #155324312). The future Pirate King unleashing a haymaker in gorgeous alt-art — One Piece cards have been on an absolute tear and Luffy is THE face of the game. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      19000, 'CRG-LUFFY-OP13-118-PSA10', '/images/luffy-op13-118-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
