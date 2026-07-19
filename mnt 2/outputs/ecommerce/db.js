@@ -849,7 +849,7 @@ const db = {
       'Charizard ex 2024 Paldean Fates Tin Promo #SVP-074 PSA 10',
       'charizard-ex-svp-074-paldean-fates-psa10',
       'Charizard ex — 2024 Pokémon Scarlet & Violet Black Star Promo #SVP-074, the Paldean Fates Tin shiny Charizard, graded PSA 10 GEM MINT (cert #124615880). The black shiny Charizard in crystalline art — one of the most popular promos of the entire Scarlet & Violet era. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
-      10000, 'CRG-CHARIZARD-EX-SVP074-PSA10', '/images/charizard-ex-svp-074-paldean-fates-psa10.jpg', 'PSA 10');
+      21000, 'CRG-CHARIZARD-EX-SVP074-PSA10', '/images/charizard-ex-svp-074-paldean-fates-psa10.jpg', 'PSA 10');
 
     // New adds (Jul 19 2026, batch 2): Mega Kangaskhan ex + One Piece Luffy
     addIfMissing('pokemon',
@@ -869,6 +869,10 @@ const db = {
       'jolteon-ex-pre-030-surprise-box-psa10',
       'Jolteon ex — 2025 Pokémon Scarlet & Violet: Prismatic Evolutions #030/131, Surprise Box Exclusive stamp, graded PSA 10 GEM MINT (cert #142472458). The lightning Eeveelution from the most hyped set in years, with the exclusive Prismatic Evolutions stamp you can only pull from the Surprise Box. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
       6000, 'CRG-JOLTEON-EX-PRE030-PSA10', '/images/jolteon-ex-pre-030-surprise-box-psa10.jpg', 'PSA 10');
+
+    // Price change (Jul 19 2026): Charizard ex SVP Paldean Fates → $210 per Denny
+    prepare('UPDATE products SET price = 21000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 21000')
+      .run('charizard-ex-svp-074-paldean-fates-psa10');
 
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
