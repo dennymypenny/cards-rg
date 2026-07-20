@@ -861,7 +861,7 @@ const db = {
       'Monkey D. Luffy 2025 One Piece OP13 #118 Alt-Art PSA 10',
       'luffy-op13-118-psa10',
       'Monkey D. Luffy — 2025 One Piece Card Game OP13 EN #118, graded PSA 10 GEM MINT (cert #155324312). The future Pirate King unleashing a haymaker in gorgeous alt-art — One Piece cards have been on an absolute tear and Luffy is THE face of the game. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
-      19000, 'CRG-LUFFY-OP13-118-PSA10', '/images/luffy-op13-118-psa10.jpg', 'PSA 10');
+      16000, 'CRG-LUFFY-OP13-118-PSA10', '/images/luffy-op13-118-psa10.jpg', 'PSA 10');
 
     // New add (Jul 19 2026): Jolteon ex Prismatic Surprise Box exclusive
     addIfMissing('pokemon',
@@ -877,6 +877,32 @@ const db = {
     // Removed (Jul 20 2026): Jolteon ex Surprise Box — remove from storefront per Denny
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('jolteon-ex-pre-030-surprise-box-psa10');
+
+    // Price change (Jul 20 2026): Luffy OP13 → $160 per Denny
+    prepare('UPDATE products SET price = 16000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 16000')
+      .run('luffy-op13-118-psa10');
+
+    // New adds (Jul 20 2026): Celebrations Zekrom/Reshiram + First Partner Bulbasaur/Charmander
+    addIfMissing('pokemon',
+      'Zekrom 2021 Celebrations Classic Collection #114 Full Art PSA 10',
+      'zekrom-celebrations-114-psa10',
+      'Zekrom — 2021 Pokémon Celebrations Classic Collection #114/114 (Black & White), Full Art, graded PSA 10 GEM MINT (cert #123123304). The legendary black dragon in shimmering full-art from the beloved 25th Anniversary Classic Collection — a faithful reprint of the iconic BW full art with the gold 25 stamp. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      15000, 'CRG-ZEKROM-CEL114-PSA10', '/images/zekrom-celebrations-114-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Reshiram 2021 Celebrations Classic Collection #113 Full Art PSA 10',
+      'reshiram-celebrations-113-psa10',
+      'Reshiram — 2021 Pokémon Celebrations Classic Collection #113/114 (Black & White), Full Art, graded PSA 10 GEM MINT (cert #138517440). The legendary white dragon blazing across sparkling full-art from the 25th Anniversary Classic Collection, gold 25 stamp and all. Pair it with Zekrom for the Tao duo. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      16000, 'CRG-RESHIRAM-CEL113-PSA10', '/images/reshiram-celebrations-113-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Bulbasaur 2026 First Partner Illustration Collection #037 PSA 10',
+      'bulbasaur-mep-037-first-partner-psa10',
+      'Bulbasaur — 2026 Pokémon MEP Black Star Promo #037, First Partner Illustration Collection Series 1, graded PSA 10 GEM MINT (cert #161754450). Gorgeous illustration-rare-style art of the OG grass starter loaded with Kanto easter eggs, with the anniversary Pikachu stamp. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      19000, 'CRG-BULBASAUR-MEP037-PSA10', '/images/bulbasaur-mep-037-first-partner-psa10.jpg', 'PSA 10');
+    addIfMissing('pokemon',
+      'Charmander 2026 First Partner Illustration Collection #038 PSA 10',
+      'charmander-mep-038-first-partner-psa10',
+      'Charmander — 2026 Pokémon MEP Black Star Promo #038, First Partner Illustration Collection Series 1, graded PSA 10 GEM MINT (cert #161754452). The fire starter that launched a thousand collections, in stunning full-art packed with nostalgia and the anniversary Pikachu stamp. The chase card of the First Partner set. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      26000, 'CRG-CHARMANDER-MEP038-PSA10', '/images/charmander-mep-038-first-partner-psa10.jpg', 'PSA 10');
 
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
