@@ -874,6 +874,10 @@ const db = {
     prepare('UPDATE products SET price = 21000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 21000')
       .run('charizard-ex-svp-074-paldean-fates-psa10');
 
+    // Removed (Jul 20 2026): Jolteon ex Surprise Box — remove from storefront per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('jolteon-ex-pre-030-surprise-box-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
