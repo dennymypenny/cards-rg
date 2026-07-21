@@ -904,6 +904,15 @@ const db = {
       'Charmander — 2026 Pokémon MEP Black Star Promo #038, First Partner Illustration Collection Series 1, graded PSA 10 GEM MINT (cert #161754452). The fire starter that launched a thousand collections, in stunning full-art packed with nostalgia and the anniversary Pikachu stamp. The chase card of the First Partner set. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       26000, 'CRG-CHARMANDER-MEP038-PSA10', '/images/charmander-mep-038-first-partner-psa10.jpg', 'PSA 10');
 
+    // One Piece section (Jul 20 2026): new category + move Luffy into it (idempotent, every boot)
+    if (!prepare('SELECT id FROM categories WHERE slug = ?').get('one-piece')) {
+      prepare('INSERT INTO categories (name, slug, description, sort_order) VALUES (?, ?, ?, ?)')
+        .run('One Piece', 'one-piece', 'One Piece Card Game grails — graded singles and alt-arts', 6);
+    }
+    prepare(`UPDATE products SET category_id = (SELECT id FROM categories WHERE slug = 'one-piece'), updated_at = datetime('now')
+             WHERE slug = ? AND category_id <> (SELECT id FROM categories WHERE slug = 'one-piece')`)
+      .run('luffy-op13-118-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps

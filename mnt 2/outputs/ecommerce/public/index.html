@@ -101,7 +101,7 @@ nav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid rg
 /* ── LIGHT BAND: CATEGORY TILES ── */
 .light-band{background:var(--light);color:var(--dark-ink)}
 .light-band .section-head h2{background:linear-gradient(90deg,#d40f5c,#0093a3);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.cat-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:1.1rem;max-width:1220px;margin:0 auto;padding:0 2rem 3.2rem}
+.cat-tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:1.1rem;max-width:1220px;margin:0 auto;padding:0 2rem 3.2rem}
 .cat-tile{background:var(--light2);border-radius:6px;overflow:hidden;cursor:pointer;box-shadow:0 4px 18px rgba(18,18,42,.08);transition:.2s;border:1px solid rgba(18,18,42,.06)}
 .cat-tile:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(255,45,120,.18)}
 .cat-tile-img{aspect-ratio:1/.85;overflow:hidden;background:linear-gradient(135deg,var(--bg2),var(--bg3));display:flex;align-items:center;justify-content:center}
@@ -411,6 +411,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
     <button class="nav-link" data-cat="football" onclick="navFilter(this,'football')">🏈 Football</button>
     <button class="nav-link" data-cat="collectibles" onclick="navFilter(this,'collectibles')">✨ Collectibles</button>
     <button class="nav-link" data-cat="pokemon" onclick="navFilter(this,'pokemon')">🎴 Pokémon</button>
+    <button class="nav-link" data-cat="one-piece" onclick="navFilter(this,'one-piece')">🏴‍☠️ One Piece</button>
   </div>
   <div class="nav-right">
     <div class="nav-search" id="navSearch">
@@ -519,6 +520,10 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
     <div class="cat-tile" onclick="goCat('pokemon')">
       <div class="cat-tile-img"><img src="/images/pokemon-sv151-ultra-premium.jpg" alt="Pokémon sealed" style="object-position:center 58%" onerror="this.outerHTML='<span class=cat-emoji>🎴</span>'"/></div>
       <div class="cat-tile-label">🎴 Pokémon</div>
+    </div>
+    <div class="cat-tile" onclick="goCat('one-piece')">
+      <div class="cat-tile-img"><img src="/images/luffy-op13-118-psa10.jpg" alt="One Piece cards" style="object-position:center 40%" onerror="this.outerHTML='<span class=cat-emoji>🏴‍☠️</span>'"/></div>
+      <div class="cat-tile-label">🏴‍☠️ One Piece</div>
     </div>
     <div class="cat-tile" onclick="goCat('collectibles')">
       <div class="cat-tile-img"><img src="/images/stanlee_allen_ginter_front.jpg" alt="Collectibles" onerror="this.outerHTML='<span class=cat-emoji>✨</span>'"/></div>
