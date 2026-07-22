@@ -920,6 +920,13 @@ const db = {
       'Luffy-Tarou — 2025 One Piece Card Game OP11 EN #005, Special Alternate Art (OP11-005), graded PSA 10 GEM MINT (cert #130837550). Luffy in his Wano "Luffytaro" kimono, blade raised across a breathtaking manga-cover alt-art — one of the most gorgeous and sought-after Special Arts in the entire One Piece TCG. One Piece has been on an absolute tear and a gem mint SP Luffy is a true grail. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       73000, 'CRG-LUFFY-TAROU-OP11-005-PSA10', '/images/luffy-tarou-op11-005-psa10.jpg', 'PSA 10');
 
+    // New add (Jul 22 2026): Darth Vader Kakawow Phantom Star Wars Disney 100 Nebula Split TAG 10
+    addIfMissing('collectibles',
+      'Darth Vader 2023 Kakawow Phantom Star Wars Disney 100 Nebula Split #d/666 TAG 10',
+      'darth-vader-kakawow-phantom-nebula-split-tag10',
+      'Darth Vader — 2023 Kakawow Phantom Star Wars Disney 100, Nebula Split #PS-NXY-06, serial numbered 006/666, graded TAG GEM MINT 10 (cert #G4988321). The Sith Lord rendered on a stunning holographic nebula backdrop from the premium Kakawow Phantom set celebrating Disney 100 — one of the most eye-catching Star Wars cards out there, limited to just 666 copies. Flawless gem mint in hand. Ships in the graded slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      11000, 'CRG-DARTH-VADER-KAKAWOW-PHANTOM-NEBULA-TAG10', '/images/darth-vader-kakawow-phantom-nebula-split-tag10.jpg', 'TAG 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
