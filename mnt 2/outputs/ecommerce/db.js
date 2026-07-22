@@ -578,7 +578,7 @@ const db = {
       'Mega Greninja ex 2026 Chaos Rising #116 Special Illustration Rare PSA 10',
       'mega-greninja-ex-cri-116-sir-psa10',
       'Mega Greninja ex — 2026 Pokémon Mega Evolution: Chaos Rising, Special Illustration Rare #116/086, graded PSA 10 GEM MINT (cert #163077710). The undisputed king of Chaos Rising. Mega Greninja mid-strike in cinematic full-art — the most hunted card of the newest era of the TCG, already commanding grail status. Fresh PSA 10, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured with signature confirmation, from a smoke-free shop.',
-      100000, 'CRG-MEGA-GRENINJA-EX-CRI116-PSA10', '/images/mega-greninja-ex-cri-116-sir-psa10.jpg', 'PSA 10');
+      90000, 'CRG-MEGA-GRENINJA-EX-CRI116-PSA10', '/images/mega-greninja-ex-cri-116-sir-psa10.jpg', 'PSA 10');
     addIfMissing('pokemon',
       'Gengar EX 2014 XY Phantom Forces #34 PSA 10',
       'gengar-ex-phantom-forces-34-psa10',
