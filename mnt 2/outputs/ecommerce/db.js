@@ -913,6 +913,13 @@ const db = {
              WHERE slug = ? AND category_id <> (SELECT id FROM categories WHERE slug = 'one-piece')`)
       .run('luffy-op13-118-psa10');
 
+    // New add (Jul 22 2026): One Piece Luffy-Tarou OP11 Special Alt-Art PSA 10
+    addIfMissing('one-piece',
+      'Luffy-Tarou 2025 One Piece OP11 #005 Special Alt-Art PSA 10',
+      'luffy-tarou-op11-005-psa10',
+      'Luffy-Tarou — 2025 One Piece Card Game OP11 EN #005, Special Alternate Art (OP11-005), graded PSA 10 GEM MINT (cert #130837550). Luffy in his Wano "Luffytaro" kimono, blade raised across a breathtaking manga-cover alt-art — one of the most gorgeous and sought-after Special Arts in the entire One Piece TCG. One Piece has been on an absolute tear and a gem mint SP Luffy is a true grail. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      73000, 'CRG-LUFFY-TAROU-OP11-005-PSA10', '/images/luffy-tarou-op11-005-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
