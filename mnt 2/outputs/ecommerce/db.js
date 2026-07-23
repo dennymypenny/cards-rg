@@ -927,6 +927,13 @@ const db = {
       'Darth Vader — 2023 Kakawow Phantom Star Wars Disney 100, Nebula Split #PS-NXY-06, serial numbered 006/666, graded TAG GEM MINT 10 (cert #G4988321). The Sith Lord rendered on a stunning holographic nebula backdrop from the premium Kakawow Phantom set celebrating Disney 100 — one of the most eye-catching Star Wars cards out there, limited to just 666 copies. Flawless gem mint in hand. Ships in the graded slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
       11000, 'CRG-DARTH-VADER-KAKAWOW-PHANTOM-NEBULA-TAG10', '/images/darth-vader-kakawow-phantom-nebula-split-tag10.jpg', 'TAG 10');
 
+    // New add (Jul 22 2026): Mega Zygarde ex Premium Collection (sealed box)
+    addIfMissing('pokemon',
+      'Pokémon Mega Zygarde ex Premium Collection — Factory Sealed',
+      'mega-zygarde-ex-premium-collection',
+      'Pokémon TCG Mega Zygarde ex Premium Collection Box — brand new and factory sealed. Includes a foil Mega Zygarde ex promo card, an oversized lenticular card, a foil promo card, a reusable sticker, and 8 Pokémon TCG booster packs. A gorgeous centerpiece collection featuring the Mega-Evolved form of Zygarde — perfect for collectors and rippers alike. Sealed in hand, ready to ship. Ships bubble-wrapped and boxed with tracking, from a smoke-free shop.',
+      7000, 'CRG-MEGA-ZYGARDE-EX-PREMIUM-COLLECTION', '/images/mega-zygarde-ex-premium-collection.jpg', 'Sealed');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
