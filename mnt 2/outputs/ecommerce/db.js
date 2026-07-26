@@ -260,7 +260,7 @@ function seedSampleData() {
     'Lionel Messi 2022 Topps ARG Fileteado AFA Disc #DI4 PSA 10',
     'messi-2022-topps-arg-fileteado-afa-disc-psa10',
     'Lionel Messi 2022 Topps ARG Fileteado — AFA Disc #DI4, graded PSA 10 Gem Mint (cert #86725240). An incredibly unique Argentine format — the Fileteado disc card is a one-of-a-kind design exclusive to the Argentine market, featuring Messi in the iconic Albiceleste. PSA 10 GEM MINT: perfect corners, perfect centering, flawless surface. Comes in original PSA slab.',
-    90000, null, 1, 'CRG-MESSI-ARG-DISC-PSA10', '/images/messi_psa10_post.jpg', 'PSA 10');
+    45000, null, 1, 'CRG-MESSI-ARG-DISC-PSA10', '/images/messi_psa10_post.jpg', 'PSA 10');
 
   prepare(ins).run(catSoccer,
     'Lionel Messi 2018 Panini Adrenalyn XL FIFA WC Road to Russia Ltd. Ed. PSA 10',
@@ -933,6 +933,25 @@ const db = {
       'mega-zygarde-ex-premium-collection',
       'Pokémon TCG Mega Zygarde ex Premium Collection Box — brand new and factory sealed. Includes a foil Mega Zygarde ex promo card, an oversized lenticular card, a foil promo card, a reusable sticker, and 8 Pokémon TCG booster packs. A gorgeous centerpiece collection featuring the Mega-Evolved form of Zygarde — perfect for collectors and rippers alike. Sealed in hand, ready to ship. Ships bubble-wrapped and boxed with tracking, from a smoke-free shop.',
       7000, 'CRG-MEGA-ZYGARDE-EX-PREMIUM-COLLECTION', '/images/mega-zygarde-ex-premium-collection.jpg', 'Sealed');
+
+    // Removed (Jul 26 2026): batch off storefront per Denny
+    //   Mega Kangaskhan ex, Stan Lee, Jolteon ex (Terastal), Iono's Kilowattrel,
+    //   Muhammad Ali, Spider-Man 30th Anniversary Prism
+    for (const soldSlug of [
+      'mega-kangaskhan-ex-meg-164-psa10',
+      'stan-lee-2011-topps-allen-ginter-psa10',
+      'jolteon-ex-sv8a-209-sar-psa10',
+      'ionos-kilowattrel-jtg-163-psa10',
+      'ali-1991-kayo-hologram-asg-10',
+      'spiderman-1992-comic-images-30th-p9-prism-isa5',
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(soldSlug);
+    }
+
+    // Price change (Jul 26 2026): Messi Fileteado AFA Disc → $450 per Denny
+    prepare('UPDATE products SET price = 45000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 45000')
+      .run('messi-2022-topps-arg-fileteado-afa-disc-psa10');
 
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
