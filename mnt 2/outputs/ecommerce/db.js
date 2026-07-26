@@ -953,6 +953,18 @@ const db = {
     prepare('UPDATE products SET price = 45000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 45000')
       .run('messi-2022-topps-arg-fileteado-afa-disc-psa10');
 
+    // New adds (Jul 26 2026): Team Rocket's Moltres ex SIR + One Piece Luffy OP10 alt-art
+    addIfMissing('pokemon',
+      'Team Rocket\'s Moltres ex 2025 Destined Rivals #229/182 Special Illustration Rare PSA 10',
+      'rockets-moltres-ex-dri-229-psa10',
+      'Team Rocket\'s Moltres ex — 2025 Pokémon Scarlet & Violet: Destined Rivals, Special Illustration Rare #229/182, graded PSA 10 GEM MINT (cert #159704981). Breathtaking full-art of Team Rocket\'s Moltres blazing over the city skyline with a Rocket grunt below — illustrated by Akira Egawa, one of the most chased SIRs from the hottest Trainer-themed set of the year. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      37000, 'CRG-ROCKETS-MOLTRES-EX-DRI229-PSA10', '/images/rockets-moltres-ex-dri-229-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'Monkey D. Luffy 2025 One Piece OP10 #118 Alternate Art PSA 10',
+      'luffy-op10-118-alt-art-psa10',
+      'Monkey D. Luffy — 2025 One Piece Card Game OP10 EN #118, Alternate Art (OP10-118), graded PSA 10 GEM MINT (cert #158375940). Luffy in Gear 4 unleashing across a gorgeous manga-style alt-art from OP10 — One Piece cards have been on an absolute tear and a gem mint alt-art Luffy is a true chase card. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      16500, 'CRG-LUFFY-OP10-118-PSA10', '/images/luffy-op10-118-alt-art-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
