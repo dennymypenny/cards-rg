@@ -33,7 +33,15 @@ const QUERIES = {
 // Graded reference points pulled from Collectr through Denny's session
 // (update values when a fresh pull is done; date documents the pull)
 const PSA10_REF = {
-  'rayquaza-vmax-evolving-skies-111-psa10': { psa10: 197, asOf: '2026-07-26', src: 'Collectr graded chart' },
+  'rayquaza-vmax-evolving-skies-111-psa10':  { psa10: 197, asOf: '2026-07-26', src: 'Collectr graded chart' },
+  'mega-greninja-ex-cri-116-sir-psa10':      { psa10: 723, raw: 239.29, asOf: '2026-07-27', src: 'Collectr graded chart' },
+  'gengar-ex-phantom-forces-34-psa10':       { psa10: 653, raw: 88.28,  asOf: '2026-07-27', src: 'Collectr graded chart' },
+  'mega-latias-ex-meg-181-sir-psa10':        { psa10: 240, raw: 92.24,  asOf: '2026-07-27', src: 'Collectr graded chart' },
+  'charmander-mep-038-first-partner-psa10':  { psa10: 249, raw: 38.47,  asOf: '2026-07-27', src: 'Collectr graded chart' },
+  'rockets-moltres-ex-dri-229-psa10':        { psa10: 325, raw: 107.63, asOf: '2026-07-27', src: 'Collectr graded chart' },
+  'mega-charizard-x-ex-pfl-109-psa10':       { psa10: 143, raw: 29.71,  asOf: '2026-07-27', src: 'Collectr graded chart' },
+  'luffy-op10-118-alt-art-psa10':            { psa10: 160, raw: 67.83,  asOf: '2026-07-27', src: 'Collectr graded chart' },
+  'luffy-op13-118-psa10':                    { psa10: 286, raw: 100.42, asOf: '2026-07-27', src: 'Collectr graded chart' },
 };
 
 // PSA cert numbers per slug — enriched with pop counts when PSA_TOKEN env var
@@ -148,10 +156,12 @@ async function refresh() {
       }
     } catch (e) { fail++; /* keep last cached value — STALE by omission of update */ }
   }
-  // merge graded reference points
+  // merge graded reference points (+ Collectr raw as fallback where TCGplayer has none)
   for (const slug in PSA10_REF) {
-    cache.prices[slug] = { ...(cache.prices[slug] || {}), psa10: PSA10_REF[slug].psa10,
-                           psa10AsOf: PSA10_REF[slug].asOf, psa10Src: PSA10_REF[slug].src };
+    const ref = PSA10_REF[slug];
+    const cur = cache.prices[slug] || {};
+    cache.prices[slug] = { ...cur, psa10: ref.psa10, psa10AsOf: ref.asOf, psa10Src: ref.src,
+                           ...(cur.raw == null && ref.raw != null ? { raw: ref.raw, src: 'Collectr raw (as of ' + ref.asOf + ')' } : {}) };
   }
   // cap history to ~1 year of 4x-daily points
   if (cache.history.length > 15000) cache.history = cache.history.slice(-15000);
