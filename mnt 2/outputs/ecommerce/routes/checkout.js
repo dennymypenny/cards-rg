@@ -13,6 +13,34 @@ function getStripe() {
   return require('stripe')(process.env.STRIPE_SECRET_KEY);
 }
 
+// ── PROMO: ensure THANKYOU10 exists in Stripe (10% off, idempotent) ────────
+// Checkout sessions already pass allow_promotion_codes:true, so once this
+// code exists in Stripe, buyers can enter THANKYOU10 on the payment page.
+async function ensurePromo() {
+  try {
+    if (!process.env.STRIPE_SECRET_KEY) return;
+    const stripe = getStripe();
+    const existing = await stripe.promotionCodes.list({ code: 'THANKYOU10', limit: 1 });
+    if (existing.data.length) {
+      if (!existing.data[0].active) {
+        await stripe.promotionCodes.update(existing.data[0].id, { active: true });
+      }
+      console.log('[checkout] promo THANKYOU10 ready (existing)');
+      return;
+    }
+    const coupon = await stripe.coupons.create({
+      percent_off: 10,
+      duration: 'forever',
+      name: 'CRG Thank You 10%',
+    });
+    await stripe.promotionCodes.create({ coupon: coupon.id, code: 'THANKYOU10' });
+    console.log('[checkout] promo THANKYOU10 created');
+  } catch (e) {
+    console.warn('[checkout] promo setup failed:', e.message);
+  }
+}
+ensurePromo();
+
 // ── POST /api/checkout/session ─────────────────────────────────────────────
 // Creates a Stripe Checkout session from the current cart
 router.post('/session', async (req, res, next) => {

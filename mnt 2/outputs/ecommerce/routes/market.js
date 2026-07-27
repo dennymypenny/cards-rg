@@ -132,13 +132,18 @@ async function refresh() {
   if (refreshing) return;
   refreshing = true;
   const t = Date.now();
+  // Guard against the commit->deploy->boot->commit loop: if the newest
+  // recorded point is younger than 5h, refresh prices in memory only —
+  // no history append, no GitHub commit (which auto-triggers a deploy).
+  const lastT = cache.history.length ? Math.max(...cache.history.map(h => h.t)) : 0;
+  const record = (t - lastT) > 5 * 60 * 60 * 1000;
   let ok = 0, fail = 0;
   for (const slug in QUERIES) {
     try {
       const got = await fetchOne(QUERIES[slug]);
       if (got) {
         cache.prices[slug] = { raw: got.raw, src: `TCGplayer market (${got.variant}, raw)`, url: got.url };
-        cache.history.push({ t, slug, raw: got.raw });
+        if (record) cache.history.push({ t, slug, raw: got.raw });
         ok++;
       }
     } catch (e) { fail++; /* keep last cached value — STALE by omission of update */ }
@@ -154,7 +159,7 @@ async function refresh() {
   cache.updated = new Date().toISOString();
   const json = JSON.stringify(cache.history);
   try { fs.writeFileSync(HIST_PATH, json); } catch (e) {}
-  if (ok > 0) commitHistory(json);
+  if (ok > 0 && record) commitHistory(json);
   console.log(`[market] refresh: ${ok} priced, ${fail} failed`);
   refreshing = false;
 }
