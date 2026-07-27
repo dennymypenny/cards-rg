@@ -1,194 +1,227 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CRG Cards — Live Market Board</title>
+<title>CRG Cards — Market Board</title>
 <style>
-:root{--bg:#0a0e14;--panel:#111726;--panel2:#0d1320;--line:#1d2638;--tx:#e9edf5;--mut:#7d8598;
---pink:#ec4899;--teal:#22d3ee;--grn:#16c784;--red:#ea3943;--gold:#f5b942}
+:root{--bg:#f2f2f0;--card:#ffffff;--line:#e3e3df;--tx:#111;--mut:#6b6f76;--grn:#2e7d32;--red:#c62828;
+--accent:#368727;--blue:#2b6fd6;--gold:#b8860b;
+--c-pokemon:#e6a817;--c-onepiece:#d64545;--c-soccer:#2e9e6b;--c-nba:#e07b39;--c-collectibles:#8e56c9;--c-football:#2e9e6b}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--tx);font:14px/1.45 -apple-system,'Segoe UI',Roboto,sans-serif}
-.wrap{max-width:1150px;margin:0 auto;padding:20px 16px 48px}
-header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
-h1{font-size:24px;font-weight:800;letter-spacing:.5px;background:linear-gradient(90deg,#fff 0%,#22d3ee 45%,#ec4899 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}h1 .c{background:linear-gradient(90deg,#ec4899,#f5b942);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.livechip{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--grn);font-weight:600;text-transform:uppercase;letter-spacing:1px}
-.dot{width:8px;height:8px;border-radius:50%;background:var(--grn);animation:pulse 1.6s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.sub{color:var(--mut);font-size:12px;margin-bottom:16px}
-.ticker{white-space:nowrap;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--panel2);margin-bottom:16px}
-.ticker-inner{display:inline-block;padding:8px 0;animation:scroll 60s linear infinite}
-@keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.tk{display:inline-block;margin:0 18px;font-size:12px}.tk b{color:var(--tx)}.tk .up{color:var(--grn)}.tk .dn{color:var(--red)}.tk .fl{color:var(--mut)}
-.toprow{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px}
-@media(max-width:860px){.toprow{grid-template-columns:1fr}}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
-h2{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--mut);margin-bottom:10px}
-.bigval{font-size:30px;font-weight:800;color:var(--teal)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tile{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;position:relative;overflow:hidden}
-.tile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc,linear-gradient(90deg,#22d3ee,#ec4899))}
-.tile:nth-child(1){--acc:linear-gradient(90deg,#22d3ee,#3b82f6)}
-.tile:nth-child(2){--acc:linear-gradient(90deg,#16c784,#22d3ee)}
-.tile:nth-child(3){--acc:linear-gradient(90deg,#f5b942,#f97316)}
-.tile:nth-child(4){--acc:linear-gradient(90deg,#ec4899,#a855f7)}
-.tile .l{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--mut)}
-.tile .v{font-size:20px;font-weight:800;margin-top:2px}
-.teal{color:var(--teal)}.pinkc{color:var(--pink)}.grnc{color:var(--grn)}.goldc{color:var(--gold)}
-.tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-.tab{border:1px solid var(--line);background:var(--panel2);color:var(--mut);border-radius:20px;padding:5px 14px;font-size:12px;cursor:pointer}
-.tab.on{color:var(--tx);border-color:var(--pink);background:rgba(236,72,153,.12)}
-.tab[data-cat=pokemon].on{border-color:#f5b942;background:rgba(245,185,66,.14)}
-.tab[data-cat=one-piece].on{border-color:#ea3943;background:rgba(234,57,67,.14)}
-.tab[data-cat=soccer].on{border-color:#16c784;background:rgba(22,199,132,.14)}
-.tab[data-cat=nba].on{border-color:#f97316;background:rgba(249,115,22,.14)}
-.tab[data-cat=collectibles].on{border-color:#a855f7;background:rgba(168,85,247,.14)}
-.catdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--cat,#7d8598)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:1px;text-align:left;padding:8px;border-bottom:1px solid var(--line)}
-td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-td:first-child{border-left:3px solid var(--cat,transparent);padding-left:10px}
-tr.cat-pokemon{--cat:#f5b942}tr.cat-one-piece{--cat:#ea3943}tr.cat-soccer{--cat:#16c784}
-tr.cat-nba{--cat:#f97316}tr.cat-collectibles{--cat:#a855f7}tr.cat-football{--cat:#16c784}
-tr:hover td{background:rgba(255,255,255,.02)}
+body{background:var(--bg);color:var(--tx);font:15px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,sans-serif}
+.layout{display:grid;grid-template-columns:320px 1fr;gap:20px;max-width:1200px;margin:0 auto;padding:22px 16px 60px}
+@media(max-width:860px){.layout{grid-template-columns:1fr}}
+.side{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;height:fit-content}
+.side h2{font-size:20px;font-weight:700;margin-bottom:2px}
+.asof{color:var(--mut);font-size:12px;margin-bottom:14px}
+.allbox{border:1.5px solid #111;border-radius:12px;padding:14px 16px;margin-bottom:18px;cursor:pointer}
+.allbox .row1{display:flex;justify-content:space-between;font-weight:700;font-size:16px}
+.allbox .sub{color:var(--mut);font-size:12.5px;margin-top:2px}
+.cat{padding:13px 6px;border-top:1px solid var(--line);cursor:pointer;border-radius:8px}
+.cat:hover{background:#fafaf8}
+.cat .r1{display:flex;justify-content:space-between;align-items:baseline}
+.cat .nm{font-weight:600;font-size:14.5px;text-transform:capitalize}
+.cat .val{font-weight:700}
+.cat .r2{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-top:1px}
+.cat.on{background:#f0f6ee}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:baseline}
+.up{color:var(--grn)}.dn{color:var(--red)}.fl{color:var(--mut)}
+.main h1{font-size:38px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
+.tabs{display:flex;gap:26px;border-bottom:2px solid var(--line);margin-bottom:22px;font-size:16px}
+.tabs span{padding:8px 2px 10px;color:#333;cursor:default}
+.tabs span.on{font-weight:700;border-bottom:4px solid var(--accent);margin-bottom:-2px}
+.tabs .live{color:var(--grn);font-weight:700}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:20px}
+.panel h3{font-size:22px;font-weight:700;margin-bottom:14px}
+.big{font-size:42px;font-weight:800;letter-spacing:-1px}
+.gain{font-size:15px;margin:4px 0 8px}
+.gain .lbl{color:var(--mut);margin-left:6px;font-size:13.5px}
+.chartwrap{position:relative;margin-top:8px}
+svg text{font:11.5px -apple-system,'Segoe UI',sans-serif;fill:var(--mut)}
+.xlbl{display:flex;justify-content:space-between;color:var(--mut);font-size:12px;margin-top:4px;padding-right:70px}
+.ranges{display:flex;gap:10px;justify-content:center;margin-top:16px}
+.rng{border:none;background:none;font-size:13.5px;font-weight:600;color:#333;padding:8px 13px;border-radius:50%;cursor:pointer;min-width:42px}
+.rng.on{background:var(--accent);color:#fff}
+.total-row{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:18px;padding-top:14px;font-size:15px}
+.total-row b{font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;padding:10px 8px;border-bottom:1.5px solid var(--line)}
+td{padding:12px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:hover td{background:#fafaf8}
 .r{text-align:right;font-variant-numeric:tabular-nums}
-.name{font-weight:600}.meta{color:var(--mut);font-size:11px}
-.chg{font-weight:700;border-radius:6px;padding:3px 8px;font-size:12px;display:inline-block;min-width:60px;text-align:center}
-.chg.up{color:var(--grn);background:rgba(22,199,132,.12)}
-.chg.dn{color:var(--red);background:rgba(234,57,67,.12)}
-.chg.fl{color:var(--mut);background:rgba(125,133,152,.1)}
-a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
-.badge{font-size:9px;font-weight:700;letter-spacing:.6px;border-radius:4px;padding:2px 6px;text-transform:uppercase}
-.badge.psa{background:rgba(245,185,66,.15);color:var(--gold)}
-.badge.sealed{background:rgba(34,211,238,.12);color:var(--teal)}
-.spark{display:block}
-.note{color:var(--mut);font-size:11px;margin-top:12px;line-height:1.6}
-.footer{color:var(--mut);font-size:11px;text-align:center;margin-top:22px}
-.err{color:var(--red);font-size:12px;padding:8px 0;display:none}
-@media(max-width:640px){.hidem{display:none}}
-</style></head><body><div class="wrap">
-<header><h1>CRG <span class="c">CARDS</span> MARKET BOARD</h1>
-<span class="livechip"><span class="dot"></span> Live</span></header>
-<div class="sub" id="stamp">Loading live inventory…</div>
-<div class="ticker"><div class="ticker-inner" id="ticker"></div></div>
-
-<div class="toprow">
- <div class="panel">
-   <h2>Tracked market value — raw refs (TCGplayer, server-cached)</h2>
-   <div class="bigval" id="mktTotal">–</div>
-   <div class="meta" id="mktSub">history builds every 6h refresh</div>
-   <svg id="bigChart" class="spark" width="100%" height="150" viewBox="0 0 640 150" preserveAspectRatio="none"></svg>
-   <div class="meta" id="bigChartLbl"></div>
- </div>
- <div class="panel">
-   <h2>Board</h2>
-   <div class="grid">
-     <div class="tile"><div class="l">Listings</div><div class="v" id="t-count">–</div></div>
-     <div class="tile"><div class="l">List value</div><div class="v teal" id="t-value">–</div></div>
-     <div class="tile"><div class="l">PSA 10 slabs</div><div class="v goldc" id="t-psa">–</div></div>
-     <div class="tile"><div class="l">Priced by market</div><div class="v pinkc" id="t-priced">–</div></div>
-   </div>
- </div>
-</div>
-
-<div class="panel"><h2>Inventory · live prices &amp; trends</h2>
-<div class="tabs" id="tabs"></div>
-<div class="err" id="err"></div>
-<table><thead><tr><th>Card</th><th class="hidem">Grade</th><th class="r">Price</th><th class="r hidem">Raw mkt</th><th class="r">Move</th><th class="hidem">Trend (real)</th><th>Buy</th></tr></thead>
-<tbody id="rows"></tbody></table>
-<div class="note" id="noteBox">Raw mkt = TCGplayer market price of the ungraded card, cached server-side and refreshed every ~6h — a directional reference, not a graded comp. Gold values are graded PSA 10 reference points where known. Trend lines are drawn from real recorded history (started Jul 26 2026) — they get richer every day. Board prices are CRG list prices; every card links to checkout.</div>
-</div>
-<div class="footer">CRG Cards · Rips and Grails · <a href="https://cardsrg.com">cardsrg.com</a> · <a href="https://instagram.com/cardsrgshop">@cardsrgshop</a> · auto-refreshes every 5 min</div>
+.sym{font-weight:800;font-size:13.5px;letter-spacing:.3px}
+.sym .dot{margin-right:6px}
+.nm2{color:var(--mut);font-size:12px;max-width:340px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chg{font-weight:700}
+.psa{color:var(--gold);font-size:12.5px;font-weight:800}
+.badge{font-size:10px;font-weight:800;border-radius:5px;padding:2px 7px;letter-spacing:.5px}
+.badge.g{background:#fdf3d7;color:#9a7b0a}.badge.s{background:#e3f2fd;color:#1b64c0}
+a{color:var(--blue);text-decoration:none;font-weight:600}a:hover{text-decoration:underline}
+.note{color:var(--mut);font-size:12px;margin-top:14px;line-height:1.6}
+.foot{color:var(--mut);font-size:12px;text-align:center;margin-top:8px}
+.promo{background:linear-gradient(90deg,#fef3f8,#eef7ff);border:1px solid #f3d3e4;border-radius:12px;padding:10px 16px;font-size:13.5px;margin-bottom:18px}
+</style></head><body>
+<div class="layout">
+<aside class="side">
+  <h2>Categories</h2>
+  <div class="asof" id="asof">Loading…</div>
+  <div class="allbox" onclick="setCat('all')">
+    <div class="row1"><span>All cards</span><span id="s-total">–</span></div>
+    <div class="sub" id="s-sub">– listings on cardsrg.com</div>
+  </div>
+  <div id="catlist"></div>
+</aside>
+<main class="main">
+  <h1>CRG Market Board</h1>
+  <div class="tabs"><span class="on">Summary</span><span>Positions</span><span class="live">● Live</span></div>
+  <div class="promo">🎉 <b>10% off everything</b> — use code <b>THANKYOU10</b> at checkout on <a href="https://cardsrg.com">cardsrg.com</a></div>
+  <div class="panel">
+    <h3>Tracked market value</h3>
+    <div class="big" id="mktTotal">–</div>
+    <div class="gain" id="mktGain"><span class="fl">–</span><span class="lbl">change over range</span></div>
+    <div class="chartwrap"><svg id="chart" width="100%" height="230" viewBox="0 0 760 230" preserveAspectRatio="none"></svg></div>
+    <div class="xlbl"><span id="x0"></span><span id="x1"></span></div>
+    <div class="ranges" id="ranges"></div>
+    <div class="total-row"><span>All cards · list value</span><b id="listTotal">–</b></div>
+  </div>
+  <div class="panel">
+    <h3 id="posTitle">Positions</h3>
+    <table><thead><tr><th>Symbol</th><th class="r">Last (raw)</th><th class="r">PSA 10 ref</th><th class="r">Move</th><th class="r">List price</th><th></th></tr></thead>
+    <tbody id="rows"></tbody></table>
+    <div class="note">“Last (raw)” = TCGplayer market price of the ungraded card (server-cached, ~6h refresh) — a directional reference, not a graded comp. <span class="psa">PSA 10 ref</span> = graded market reference from Collectr (dated pulls). Move = change across recorded history for the selected range. List price = CRG price; View → buy on cardsrg.com.</div>
+  </div>
+  <div class="foot">CRG Cards · Rips and Grails · <a href="https://cardsrg.com">cardsrg.com</a> · <a href="https://instagram.com/cardsrgshop">@cardsrgshop</a> · updates every 5 min</div>
+</main>
 </div>
 <script>
-const money=v=>'$'+Number(v).toLocaleString(undefined,{maximumFractionDigits:0});
-const money2=v=>'$'+Number(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-let PRODUCTS=[],MKT={prices:{},history:[]},CAT='all';
-function gradeOf(p){const m=(p.name||'').match(/\b(PSA|SGC|CGC|BGS|ISA|WCG|CCG|ASG|TAG)\s*(10|9\.5|9)\b/);return m?m[1]+' '+m[2]:null}
+const money=v=>'$'+Number(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+const money0=v=>'$'+Number(v).toLocaleString(undefined,{maximumFractionDigits:0});
+let PRODUCTS=[],MKT={prices:{},history:[]},CAT='all',RANGE='MAX';
+const CATCOLOR={'pokemon':'var(--c-pokemon)','one-piece':'var(--c-onepiece)','soccer':'var(--c-soccer)','nba':'var(--c-nba)','collectibles':'var(--c-collectibles)','football':'var(--c-football)'};
+const RANGES={'1D':1,'3D':3,'7D':7,'1M':30,'MAX':1e6};
 
-function histFor(slug){return MKT.history.filter(h=>h.slug===slug).sort((a,b)=>a.t-b.t)}
+function sym(p){
+  const num=(p.name.match(/#([\w\/\-\.]+)/)||[])[1]||'';
+  let base=p.name.replace(/Team Rocket's|Monkey D\.?|Pokémon|Pokemon/gi,'').trim().split(/\s+/)[0].toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,10);
+  return base+(num?' '+num.split('/')[0]:'');
+}
+function histFor(slug,cutoff){return MKT.history.filter(h=>h.slug===slug&&h.t>=cutoff).sort((a,b)=>a.t-b.t)}
+function cutoffFor(range){const d=RANGES[range];return Date.now()-d*24*3600*1000}
 function firstLast(hs){return hs.length?{f:hs[0].raw,l:hs[hs.length-1].raw}:null}
 
-function sparkSVG(hs,w,h,color){
-  if(hs.length<2){
-    return `<svg class="spark" width="${w}" height="${h}"><line x1="0" y1="${h/2}" x2="${w}" y2="${h/2}" stroke="#3a4358" stroke-width="1.5" stroke-dasharray="3,3"/></svg>`;
+function catAgg(){
+  const m={};
+  for(const p of PRODUCTS){const c=p.category_slug||'other';(m[c]=m[c]||{n:0,val:0,move:null});m[c].n+=(p.stock||1);m[c].val+=p.price/100*(p.stock||1);}
+  const cutoff=cutoffFor(RANGE);
+  for(const c in m){
+    let f=0,l=0;
+    for(const p of PRODUCTS.filter(x=>(x.category_slug||'other')===c)){
+      const fl=firstLast(histFor(p.slug,cutoff));
+      if(fl){f+=fl.f;l+=fl.l}
+    }
+    if(f>0)m[c].move=(l-f)/f*100;
   }
-  const vals=hs.map(p=>p.raw), min=Math.min(...vals), max=Math.max(...vals), span=(max-min)||1;
-  const pts=hs.map((p,i)=>[(i/(hs.length-1))*w, h-3-((p.raw-min)/span)*(h-8)]);
-  const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
-  const area=line+` L${w},${h} L0,${h} Z`;
-  return `<svg class="spark" width="${w}" height="${h}"><path d="${area}" fill="${color}22"/><path d="${line}" fill="none" stroke="${color}" stroke-width="1.8"/><circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="2.5" fill="${color}"/></svg>`;
+  return m;
 }
-
-function bigChart(){
+function renderSide(){
+  const m=catAgg();
+  const total=PRODUCTS.reduce((s,p)=>s+p.price/100*(p.stock||1),0);
+  document.getElementById('s-total').textContent=money0(total);
+  document.getElementById('s-sub').textContent=PRODUCTS.reduce((s,p)=>s+(p.stock||1),0)+' listings on cardsrg.com';
+  document.getElementById('catlist').innerHTML=Object.entries(m).sort((a,b)=>b[1].val-a[1].val).map(([c,v])=>{
+    const mv=v.move;
+    const cls=mv==null?'fl':mv>0.05?'up':mv<-0.05?'dn':'fl';
+    const mvTxt=mv==null?'—':(mv>0?'+':'')+mv.toFixed(2)+'%';
+    return `<div class="cat ${c===CAT?'on':''}" onclick="setCat('${c}')">
+      <div class="r1"><span class="nm"><span class="dot" style="background:${CATCOLOR[c]||'#999'}"></span>${c.replace('-',' ')}</span><span class="val">${money0(v.val)}</span></div>
+      <div class="r2"><span>${v.n} card${v.n===1?'':'s'}</span><span class="${cls}">${mvTxt}</span></div></div>`;
+  }).join('');
+  document.getElementById('asof').textContent='As of '+new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' PT';
+  document.getElementById('listTotal').textContent=money(total);
+}
+function setCat(c){CAT=c;renderSide();renderRows();document.getElementById('posTitle').textContent=(c==='all'?'Positions':'Positions — '+c.replace('-',' '))}
+function setRange(r){RANGE=r;renderAll()}
+function renderRanges(){
+  document.getElementById('ranges').innerHTML=Object.keys(RANGES).map(r=>`<button class="rng ${r===RANGE?'on':''}" onclick="setRange('${r}')">${r}</button>`).join('');
+}
+function renderChart(){
+  const cutoff=cutoffFor(RANGE);
   const byT={};
-  for(const h of MKT.history){(byT[h.t]=byT[h.t]||{})[h.slug]=h.raw}
+  for(const h of MKT.history){if(h.t>=cutoff)(byT[h.t]=byT[h.t]||{})[h.slug]=h.raw}
   let ts=Object.keys(byT).map(Number).sort((a,b)=>a-b);
-  const maxN=Math.max(1,...ts.map(t=>Object.keys(byT[t]).length));
-  ts=ts.filter(t=>Object.keys(byT[t]).length>=Math.max(2,Math.floor(maxN*0.8)));
-  const totals=ts.map(t=>Object.values(byT[t]).reduce((s,v)=>s+v,0));
-  const svg=document.getElementById('bigChart');
-  const priced=Object.values(MKT.prices).filter(p=>p.raw!=null).length;
-  const curTotal=Object.values(MKT.prices).reduce((s,p)=>s+(p.raw||0),0);
-  document.getElementById('mktTotal').textContent=curTotal?money2(curTotal):'—';
-  document.getElementById('mktSub').textContent=priced+' cards tracked · '+ts.length+' data point'+(ts.length===1?'':'s')+' recorded since Jul 26 2026';
+  // consistent comparison set: slugs present in >=60% of buckets; keep only
+  // buckets that contain ALL of them, and sum ONLY those slugs — otherwise
+  // partial fetches make totals jump around meaninglessly
+  const freq={};
+  for(const t of ts)for(const s in byT[t])freq[s]=(freq[s]||0)+1;
+  const core=Object.keys(freq).filter(s=>freq[s]>=ts.length*0.6);
+  ts=ts.filter(t=>core.every(s=>byT[t][s]!=null));
+  let totals=ts.map(t=>core.reduce((s,k)=>s+byT[t][k],0));
+  // downsample to <=100 points (average per slice) for a clean line
+  if(ts.length>100){
+    const n=100,nt=[],nv=[];
+    for(let i=0;i<n;i++){
+      const a=Math.floor(i*ts.length/n),b=Math.max(a+1,Math.floor((i+1)*ts.length/n));
+      nt.push(ts[Math.floor((a+b-1)/2)]);
+      nv.push(totals.slice(a,b).reduce((s,v)=>s+v,0)/(b-a));
+    }
+    ts=nt;totals=nv;
+  }
+  const cur=Object.values(MKT.prices).reduce((s,p)=>s+(p.raw||0),0);
+  document.getElementById('mktTotal').textContent=cur?money(cur):'—';
+  const g=document.getElementById('mktGain');
+  const svg=document.getElementById('chart');
   if(ts.length<2){
-    svg.innerHTML='<line x1="0" y1="75" x2="640" y2="75" stroke="#3a4358" stroke-width="2" stroke-dasharray="5,5"/><text x="320" y="65" fill="#7d8598" font-size="12" text-anchor="middle">chart appears as history accumulates (every ~6h)</text>';
+    g.innerHTML='<span class="fl">building history…</span><span class="lbl">chart fills in as data records</span>';
+    svg.innerHTML='<line x1="0" y1="115" x2="690" y2="115" stroke="#d8d8d4" stroke-width="2" stroke-dasharray="6,6"/><text x="345" y="105" text-anchor="middle">collecting data — check back soon</text>';
+    document.getElementById('x0').textContent='';document.getElementById('x1').textContent='';
     return;
   }
-  const min=Math.min(...totals),max=Math.max(...totals),span=(max-min)||1;
-  const pts=totals.map((v,i)=>[(i/(totals.length-1))*640,145-((v-min)/span)*130]);
+  const diff=totals[totals.length-1]-totals[0];
+  const pct=totals[0]?diff/totals[0]*100:0;
+  const cls=diff>0.01?'up':diff<-0.01?'dn':'fl';
+  g.innerHTML=`<span class="${cls}">${diff>=0?'+':'-'}${money(Math.abs(diff))} (${diff>=0?'+':''}${pct.toFixed(2)}%)</span><span class="lbl">change over ${RANGE==='MAX'?'all recorded history':RANGE}</span>`;
+  const W=690,H=210,PAD=8;
+  const min=Math.min(...totals),max=Math.max(...totals);
+  const lo=min-(max-min||1)*0.15, hi=max+(max-min||1)*0.15, span=hi-lo;
+  const pts=totals.map((v,i)=>[(i/(totals.length-1))*W, H-PAD-((v-lo)/span)*(H-2*PAD)]);
   const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
-  const up=totals[totals.length-1]>=totals[0];
-  const col=up?'#16c784':'#ea3943';
-  svg.innerHTML=`<path d="${line} L640,150 L0,150 Z" fill="${col}22"/><path d="${line}" fill="none" stroke="${col}" stroke-width="2.5"/>`;
-  document.getElementById('bigChartLbl').textContent=new Date(ts[0]).toLocaleDateString()+' → '+new Date(ts[ts.length-1]).toLocaleDateString();
+  const grid=[0.25,0.55,0.85].map(f=>{const y=H*f;const val=lo+(1-((y-PAD)/(H-2*PAD)))*span;
+    return `<line x1="0" y1="${y}" x2="${W}" y2="${y}" stroke="#d8d8d4" stroke-width="1" stroke-dasharray="5,5"/><text x="${W+8}" y="${y+4}">${money0(val)}</text>`}).join('');
+  svg.innerHTML=grid+`<path d="${line}" fill="none" stroke="#2b6fd6" stroke-width="2.5" stroke-linejoin="round"/>`;
+  document.getElementById('x0').textContent=new Date(ts[0]).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  document.getElementById('x1').textContent=new Date(ts[ts.length-1]).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 }
-
-function render(){
-  const rows=PRODUCTS.filter(p=>CAT==='all'||p.category_slug===CAT).sort((a,b)=>b.price-a.price);
+function renderRows(){
+  const cutoff=cutoffFor(RANGE);
+  const rows=PRODUCTS.filter(p=>CAT==='all'||(p.category_slug||'other')===CAT).sort((a,b)=>b.price-a.price);
   document.getElementById('rows').innerHTML=rows.map(p=>{
-    const g=gradeOf(p);const m=MKT.prices[p.slug]||{};
-    const hs=histFor(p.slug);const fl=firstLast(hs);
-    let chg=null;if(fl&&fl.f)chg=(fl.l-fl.f)/fl.f*100;
+    const m=MKT.prices[p.slug]||{};
+    const fl=firstLast(histFor(p.slug,cutoff));
+    let chg=fl&&fl.f?(fl.l-fl.f)/fl.f*100:null;
     const cls=chg==null?'fl':chg>0.05?'up':chg<-0.05?'dn':'fl';
-    const chgTxt=chg==null?'—':(chg>0?'+':'')+chg.toFixed(1)+'%';
-    const mktCell=m.raw!=null?money2(m.raw)+(m.psa10?`<div class="meta goldc">PSA10 ref ${money(m.psa10)}</div>`:''):(m.psa10?`<span class="goldc">PSA10 ${money(m.psa10)}</span>`:'<span class="meta">—</span>');
-    return `<tr class="cat-${p.category_slug||'x'}"><td><div class="name">${p.name}</div><div class="meta"><span class="catdot"></span>${(p.category_slug||'').replace('-',' ')}</div></td>
-    <td class="hidem">${g?`<span class="badge ${g.startsWith('PSA')?'psa':'sealed'}">${g}</span>`:(p.name.toLowerCase().includes('sealed')?'<span class="badge sealed">Sealed</span>':'—')}</td>
-    <td class="r"><b>${money(p.price/100)}</b></td>
-    <td class="r hidem">${mktCell}</td>
-    <td class="r"><span class="chg ${cls}">${chgTxt}</span></td>
-    <td class="hidem">${sparkSVG(hs,110,34,chg==null?({'pokemon':'#f5b942','one-piece':'#ea3943','soccer':'#16c784','nba':'#f97316','collectibles':'#a855f7'}[p.category_slug]||'#22d3ee'):(chg>=0?'#16c784':'#ea3943'))}</td>
-    <td><a href="https://cardsrg.com/product/${p.slug}">View →</a></td></tr>`}).join('');
+    const grade=(p.name.match(/\b(PSA|SGC|CGC|BGS|ISA|WCG|CCG|ASG|TAG)\s*(10|9\.5|9)\b/)||[])[0];
+    return `<tr>
+    <td><div class="sym"><span class="dot" style="background:${CATCOLOR[p.category_slug]||'#999'}"></span>${sym(p)} ${grade?`<span class="badge g">${grade}</span>`:(p.name.toLowerCase().includes('sealed')?'<span class="badge s">SEALED</span>':'')}</div>
+    <div class="nm2">${p.name}</div></td>
+    <td class="r">${m.raw!=null?money(m.raw):'<span class="fl">—</span>'}</td>
+    <td class="r">${m.psa10?`<span class="psa">${money0(m.psa10)}</span>`:'<span class="fl">—</span>'}</td>
+    <td class="r chg ${cls}">${chg==null?'—':(chg>0?'+':'')+chg.toFixed(2)+'%'}</td>
+    <td class="r"><b>${money0(p.price/100)}</b></td>
+    <td class="r"><a href="https://cardsrg.com/product/${p.slug}">View →</a></td></tr>`;
+  }).join('');
 }
-function renderTabs(){
-  const cats=['all',...new Set(PRODUCTS.map(p=>p.category_slug).filter(Boolean))];
-  document.getElementById('tabs').innerHTML=cats.map(c=>`<span class="tab ${c===CAT?'on':''}" data-cat="${c}" onclick="CAT='${c}';render();renderTabs()">${c==='all'?'All':c.replace('-',' ')}</span>`).join('');
-}
-function renderTop(){
-  const n=PRODUCTS.reduce((s,p)=>s+(p.stock||1),0);
-  const val=PRODUCTS.reduce((s,p)=>s+(p.price/100)*(p.stock||1),0);
-  const psa=PRODUCTS.filter(p=>/PSA\s*10/.test(p.name)).length;
-  const priced=Object.values(MKT.prices).filter(p=>p.raw!=null||p.psa10!=null).length;
-  t('t-count',n);t('t-value',money(val));t('t-psa',psa);t('t-priced',priced||'—');
-  const tk=PRODUCTS.slice().sort((a,b)=>b.price-a.price).map(p=>{
-    const hs=histFor(p.slug);const fl=firstLast(hs);let c=fl&&fl.f?(fl.l-fl.f)/fl.f*100:null;
-    const cls=c==null?'fl':c>0?'up':c<0?'dn':'fl';const sym=c==null?'':(c>0?' ▲':' ▼')+Math.abs(c).toFixed(1)+'%';
-    return `<span class="tk"><b>${p.name.split(' 20')[0]}</b> ${money(p.price/100)}<span class="${cls}">${sym}</span></span>`}).join('');
-  document.getElementById('ticker').innerHTML=tk+tk;
-  document.getElementById('stamp').textContent='Live from cardsrg.com · '+new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles'})+' PT · market cache: '+(MKT.updated?new Date(MKT.updated).toLocaleString('en-US',{timeZone:'America/Los_Angeles'})+' PT':'warming up');
-}
-function t(id,v){document.getElementById(id).textContent=v}
+function renderAll(){renderSide();renderRanges();renderChart();renderRows()}
 async function boot(){
   try{
     let r=await fetch('/api/products').catch(()=>null);
     if(!r||!r.ok)r=await fetch('https://cardsrg.com/api/products');
-    let d=await r.json();PRODUCTS=Array.isArray(d)?d:(d.products||[]);
-  }catch(e){const el=document.getElementById('err');el.style.display='block';el.textContent='Could not reach cardsrg.com.';return}
+    const d=await r.json();PRODUCTS=Array.isArray(d)?d:(d.products||[]);
+  }catch(e){document.getElementById('asof').textContent='Could not reach cardsrg.com';return}
   try{
     let r=await fetch('/api/market').catch(()=>null);
     if(!r||!r.ok)r=await fetch('https://cardsrg.com/api/market');
     const d=await r.json();if(d&&d.prices)MKT=d;
-  }catch(e){/* board still renders without market */}
-  renderTabs();render();renderTop();bigChart();
+  }catch(e){}
+  renderAll();
 }
 boot();
 setInterval(boot,5*60*1000);
