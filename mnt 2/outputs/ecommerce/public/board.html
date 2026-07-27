@@ -7,7 +7,7 @@
 --c-pokemon:#e6a817;--c-onepiece:#d64545;--c-soccer:#2e9e6b;--c-nba:#e07b39;--c-collectibles:#8e56c9;--c-football:#2e9e6b}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--tx);font:15px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,sans-serif}
-.layout{display:grid;grid-template-columns:320px 1fr;gap:20px;max-width:1200px;margin:0 auto;padding:22px 16px 60px}
+.layout{display:grid;grid-template-columns:340px minmax(0,1fr);gap:24px;width:100%;max-width:none;margin:0;padding:24px 28px 60px}
 @media(max-width:860px){.layout{grid-template-columns:1fr}}
 .side{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;height:fit-content}
 .side h2{font-size:20px;font-weight:700;margin-bottom:2px}
@@ -24,11 +24,11 @@ body{background:var(--bg);color:var(--tx);font:15px/1.5 -apple-system,'Segoe UI'
 .cat.on{background:#f0f6ee}
 .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:baseline}
 .up{color:var(--grn)}.dn{color:var(--red)}.fl{color:var(--mut)}
-.main h1{font-size:38px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
+.main h1{font-size:42px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
 .tabs{display:flex;gap:26px;border-bottom:2px solid var(--line);margin-bottom:22px;font-size:16px}
 .tabs span{padding:8px 2px 10px;color:#333;cursor:default}
 .tabs span.on{font-weight:700;border-bottom:4px solid var(--accent);margin-bottom:-2px}
-.tabs .live{color:var(--grn);font-weight:700}
+.tabs .lastupd{color:var(--mut);font-size:13px;margin-left:auto}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:20px}
 .panel h3{font-size:22px;font-weight:700;margin-bottom:14px}
 .big{font-size:42px;font-weight:800;letter-spacing:-1px}
@@ -43,13 +43,13 @@ svg text{font:11.5px -apple-system,'Segoe UI',sans-serif;fill:var(--mut)}
 .total-row{display:flex;justify-content:space-between;border-top:1px solid var(--line);margin-top:18px;padding-top:14px;font-size:15px}
 .total-row b{font-weight:700}
 table{width:100%;border-collapse:collapse;font-size:14px}
-th{text-align:left;color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;padding:10px 8px;border-bottom:1.5px solid var(--line)}
+th{text-align:left;white-space:nowrap;color:var(--mut);font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;padding:10px 8px;border-bottom:1.5px solid var(--line)}
 td{padding:12px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-tr:hover td{background:#fafaf8}
+tr.pos{cursor:pointer}tr.pos:hover td{background:#f0f6ee}
 .r{text-align:right;font-variant-numeric:tabular-nums}
 .sym{font-weight:800;font-size:13.5px;letter-spacing:.3px}
 .sym .dot{margin-right:6px}
-.nm2{color:var(--mut);font-size:12px;max-width:340px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm2{color:var(--mut);font-size:12.5px;max-width:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chg{font-weight:700}
 .psa{color:var(--gold);font-size:12.5px;font-weight:800}
 .badge{font-size:10px;font-weight:800;border-radius:5px;padding:2px 7px;letter-spacing:.5px}
@@ -71,13 +71,12 @@ a{color:var(--blue);text-decoration:none;font-weight:600}a:hover{text-decoration
 </aside>
 <main class="main">
   <h1>CRG Market Board</h1>
-  <div class="tabs"><span class="on">Summary</span><span>Positions</span><span class="live">● Live</span></div>
-  <div class="promo">🎉 <b>10% off everything</b> — use code <b>THANKYOU10</b> at checkout on <a href="https://cardsrg.com">cardsrg.com</a></div>
+  <div class="tabs"><span class="on">Summary</span><span>Positions</span><span class="lastupd" id="lastupd"></span></div>
   <div class="panel">
     <h3>Tracked market value</h3>
     <div class="big" id="mktTotal">–</div>
     <div class="gain" id="mktGain"><span class="fl">–</span><span class="lbl">change over range</span></div>
-    <div class="chartwrap"><svg id="chart" width="100%" height="230" viewBox="0 0 760 230" preserveAspectRatio="none"></svg></div>
+    <div class="chartwrap"><svg id="chart" width="100%" height="320" viewBox="0 0 760 230" preserveAspectRatio="none"></svg></div>
     <div class="xlbl"><span id="x0"></span><span id="x1"></span></div>
     <div class="ranges" id="ranges"></div>
     <div class="total-row"><span>All cards · list value</span><b id="listTotal">–</b></div>
@@ -135,6 +134,8 @@ function renderSide(){
       <div class="r2"><span>${v.n} card${v.n===1?'':'s'}</span><span class="${cls}">${mvTxt}</span></div></div>`;
   }).join('');
   document.getElementById('asof').textContent='As of '+new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' PT';
+  const lu=MKT.updated?new Date(MKT.updated):new Date();
+  document.getElementById('lastupd').textContent='Last updated '+lu.toLocaleString('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' PT';
   document.getElementById('listTotal').textContent=money(total);
 }
 function setCat(c){CAT=c;renderSide();renderRows();document.getElementById('posTitle').textContent=(c==='all'?'Positions':'Positions — '+c.replace('-',' '))}
@@ -199,14 +200,14 @@ function renderRows(){
     let chg=fl&&fl.f?(fl.l-fl.f)/fl.f*100:null;
     const cls=chg==null?'fl':chg>0.05?'up':chg<-0.05?'dn':'fl';
     const grade=(p.name.match(/\b(PSA|SGC|CGC|BGS|ISA|WCG|CCG|ASG|TAG)\s*(10|9\.5|9)\b/)||[])[0];
-    return `<tr>
+    return `<tr class="pos" onclick="window.open('https://cardsrg.com/product/${p.slug}','_blank')">
     <td><div class="sym"><span class="dot" style="background:${CATCOLOR[p.category_slug]||'#999'}"></span>${sym(p)} ${grade?`<span class="badge g">${grade}</span>`:(p.name.toLowerCase().includes('sealed')?'<span class="badge s">SEALED</span>':'')}</div>
     <div class="nm2">${p.name}</div></td>
     <td class="r">${m.raw!=null?money(m.raw):'<span class="fl">—</span>'}</td>
     <td class="r">${m.psa10?`<span class="psa">${money0(m.psa10)}</span>`:'<span class="fl">—</span>'}</td>
     <td class="r chg ${cls}">${chg==null?'—':(chg>0?'+':'')+chg.toFixed(2)+'%'}</td>
     <td class="r"><b>${money0(p.price/100)}</b></td>
-    <td class="r"><a href="https://cardsrg.com/product/${p.slug}">View →</a></td></tr>`;
+    <td class="r"><span style="color:var(--blue);font-weight:600">→</span></td></tr>`;
   }).join('');
 }
 function renderAll(){renderSide();renderRanges();renderChart();renderRows()}
