@@ -63,6 +63,7 @@ async function start() {
     res.setHeader('Access-Control-Allow-Origin', '*');
     next();
   }, require('./routes/products'));
+  app.use('/api/market',    require('./routes/market'));
   app.use('/api/cart',      require('./routes/cart'));
   app.use('/api/checkout',  require('./routes/checkout'));
   app.use('/api/orders',    require('./routes/orders'));

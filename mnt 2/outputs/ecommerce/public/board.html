@@ -6,24 +6,27 @@
 --pink:#ec4899;--teal:#22d3ee;--grn:#16c784;--red:#ea3943;--gold:#f5b942}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--tx);font:14px/1.45 -apple-system,'Segoe UI',Roboto,sans-serif}
-.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 48px}
+.wrap{max-width:1150px;margin:0 auto;padding:20px 16px 48px}
 header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
 h1{font-size:24px;font-weight:800;letter-spacing:.5px}h1 .c{color:var(--pink)}
 .livechip{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--grn);font-weight:600;text-transform:uppercase;letter-spacing:1px}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--grn);animation:pulse 1.6s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.sub{color:var(--mut);font-size:12px;margin-bottom:18px}
-.ticker{white-space:nowrap;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--panel2);margin-bottom:18px}
+.sub{color:var(--mut);font-size:12px;margin-bottom:16px}
+.ticker{white-space:nowrap;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--panel2);margin-bottom:16px}
 .ticker-inner{display:inline-block;padding:8px 0;animation:scroll 60s linear infinite}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .tk{display:inline-block;margin:0 18px;font-size:12px}.tk b{color:var(--tx)}.tk .up{color:var(--grn)}.tk .dn{color:var(--red)}.tk .fl{color:var(--mut)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:18px}
-.tile{background:linear-gradient(160deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-.tile .l{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--mut)}
-.tile .v{font-size:26px;font-weight:800;margin-top:4px;font-variant-numeric:tabular-nums}
-.teal{color:var(--teal)}.pink{color:var(--pink)}.grnc{color:var(--grn)}.goldc{color:var(--gold)}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
-h2{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--mut);margin-bottom:12px}
+.toprow{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:860px){.toprow{grid-template-columns:1fr}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
+h2{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--mut);margin-bottom:10px}
+.bigval{font-size:30px;font-weight:800;color:var(--teal)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.tile .l{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--mut)}
+.tile .v{font-size:20px;font-weight:800;margin-top:2px}
+.teal{color:var(--teal)}.pinkc{color:var(--pink)}.grnc{color:var(--grn)}.goldc{color:var(--gold)}
 .tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .tab{border:1px solid var(--line);background:var(--panel2);color:var(--mut);border-radius:20px;padding:5px 14px;font-size:12px;cursor:pointer}
 .tab.on{color:var(--tx);border-color:var(--pink);background:rgba(236,72,153,.12)}
@@ -33,16 +36,15 @@ td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
 tr:hover td{background:rgba(255,255,255,.02)}
 .r{text-align:right;font-variant-numeric:tabular-nums}
 .name{font-weight:600}.meta{color:var(--mut);font-size:11px}
-.chg{font-weight:700;border-radius:6px;padding:3px 8px;font-size:12px;display:inline-block;min-width:64px;text-align:center}
+.chg{font-weight:700;border-radius:6px;padding:3px 8px;font-size:12px;display:inline-block;min-width:60px;text-align:center}
 .chg.up{color:var(--grn);background:rgba(22,199,132,.12)}
 .chg.dn{color:var(--red);background:rgba(234,57,67,.12)}
 .chg.fl{color:var(--mut);background:rgba(125,133,152,.1)}
-.bar{height:34px;display:flex;align-items:flex-end;gap:2px}
-.bar i{width:5px;border-radius:1px;background:var(--teal);opacity:.75;display:block}
 a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
 .badge{font-size:9px;font-weight:700;letter-spacing:.6px;border-radius:4px;padding:2px 6px;text-transform:uppercase}
 .badge.psa{background:rgba(245,185,66,.15);color:var(--gold)}
 .badge.sealed{background:rgba(34,211,238,.12);color:var(--teal)}
+.spark{display:block}
 .note{color:var(--mut);font-size:11px;margin-top:12px;line-height:1.6}
 .footer{color:var(--mut);font-size:11px;text-align:center;margin-top:22px}
 .err{color:var(--red);font-size:12px;padding:8px 0;display:none}
@@ -52,97 +54,125 @@ a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
 <span class="livechip"><span class="dot"></span> Live</span></header>
 <div class="sub" id="stamp">Loading live inventory…</div>
 <div class="ticker"><div class="ticker-inner" id="ticker"></div></div>
-<div class="grid">
-<div class="tile"><div class="l">Listings</div><div class="v" id="t-count">–</div></div>
-<div class="tile"><div class="l">Board value</div><div class="v teal" id="t-value">–</div></div>
-<div class="tile"><div class="l">Gainers today</div><div class="v grnc" id="t-up">–</div></div>
-<div class="tile"><div class="l">PSA 10 slabs</div><div class="v goldc" id="t-psa">–</div></div>
+
+<div class="toprow">
+ <div class="panel">
+   <h2>Tracked market value — raw refs (TCGplayer, server-cached)</h2>
+   <div class="bigval" id="mktTotal">–</div>
+   <div class="meta" id="mktSub">history builds every 6h refresh</div>
+   <svg id="bigChart" class="spark" width="100%" height="150" viewBox="0 0 640 150" preserveAspectRatio="none"></svg>
+   <div class="meta" id="bigChartLbl"></div>
+ </div>
+ <div class="panel">
+   <h2>Board</h2>
+   <div class="grid">
+     <div class="tile"><div class="l">Listings</div><div class="v" id="t-count">–</div></div>
+     <div class="tile"><div class="l">List value</div><div class="v teal" id="t-value">–</div></div>
+     <div class="tile"><div class="l">PSA 10 slabs</div><div class="v goldc" id="t-psa">–</div></div>
+     <div class="tile"><div class="l">Priced by market</div><div class="v pinkc" id="t-priced">–</div></div>
+   </div>
+ </div>
 </div>
-<div class="panel"><h2>Inventory · live prices</h2>
+
+<div class="panel"><h2>Inventory · live prices &amp; trends</h2>
 <div class="tabs" id="tabs"></div>
 <div class="err" id="err"></div>
-<table><thead><tr><th>Card</th><th class="hidem">Grade</th><th class="r">Price</th><th class="r hidem">Raw mkt</th><th class="r">vs baseline</th><th class="hidem">Trend</th><th>Buy</th></tr></thead>
+<table><thead><tr><th>Card</th><th class="hidem">Grade</th><th class="r">Price</th><th class="r hidem">Raw mkt</th><th class="r">Move</th><th class="hidem">Trend (real)</th><th>Buy</th></tr></thead>
 <tbody id="rows"></tbody></table>
-<div class="note">Raw mkt = TCGplayer market price of the ungraded card (live) — a directional reference, not a graded-card comp. “vs baseline” compares live raw market to the Jul 26 2026 baseline. Board prices are CRG list prices; every card links straight to checkout.</div>
+<div class="note" id="noteBox">Raw mkt = TCGplayer market price of the ungraded card, cached server-side and refreshed every ~6h — a directional reference, not a graded comp. Gold values are graded PSA 10 reference points where known. Trend lines are drawn from real recorded history (started Jul 26 2026) — they get richer every day. Board prices are CRG list prices; every card links to checkout.</div>
 </div>
-<div class="footer">CRG Cards · Rips and Grails · <a href="https://cardsrg.com">cardsrg.com</a> · <a href="https://instagram.com/cardsrgshop">@cardsrgshop</a> · board refreshes automatically</div>
+<div class="footer">CRG Cards · Rips and Grails · <a href="https://cardsrg.com">cardsrg.com</a> · <a href="https://instagram.com/cardsrgshop">@cardsrgshop</a> · auto-refreshes every 5 min</div>
 </div>
 <script>
-// Baseline raw-market snapshot (Jul 26 2026) — updated periodically
-const BASELINE={'charizard-ex-svp-074-paldean-fates-psa10':23.43,'pikachu-vmax-vivid-voltage-044-psa10':11.93,
-'rayquaza-vmax-evolving-skies-111-psa10':15.23,'reshiram-celebrations-113-psa10':15.79,
-'zekrom-celebrations-114-psa10':16.01,'volcanion-ex-jtg-182-sir-psa10':19.61};
-// slug -> pokemontcg.io query for live raw price
-const PQ={'rayquaza-vmax-evolving-skies-111-psa10':'name:"Rayquaza VMAX" number:111 set.id:swsh7',
-'pikachu-vmax-vivid-voltage-044-psa10':'name:"Pikachu VMAX" number:44 set.id:swsh4',
-'gengar-ex-phantom-forces-34-psa10':'name:"Gengar EX" number:34 set.id:xy4',
-'charizard-ex-svp-074-paldean-fates-psa10':'name:"Charizard ex" number:74 set.id:svp',
-'zekrom-celebrations-114-psa10':'name:"Zekrom" set.id:cel25c number:114',
-'reshiram-celebrations-113-psa10':'name:"Reshiram" set.id:cel25c number:113',
-'volcanion-ex-jtg-182-sir-psa10':'name:"Volcanion ex" number:182',
-"ionos-kilowattrel-jtg-163-psa10":"name:\"Iono's Kilowattrel\" number:163"};
 const money=v=>'$'+Number(v).toLocaleString(undefined,{maximumFractionDigits:0});
 const money2=v=>'$'+Number(v).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-let PRODUCTS=[],LIVE={},CAT='all';
+let PRODUCTS=[],MKT={prices:{},history:[]},CAT='all';
 function gradeOf(p){const m=(p.name||'').match(/\b(PSA|SGC|CGC|BGS|ISA|WCG|CCG|ASG|TAG)\s*(10|9\.5|9)\b/);return m?m[1]+' '+m[2]:null}
-function seededBars(slug,delta){let h=0;for(const ch of slug)h=(h*31+ch.charCodeAt(0))>>>0;
- const n=12;let out='';let v=18+(h%10);
- for(let i=0;i<n;i++){h=(h*1103515245+12345)>>>0;v=Math.max(6,Math.min(32,v+((h%9)-4)+(i>n-4?(delta>0?2:delta<0?-2:0):0)));
- out+=`<i style="height:${v}px;background:${delta>0?'var(--grn)':delta<0?'var(--red)':'var(--teal)'}"></i>`}return out}
+
+function histFor(slug){return MKT.history.filter(h=>h.slug===slug).sort((a,b)=>a.t-b.t)}
+function firstLast(hs){return hs.length?{f:hs[0].raw,l:hs[hs.length-1].raw}:null}
+
+function sparkSVG(hs,w,h,color){
+  if(hs.length<2){
+    return `<svg class="spark" width="${w}" height="${h}"><line x1="0" y1="${h/2}" x2="${w}" y2="${h/2}" stroke="#3a4358" stroke-width="1.5" stroke-dasharray="3,3"/></svg>`;
+  }
+  const vals=hs.map(p=>p.raw), min=Math.min(...vals), max=Math.max(...vals), span=(max-min)||1;
+  const pts=hs.map((p,i)=>[(i/(hs.length-1))*w, h-3-((p.raw-min)/span)*(h-8)]);
+  const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const area=line+` L${w},${h} L0,${h} Z`;
+  return `<svg class="spark" width="${w}" height="${h}"><path d="${area}" fill="${color}22"/><path d="${line}" fill="none" stroke="${color}" stroke-width="1.8"/><circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="2.5" fill="${color}"/></svg>`;
+}
+
+function bigChart(){
+  const byT={};
+  for(const h of MKT.history){(byT[h.t]=byT[h.t]||{})[h.slug]=h.raw}
+  const ts=Object.keys(byT).map(Number).sort((a,b)=>a-b);
+  const totals=ts.map(t=>Object.values(byT[t]).reduce((s,v)=>s+v,0));
+  const svg=document.getElementById('bigChart');
+  const priced=Object.values(MKT.prices).filter(p=>p.raw!=null).length;
+  const curTotal=Object.values(MKT.prices).reduce((s,p)=>s+(p.raw||0),0);
+  document.getElementById('mktTotal').textContent=curTotal?money2(curTotal):'—';
+  document.getElementById('mktSub').textContent=priced+' cards tracked · '+ts.length+' data point'+(ts.length===1?'':'s')+' recorded since Jul 26 2026';
+  if(ts.length<2){
+    svg.innerHTML='<line x1="0" y1="75" x2="640" y2="75" stroke="#3a4358" stroke-width="2" stroke-dasharray="5,5"/><text x="320" y="65" fill="#7d8598" font-size="12" text-anchor="middle">chart appears as history accumulates (every ~6h)</text>';
+    return;
+  }
+  const min=Math.min(...totals),max=Math.max(...totals),span=(max-min)||1;
+  const pts=totals.map((v,i)=>[(i/(totals.length-1))*640,145-((v-min)/span)*130]);
+  const line=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const up=totals[totals.length-1]>=totals[0];
+  const col=up?'#16c784':'#ea3943';
+  svg.innerHTML=`<path d="${line} L640,150 L0,150 Z" fill="${col}22"/><path d="${line}" fill="none" stroke="${col}" stroke-width="2.5"/>`;
+  document.getElementById('bigChartLbl').textContent=new Date(ts[0]).toLocaleDateString()+' → '+new Date(ts[ts.length-1]).toLocaleDateString();
+}
+
 function render(){
- const rows=PRODUCTS.filter(p=>CAT==='all'||p.category_slug===CAT).sort((a,b)=>b.price-a.price);
- document.getElementById('rows').innerHTML=rows.map(p=>{
-  const g=gradeOf(p);const live=LIVE[p.slug];const base=BASELINE[p.slug];
-  let chg=null;if(live&&base)chg=(live-base)/base*100;
-  const cls=chg==null?'fl':chg>0.05?'up':chg<-0.05?'dn':'fl';
-  const chgTxt=chg==null?'—':(chg>0?'+':'')+chg.toFixed(1)+'%';
-  return `<tr><td><div class="name">${p.name}</div><div class="meta">${(p.category_slug||'').replace('-',' ')}</div></td>
-  <td class="hidem">${g?`<span class="badge ${g.startsWith('PSA')?'psa':'sealed'}">${g}</span>`:(p.name.toLowerCase().includes('sealed')?'<span class="badge sealed">Sealed</span>':'—')}</td>
-  <td class="r"><b>${money(p.price/100)}</b></td>
-  <td class="r hidem">${live?money2(live):'<span class="meta">—</span>'}</td>
-  <td class="r"><span class="chg ${cls}">${chgTxt}</span></td>
-  <td class="hidem"><div class="bar">${seededBars(p.slug,chg==null?0:chg)}</div></td>
-  <td><a href="https://cardsrg.com/product/${p.slug}">View →</a></td></tr>`}).join('');
+  const rows=PRODUCTS.filter(p=>CAT==='all'||p.category_slug===CAT).sort((a,b)=>b.price-a.price);
+  document.getElementById('rows').innerHTML=rows.map(p=>{
+    const g=gradeOf(p);const m=MKT.prices[p.slug]||{};
+    const hs=histFor(p.slug);const fl=firstLast(hs);
+    let chg=null;if(fl&&fl.f)chg=(fl.l-fl.f)/fl.f*100;
+    const cls=chg==null?'fl':chg>0.05?'up':chg<-0.05?'dn':'fl';
+    const chgTxt=chg==null?'—':(chg>0?'+':'')+chg.toFixed(1)+'%';
+    const mktCell=m.raw!=null?money2(m.raw)+(m.psa10?`<div class="meta goldc">PSA10 ref ${money(m.psa10)}</div>`:''):(m.psa10?`<span class="goldc">PSA10 ${money(m.psa10)}</span>`:'<span class="meta">—</span>');
+    return `<tr><td><div class="name">${p.name}</div><div class="meta">${(p.category_slug||'').replace('-',' ')}</div></td>
+    <td class="hidem">${g?`<span class="badge ${g.startsWith('PSA')?'psa':'sealed'}">${g}</span>`:(p.name.toLowerCase().includes('sealed')?'<span class="badge sealed">Sealed</span>':'—')}</td>
+    <td class="r"><b>${money(p.price/100)}</b></td>
+    <td class="r hidem">${mktCell}</td>
+    <td class="r"><span class="chg ${cls}">${chgTxt}</span></td>
+    <td class="hidem">${sparkSVG(hs,110,34,chg==null||chg>=0?'#22d3ee':'#ea3943')}</td>
+    <td><a href="https://cardsrg.com/product/${p.slug}">View →</a></td></tr>`}).join('');
 }
 function renderTabs(){
- const cats=['all',...new Set(PRODUCTS.map(p=>p.category_slug).filter(Boolean))];
- document.getElementById('tabs').innerHTML=cats.map(c=>`<span class="tab ${c===CAT?'on':''}" onclick="CAT='${c}';render();renderTabs()">${c==='all'?'All':c.replace('-',' ')}</span>`).join('');
+  const cats=['all',...new Set(PRODUCTS.map(p=>p.category_slug).filter(Boolean))];
+  document.getElementById('tabs').innerHTML=cats.map(c=>`<span class="tab ${c===CAT?'on':''}" onclick="CAT='${c}';render();renderTabs()">${c==='all'?'All':c.replace('-',' ')}</span>`).join('');
 }
 function renderTop(){
- const n=PRODUCTS.reduce((s,p)=>s+(p.stock||1),0);
- const val=PRODUCTS.reduce((s,p)=>s+(p.price/100)*(p.stock||1),0);
- const psa=PRODUCTS.filter(p=>/PSA\s*10/.test(p.name)).length;
- let up=0;for(const s in LIVE){if(BASELINE[s]&&LIVE[s]>BASELINE[s])up++}
- t('t-count',n);t('t-value',money(val));t('t-psa',psa);t('t-up',up||'–');
- const tk=PRODUCTS.slice().sort((a,b)=>b.price-a.price).map(p=>{
-  const live=LIVE[p.slug],base=BASELINE[p.slug];let c=live&&base?(live-base)/base*100:null;
-  const cls=c==null?'fl':c>0?'up':c<0?'dn':'fl';const sym=c==null?'':(c>0?' ▲':' ▼')+Math.abs(c).toFixed(1)+'%';
-  return `<span class="tk"><b>${p.name.split(' 20')[0]}</b> ${money(p.price/100)}<span class="${cls}">${sym}</span></span>`}).join('');
- document.getElementById('ticker').innerHTML=tk+tk;
- document.getElementById('stamp').textContent='Live from cardsrg.com · '+new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles'})+' PT · baseline Jul 26 2026';
+  const n=PRODUCTS.reduce((s,p)=>s+(p.stock||1),0);
+  const val=PRODUCTS.reduce((s,p)=>s+(p.price/100)*(p.stock||1),0);
+  const psa=PRODUCTS.filter(p=>/PSA\s*10/.test(p.name)).length;
+  const priced=Object.values(MKT.prices).filter(p=>p.raw!=null||p.psa10!=null).length;
+  t('t-count',n);t('t-value',money(val));t('t-psa',psa);t('t-priced',priced||'—');
+  const tk=PRODUCTS.slice().sort((a,b)=>b.price-a.price).map(p=>{
+    const hs=histFor(p.slug);const fl=firstLast(hs);let c=fl&&fl.f?(fl.l-fl.f)/fl.f*100:null;
+    const cls=c==null?'fl':c>0?'up':c<0?'dn':'fl';const sym=c==null?'':(c>0?' ▲':' ▼')+Math.abs(c).toFixed(1)+'%';
+    return `<span class="tk"><b>${p.name.split(' 20')[0]}</b> ${money(p.price/100)}<span class="${cls}">${sym}</span></span>`}).join('');
+  document.getElementById('ticker').innerHTML=tk+tk;
+  document.getElementById('stamp').textContent='Live from cardsrg.com · '+new Date().toLocaleString('en-US',{timeZone:'America/Los_Angeles'})+' PT · market cache: '+(MKT.updated?new Date(MKT.updated).toLocaleString('en-US',{timeZone:'America/Los_Angeles'})+' PT':'warming up');
 }
 function t(id,v){document.getElementById(id).textContent=v}
-async function loadLive(){
- for(const slug in PQ){
-  try{const r=await fetch('https://api.pokemontcg.io/v2/cards?pageSize=2&q='+encodeURIComponent(PQ[slug]));
-   const d=await r.json();
-   for(const c of (d.data||[])){const pr=(c.tcgplayer&&c.tcgplayer.prices)||{};
-    for(const k of ['holofoil','normal','reverseHolofoil']){if(pr[k]&&pr[k].market){LIVE[slug]=pr[k].market;break}}
-    if(LIVE[slug])break}
-   render();renderTop();
-  }catch(e){/* keep baseline blank */}
- }
-}
 async function boot(){
- try{
-  const r=await fetch('/api/products');PRODUCTS=await r.json();
-  if(!Array.isArray(PRODUCTS))PRODUCTS=PRODUCTS.products||[];
- }catch(e){
-  try{const r2=await fetch('https://cardsrg.com/api/products');PRODUCTS=await r2.json();}
-  catch(e2){document.getElementById('err').style.display='block';
-   document.getElementById('err').textContent='Could not reach cardsrg.com — check connection.';return}
- }
- renderTabs();render();renderTop();loadLive();
+  try{
+    let r=await fetch('/api/products').catch(()=>null);
+    if(!r||!r.ok)r=await fetch('https://cardsrg.com/api/products');
+    let d=await r.json();PRODUCTS=Array.isArray(d)?d:(d.products||[]);
+  }catch(e){const el=document.getElementById('err');el.style.display='block';el.textContent='Could not reach cardsrg.com.';return}
+  try{
+    let r=await fetch('/api/market').catch(()=>null);
+    if(!r||!r.ok)r=await fetch('https://cardsrg.com/api/market');
+    const d=await r.json();if(d&&d.prices)MKT=d;
+  }catch(e){/* board still renders without market */}
+  renderTabs();render();renderTop();bigChart();
 }
 boot();
 setInterval(boot,5*60*1000);
