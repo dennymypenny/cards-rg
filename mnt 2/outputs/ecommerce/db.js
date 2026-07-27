@@ -965,6 +965,22 @@ const db = {
       'Monkey D. Luffy — 2025 One Piece Card Game OP10 EN #118, Alternate Art (OP10-118), graded PSA 10 GEM MINT (cert #158375940). Luffy in Gear 4 unleashing across a gorgeous manga-style alt-art from OP10 — One Piece cards have been on an absolute tear and a gem mint alt-art Luffy is a true chase card. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       16500, 'CRG-LUFFY-OP10-118-PSA10', '/images/luffy-op10-118-alt-art-psa10.jpg', 'PSA 10');
 
+    // ── SUBSCRIBERS RESTORE (Jul 26 2026) ────────────────────────────────────
+    // Render's disk is ephemeral: every deploy wipes the subscribers table.
+    // routes/subscribers.js keeps subscribers-backup.json committed to GitHub;
+    // here we restore it into the table on every boot (INSERT OR IGNORE by email).
+    try {
+      const subBackupPath = path.join(__dirname, 'subscribers-backup.json');
+      if (fs.existsSync(subBackupPath)) {
+        const subs = JSON.parse(fs.readFileSync(subBackupPath, 'utf8')) || [];
+        const insSub = prepare('INSERT OR IGNORE INTO subscribers (email, name, source, created_at) VALUES (?, ?, ?, ?)');
+        for (const s of subs) {
+          if (s && s.email) insSub.run(String(s.email).toLowerCase(), s.name || null, s.source || 'popup', s.created_at || new Date().toISOString().slice(0,19).replace('T',' '));
+        }
+        if (subs.length) console.log(`[db] restored ${subs.length} subscriber(s) from backup`);
+      }
+    } catch (e) { console.warn('[db] subscriber restore failed:', e.message); }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps

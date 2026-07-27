@@ -66,6 +66,45 @@ router.post('/', async (req, res) => {
       console.warn('[subscribers] ntfy.sh push failed:', ntfyErr.message);
     }
 
+    // Persist to subscribers-backup.json + commit to GitHub so signups
+    // survive Render redeploys (disk is ephemeral). Non-fatal on failure.
+    try {
+      const fs   = require('fs');
+      const path = require('path');
+      const bakPath = path.join(__dirname, '..', 'subscribers-backup.json');
+      const subs = db.prepare('SELECT email, name, source, created_at FROM subscribers ORDER BY created_at ASC').all();
+      const bakJson = JSON.stringify(subs, null, 2) + '\n';
+      try { fs.writeFileSync(bakPath, bakJson); } catch (e) { console.warn('[subscribers] backup write failed:', e.message); }
+      if (process.env.GITHUB_TOKEN) {
+        const repo     = process.env.GITHUB_REPO || 'dennymypenny/cards-rg';
+        const filePath = 'mnt 2/outputs/ecommerce/subscribers-backup.json';
+        const apiUrl   = `https://api.github.com/repos/${repo}/contents/` +
+                         filePath.split('/').map(encodeURIComponent).join('/');
+        const headers  = {
+          'Authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+          'Accept':        'application/vnd.github+json',
+          'User-Agent':    'cardsrg-hub',
+        };
+        const cur = await fetch(apiUrl, { headers, signal: AbortSignal.timeout(8000) });
+        const sha = cur.ok ? (await cur.json()).sha : undefined;
+        const put = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: { ...headers, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message: `CRG List: +1 subscriber (${subs.length} total)`,
+            content: Buffer.from(bakJson).toString('base64'),
+            ...(sha ? { sha } : {}),
+          }),
+          signal: AbortSignal.timeout(8000),
+        });
+        if (!put.ok) console.warn('[subscribers] GitHub backup commit failed:', put.status);
+      } else {
+        console.warn('[subscribers] GITHUB_TOKEN not set — signup NOT backed up to GitHub, will be lost on next deploy');
+      }
+    } catch (bakErr) {
+      console.warn('[subscribers] backup failed:', bakErr.message);
+    }
+
     console.log(`[subscribers] + ${cleanEmail} (${cleanSource})`);
     res.json({ ok: true, message: 'You\'re in! First dibs on drops & giveaways. 🔥' });
   } catch (err) {
