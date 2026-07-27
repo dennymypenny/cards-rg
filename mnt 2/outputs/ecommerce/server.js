@@ -58,7 +58,11 @@ async function start() {
 
   // ── ROUTES ──────────────────────────────────────────────────────────────────
 
-  app.use('/api/products',  require('./routes/products'));
+  // CORS on products API so the live market board works when embedded elsewhere
+  app.use('/api/products', (req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  }, require('./routes/products'));
   app.use('/api/cart',      require('./routes/cart'));
   app.use('/api/checkout',  require('./routes/checkout'));
   app.use('/api/orders',    require('./routes/orders'));
@@ -77,6 +81,11 @@ async function start() {
   // Public shareable inventory list — send cardsrg.com/list to anyone
   app.get('/list', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'list.html'));
+  });
+
+  // Public live market board — stock-ticker style, shareable
+  app.get('/board', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'board.html'));
   });
 
   app.get('*', (req, res) => {
