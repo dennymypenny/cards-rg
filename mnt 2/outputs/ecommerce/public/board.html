@@ -26,7 +26,7 @@ body{background:var(--bg);color:var(--tx);font:15px/1.5 -apple-system,'Segoe UI'
 .up{color:var(--grn)}.dn{color:var(--red)}.fl{color:var(--mut)}
 .main h1{font-size:42px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
 .tabs{display:flex;gap:26px;border-bottom:2px solid var(--line);margin-bottom:22px;font-size:16px}
-.tabs span{padding:8px 2px 10px;color:#333;cursor:default}
+.tabs span{padding:8px 2px 10px;color:#333;cursor:pointer}
 .tabs span.on{font-weight:700;border-bottom:4px solid var(--accent);margin-bottom:-2px}
 .tabs .lastupd{color:var(--mut);font-size:13px;margin-left:auto}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:20px}
@@ -71,8 +71,8 @@ a{color:var(--blue);text-decoration:none;font-weight:600}a:hover{text-decoration
 </aside>
 <main class="main">
   <h1>CRG Market Board</h1>
-  <div class="tabs"><span class="on">Summary</span><span>Positions</span><span class="lastupd" id="lastupd"></span></div>
-  <div class="panel">
+  <div class="tabs"><span class="on" id="tab-summary" onclick="setView('summary')">Summary</span><span id="tab-positions" onclick="setView('positions')">Positions</span><span class="lastupd" id="lastupd"></span></div>
+  <div class="panel" id="panel-chart">
     <h3>Tracked market value</h3>
     <div class="big" id="mktTotal">–</div>
     <div class="gain" id="mktGain"><span class="fl">–</span><span class="lbl">change over range</span></div>
@@ -138,7 +138,7 @@ function renderSide(){
   document.getElementById('lastupd').textContent='Last updated '+lu.toLocaleString('en-US',{timeZone:'America/Los_Angeles',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})+' PT';
   document.getElementById('listTotal').textContent=money(total);
 }
-function setCat(c){CAT=c;renderSide();renderRows();document.getElementById('posTitle').textContent=(c==='all'?'Positions':'Positions — '+c.replace('-',' '))}
+function setCat(c){CAT=c;renderSide();renderRows();document.getElementById('posTitle').textContent=(c==='all'?'Positions':'Positions — '+c.replace('-',' '));if(c!=='all')document.getElementById('posTitle').scrollIntoView({behavior:'smooth',block:'start'})}
 function setRange(r){RANGE=r;renderAll()}
 function renderRanges(){
   document.getElementById('ranges').innerHTML=Object.keys(RANGES).map(r=>`<button class="rng ${r===RANGE?'on':''}" onclick="setRange('${r}')">${r}</button>`).join('');
@@ -200,7 +200,7 @@ function renderRows(){
     let chg=fl&&fl.f?(fl.l-fl.f)/fl.f*100:null;
     const cls=chg==null?'fl':chg>0.05?'up':chg<-0.05?'dn':'fl';
     const grade=(p.name.match(/\b(PSA|SGC|CGC|BGS|ISA|WCG|CCG|ASG|TAG)\s*(10|9\.5|9)\b/)||[])[0];
-    return `<tr class="pos" onclick="window.open('https://cardsrg.com/product/${p.slug}','_blank')">
+    return `<tr class="pos" onclick="openCard('${p.slug}')">
     <td><div class="sym"><span class="dot" style="background:${CATCOLOR[p.category_slug]||'#999'}"></span>${sym(p)} ${grade?`<span class="badge g">${grade}</span>`:(p.name.toLowerCase().includes('sealed')?'<span class="badge s">SEALED</span>':'')}</div>
     <div class="nm2">${p.name}</div></td>
     <td class="r">${m.raw!=null?money(m.raw):'<span class="fl">—</span>'}</td>
@@ -211,6 +211,20 @@ function renderRows(){
   }).join('');
 }
 function renderAll(){renderSide();renderRanges();renderChart();renderRows()}
+let VIEW='summary';
+function setView(v){
+  VIEW=v;
+  document.getElementById('panel-chart').style.display=(v==='summary')?'':'none';
+  document.getElementById('tab-summary').className=(v==='summary')?'on':'';
+  document.getElementById('tab-positions').className=(v==='positions')?'on':'';
+  if(v==='positions')document.getElementById('posTitle').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function openCard(slug){
+  const url='https://cardsrg.com/product/'+slug;
+  try{const w=window.open(url,'_blank');if(w)return;}catch(e){}
+  try{if(window.top&&window.top!==window){window.top.location.href=url;return;}}catch(e){}
+  location.href=url;
+}
 async function boot(){
   try{
     let r=await fetch('/api/products').catch(()=>null);

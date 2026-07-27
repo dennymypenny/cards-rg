@@ -75,7 +75,11 @@ async function start() {
   // ── SPA FALLBACK ────────────────────────────────────────────────────────────
 
   // Denny's personal admin hub (before the wildcard so it isn't caught by it)
+  // PIN-gated server-side: without an admin session you only ever get the lock screen.
   app.get('/hub', (req, res) => {
+    if (!req.session?.adminId) {
+      return res.sendFile(path.join(__dirname, 'public', 'hub-lock.html'));
+    }
     res.sendFile(path.join(__dirname, 'public', 'hub.html'));
   });
 

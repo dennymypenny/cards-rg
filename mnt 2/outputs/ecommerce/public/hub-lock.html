@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRG Hub — Locked</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+background:#0e1117;color:#e9edf5;font:16px -apple-system,'Segoe UI',sans-serif}
+.box{background:#171c26;border:1px solid #232a38;border-radius:16px;padding:40px 36px;text-align:center;width:320px}
+h1{font-size:22px;margin:0 0 4px}h1 span{color:#ec4899}
+p{color:#7d8598;font-size:13px;margin:0 0 22px}
+input{width:100%;box-sizing:border-box;background:#0d1320;border:1px solid #2a3345;border-radius:10px;
+color:#fff;font-size:24px;letter-spacing:8px;text-align:center;padding:12px;outline:none}
+input:focus{border-color:#ec4899}
+button{width:100%;margin-top:14px;background:linear-gradient(90deg,#ec4899,#22d3ee);border:none;border-radius:10px;
+color:#fff;font-size:15px;font-weight:700;padding:12px;cursor:pointer}
+.err{color:#ea3943;font-size:13px;height:18px;margin-top:10px}
+</style></head><body>
+<div class="box">
+<h1>CRG <span>HUB</span> 🔒</h1>
+<p>Denny's command center — PIN required</p>
+<input id="pin" type="password" inputmode="numeric" autocomplete="off" maxlength="12" autofocus
+ onkeydown="if(event.key==='Enter')go()">
+<button onclick="go()">Unlock</button>
+<div class="err" id="err"></div>
+</div>
+<script>
+async function go(){
+  const pin=document.getElementById('pin').value.trim();
+  const err=document.getElementById('err');
+  if(!pin){err.textContent='Enter your PIN';return}
+  try{
+    const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({password:pin})});
+    if(!r.ok){err.textContent='Wrong PIN';document.getElementById('pin').value='';return}
+    location.reload();
+  }catch(e){err.textContent='Connection error — try again'}
+}
+</script></body></html>
