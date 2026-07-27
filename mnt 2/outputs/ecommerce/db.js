@@ -981,6 +981,10 @@ const db = {
       }
     } catch (e) { console.warn('[db] subscriber restore failed:', e.message); }
 
+    // Removed (Jul 27 2026): Luffy-Tarou OP11 $730 — off storefront per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('luffy-tarou-op11-005-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps

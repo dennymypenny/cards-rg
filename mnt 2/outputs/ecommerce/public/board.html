@@ -8,7 +8,7 @@
 body{background:var(--bg);color:var(--tx);font:14px/1.45 -apple-system,'Segoe UI',Roboto,sans-serif}
 .wrap{max-width:1150px;margin:0 auto;padding:20px 16px 48px}
 header{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
-h1{font-size:24px;font-weight:800;letter-spacing:.5px}h1 .c{color:var(--pink)}
+h1{font-size:24px;font-weight:800;letter-spacing:.5px;background:linear-gradient(90deg,#fff 0%,#22d3ee 45%,#ec4899 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}h1 .c{background:linear-gradient(90deg,#ec4899,#f5b942);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .livechip{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--grn);font-weight:600;text-transform:uppercase;letter-spacing:1px}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--grn);animation:pulse 1.6s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
@@ -23,16 +23,30 @@ h1{font-size:24px;font-weight:800;letter-spacing:.5px}h1 .c{color:var(--pink)}
 h2{font-size:12px;text-transform:uppercase;letter-spacing:1.4px;color:var(--mut);margin-bottom:10px}
 .bigval{font-size:30px;font-weight:800;color:var(--teal)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.tile{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.tile{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;position:relative;overflow:hidden}
+.tile::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--acc,linear-gradient(90deg,#22d3ee,#ec4899))}
+.tile:nth-child(1){--acc:linear-gradient(90deg,#22d3ee,#3b82f6)}
+.tile:nth-child(2){--acc:linear-gradient(90deg,#16c784,#22d3ee)}
+.tile:nth-child(3){--acc:linear-gradient(90deg,#f5b942,#f97316)}
+.tile:nth-child(4){--acc:linear-gradient(90deg,#ec4899,#a855f7)}
 .tile .l{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--mut)}
 .tile .v{font-size:20px;font-weight:800;margin-top:2px}
 .teal{color:var(--teal)}.pinkc{color:var(--pink)}.grnc{color:var(--grn)}.goldc{color:var(--gold)}
 .tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .tab{border:1px solid var(--line);background:var(--panel2);color:var(--mut);border-radius:20px;padding:5px 14px;font-size:12px;cursor:pointer}
 .tab.on{color:var(--tx);border-color:var(--pink);background:rgba(236,72,153,.12)}
+.tab[data-cat=pokemon].on{border-color:#f5b942;background:rgba(245,185,66,.14)}
+.tab[data-cat=one-piece].on{border-color:#ea3943;background:rgba(234,57,67,.14)}
+.tab[data-cat=soccer].on{border-color:#16c784;background:rgba(22,199,132,.14)}
+.tab[data-cat=nba].on{border-color:#f97316;background:rgba(249,115,22,.14)}
+.tab[data-cat=collectibles].on{border-color:#a855f7;background:rgba(168,85,247,.14)}
+.catdot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;background:var(--cat,#7d8598)}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{color:var(--mut);font-size:10px;text-transform:uppercase;letter-spacing:1px;text-align:left;padding:8px;border-bottom:1px solid var(--line)}
 td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+td:first-child{border-left:3px solid var(--cat,transparent);padding-left:10px}
+tr.cat-pokemon{--cat:#f5b942}tr.cat-one-piece{--cat:#ea3943}tr.cat-soccer{--cat:#16c784}
+tr.cat-nba{--cat:#f97316}tr.cat-collectibles{--cat:#a855f7}tr.cat-football{--cat:#16c784}
 tr:hover td{background:rgba(255,255,255,.02)}
 .r{text-align:right;font-variant-numeric:tabular-nums}
 .name{font-weight:600}.meta{color:var(--mut);font-size:11px}
@@ -135,17 +149,17 @@ function render(){
     const cls=chg==null?'fl':chg>0.05?'up':chg<-0.05?'dn':'fl';
     const chgTxt=chg==null?'—':(chg>0?'+':'')+chg.toFixed(1)+'%';
     const mktCell=m.raw!=null?money2(m.raw)+(m.psa10?`<div class="meta goldc">PSA10 ref ${money(m.psa10)}</div>`:''):(m.psa10?`<span class="goldc">PSA10 ${money(m.psa10)}</span>`:'<span class="meta">—</span>');
-    return `<tr><td><div class="name">${p.name}</div><div class="meta">${(p.category_slug||'').replace('-',' ')}</div></td>
+    return `<tr class="cat-${p.category_slug||'x'}"><td><div class="name">${p.name}</div><div class="meta"><span class="catdot"></span>${(p.category_slug||'').replace('-',' ')}</div></td>
     <td class="hidem">${g?`<span class="badge ${g.startsWith('PSA')?'psa':'sealed'}">${g}</span>`:(p.name.toLowerCase().includes('sealed')?'<span class="badge sealed">Sealed</span>':'—')}</td>
     <td class="r"><b>${money(p.price/100)}</b></td>
     <td class="r hidem">${mktCell}</td>
     <td class="r"><span class="chg ${cls}">${chgTxt}</span></td>
-    <td class="hidem">${sparkSVG(hs,110,34,chg==null||chg>=0?'#22d3ee':'#ea3943')}</td>
+    <td class="hidem">${sparkSVG(hs,110,34,chg==null?({'pokemon':'#f5b942','one-piece':'#ea3943','soccer':'#16c784','nba':'#f97316','collectibles':'#a855f7'}[p.category_slug]||'#22d3ee'):(chg>=0?'#16c784':'#ea3943'))}</td>
     <td><a href="https://cardsrg.com/product/${p.slug}">View →</a></td></tr>`}).join('');
 }
 function renderTabs(){
   const cats=['all',...new Set(PRODUCTS.map(p=>p.category_slug).filter(Boolean))];
-  document.getElementById('tabs').innerHTML=cats.map(c=>`<span class="tab ${c===CAT?'on':''}" onclick="CAT='${c}';render();renderTabs()">${c==='all'?'All':c.replace('-',' ')}</span>`).join('');
+  document.getElementById('tabs').innerHTML=cats.map(c=>`<span class="tab ${c===CAT?'on':''}" data-cat="${c}" onclick="CAT='${c}';render();renderTabs()">${c==='all'?'All':c.replace('-',' ')}</span>`).join('');
 }
 function renderTop(){
   const n=PRODUCTS.reduce((s,p)=>s+(p.stock||1),0);
