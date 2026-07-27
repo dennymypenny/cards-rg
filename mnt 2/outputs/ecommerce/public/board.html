@@ -120,7 +120,9 @@ function sparkSVG(hs,w,h,color){
 function bigChart(){
   const byT={};
   for(const h of MKT.history){(byT[h.t]=byT[h.t]||{})[h.slug]=h.raw}
-  const ts=Object.keys(byT).map(Number).sort((a,b)=>a-b);
+  let ts=Object.keys(byT).map(Number).sort((a,b)=>a-b);
+  const maxN=Math.max(1,...ts.map(t=>Object.keys(byT[t]).length));
+  ts=ts.filter(t=>Object.keys(byT[t]).length>=Math.max(2,Math.floor(maxN*0.8)));
   const totals=ts.map(t=>Object.values(byT[t]).reduce((s,v)=>s+v,0));
   const svg=document.getElementById('bigChart');
   const priced=Object.values(MKT.prices).filter(p=>p.raw!=null).length;
