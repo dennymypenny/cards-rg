@@ -992,6 +992,30 @@ const db = {
       'Uta — 2026 One Piece Card Game Extra Booster 3: Heroines Edition, Special Alternate Art #EB03-003, graded PSA 10 GEM MINT (cert #154831634). The FILM RED songstress in a breathtaking stained-glass alt-art, wings spread and mic in hand — one of the most stunning Heroines Edition SPs and an instant chase card. One Piece has been on an absolute tear and gem mint Uta SPs are drawing serious attention. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       82000, 'CRG-UTA-EB03-003-SP-PSA10', '/images/uta-eb03-003-sp-alt-art-psa10.jpg', 'PSA 10');
 
+    // New adds (Jul 27 2026): One Piece trio — Buggy OP09, Boa Hancock ST17, Ace OP07 3rd Anniv
+    addIfMissing('one-piece',
+      'Buggy 2024 One Piece OP09 #051 Alternate Art PSA 10',
+      'buggy-op09-051-alt-art-psa10',
+      'Buggy — 2024 One Piece Card Game OP09: Emperors in the New World, Alternate Art #OP09-051, graded PSA 10 GEM MINT (cert #120423945). The Four Emperors / Cross Guild clown himself looming over his big top in gorgeous circus-themed alt-art — one of the most fun and instantly recognizable AAs in the set. Buggy fans do not play around. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      15000, 'CRG-BUGGY-OP09-051-PSA10', '/images/buggy-op09-051-alt-art-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'Boa Hancock 2025 One Piece Illustration Box Vol.1 #004 PSA 10',
+      'boa-hancock-st17-004-illustration-box-psa10',
+      'Boa Hancock — 2025 One Piece Card Game Illustration Box Vol.1 #ST17-004, graded PSA 10 GEM MINT (cert #150654688). The Pirate Empress of the Kuja Pirates in a stunning Illustration Box exclusive by Peach Momoko, reclining with Salome across a soft pink canvas. Illustration Box promos are limited and this one is the standout. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      22500, 'CRG-BOA-HANCOCK-ST17-004-PSA10', '/images/boa-hancock-st17-004-illustration-box-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'Portgas D. Ace 2025 One Piece OP07 #053 3rd Anniversary Winner PSA 10',
+      'ace-op07-053-3rd-anniversary-winner-psa10',
+      'Portgas D. Ace — 2025 One Piece Card Game OP07-053, 3rd Anniversary "3 Brothers" PK-Winner promo, graded PSA 10 GEM MINT (cert #151899662). A tournament-only Winner promo with the 3rd Anniversary stamp — Ace mid-blaze in breathtaking artwork on premium foil. Winner promos are awarded, not pulled, so the print run is tiny and gem mint copies are genuinely scarce. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      26000, 'CRG-ACE-OP07-053-3RDANV-PSA10', '/images/ace-op07-053-3rd-anniversary-winner-psa10.jpg', 'PSA 10');
+
+    // New add (Jul 27 2026): Luffy ST01-012 1st Anniversary PSA 10 (site $310, eBay $325)
+    addIfMissing('one-piece',
+      'Monkey D. Luffy 2023 One Piece OP05 #012 1st Anniversary PSA 10',
+      'luffy-st01-012-1st-anniversary-psa10',
+      'Monkey D. Luffy — 2023 One Piece Card Game 1st Anniversary promo #ST01-012 (OP05 EN #012), graded PSA 10 GEM MINT (cert #145460288). The captain winding up a Gum-Gum haymaker in gorgeous ink-wash artwork with the 1st Anniversary gold stamp — an event-exclusive promo from the game\'s first year and a cornerstone Luffy for any collection. Early anniversary promos keep getting harder to find in gem mint. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      31000, 'CRG-LUFFY-ST01-012-1STANV-PSA10', '/images/luffy-st01-012-1st-anniversary-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
