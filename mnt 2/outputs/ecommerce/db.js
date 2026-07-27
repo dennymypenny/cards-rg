@@ -985,6 +985,13 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('luffy-tarou-op11-005-psa10');
 
+    // New add (Jul 27 2026): Uta EB03-003 Special Alternate Art PSA 10
+    addIfMissing('one-piece',
+      'Uta 2026 One Piece EB03 #003 Special Alternate Art PSA 10',
+      'uta-eb03-003-sp-alt-art-psa10',
+      'Uta — 2026 One Piece Card Game Extra Booster 3: Heroines Edition, Special Alternate Art #EB03-003, graded PSA 10 GEM MINT (cert #154831634). The FILM RED songstress in a breathtaking stained-glass alt-art, wings spread and mic in hand — one of the most stunning Heroines Edition SPs and an instant chase card. One Piece has been on an absolute tear and gem mint Uta SPs are drawing serious attention. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      82000, 'CRG-UTA-EB03-003-SP-PSA10', '/images/uta-eb03-003-sp-alt-art-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
