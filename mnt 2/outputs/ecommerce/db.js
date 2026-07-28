@@ -1020,6 +1020,10 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('luffy-op10-118-alt-art-psa10');
 
+    // SOLD on eBay (Jul 28 2026): Boa Hancock ST17-004 Illustration Box — remove from storefront
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('boa-hancock-st17-004-illustration-box-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
