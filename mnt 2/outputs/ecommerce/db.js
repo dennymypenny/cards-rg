@@ -1016,6 +1016,14 @@ const db = {
       'Monkey D. Luffy — 2023 One Piece Card Game 1st Anniversary promo #ST01-012 (OP05 EN #012), graded PSA 10 GEM MINT (cert #145460288). The captain winding up a Gum-Gum haymaker in gorgeous ink-wash artwork with the 1st Anniversary gold stamp — an event-exclusive promo from the game\'s first year and a cornerstone Luffy for any collection. Early anniversary promos keep getting harder to find in gem mint. Flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       31000, 'CRG-LUFFY-ST01-012-1STANV-PSA10', '/images/luffy-st01-012-1st-anniversary-psa10.jpg', 'PSA 10');
 
+    // SOLD on eBay (Jul 28 2026): Luffy OP10-118 Alt Art (Royal Blood) — remove from storefront
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('luffy-op10-118-alt-art-psa10');
+
+    // SOLD on eBay (Jul 28 2026): Boa Hancock ST17-004 Illustration Box — remove from storefront
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('boa-hancock-st17-004-illustration-box-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
