@@ -1040,6 +1040,10 @@ const db = {
       'Kaido \u2014 2023 One Piece Card Game EN, OP-03 Pillars of Strength, ST04-003 WANTED Alternate Art, graded PSA 10 GEM MINT (cert #146474207). The Strongest Creature Alive glaring out of a full-bleed rainbow-foil wanted poster \u2014 DEAD OR ALIVE across the bottom, 10000 power, the single most iconic alt art in the One Piece TCG. A cornerstone chase card that collectors chase for years. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       32000, 'CRG-KAIDO-ST04-003-WANTED-PSA10', '/images/kaido-st04-003-wanted-alt-art-psa10.jpg', 'PSA 10');
 
+    // Removed (Jul 31 2026): Zekrom Celebrations #114 — per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('zekrom-celebrations-114-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
