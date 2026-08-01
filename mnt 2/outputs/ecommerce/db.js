@@ -1024,6 +1024,41 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('boa-hancock-st17-004-illustration-box-psa10');
 
+    // SOLD (Jul 28 2026): Luffy ST01-012 1st Anniversary Alt Art — remove from storefront
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('luffy-st01-012-1st-anniversary-psa10');
+
+    // New adds (Jul 31 2026): Uta P-011 Premium Card Collection + Kaido ST04-003 Wanted Alt Art
+    addIfMissing('one-piece',
+      'Uta 2024 One Piece Premium Card Collection P-011 Leader Special PSA 10',
+      'uta-p-011-premium-card-collection-psa10',
+      'Uta \u2014 2024 One Piece Card Game EN, Premium Card Collection -UTA- promo P-011, LEADER card in the SPECIAL parallel treatment, graded PSA 10 GEM MINT (cert #124883102). The FILM RED diva mid-song on a shimmering diamond-foil canvas \u2014 pink and lavender hair swirling around the mic, one of the most striking leader cards Bandai has printed. Straight from the sold-out Premium Card Collection box. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      14500, 'CRG-UTA-P011-PREMIUM-PSA10', '/images/uta-p-011-premium-card-collection-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'Kaido 2023 One Piece OP03 ST04-003 Wanted Alternate Art PSA 10',
+      'kaido-st04-003-wanted-alt-art-psa10',
+      'Kaido \u2014 2023 One Piece Card Game EN, OP-03 Pillars of Strength, ST04-003 WANTED Alternate Art, graded PSA 10 GEM MINT (cert #146474207). The Strongest Creature Alive glaring out of a full-bleed rainbow-foil wanted poster \u2014 DEAD OR ALIVE across the bottom, 10000 power, the single most iconic alt art in the One Piece TCG. A cornerstone chase card that collectors chase for years. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      32000, 'CRG-KAIDO-ST04-003-WANTED-PSA10', '/images/kaido-st04-003-wanted-alt-art-psa10.jpg', 'PSA 10');
+
+    // Removed (Jul 31 2026): Zekrom Celebrations #114 — per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('zekrom-celebrations-114-psa10');
+
+    // Removed (Aug 1 2026): Bulbasaur, Eevee, Pikachu, Volcanion, Feraligatr,
+    // Meganium, Uta P-011 (cheaper Uta) — sold/pulled, already removed from eBay
+    for (const slug of [
+      'bulbasaur-mep-037-first-partner-psa10',
+      'eevee-ex-sv8a-224-sar-psa10',
+      'pikachu-vmax-vivid-voltage-044-psa10',
+      'volcanion-ex-jtg-182-sir-psa10',
+      'feraligatr-neo-premium-file-160-psa10',
+      'meganium-neo-premium-file-154-psa10',
+      'uta-p-011-premium-card-collection-psa10',
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(slug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
