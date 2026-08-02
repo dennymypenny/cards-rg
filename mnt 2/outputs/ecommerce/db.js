@@ -1059,6 +1059,13 @@ const db = {
         .run(slug);
     }
 
+    // New add (Aug 1 2026): Espeon VMAX
+    addIfMissing('pokemon',
+      'Espeon VMAX 2021 Sword & Shield Fusion Strike #270 Full Art Secret Rare PSA 10',
+      'espeon-vmax-swsh-fst-270-secret-psa10',
+      'Espeon VMAX — 2021 Pokémon Sword & Shield: Fusion Strike, Full Art Secret Rare #270/264, graded PSA 10 GEM MINT (cert #130485180). The Sun Pokémon dynamaxed across a dreamy pastel townscape in one of the most beloved full-art secrets of the Fusion Strike era — a perennial fan-favorite chase card. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, from a smoke-free shop.',
+      72000, 'CRG-ESPEON-VMAX-FST270-PSA10', '/images/espeon-vmax-swsh-fst-270-secret-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
