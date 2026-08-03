@@ -1072,6 +1072,52 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('ace-op07-053-3rd-anniversary-winner-psa10');
 
+    // New adds (Aug 3 2026): One Piece PSA 10 drop — Shanks Magazine Exclusive, Shanks Wanted,
+    // Boa Hancock OP07 Alt Art, O-Nami Illustration Box, Chopper ST29 Alt Art,
+    // Luffy Gear 5 Offline Regionals P-041, Luffy ST10 Treasure Boosters
+    addIfMissing('one-piece',
+      'Shanks 2025 One Piece OP09-001 Leader PSA Magazine Exclusive PSA 10',
+      'shanks-op09-001-psa-magazine-exclusive-psa10',
+      'Shanks — 2025 One Piece Card Game EN #001, PSA Magazine Exclusive promo Leader OP09-001, graded PSA 10 GEM MINT (cert #157426996). The Red-Haired Emperor relaxing with his crew in a gorgeous exclusive treatment you could only get through the PSA Magazine promo — these do not pop up often. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      24500, 'CRG-SHANKS-OP09-001-PSAMAG-PSA10', '/images/shanks-op09-001-psa-magazine-exclusive-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'Shanks 2024 One Piece OP09-004 Wanted Alternate Art PSA 10',
+      'shanks-op09-004-wanted-alt-art-psa10',
+      'Shanks — 2024 One Piece Card Game OP09 EN #004, WANTED Alternate Art SP, graded PSA 10 GEM MINT (cert #159061238). The Emperor of the Sea on his iconic weathered wanted poster — DEAD OR ALIVE — one of the most sought-after alt arts in all of One Piece. 12000 power with Rush. Gem mint, stunning in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      47000, 'CRG-SHANKS-OP09-004-WANTED-PSA10', '/images/shanks-op09-004-wanted-alt-art-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'Boa Hancock 2024 One Piece OP07-051 Alternate Art PSA 10',
+      'boa-hancock-op07-051-alt-art-psa10',
+      'Boa Hancock — 2024 One Piece Card Game OP07 EN #051, Alternate Art SR, graded PSA 10 GEM MINT (cert #154187597). The Pirate Empress throwing her signature heart in dazzling alt art by Akira Kuno — one of the most popular characters in the game and a perennial chase card. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      18000, 'CRG-BOA-OP07-051-ALTART-PSA10', '/images/boa-hancock-op07-051-alt-art-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'O-Nami 2025 One Piece OP05-062 Illustration Box Vol.1 PSA 10',
+      'o-nami-op05-062-illustration-box-vol1-psa10',
+      'O-Nami — 2025 One Piece Card Game EN #062, Illustration Box Vol.1 promo OP05-062, graded PSA 10 GEM MINT (cert #150854875). Nami in her gorgeous Wano kimono surrounded by cherry blossoms — dreamy watercolor art by Peach Momoko that collectors chase hard. Gem mint, beautiful in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      17000, 'CRG-ONAMI-OP05-062-ILLBOX-PSA10', '/images/o-nami-op05-062-illustration-box-vol1-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'Tony Tony Chopper 2026 One Piece ST29-007 Alternate Art PSA 10',
+      'chopper-st29-007-alt-art-psa10',
+      'Tony Tony Chopper — 2026 One Piece Card Game ST29 EN #007, Alternate Art, graded PSA 10 GEM MINT (cert #150768289). Everyone\'s favorite doctor rocking his SSG Egghead suit in adorable sparkling alt art — Chopper cards fly off the shelf and this one is fresh out of grading. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      15500, 'CRG-CHOPPER-ST29-007-ALTART-PSA10', '/images/chopper-st29-007-alt-art-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'Monkey D. Luffy Gear 5 2024 One Piece P-041 Offline Regionals Vol.2 PSA 10',
+      'luffy-gear5-p041-offline-regionals-vol2-psa10',
+      'Monkey D. Luffy — 2024 One Piece Card Game EN P-041, Offline Regionals Pack Vol.2 promo, graded PSA 10 GEM MINT (cert #127587708). GEAR 5 Luffy charging off the card in legendary tournament-exclusive art — a NOT FOR SALE promo you could only earn at Offline Regionals 2024, and one of the hardest Gear 5 cards to track down. 12000 power. Gem mint, insane in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      68000, 'CRG-LUFFY-P041-REGIONALS-PSA10', '/images/luffy-gear5-p041-offline-regionals-vol2-psa10.jpg', 'PSA 10');
+    addIfMissing('one-piece',
+      'Monkey D. Luffy 2024 One Piece ST10-006 Treasure Boosters Set PSA 10',
+      'luffy-st10-006-treasure-boosters-psa10',
+      'Monkey D. Luffy — 2024 One Piece Card Game EN ST10-006, Treasure Boosters Set #006, graded PSA 10 GEM MINT (cert #148852836). The future Pirate King tipping his straw hat with Ace and Sabo behind him on a fiery foil treatment — 11000 power with Rush. Gem mint, flawless in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      8500, 'CRG-LUFFY-ST10-006-TREASURE-PSA10', '/images/luffy-st10-006-treasure-boosters-psa10.jpg', 'PSA 10');
+
+    // New add (Aug 3 2026): Mega Charizard X ex MEP 023 Ultra-Premium Collection PSA 10
+    addIfMissing('pokemon',
+      'Mega Charizard X ex 2025 Pokemon MEP EN #023 Ultra-Premium Collection PSA 10',
+      'mega-charizard-x-ex-mep-023-upc-psa10',
+      'Mega Charizard X ex — 2025 Pokémon Mega Evolution MEP EN promo #023, Ultra-Premium Collection exclusive, graded PSA 10 GEM MINT (cert #153462271). Mega Charizard X erupting in blue flames with bold INFERNO X kanji art by Sabaten — the chase promo from the Mega Evolution Ultra-Premium Collection box. Gem mint, striking in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      23000, 'CRG-MEGA-CHARIZARDX-MEP023-UPC-PSA10', '/images/mega-charizard-x-ex-mep-023-upc-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
