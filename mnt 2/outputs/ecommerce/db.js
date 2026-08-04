@@ -1118,6 +1118,20 @@ const db = {
       'Mega Charizard X ex — 2025 Pokémon Mega Evolution MEP EN promo #023, Ultra-Premium Collection exclusive, graded PSA 10 GEM MINT (cert #153462271). Mega Charizard X erupting in blue flames with bold INFERNO X kanji art by Sabaten — the chase promo from the Mega Evolution Ultra-Premium Collection box. Gem mint, striking in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       23000, 'CRG-MEGA-CHARIZARDX-MEP023-UPC-PSA10', '/images/mega-charizard-x-ex-mep-023-upc-psa10.jpg', 'PSA 10');
 
+    // New add (Aug 4 2026): Nami OP09-070 Premium Card Collection Best Selection Vol.4 PSA 10
+    addIfMissing('one-piece',
+      'Nami 2025 One Piece OP09-070 Premium Card Collection Best Selection Vol.4 PSA 10',
+      'nami-op09-070-premium-vol4-psa10',
+      'Nami — 2025 One Piece Card Game EN #070, Premium Card Collection -Best Selection Vol.4- exclusive OP09-070, graded PSA 10 GEM MINT (cert #151675450). The Cat Burglar in her Wano fit with Zeus grinning behind her, lightning crackling across a starry foil treatment — a box-exclusive special art you can only pull from the Best Selection Vol.4 premium collection. Gem mint, electric in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      35000, 'CRG-NAMI-OP09-070-PCCVOL4-PSA10', '/images/nami-op09-070-premium-vol4-psa10.jpg', 'PSA 10');
+
+    // New add (Aug 4 2026): Boa Hancock OP02-059 Gift Collection 2023 PSA 10
+    addIfMissing('one-piece',
+      'Boa Hancock 2023 One Piece OP02-059 Gift Collection 2023 PSA 10',
+      'boa-hancock-op02-059-gift-collection-psa10',
+      'Boa Hancock — 2023 One Piece Card Game EN #059, Gift Collection 2023 promo OP02-059, graded PSA 10 GEM MINT (cert #145730217). The Pirate Empress with Salome in gorgeous promo-exclusive foil art — the Gift Collection Boa is one of the most beloved early One Piece promos and a staple Hancock chase. 5000 power, +1000 counter. Gem mint, stunning in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      31500, 'CRG-BOA-OP02-059-GIFTCOLL-PSA10', '/images/boa-hancock-op02-059-gift-collection-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
