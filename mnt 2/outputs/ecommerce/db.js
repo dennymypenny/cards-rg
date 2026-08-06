@@ -1136,6 +1136,13 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('uta-eb03-003-sp-alt-art-psa10');
 
+    // Removed (Aug 6 2026): Rayquaza VMAX EVS #111 PSA 10 ($220) + Iono's Bellibolt ex
+    // Premium Collection box — per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('rayquaza-vmax-evolving-skies-111-psa10');
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('pokemon-ionos-bellibolt-ex-premium-collection-sealed');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
