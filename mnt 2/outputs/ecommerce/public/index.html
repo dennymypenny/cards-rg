@@ -447,7 +447,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
     <div class="tile-content">
       <div class="tile-kicker">Sealed Wax &amp; Slabs</div>
       <div class="tile-title">Shop TCG</div>
-      <div class="tile-sub">Pokémon — Sealed Boxes</div>
+      <div class="tile-sub">Pokémon — One Piece — Sealed</div>
       <span class="tile-btn btn-cyan">Shop TCG</span>
     </div>
   </div>
@@ -822,10 +822,11 @@ function renderRecent() {
 function getFiltered() {
   let p = [...allProducts];
   if (currentCat === 'sports')   p = p.filter(x => ['soccer','nba','football'].includes(x.category_slug));
-  else if (currentCat === 'tcg') p = p.filter(x => ['pokemon'].includes(x.category_slug));
+  else if (currentCat === 'tcg') p = p.filter(x => ['pokemon','one-piece'].includes(x.category_slug));
   else if (currentCat !== 'all') p = p.filter(x => x.category_slug === currentCat);
-  const s = (document.getElementById('searchInput').value||'').toLowerCase().trim();
-  if (s) p = p.filter(x => (x.name||'').toLowerCase().includes(s)||(x.description||'').toLowerCase().includes(s));
+  const norm = t => (t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  const s = norm(document.getElementById('searchInput').value).trim();
+  if (s) p = p.filter(x => norm(x.name).includes(s)||norm(x.description).includes(s));
   if (currentSort === 'price-asc')  p.sort((a,b) => a.price - b.price);
   if (currentSort === 'price-desc') p.sort((a,b) => b.price - a.price);
   return p;
@@ -869,7 +870,7 @@ function goCat(slug) {
   currentCat = slug;
   document.querySelectorAll('.nav-link[data-cat]').forEach(l=>l.classList.remove('act'));
   document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('act'));
-  const specialTitles = { sports:'Sports Cards', tcg:'TCG — Pokémon & Sealed' };
+  const specialTitles = { sports:'Sports Cards', tcg:'TCG — Pokémon, One Piece & Sealed' };
   document.getElementById('pageTitle').textContent = specialTitles[slug] || 'All Cards';
   renderProducts();
   document.getElementById('featured')?.scrollIntoView({behavior:'smooth',block:'start'});
