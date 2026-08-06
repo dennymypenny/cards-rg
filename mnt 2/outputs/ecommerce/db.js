@@ -1132,6 +1132,10 @@ const db = {
       'Boa Hancock — 2023 One Piece Card Game EN #059, Gift Collection 2023 promo OP02-059, graded PSA 10 GEM MINT (cert #145730217). The Pirate Empress with Salome in gorgeous promo-exclusive foil art — the Gift Collection Boa is one of the most beloved early One Piece promos and a staple Hancock chase. 5000 power, +1000 counter. Gem mint, stunning in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       31500, 'CRG-BOA-OP02-059-GIFTCOLL-PSA10', '/images/boa-hancock-op02-059-gift-collection-psa10.jpg', 'PSA 10');
 
+    // Removed (Aug 6 2026): Uta EB03-003 SP Alt Art PSA 10 — per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('uta-eb03-003-sp-alt-art-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
