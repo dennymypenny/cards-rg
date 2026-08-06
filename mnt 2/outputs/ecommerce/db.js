@@ -1143,6 +1143,13 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('pokemon-ionos-bellibolt-ex-premium-collection-sealed');
 
+    // New add (Aug 6 2026): Roronoa Zoro OP12-020 Alternate Art Leader PSA 10
+    addIfMissing('one-piece',
+      'Roronoa Zoro 2025 One Piece OP12 EN #020 Alternate Art Leader PSA 10',
+      'zoro-op12-020-alt-art-psa10',
+      'Roronoa Zoro \u2014 2025 One Piece Card Game EN OP12 #020, Alternate Art Leader OP12-020, graded PSA 10 GEM MINT (cert #148046840). The future World\u2019s Greatest Swordsman mid-clash with Dracule Mihawk looming behind him, blades flashing across a stunning rainbow foil treatment \u2014 one of the most hyped alt art Leaders of the OP12 era. 5000 power, 5 life, Supernovas/Straw Hat Crew. Gem mint, razor sharp in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
+      16500, 'CRG-ZORO-OP12-020-ALTART-PSA10', '/images/zoro-op12-020-alt-art-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
