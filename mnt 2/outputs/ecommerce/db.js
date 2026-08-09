@@ -1159,7 +1159,9 @@ const db = {
       'rockets-moltres-ex-dri-229-psa10',
       'charizard-ex-svp-074-paldean-fates-psa10',
       'pokemon-151-mini-tins-5-pack-costco-sealed',
-      'pokemon-mythical-collection-genesect-box-sealed'
+      'pokemon-mythical-collection-genesect-box-sealed',
+      // SOLD (Aug 9 2026, later same day): Charizard EX Premium Collection box
+      'pokemon-charizard-ex-premium-collection-sealed'
     ]) {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
         .run(soldSlug);
