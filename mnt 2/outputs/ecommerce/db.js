@@ -1150,6 +1150,21 @@ const db = {
       'Roronoa Zoro \u2014 2025 One Piece Card Game EN OP12 #020, Alternate Art Leader OP12-020, graded PSA 10 GEM MINT (cert #148046840). The future World\u2019s Greatest Swordsman mid-clash with Dracule Mihawk looming behind him, blades flashing across a stunning rainbow foil treatment \u2014 one of the most hyped alt art Leaders of the OP12 era. 5000 power, 5 life, Supernovas/Straw Hat Crew. Gem mint, razor sharp in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       16500, 'CRG-ZORO-OP12-020-ALTART-PSA10', '/images/zoro-op12-020-alt-art-psa10.jpg', 'PSA 10');
 
+    // SOLD (Aug 9 2026): batch removal per Denny — red-X screenshots
+    for (const soldSlug of [
+      'zoro-op12-020-alt-art-psa10',
+      'di-maria-2022-donruss-elite-pink-disco-1-25',
+      'martinez-2022-select-terrace-prizm-17-49',
+      'mega-latias-ex-meg-181-sir-psa10',
+      'rockets-moltres-ex-dri-229-psa10',
+      'charizard-ex-svp-074-paldean-fates-psa10',
+      'pokemon-151-mini-tins-5-pack-costco-sealed',
+      'pokemon-mythical-collection-genesect-box-sealed'
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(soldSlug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
