@@ -1194,6 +1194,12 @@ const db = {
       'Mew — 2020 Pokémon Battle Academy, #32/68, graded PSA 10 GEM MINT (cert #57735281). The mythical New Species Pokémon floating in cosmic holo — a fan-favorite from the Battle Academy box, tough to find in gem mint. 80 HP, Psyshot. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
       11500, 'CRG-MEW-BATTLE-ACADEMY-32-PSA10', '/images/mew-battle-academy-32-psa10.jpg', 'PSA 10');
 
+    addIfMissing('one-piece',
+      'Monkey.D.Luffy Gear 5 2024 One Piece PRB01 EN #119 Alternate Art PSA 10',
+      'luffy-prb01-119-alt-art-psa10',
+      'Monkey.D.Luffy — 2024 One Piece Card Game EN Premium Booster PRB01 #119, Gear 5 Alternate Art, graded PSA 10 GEM MINT (cert #151164787). Nika-form Luffy lunging straight at you, white hair blazing against crackling blue lightning — one of the hardest-hitting Gear 5 alt arts out there. 12000 power, Strike. Gem mint, electric in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      63000, 'CRG-LUFFY-PRB01-119-ALTART-PSA10', '/images/luffy-prb01-119-alt-art-psa10.jpg', 'PSA 10');
+
     // Standing rule (Aug 9 2026, per Denny): every card description carries "(Guard/Stands Not Included)"
     // Idempotent, runs every boot AFTER all adds — also covers future adds that forget the note.
     prepare("UPDATE products SET description = description || ' (Guard/Stands Not Included)', updated_at = datetime('now') WHERE description NOT LIKE '%Guard/Stands Not Included%'").run();
