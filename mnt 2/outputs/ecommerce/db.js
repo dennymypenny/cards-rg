@@ -1157,6 +1157,47 @@ const db = {
       'Portgas D. Ace — 2024 One Piece Card Game EN OP08 #013, Special Alternate Art (manga art SP), graded PSA 10 GEM MINT (cert #150270090). Fire Fist Ace mid-swing in the iconic manga-panel treatment — red foil backdrop, Whitebeard tattoo on full display, one of the most chased SP cards of the OP08 era. 7000 power. Gem mint, razor sharp in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop.',
       49000, 'CRG-PORTGAS-ACE-OP08-013-SP-PSA10', '/images/portgas-d-ace-op08-013-sp-alt-art-psa10.jpg', 'PSA 10');
 
+    // New adds (Aug 9 2026 evening): Boa Magazine, Meowth IR, Buggy Wanted BGS, Dragonite EX FA, Charizard Celebrations
+    addIfMissing('one-piece',
+      'Boa Hancock 2025 One Piece EN #038 PSA Magazine Exclusive OP07-038 Leader PSA 10',
+      'boa-hancock-op07-038-psa-magazine-psa10',
+      'Boa Hancock — 2025 One Piece Card Game EN, PSA Magazine Exclusive promo OP07-038 Leader, graded PSA 10 GEM MINT (cert #142492730). The Pirate Empress front and center with Mihawk, Doflamingo, Kaido and the Warlords looming behind her — the special 特 SPECIAL foil Leader only available through PSA Magazine. 5000 power, 5 life, The Seven Warlords of the Sea/Kuja Pirates. Gem mint, stunning in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      40000, 'CRG-BOA-OP07-038-PSA-MAG-PSA10', '/images/boa-hancock-op07-038-psa-magazine-psa10.jpg', 'PSA 10');
+
+    addIfMissing('pokemon',
+      'Meowth 2025 Pokémon Phantasmal Flames #106/094 Illustration Rare PSA 10',
+      'meowth-pfl-106-illustration-rare-psa10',
+      'Meowth — 2025 Pokémon Mega Evolution: Phantasmal Flames, Illustration Rare #106/094, graded PSA 10 GEM MINT (cert #149113945). Gorgeous storybook art of Meowth lounging on a tree branch in a sunlit neighborhood — one of the most charming IRs in the set. Gem mint, razor sharp in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      18000, 'CRG-MEOWTH-PFL-106-IR-PSA10', '/images/meowth-pfl-106-illustration-rare-psa10.jpg', 'PSA 10');
+
+    addIfMissing('one-piece',
+      'Buggy 2024 One Piece OP09-051 Wanted Poster SP BGS 10 Pristine',
+      'buggy-op09-051-wanted-poster-sp-bgs10',
+      'Buggy — 2024 One Piece Card Game: Emperors in the New World, OP09-051 Wanted Poster SP (R), graded Beckett BGS 10 PRISTINE (cert #0020155397, subgrades 9.5 centering / 10 corners / 10 edges / 10 surface). The Genius Jester\'s DEAD OR ALIVE wanted poster in full parchment treatment — one of the coolest SP alt arts of the OP09 era, in the black-label-tier Pristine 10. 12000 power, The Four Emperors/Cross Guild. Ships in the BGS slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      40000, 'CRG-BUGGY-OP09-051-WANTED-BGS10', '/images/buggy-op09-051-wanted-poster-sp-bgs10.jpg', 'BGS 10');
+
+    addIfMissing('pokemon',
+      'Dragonite EX 2016 Pokémon XY Evolutions #106/108 Full Art PSA 10',
+      'dragonite-ex-evolutions-106-fa-psa10',
+      'Dragonite EX — 2016 Pokémon XY: Evolutions, Full Art #106/108, graded PSA 10 GEM MINT (cert #159830466). The golden dragon in stunning full-art foil — a decade-old chase card that keeps climbing as Evolutions nostalgia grows. 180 HP, Pull Up + Hyper Beam. Gem mint, beautiful in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      54500, 'CRG-DRAGONITE-EX-EVO-106-PSA10', '/images/dragonite-ex-evolutions-106-fa-psa10.jpg', 'PSA 10');
+
+    addIfMissing('pokemon',
+      'Charizard Holo 2021 Celebrations Classic Collection #4/102 Base Set PSA 10',
+      'charizard-celebrations-classic-4-102-psa10',
+      'Charizard — 2021 Pokémon Celebrations: Classic Collection, Base Set Charizard #4/102 reprint with the 25th anniversary gold stamp, graded PSA 10 GEM MINT (cert #102262813). The most iconic card in the hobby, in its anniversary holo treatment — Mitsuhiro Arita\'s original art, gem mint. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      65000, 'CRG-CHARIZARD-CELEB-4-102-PSA10', '/images/charizard-celebrations-classic-4-102-psa10.jpg', 'PSA 10');
+
+    addIfMissing('pokemon',
+      'Mew 2020 Pokémon Battle Academy #32/68 PSA 10',
+      'mew-battle-academy-32-psa10',
+      'Mew — 2020 Pokémon Battle Academy, #32/68, graded PSA 10 GEM MINT (cert #57735281). The mythical New Species Pokémon floating in cosmic holo — a fan-favorite from the Battle Academy box, tough to find in gem mint. 80 HP, Psyshot. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      11500, 'CRG-MEW-BATTLE-ACADEMY-32-PSA10', '/images/mew-battle-academy-32-psa10.jpg', 'PSA 10');
+
+    // Standing rule (Aug 9 2026, per Denny): every card description carries "(Guard/Stands Not Included)"
+    // Idempotent, runs every boot AFTER all adds — also covers future adds that forget the note.
+    prepare("UPDATE products SET description = description || ' (Guard/Stands Not Included)', updated_at = datetime('now') WHERE description NOT LIKE '%Guard/Stands Not Included%'").run();
+
     // SOLD (Aug 9 2026): batch removal per Denny — red-X screenshots
     for (const soldSlug of [
       'zoro-op12-020-alt-art-psa10',
