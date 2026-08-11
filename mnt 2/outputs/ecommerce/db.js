@@ -1215,7 +1215,11 @@ const db = {
       'pokemon-151-mini-tins-5-pack-costco-sealed',
       'pokemon-mythical-collection-genesect-box-sealed',
       // SOLD (Aug 9 2026, later same day): Charizard EX Premium Collection box
-      'pokemon-charizard-ex-premium-collection-sealed'
+      'pokemon-charizard-ex-premium-collection-sealed',
+      // SOLD (Aug 10 2026): per Denny
+      'reshiram-celebrations-113-psa10',
+      'hambino-patrick-renna-signed-sandlot-custom-auto',
+      'mew-battle-academy-32-psa10'
     ]) {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
         .run(soldSlug);
