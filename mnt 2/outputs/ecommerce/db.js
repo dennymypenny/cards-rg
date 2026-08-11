@@ -1200,6 +1200,19 @@ const db = {
       'Monkey.D.Luffy — 2024 One Piece Card Game EN Premium Booster PRB01 #119, Gear 5 Alternate Art, graded PSA 10 GEM MINT (cert #151164787). Nika-form Luffy lunging straight at you, white hair blazing against crackling blue lightning — one of the hardest-hitting Gear 5 alt arts out there. 12000 power, Strike. Gem mint, electric in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
       63000, 'CRG-LUFFY-PRB01-119-ALTART-PSA10', '/images/luffy-prb01-119-alt-art-psa10.jpg', 'PSA 10');
 
+    // New adds (Aug 10 2026): OP09 Luffy + Roger PSA 10s
+    addIfMissing('one-piece',
+      'Monkey.D.Luffy 2024 One Piece OP09 EN #119 Emperors in the New World PSA 10',
+      'luffy-op09-119-psa10',
+      'Monkey.D.Luffy — 2024 One Piece Card Game EN: Emperors in the New World, OP09-119, graded PSA 10 GEM MINT (cert #159886660). Young Luffy flexing with a grin as lightning crackles around him in a wild full-art foil treatment — a chase pull from OP09. 10000 power. Gem mint, razor sharp in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      10500, 'CRG-LUFFY-OP09-119-PSA10', '/images/luffy-op09-119-psa10.jpg', 'PSA 10');
+
+    addIfMissing('one-piece',
+      'Gol D. Roger 2024 One Piece OP09 EN #118 Emperors in the New World PSA 10',
+      'gol-d-roger-op09-118-psa10',
+      'Gol D. Roger — 2024 One Piece Card Game EN: Emperors in the New World, OP09-118, graded PSA 10 GEM MINT (cert #159886639). The Pirate King unleashed in blazing red and gold full-art foil — one of the standout pulls of OP09. 13000 power, King of the Pirates/Roger Pirates. Gem mint, stunning in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      10500, 'CRG-ROGER-OP09-118-PSA10', '/images/gol-d-roger-op09-118-psa10.jpg', 'PSA 10');
+
     // Standing rule (Aug 9 2026, per Denny): every card description carries "(Guard/Stands Not Included)"
     // Idempotent, runs every boot AFTER all adds — also covers future adds that forget the note.
     prepare("UPDATE products SET description = description || ' (Guard/Stands Not Included)', updated_at = datetime('now') WHERE description NOT LIKE '%Guard/Stands Not Included%'").run();
