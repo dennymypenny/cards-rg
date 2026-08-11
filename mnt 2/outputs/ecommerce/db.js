@@ -1232,7 +1232,10 @@ const db = {
       // SOLD (Aug 10 2026): per Denny
       'reshiram-celebrations-113-psa10',
       'hambino-patrick-renna-signed-sandlot-custom-auto',
-      'mew-battle-academy-32-psa10'
+      'mew-battle-academy-32-psa10',
+      // REMOVED (Aug 11 2026): per Denny
+      'jordan-1998-fleer-23kt-gold-prism-holo-wcg10',
+      'luffy-st10-006-treasure-boosters-psa10'
     ]) {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
         .run(soldSlug);
