@@ -1213,6 +1213,37 @@ const db = {
       'Gol D. Roger — 2024 One Piece Card Game EN: Emperors in the New World, OP09-118, graded PSA 10 GEM MINT (cert #159886639). The Pirate King unleashed in blazing red and gold full-art foil — one of the standout pulls of OP09. 13000 power, King of the Pirates/Roger Pirates. Gem mint, stunning in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
       10500, 'CRG-ROGER-OP09-118-PSA10', '/images/gol-d-roger-op09-118-psa10.jpg', 'PSA 10');
 
+    // New add (Aug 12 2026): Brook ST29-011 Alternate Art PSA 10
+    addIfMissing('one-piece',
+      'Brook 2026 One Piece ST29 EN #011 Alternate Art PSA 10',
+      'brook-st29-011-alt-art-psa10',
+      'Brook — 2026 One Piece Card Game EN: Starter Deck ST29, #011 Alternate Art, graded PSA 10 GEM MINT (cert #159939803). Soul King Brook mid-swing in a dreamy pastel Egghead scene, his afro and violin-blade catching the light across a gorgeous full-art foil. 2000 power, Blocker, Egghead/Straw Hat Crew. Gem mint, stunning rainbow shine in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      8500, 'CRG-BROOK-ST29-011-ALTART-PSA10', '/images/brook-st29-011-alt-art-psa10.jpg', 'PSA 10');
+
+    addIfMissing('pokemon',
+      'Venusaur 2021 Pokémon Celebrations Classic Collection #15 Holo PSA 10',
+      'venusaur-celebrations-15-classic-collection-psa10',
+      'Venusaur — 2021 Pokémon Celebrations: Classic Collection #15/102 Base Set holo reprint, graded PSA 10 GEM MINT (cert #82756646). The iconic Mitsuhiro Arita Base Set Venusaur reborn with the 25th Anniversary Pikachu stamp and that thick vintage cosmos holo shine. Stage 2, 100 HP, Solarbeam. A Classic Collection chase card and one of the toughest of the trio to land in a 10 — gem mint, dead-centered, glowing in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      14000, 'CRG-VENUSAUR-CELEB-15-PSA10', '/images/venusaur-celebrations-15-classic-collection-psa10.jpg', 'PSA 10');
+
+    addIfMissing('pokemon',
+      'Gengar VMAX 2021 Pokémon Fusion Strike #157 Full Art PSA 10',
+      'gengar-vmax-fusion-strike-157-psa10',
+      'Gengar VMAX — 2021 Pokémon SWSH Fusion Strike #157/264, Full Art Alternate (Gigantamax), graded PSA 10 GEM MINT (cert #125630665). Single Strike Gigantamax Gengar erupting out of a swirling purple void in one of the most iconic VMAX full arts of the Sword & Shield era. 320 HP, Fear and Panic / G-Max Swallow Up. Gem mint, deep holo texture and razor edges in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      24000, 'CRG-GENGAR-VMAX-FST-157-PSA10', '/images/gengar-vmax-fusion-strike-157-psa10.jpg', 'PSA 10');
+
+    addIfMissing('one-piece',
+      'Shanks OP09-004 2025 One Piece Promos 2nd Anniversary Set SR BGS 10 Pristine',
+      'shanks-op09-004-2nd-anniversary-bgs10',
+      'Shanks — 2025 One Piece Card Game EN Promos, OP09-004 SR, 2nd Anniversary Set, graded BGS 10 PRISTINE (cert #0019039169; subgrades 9.5 centering / 10 corners / 10 edges / 10 surface). Red-Haired Shanks tearing through the frame in a blazing crimson holo treatment — one of the most striking Shanks arts in the game. 12000 power, Rush, The Four Emperors/Red-Haired Pirates. A BGS 10 Pristine black-label-adjacent grade: flawless corners, edges and surface. Ships in the BGS slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      18500, 'CRG-SHANKS-OP09-004-2ND-BGS10', '/images/shanks-op09-004-2nd-anniversary-bgs10.jpg', 'BGS 10');
+
+    addIfMissing('collectibles',
+      'Tigger 2025 Topps Chrome Disney #142 Aqua Mini Diamonds /150 PSA 10',
+      'tigger-2025-topps-chrome-disney-aqua-mini-diamonds-psa10',
+      'Tigger — 2025 Topps Chrome Disney #142, Aqua Mini Diamonds refractor, serial numbered 061/150, graded PSA 10 GEM MINT (cert #149719256). The bounciest of them all on a glittering aqua diamond-pattern chrome canvas that explodes with color under light. Numbered to just 150 copies and one of the standout parallels in the set. Gem mint, absolutely stunning in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      47500, 'CRG-TIGGER-CHROME-DISNEY-AQUA-PSA10', '/images/tigger-2025-topps-chrome-disney-aqua-mini-diamonds-psa10.jpg', 'Numbered');
+
     // Standing rule (Aug 9 2026, per Denny): every card description carries "(Guard/Stands Not Included)"
     // Idempotent, runs every boot AFTER all adds — also covers future adds that forget the note.
     prepare("UPDATE products SET description = description || ' (Guard/Stands Not Included)', updated_at = datetime('now') WHERE description NOT LIKE '%Guard/Stands Not Included%'").run();
