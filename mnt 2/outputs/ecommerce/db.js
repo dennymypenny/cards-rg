@@ -1266,7 +1266,13 @@ const db = {
       'mew-battle-academy-32-psa10',
       // REMOVED (Aug 11 2026): per Denny
       'jordan-1998-fleer-23kt-gold-prism-holo-wcg10',
-      'luffy-st10-006-treasure-boosters-psa10'
+      'luffy-st10-006-treasure-boosters-psa10',
+      // REMOVED (Aug 13 2026): per Denny - pull ALL sealed boxes from site + eBay
+      'pokemon-kleavor-vstar-premium-collection-sealed',
+      'pokemon-kleavor-vstar-special-collection-sealed',
+      'pokemon-mabosstiff-ex-box-sealed',
+      'pokemon-hops-zacian-ex-box-sealed',
+      'mega-zygarde-ex-premium-collection'
     ]) {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
         .run(soldSlug);
