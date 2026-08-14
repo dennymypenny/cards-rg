@@ -1272,7 +1272,9 @@ const db = {
       'pokemon-kleavor-vstar-special-collection-sealed',
       'pokemon-mabosstiff-ex-box-sealed',
       'pokemon-hops-zacian-ex-box-sealed',
-      'mega-zygarde-ex-premium-collection'
+      'mega-zygarde-ex-premium-collection',
+      // REMOVED (Aug 13 2026): per Denny - pull the $650 Luffy from the site
+      'luffy-prb01-119-alt-art-psa10'
     ]) {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
         .run(soldSlug);
