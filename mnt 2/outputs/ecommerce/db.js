@@ -1274,7 +1274,9 @@ const db = {
       'pokemon-hops-zacian-ex-box-sealed',
       'mega-zygarde-ex-premium-collection',
       // REMOVED (Aug 13 2026): per Denny - pull the $650 Luffy from the site
-      'luffy-prb01-119-alt-art-psa10'
+      'luffy-prb01-119-alt-art-psa10',
+      // REMOVED (Aug 15 2026): per Denny - the $35 Messi Leaf Legends #LA-05 ISA 10
+      'messi-2022-leaf-legends-la05-isa10'
     ]) {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
         .run(soldSlug);
