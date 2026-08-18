@@ -228,7 +228,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '24';
+  const SEED_VERSION = '25';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -1288,8 +1288,9 @@ const db = {
         .run(soldSlug);
     }
 
-    // RELIST (Aug 17 2026): Zoro OP12-020 Alt Art back on the site at $170
-    prepare('UPDATE products SET active = 1, price = 17000, updated_at = datetime(\'now\') WHERE slug = ?')
+    // REMOVED (Aug 18 2026): per Denny - Zoro OP12-020 Alt Art off the site
+    // (was relisted Aug 17 at $170; eBay listing 237013049865 left live)
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('zoro-op12-020-alt-art-psa10');
 
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
