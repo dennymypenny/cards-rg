@@ -228,7 +228,7 @@ function seedAdmin() {
 
 function seedSampleData() {
   // Version-gated re-seed: bump 'seed_version' to force a fresh seed on next deploy
-  const SEED_VERSION = '23';
+  const SEED_VERSION = '24';
   const verRow = prepare('SELECT value FROM settings WHERE key = ?').get('seed_version');
   if (verRow && verRow.value === SEED_VERSION) return;
 
@@ -1244,13 +1244,19 @@ const db = {
       'Tigger — 2025 Topps Chrome Disney #142, Aqua Mini Diamonds refractor, serial numbered 061/150, graded PSA 10 GEM MINT (cert #149719256). The bounciest of them all on a glittering aqua diamond-pattern chrome canvas that explodes with color under light. Numbered to just 150 copies and one of the standout parallels in the set. Gem mint, absolutely stunning in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
       47500, 'CRG-TIGGER-CHROME-DISNEY-AQUA-PSA10', '/images/tigger-2025-topps-chrome-disney-aqua-mini-diamonds-psa10.jpg', 'Numbered');
 
+    // New add (Aug 17 2026): M Blastoise EX Evolutions #102 Full Art PSA 10
+    addIfMissing('pokemon',
+      'M Blastoise EX 2016 Pokemon XY Evolutions #102/108 Full Art PSA 10',
+      'mblastoise-ex-2016-evolutions-102-psa10',
+      'M Blastoise EX \u2014 2016 Pok\u00e9mon XY Evolutions #102/108, Full Art Mega Ultra Rare, graded PSA 10 GEM MINT (cert #56335687). Mega Blastoise erupting off the card with its hydro cannons blazing across a rainbow textured full-art canvas \u2014 the chase Mega of the Evolutions set and one of the best-looking full arts of the XY era. 220 HP, Hydro Bombard. Gem mint with razor edges and deep texture in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      40000, 'CRG-MBLASTOISE-EX-EVO-102-PSA10', '/images/mblastoise-ex-2016-evolutions-102-psa10.jpg', 'PSA 10');
+
     // Standing rule (Aug 9 2026, per Denny): every card description carries "(Guard/Stands Not Included)"
     // Idempotent, runs every boot AFTER all adds — also covers future adds that forget the note.
     prepare("UPDATE products SET description = description || ' (Guard/Stands Not Included)', updated_at = datetime('now') WHERE description NOT LIKE '%Guard/Stands Not Included%'").run();
 
     // SOLD (Aug 9 2026): batch removal per Denny — red-X screenshots
     for (const soldSlug of [
-      'zoro-op12-020-alt-art-psa10',
       'di-maria-2022-donruss-elite-pink-disco-1-25',
       'martinez-2022-select-terrace-prizm-17-49',
       'mega-latias-ex-meg-181-sir-psa10',
@@ -1281,6 +1287,10 @@ const db = {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
         .run(soldSlug);
     }
+
+    // RELIST (Aug 17 2026): Zoro OP12-020 Alt Art back on the site at $170
+    prepare('UPDATE products SET active = 1, price = 17000, updated_at = datetime(\'now\') WHERE slug = ?')
+      .run('zoro-op12-020-alt-art-psa10');
 
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
