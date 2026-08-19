@@ -1298,6 +1298,11 @@ const db = {
         .run(removedSlug);
     }
 
+    // REMOVED (Aug 19 2026): per Denny - the $230 Mega Charizard X ex MEP #023
+    // Ultra-Premium Collection PSA 10, off the site + eBay (236981949170)
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('mega-charizard-x-ex-mep-023-upc-psa10');
+
     // REMOVED (Aug 18 2026): per Denny - Zoro OP12-020 Alt Art off the site
     // (was relisted Aug 17 at $170; eBay listing 237013049865 left live)
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
