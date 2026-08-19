@@ -1298,6 +1298,13 @@ const db = {
         .run(removedSlug);
     }
 
+    // New add (Aug 19 2026): Mewtwo GX SV59 Hidden Fates Shiny Vault Full Art PSA 10
+    addIfMissing('pokemon',
+      'Mewtwo GX 2019 Pokemon Sun & Moon Hidden Fates Shiny Vault #SV59 Full Art PSA 10',
+      'mewtwo-gx-sv59-hidden-fates-psa10',
+      'Mewtwo GX - 2019 Pokemon Sun & Moon Hidden Fates Shiny Vault #SV59, Full Art, graded PSA 10 GEM MINT (cert #123083473). One of the most iconic modern Mewtwo cards - the full art SV59 from the Hidden Fates Shiny Vault, 190 HP with Psystrike GX. Gem mint, gorgeous rainbow foil in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      38000, 'CRG-MEWTWO-GX-SV59-HIDDENFATES-PSA10', '/images/mewtwo-gx-sv59-hidden-fates-psa10.jpg', 'PSA 10');
+
     // REMOVED (Aug 19 2026): per Denny - the $230 Mega Charizard X ex MEP #023
     // Ultra-Premium Collection PSA 10, off the site + eBay (236981949170)
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
