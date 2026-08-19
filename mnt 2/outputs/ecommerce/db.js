@@ -1288,6 +1288,16 @@ const db = {
         .run(soldSlug);
     }
 
+    // REMOVED (Aug 19 2026): per Denny - Charmander First Partner #038 and
+    // Mega Charizard X ex Phantasmal Flames #109 off the site + eBay
+    for (const removedSlug of [
+      'charmander-mep-038-first-partner-psa10',
+      'mega-charizard-x-ex-pfl-109-psa10'
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(removedSlug);
+    }
+
     // REMOVED (Aug 18 2026): per Denny - Zoro OP12-020 Alt Art off the site
     // (was relisted Aug 17 at $170; eBay listing 237013049865 left live)
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
