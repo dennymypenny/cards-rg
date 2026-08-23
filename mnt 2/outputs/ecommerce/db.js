@@ -1315,6 +1315,18 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('zoro-op12-020-alt-art-psa10');
 
+    // REMOVED (Aug 23 2026): per Denny - off the site + eBay
+    for (const removedSlug of [
+      'brook-st29-011-alt-art-psa10',
+      'mega-greninja-ex-cri-116-sir-psa10',
+      'boa-hancock-op07-051-alt-art-psa10',
+      'jordan-1995-ud-milk-caps-s6-foil-ccg10',
+      'kobe-jordan-23kt-gold-rookie-combo-wcg10'
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(removedSlug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
