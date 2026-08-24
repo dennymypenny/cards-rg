@@ -1351,6 +1351,13 @@ const db = {
       'M Rayquaza EX - 2021 Pokemon Celebrations Classic Collection, Roaring Skies #76/108, graded PSA 10 GEM MINT (cert #138619249). The iconic Emerald Break Mega Rayquaza full art, reprinted for the 25th Anniversary Celebrations set with the Pikachu stamp. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
       23500, 'CRG-MRAYQUAZA-EX-CELEB-76-PSA10', '/images/mrayquaza-ex-celebrations-76-classic-psa10.jpg', 'PSA 10');
 
+    // New add (Aug 24 2026): Snorlax VMAX SWSH #142 Full Art PSA 10
+    addIfMissing('pokemon',
+      'Snorlax VMAX 2020 Pokemon Sword & Shield #142/202 Full Art PSA 10',
+      'snorlax-vmax-swsh-142-full-art-psa10',
+      'Snorlax VMAX - 2020 Pokemon Sword & Shield base set #142/202, Full Art Secret Rare, graded PSA 10 GEM MINT (cert #156484489). The Gigantamax G-Max Fall Snorlax, 340 HP, one of the most loved full arts of the SWSH era. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      24000, 'CRG-SNORLAX-VMAX-SWSH-142-PSA10', '/images/snorlax-vmax-swsh-142-full-art-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
