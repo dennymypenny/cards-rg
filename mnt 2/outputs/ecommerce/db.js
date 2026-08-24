@@ -1327,6 +1327,11 @@ const db = {
         .run(removedSlug);
     }
 
+    // REMOVED (Aug 24 2026): per Denny - Dwyane Wade 2003-04 Topps Chrome RC #111
+    // off the site + eBay (Reshiram was already removed Aug 10)
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('wade-2003-topps-chrome-rc-111-lot-of-2');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
