@@ -1362,6 +1362,10 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('mewtwo-gx-sv59-hidden-fates-psa10');
 
+    // REMOVED (Aug 26 2026): per Denny - Messi Fileteado AFA Disc off the site
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('messi-2022-topps-arg-fileteado-afa-disc-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
