@@ -1358,6 +1358,10 @@ const db = {
       'Snorlax VMAX - 2020 Pokemon Sword & Shield base set #142/202, Full Art Secret Rare, graded PSA 10 GEM MINT (cert #156484489). The Gigantamax G-Max Fall Snorlax, 340 HP, one of the most loved full arts of the SWSH era. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
       24000, 'CRG-SNORLAX-VMAX-SWSH-142-PSA10', '/images/snorlax-vmax-swsh-142-full-art-psa10.jpg', 'PSA 10');
 
+    // REMOVED (Aug 26 2026): per Denny - Mewtwo GX SV59 Hidden Fates off the site
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('mewtwo-gx-sv59-hidden-fates-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
