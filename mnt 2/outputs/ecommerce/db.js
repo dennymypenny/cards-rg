@@ -1366,6 +1366,15 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('messi-2022-topps-arg-fileteado-afa-disc-psa10');
 
+    // REMOVED (Aug 26 2026): per Denny - M Blastoise EX and Dragonite EX off site + eBay
+    for (const removedSlug of [
+      'mblastoise-ex-2016-evolutions-102-psa10',
+      'dragonite-ex-evolutions-106-fa-psa10'
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(removedSlug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
