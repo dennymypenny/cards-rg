@@ -1375,6 +1375,16 @@ const db = {
         .run(removedSlug);
     }
 
+    // OUT (Aug 27 2026): per Denny - Ace SP alt art, M Rayquaza EX, Snorlax VMAX
+    for (const removedSlug of [
+      'portgas-d-ace-op08-013-sp-alt-art-psa10',
+      'mrayquaza-ex-celebrations-76-classic-psa10',
+      'snorlax-vmax-swsh-142-full-art-psa10'
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(removedSlug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
