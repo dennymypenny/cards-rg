@@ -1385,6 +1385,31 @@ const db = {
         .run(removedSlug);
     }
 
+    // New adds (Aug 28 2026): Charizard ex OBF SIR, Umbreon V alt art CGC 9.5, Sylveon VMAX alt art, Dragonite VSTAR rainbow
+    addIfMissing('pokemon',
+      'Charizard ex 2023 Pokemon Obsidian Flames #223/197 Special Illustration Rare PSA 10',
+      'charizard-ex-obf-223-sir-psa10',
+      'Charizard ex - 2023 Pokemon Scarlet & Violet: Obsidian Flames, Special Illustration Rare #223/197, graded PSA 10 GEM MINT (cert #102993338). The Tera Charizard ex SIR, the flagship chase of the modern era, with the shattered-crystal artwork blazing edge to edge. 330 HP, Infernal Reign, Burning Darkness. Gem mint, razor sharp in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      80000, 'CRG-CHARIZARD-EX-OBF-223-SIR-PSA10', '/images/charizard-ex-obf-223-sir-psa10.jpg', 'PSA 10');
+
+    addIfMissing('pokemon',
+      'Umbreon V 2021 Pokemon Evolving Skies #189/203 Alt Art CGC 9.5',
+      'umbreon-v-evs-189-alt-art-cgc95',
+      'Umbreon V - 2021 Pokemon Sword & Shield: Evolving Skies, Alternate Art Ultra Rare #189/203, graded CGC 9.5 GEM MINT (cert #0015596695, subgrades 9 centering / 9.5 corners / 9.5 edges / 10 surface). The Moonlit Alley Umbreon, one of the most iconic alt arts in the hobby, from the set that defined the modern chase. 200 HP, Single Strike. Ships in the CGC slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      72000, 'CRG-UMBREON-V-EVS-189-ALT-CGC95', '/images/umbreon-v-evs-189-alt-art-cgc95.jpg', 'CGC 9.5');
+
+    addIfMissing('pokemon',
+      'Sylveon VMAX 2021 Pokemon Evolving Skies #212/203 Alt Art Secret PSA 10',
+      'sylveon-vmax-evs-212-alt-art-psa10',
+      'Sylveon VMAX - 2021 Pokemon Sword & Shield: Evolving Skies, Alternate Art Secret Rare #212/203, graded PSA 10 GEM MINT (cert #143637915). The cafe-scene Sylveon VMAX alt art with Eevee, Vaporeon and Marshadow, a top-tier Evolving Skies grail. 310 HP, Rapid Strike. Gem mint in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      68000, 'CRG-SYLVEON-VMAX-EVS-212-ALT-PSA10', '/images/sylveon-vmax-evs-212-alt-art-psa10.jpg', 'PSA 10');
+
+    addIfMissing('pokemon',
+      'Dragonite VSTAR 2022 Pokemon GO #081/078 Rainbow Secret Rare PSA 10',
+      'dragonite-vstar-pgo-081-rainbow-psa10',
+      'Dragonite VSTAR - 2022 Pokemon GO, Rainbow Rare Secret #081/078, graded PSA 10 GEM MINT (cert #140793283). Full art rainbow foil Dragonite VSTAR, 280 HP, Giga Impact and the Draconic Star VSTAR Power. Gem mint in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      12000, 'CRG-DRAGONITE-VSTAR-PGO-081-RAINBOW-PSA10', '/images/dragonite-vstar-pgo-081-rainbow-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
