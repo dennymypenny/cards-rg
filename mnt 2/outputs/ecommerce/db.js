@@ -1385,7 +1385,7 @@ const db = {
         .run(removedSlug);
     }
 
-    // New adds (Aug 28 2026): Charizard ex OBF SIR, Umbreon V alt art CGC 9.5, Sylveon VMAX alt art, Dragonite VSTAR rainbow
+    // New adds (Aug 28 2026): Charizard ex OBF SIR, Umbreon V alt art BGS 9.5, Sylveon VMAX alt art, Dragonite VSTAR rainbow
     addIfMissing('pokemon',
       'Charizard ex 2023 Pokemon Obsidian Flames #223/197 Special Illustration Rare PSA 10',
       'charizard-ex-obf-223-sir-psa10',
@@ -1393,10 +1393,14 @@ const db = {
       80000, 'CRG-CHARIZARD-EX-OBF-223-SIR-PSA10', '/images/charizard-ex-obf-223-sir-psa10.jpg', 'PSA 10');
 
     addIfMissing('pokemon',
-      'Umbreon V 2021 Pokemon Evolving Skies #189/203 Alt Art CGC 9.5',
-      'umbreon-v-evs-189-alt-art-cgc95',
-      'Umbreon V - 2021 Pokemon Sword & Shield: Evolving Skies, Alternate Art Ultra Rare #189/203, graded CGC 9.5 GEM MINT (cert #0015596695, subgrades 9 centering / 9.5 corners / 9.5 edges / 10 surface). The Moonlit Alley Umbreon, one of the most iconic alt arts in the hobby, from the set that defined the modern chase. 200 HP, Single Strike. Ships in the CGC slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
-      72000, 'CRG-UMBREON-V-EVS-189-ALT-CGC95', '/images/umbreon-v-evs-189-alt-art-cgc95.jpg', 'CGC 9.5');
+      'Umbreon V 2021 Pokemon Evolving Skies #189/203 Alt Art BGS 9.5',
+      'umbreon-v-evs-189-alt-art-bgs95',
+      'Umbreon V - 2021 Pokemon Sword & Shield: Evolving Skies, Alternate Art Ultra Rare #189/203, graded Beckett BGS 9.5 GEM MINT (cert #0015596695, subgrades 9 centering / 9.5 corners / 9.5 edges / 10 surface). The Moonlit Alley Umbreon, one of the most iconic alt arts in the hobby, from the set that defined the modern chase. 200 HP, Single Strike. Ships in the BGS slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      72000, 'CRG-UMBREON-V-EVS-189-ALT-BGS95', '/images/umbreon-v-evs-189-alt-art-bgs95.jpg', 'BGS 9.5');
+
+    // FIX (Aug 28 2026): Umbreon was briefly seeded as CGC - it is Beckett; retire the old slug if it exists
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('umbreon-v-evs-189-alt-art-cgc95');
 
     addIfMissing('pokemon',
       'Sylveon VMAX 2021 Pokemon Evolving Skies #212/203 Alt Art Secret PSA 10',
