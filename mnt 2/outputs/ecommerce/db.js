@@ -1423,12 +1423,15 @@ const db = {
         .run(removedSlug);
     }
 
-    // ADDED (Aug 29 2026): per Denny - 3-card sequential PSA 10 Special DON!! lot, site $350 / eBay $380
+    // ADDED (Aug 29 2026): per Denny - 3-card sequential PSA 10 Special DON!! lot, site $450 / eBay $475 (repriced same day from 350/380)
     addIfMissing('one-piece',
-      'Luffy Ace Sabo 2025 One Piece Special DON!! Set V1 V2 V3 PSA 10 Sequential Lot (3 Cards)',
+      'Luffy Ace Sabo 2025 One Piece Special DON!! Set V1 V2 V3 PSA 10 Serialized Lot (3 Cards)',
       'luffy-ace-sabo-special-don-set-psa10-lot',
       'All for One or Nothing - the three sworn brothers together. Lot of 3 x 2025 One Piece Card Game EN Special DON!! Cards: Monkey D. Luffy (Special DON!! Set V1), Portgas D. Ace (Special DON!! Set V2) and Sabo (Special DON!! Set V3), each graded PSA 10 GEM MINT with SEQUENTIAL cert numbers 169077719 / 169077720 / 169077721 - serialized together, submitted and graded as a set. Sold ONLY as the complete set of three, all or nothing. Black-and-white silhouette DON!! art with each brother in front of his crew flag. Gem mint in hand. Ships in the PSA slabs, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
-      35000, 'CRG-LUFFY-ACE-SABO-SPECIAL-DON-PSA10-LOT', '/images/luffy-ace-sabo-special-don-set-psa10-lot.jpg', 'PSA 10');
+      45000, 'CRG-LUFFY-ACE-SABO-SPECIAL-DON-PSA10-LOT', '/images/luffy-ace-sabo-special-don-set-psa10-lot.jpg', 'PSA 10');
+
+    // REPRICE (Aug 29 2026): per Denny - Luffy/Ace/Sabo lot 350 -> 450
+    prepare('UPDATE products SET price = 45000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 45000').run('luffy-ace-sabo-special-don-set-psa10-lot');
 
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
