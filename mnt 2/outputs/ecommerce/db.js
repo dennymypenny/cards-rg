@@ -1414,6 +1414,15 @@ const db = {
       'Dragonite VSTAR - 2022 Pokemon GO, Rainbow Rare Secret #081/078, graded PSA 10 GEM MINT (cert #140793283). Full art rainbow foil Dragonite VSTAR, 280 HP, Giga Impact and the Draconic Star VSTAR Power. Gem mint in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
       12000, 'CRG-DRAGONITE-VSTAR-PGO-081-RAINBOW-PSA10', '/images/dragonite-vstar-pgo-081-rainbow-psa10.jpg', 'PSA 10');
 
+    // OUT (Aug 29 2026): per Denny - site only: Gengar EX Phantom Forces #34, Nami OP09-070 Premium Vol.4
+    for (const removedSlug of [
+      'gengar-ex-phantom-forces-34-psa10',
+      'nami-op09-070-premium-vol4-psa10',
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(removedSlug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
