@@ -1433,6 +1433,27 @@ const db = {
     // REPRICE (Aug 29 2026): per Denny - Luffy/Ace/Sabo lot 350 -> 450
     prepare('UPDATE products SET price = 45000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 45000').run('luffy-ace-sabo-special-don-set-psa10-lot');
 
+    // ADDED (Aug 31 2026): per Denny - Luffy OP03-070 Judge Pack Vol.2 PSA 10, site $560 / eBay $600
+    addIfMissing('one-piece',
+      'Monkey D. Luffy 2023 One Piece OP03-070 Judge Pack Vol. 2 Promo PSA 10',
+      'luffy-op03-070-judge-vol2-psa10',
+      'Monkey D. Luffy OP03-070 from the 2023 One Piece Card Game EN Judge Pack Vol. 2, graded PSA 10 GEM MINT (cert #158803051). Tournament-only judge promo with the full-art JUDGE stamp - handed out exclusively at official events and marked NOT FOR SALE, making it one of the tougher Luffy promos to find in a gem mint holder. Water Seven / Straw Hat Crew, 7000 power. Dead centered with clean edges and a flawless surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      56000, 'CRG-LUFFY-OP03-070-JUDGE-V2-PSA10', '/images/luffy-op03-070-judge-vol2-psa10.jpg', 'PSA 10');
+
+    // ADDED (Aug 31 2026): per Denny - Mewtwo EX XY Evolutions #52 PSA 10, site $200 / eBay $230
+    addIfMissing('pokemon',
+      'Mewtwo EX 2016 Pokemon XY Evolutions #52/108 Ultra Rare Holo PSA 10',
+      'mewtwo-ex-evolutions-52-psa10',
+      'Mewtwo EX #52/108 from the 2016 Pokemon XY Evolutions set, graded PSA 10 GEM MINT (cert #56883644). The chase Mewtwo of Evolutions - 180 HP Basic with Energy Absorption, Regeneration and Psyburn, on the classic full-bleed holo EX treatment. Sharp corners, clean edges and a flawless mirror surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      20000, 'CRG-MEWTWO-EX-EVO-52-PSA10', '/images/mewtwo-ex-evolutions-52-psa10.jpg', 'PSA 10');
+
+    // ADDED (Aug 31 2026): per Denny - Shiny Rayquaza GX 177a PSA 10, site $800 / eBay $840
+    addIfMissing('pokemon',
+      'Shiny Rayquaza GX 2018 Pokemon Sun & Moon #177a/168 Full Art PSA 10',
+      'rayquaza-gx-177a-celestial-storm-fa-psa10',
+      'Shiny Rayquaza GX #177a/168 Full Art, graded PSA 10 GEM MINT (cert #113416587). The black shiny Rayquaza GX from the Hidden Fates Premium Collection - 180 HP Basic with Stormy Winds, Dragon Break and Tempest GX, on the full-art textured treatment. One of the most recognizable modern Rayquaza chase cards and a tough one in a 10 holder. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
+      80000, 'CRG-RAYQUAZA-GX-177A-FA-PSA10', '/images/rayquaza-gx-177a-celestial-storm-fa-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
