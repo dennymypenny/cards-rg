@@ -1454,6 +1454,14 @@ const db = {
       'Shiny Rayquaza GX #177a/168 Full Art, graded PSA 10 GEM MINT (cert #113416587). The black shiny Rayquaza GX from the Hidden Fates Premium Collection - 180 HP Basic with Stormy Winds, Dragon Break and Tempest GX, on the full-art textured treatment. One of the most recognizable modern Rayquaza chase cards and a tough one in a 10 holder. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)',
       80000, 'CRG-RAYQUAZA-GX-177A-FA-PSA10', '/images/rayquaza-gx-177a-celestial-storm-fa-psa10.jpg', 'PSA 10');
 
+    // Removed from sale (Aug 31 2026): per Denny - all Messi/Ronaldo cards off the site
+    for (const slug of [
+      'messi-ronaldo-2022-leaf-legends-double-isa10',
+      'messi-2022-donruss-pitch-kings-green-parallel-sgc10',
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
