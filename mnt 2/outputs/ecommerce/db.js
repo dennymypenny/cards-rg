@@ -1462,6 +1462,10 @@ const db = {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
     }
 
+    // OUT (Aug 31 2026): per Denny - remove from everything (site + eBay): Gengar VMAX Fusion Strike #157
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+      .run('gengar-vmax-fusion-strike-157-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
