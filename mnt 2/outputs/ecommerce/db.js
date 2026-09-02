@@ -1466,6 +1466,11 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
       .run('gengar-vmax-fusion-strike-157-psa10');
 
+    // Removed from sale (Sep 2 2026): per Denny - Luffy Ace Sabo Special DON PSA 10 lot off the website (eBay untouched)
+    for (const slug of ['luffy-ace-sabo-special-don-set-psa10-lot']) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
