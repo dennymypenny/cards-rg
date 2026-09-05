@@ -1471,6 +1471,17 @@ const db = {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
     }
 
+    // Removed from sale (Sep 5 2026): per Denny - Charizard ex OBF SIR, Buggy OP09-051 Wanted Poster BGS 10,
+    // Shanks OP09-004 Wanted Alt Art, Gol D. Roger OP09-118 (site + eBay)
+    for (const slug of [
+      'charizard-ex-obf-223-sir-psa10',
+      'buggy-op09-051-wanted-poster-sp-bgs10',
+      'shanks-op09-004-wanted-alt-art-psa10',
+      'gol-d-roger-op09-118-psa10',
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
