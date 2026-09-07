@@ -1502,6 +1502,14 @@ const db = {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
     }
 
+    // Removed from sale (Sep 7 2026, PM #2): per Denny - Luffy OP13-118 Alt-Art, Kaido ST04-003 Wanted Alt Art (site; neither on eBay)
+    for (const slug of [
+      'luffy-op13-118-psa10',
+      'kaido-st04-003-wanted-alt-art-psa10',
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
