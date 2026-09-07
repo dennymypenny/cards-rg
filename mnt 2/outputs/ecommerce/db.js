@@ -1482,6 +1482,17 @@ const db = {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
     }
 
+    // Removed from sale (Sep 7 2026): per Denny - Zoro OP07-113 Illustration Box Vol.3, Buggy OP09-051 Alt Art,
+    // Shanks OP09-004 2nd Anniversary BGS 10, Tony Tony Chopper ST29-007 Alt Art (site + eBay)
+    for (const slug of [
+      'zoro-op07-113-illustration-box-vol3-psa10',
+      'buggy-op09-051-alt-art-psa10',
+      'shanks-op09-004-2nd-anniversary-bgs10',
+      'chopper-st29-007-alt-art-psa10',
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
