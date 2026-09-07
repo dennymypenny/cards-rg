@@ -1493,6 +1493,15 @@ const db = {
       prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
     }
 
+    // Removed from sale (Sep 7 2026, PM): per Denny - Shiny Rayquaza GX 177a, Dragonite VSTAR PGO 081, Venusaur Celebrations 15 (site + eBay; none were live on eBay)
+    for (const slug of [
+      'rayquaza-gx-177a-celestial-storm-fa-psa10',
+      'dragonite-vstar-pgo-081-rainbow-psa10',
+      'venusaur-celebrations-15-classic-collection-psa10',
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
