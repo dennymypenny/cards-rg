@@ -1513,6 +1513,97 @@ const db = {
     // Removed from sale (Sep 7 2026, PM #3): per Denny - Boa Hancock OP02-059 Gift Collection $315 (site; not on eBay)
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('boa-hancock-op02-059-gift-collection-psa10');
 
+    // ADDED (Sep 9 2026): per Denny - Mewtwo 2016 Pokemon XY Evolutions #51/108 Holo Rare PSA 10, site $450 / eBay $470
+    addIfMissing('pokemon',
+      "Mewtwo 2016 Pokemon XY Evolutions #51/108 Holo Rare PSA 10",
+      'mewtwo-evolutions-51-holo-psa10',
+      "Mewtwo #51/108 Holo Rare from the 2016 Pokemon XY Evolutions set, graded PSA 10 GEM MINT (cert #62047105). The Ken Sugimori Base Set Mewtwo art reborn for the 20th anniversary - Psychic and Barrier on the classic yellow-border holo, 130 HP. Holo swirl-era nostalgia in a gem mint holder with sharp corners, clean edges and a flawless surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      45000, 'CRG-MEWTWO-EVO-51-PSA10', '/images/mewtwo-evolutions-51-holo-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Mew V 2020 Pokemon SWSH Darkness Ablaze #069/189 Ultra Rare PSA 10, site $165 / eBay $185
+    addIfMissing('pokemon',
+      "Mew V 2020 Pokemon SWSH Darkness Ablaze #069/189 Ultra Rare PSA 10",
+      'mew-v-darkness-ablaze-069-psa10',
+      "Mew V #069/189 from the 2020 Pokemon Sword & Shield Darkness Ablaze set, graded PSA 10 GEM MINT (cert #70068891). The PLANETA Mochizuki Mew V floating through the forest - 180 HP Basic with X Ball on the full-bleed holo V treatment. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      16500, 'CRG-MEW-V-DAA-069-PSA10', '/images/mew-v-darkness-ablaze-069-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Zapdos 2016 Pokemon XY Evolutions #42/108 Reverse Holo PSA 10, site $450 / eBay $470
+    addIfMissing('pokemon',
+      "Zapdos 2016 Pokemon XY Evolutions #42/108 Reverse Holo PSA 10",
+      'zapdos-evolutions-42-reverse-foil-psa10',
+      "Zapdos #42/108 Reverse Holo from the 2016 Pokemon XY Evolutions set, graded PSA 10 GEM MINT (cert #62047095). The Fossil-era Ken Sugimori Zapdos on the Evolutions reverse-foil treatment - Thunder and Thunderbolt, 110 HP. Reverse holos from Evolutions are notoriously tough to grade clean, which makes a PSA 10 a real standout. Sharp corners, clean edges and a flawless foil surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      45000, 'CRG-ZAPDOS-EVO-42-RH-PSA10', '/images/zapdos-evolutions-42-reverse-foil-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Charizard V 2020 Pokemon SWSH050 Champion's Path Elite Trainer Box Promo PSA 10, site $135 / eBay $155
+    addIfMissing('pokemon',
+      "Charizard V 2020 Pokemon SWSH050 Champion's Path Elite Trainer Box Promo PSA 10",
+      'charizard-v-swsh050-champions-path-etb-promo-psa10',
+      "Charizard V SWSH050 Black Star Promo from the 2020 Pokemon Champion's Path Elite Trainer Box, graded PSA 10 GEM MINT (cert #60277177). The full-art Charizard V promo that was the whole reason Champion's Path ETBs flew off shelves - 220 HP with Claw Slash and Fire Spin on the textured full-art treatment. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      13500, 'CRG-CHARIZARD-V-SWSH050-PSA10', '/images/charizard-v-swsh050-champions-path-etb-promo-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Rayquaza 2020 Pokemon SWSH Vivid Voltage #138/185 Amazing Rare PSA 10, site $340 / eBay $360
+    addIfMissing('pokemon',
+      "Rayquaza 2020 Pokemon SWSH Vivid Voltage #138/185 Amazing Rare PSA 10",
+      'rayquaza-vivid-voltage-138-amazing-rare-psa10',
+      "Rayquaza #138/185 Amazing Rare from the 2020 Pokemon Sword & Shield Vivid Voltage set, graded PSA 10 GEM MINT (cert #59952586). The rainbow-glitter Amazing Rare Rayquaza with Amazing Burst - one of the most popular cards of the Sword & Shield era and a tough one to find with clean edges. Sharp corners and a flawless sparkle surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      34000, 'CRG-RAYQUAZA-VIV-138-AR-PSA10', '/images/rayquaza-vivid-voltage-138-amazing-rare-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Monkey D. Dragon 2024 One Piece OP09 EN OP07-015 Special Alternate Art PSA 10, site $325 / eBay $345
+    addIfMissing('one-piece',
+      "Monkey D. Dragon 2024 One Piece OP09 EN OP07-015 Special Alternate Art PSA 10",
+      'monkey-d-dragon-op07-015-sp-alt-art-psa10',
+      "Monkey D. Dragon OP07-015 Special Alternate Art (SP) from the 2024 One Piece Card Game EN OP09 Emperors in the New World set, graded PSA 10 GEM MINT (cert #108741847). The red-foil geometric SP treatment of the Revolutionary Army leader - 9000 power, Rush, On Play gives up to 2 rested DON!! to your Leader or a Character. One of the harder SP pulls of OP09. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      32500, 'CRG-DRAGON-OP07-015-SP-PSA10', '/images/monkey-d-dragon-op07-015-sp-alt-art-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - M Venusaur EX 2016 Pokemon XY Evolutions #100/108 Full Art PSA 10, site $345 / eBay $365
+    addIfMissing('pokemon',
+      "M Venusaur EX 2016 Pokemon XY Evolutions #100/108 Full Art PSA 10",
+      'mvenusaur-ex-evolutions-100-fa-psa10',
+      "M Venusaur EX #100/108 Full Art from the 2016 Pokemon XY Evolutions set, graded PSA 10 GEM MINT (cert #84807378). The Mega Venusaur full art with the Japanese Crisis Vine text splash - 230 HP, Crisis Vine paralyzes and poisons. The rarest Venusaur in the Evolutions set and a tough full art to grade clean. Sharp corners, clean edges and a flawless textured surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      34500, 'CRG-MVENUSAUR-EX-EVO-100-FA-PSA10', '/images/mvenusaur-ex-evolutions-100-fa-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Glaceon VMAX 2021 Pokemon SWSH Evolving Skies #209/203 Alt Art Secret PSA 10, site $700 / eBay $720
+    addIfMissing('pokemon',
+      "Glaceon VMAX 2021 Pokemon SWSH Evolving Skies #209/203 Alt Art Secret PSA 10",
+      'glaceon-vmax-evs-209-alt-art-psa10',
+      "Glaceon VMAX #209/203 Alternate Art Secret Rare from the 2021 Pokemon Sword & Shield Evolving Skies set, graded PSA 10 GEM MINT (cert #67552756). One of the Evolving Skies Eeveelution alt arts - Glaceon at the water with Marill and Pikachu, 310 HP with Crystal Veil and Max Icicle. A top modern chase card that keeps climbing. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      70000, 'CRG-GLACEON-VMAX-EVS-209-PSA10', '/images/glaceon-vmax-evs-209-alt-art-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Shiny Zygarde GX 2019 Pokemon Hidden Fates Shiny Vault SV65/SV94 Full Art PSA 10, site $250 / eBay $270
+    addIfMissing('pokemon',
+      "Shiny Zygarde GX 2019 Pokemon Hidden Fates Shiny Vault SV65/SV94 Full Art PSA 10",
+      'zygarde-gx-sv65-hidden-fates-psa10',
+      "Shiny Zygarde GX SV65/SV94 Full Art from the 2019 Pokemon Sun & Moon Hidden Fates Shiny Vault, graded PSA 10 GEM MINT (cert #62047109). The white shiny Complete Forme Zygarde on the Shiny Vault full-art treatment - 200 HP with Cell Connector, Land's Wrath and Verdict GX. Sharp corners, clean edges and a flawless textured surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      25000, 'CRG-ZYGARDE-GX-SV65-PSA10', '/images/zygarde-gx-sv65-hidden-fates-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Mimikyu V 2022 Pokemon SWSH Brilliant Stars Trainer Gallery TG16/TG30 Full Art PSA 10, site $520 / eBay $540
+    addIfMissing('pokemon',
+      "Mimikyu V 2022 Pokemon SWSH Brilliant Stars Trainer Gallery TG16/TG30 Full Art PSA 10",
+      'mimikyu-v-brs-tg16-trainer-gallery-psa10',
+      "Mimikyu V TG16/TG30 Trainer Gallery Full Art from the 2022 Pokemon Sword & Shield Brilliant Stars set, graded PSA 10 GEM MINT (cert #155563478). Acerola and Mimikyu in the haunted room - the Trainer Gallery card that became one of the most wanted Mimikyu cards ever printed. 160 HP with Dummy Doll and Jealous Eyes. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      52000, 'CRG-MIMIKYU-V-BRS-TG16-PSA10', '/images/mimikyu-v-brs-tg16-trainer-gallery-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Monkey D. Luffy 2023 One Piece OP05-119 Gear 5 Alternate Art Manga PSA 10, site $700 / eBay $720
+    addIfMissing('one-piece',
+      "Monkey D. Luffy 2023 One Piece OP05-119 Gear 5 Alternate Art Manga PSA 10",
+      'luffy-op05-119-alt-art-psa10',
+      "Monkey D. Luffy OP05-119 Alternate Art from the 2023 One Piece Card Game EN OP05 Awakening of the New Era set, graded PSA 10 GEM MINT (cert #162129528). The Gear 5 manga-panel alt art with the GEAR 5 lettering - cost 10, 12000 power, the extra-turn Luffy that headlines the set. One of the most sought-after English One Piece cards. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      70000, 'CRG-LUFFY-OP05-119-ALT-PSA10', '/images/luffy-op05-119-alt-art-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Leafeon VMAX 2021 Pokemon SWSH Evolving Skies #205/203 Alt Art Secret PSA 10, site $700 / eBay $720
+    addIfMissing('pokemon',
+      "Leafeon VMAX 2021 Pokemon SWSH Evolving Skies #205/203 Alt Art Secret PSA 10",
+      'leafeon-vmax-evs-205-alt-art-psa10',
+      "Leafeon VMAX #205/203 Alternate Art Secret Rare from the 2021 Pokemon Sword & Shield Evolving Skies set, graded PSA 10 GEM MINT (cert #82220907). Leafeon in the hay field at sunset by Hyogonosuke - 310 HP with Grass Knot and Max Leaf. One of the Evolving Skies Eeveelution alt arts every collector is chasing. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      70000, 'CRG-LEAFEON-VMAX-EVS-205-PSA10', '/images/leafeon-vmax-evs-205-alt-art-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026): per Denny - Shiny Charmander 2019 Pokemon Hidden Fates Shiny Vault SV6/SV94 Holo PSA 10, site $270 / eBay $290
+    addIfMissing('pokemon',
+      "Shiny Charmander 2019 Pokemon Hidden Fates Shiny Vault SV6/SV94 Holo PSA 10",
+      'charmander-sv6-hidden-fates-shiny-psa10',
+      "Shiny Charmander SV6/SV94 Holo from the 2019 Pokemon Sun & Moon Hidden Fates Shiny Vault, graded PSA 10 GEM MINT (cert #56934448). The gold shiny Charmander on the Shiny Vault sparkle holo - 70 HP with Fire Fang, and the starter of one of the most popular shiny lines in the hobby. Sharp corners, clean edges and a flawless surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      27000, 'CRG-CHARMANDER-SV6-HF-PSA10', '/images/charmander-sv6-hidden-fates-shiny-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
