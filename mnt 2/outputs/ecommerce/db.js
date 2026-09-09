@@ -1604,6 +1604,34 @@ const db = {
       "Shiny Charmander SV6/SV94 Holo from the 2019 Pokemon Sun & Moon Hidden Fates Shiny Vault, graded PSA 10 GEM MINT (cert #56934448). The gold shiny Charmander on the Shiny Vault sparkle holo - 70 HP with Fire Fang, and the starter of one of the most popular shiny lines in the hobby. Sharp corners, clean edges and a flawless surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
       27000, 'CRG-CHARMANDER-SV6-HF-PSA10', '/images/charmander-sv6-hidden-fates-shiny-psa10.jpg', 'PSA 10');
 
+    // ADDED (Sep 9 2026, PM): per Denny - Edward Newgate Whitebeard 2025 One Piece OP13-042 Alternate Art PSA 10, site $90 / eBay $90
+    addIfMissing('one-piece',
+      "Edward Newgate Whitebeard 2025 One Piece OP13-042 Alternate Art PSA 10",
+      'edward-newgate-op13-042-alt-art-psa10',
+      "Edward Newgate (Whitebeard) OP13-042 Alternate Art from the 2025 One Piece Card Game EN OP13 Carrying on His Will set, graded PSA 10 GEM MINT (cert #153136706). The Four Emperors / Whitebeard Pirates - cost 10, 12000 power, Blocker, On Play draw 2 and give up to 2 rested DON!! to your Leader and a Character. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      9000, 'CRG-WHITEBEARD-OP13-042-ALT-PSA10', '/images/edward-newgate-op13-042-alt-art-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026, PM): per Denny - Divine Departure 2025 One Piece OP13-076 Manga Alternate Art PSA 10, site $145 / eBay $145
+    addIfMissing('one-piece',
+      "Divine Departure 2025 One Piece OP13-076 Manga Alternate Art PSA 10",
+      'divine-departure-op13-076-alt-art-psa10',
+      "Divine Departure OP13-076 Alternate Art from the 2025 One Piece Card Game EN OP13 Carrying on His Will set, graded PSA 10 GEM MINT (cert #152960217). The manga-panel alt art Event card of Gol D. Roger's Divine Departure - rest 5 DON!! to give an opponent's Character -8000 power, with a +3000 Counter. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      14500, 'CRG-DIVINE-DEPARTURE-OP13-076-PSA10', '/images/divine-departure-op13-076-alt-art-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026, PM): per Denny - Ground Death 2026 One Piece OP14-096 Manga Alternate Art PSA 10, site $145 / eBay $145
+    addIfMissing('one-piece',
+      "Ground Death 2026 One Piece OP14-096 Manga Alternate Art PSA 10",
+      'ground-death-op14-096-alt-art-psa10',
+      "Ground Death OP14-096 Alternate Art from the 2026 One Piece Card Game EN OP14 The Azure Sea's Seven set, graded PSA 10 GEM MINT (cert #153136722). The manga-panel alt art Event card - rest 2 DON!! to negate an opponent's Character with cost 5 or less, +4000 Counter with 10+ cards in trash. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      14500, 'CRG-GROUND-DEATH-OP14-096-PSA10', '/images/ground-death-op14-096-alt-art-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 9 2026, PM): per Denny - Shanks 2025 One Piece OP11 ST16-004 Special Alternate Art PSA 10, site $400 / eBay $400
+    addIfMissing('one-piece',
+      "Shanks 2025 One Piece OP11 ST16-004 Special Alternate Art PSA 10",
+      'shanks-st16-004-sp-alt-art-op11-psa10',
+      "Shanks ST16-004 Special Alternate Art (SP) from the 2025 One Piece Card Game EN OP11 A Fist of Divine Speed set, graded PSA 10 GEM MINT (cert #165183070). The stained-glass SP treatment of the Red-Haired Emperor - cost 9, 11000 power, On Play K.O. up to 1 of your opponent's rested Characters. One of the standout SP pulls of OP11. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      40000, 'CRG-SHANKS-ST16-004-SP-PSA10', '/images/shanks-st16-004-sp-alt-art-op11-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
