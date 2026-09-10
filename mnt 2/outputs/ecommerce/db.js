@@ -1632,6 +1632,9 @@ const db = {
       "Shanks ST16-004 Special Alternate Art (SP) from the 2025 One Piece Card Game EN OP11 A Fist of Divine Speed set, graded PSA 10 GEM MINT (cert #165183070). The stained-glass SP treatment of the Red-Haired Emperor - cost 9, 11000 power, On Play K.O. up to 1 of your opponent's rested Characters. One of the standout SP pulls of OP11. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
       40000, 'CRG-SHANKS-ST16-004-SP-PSA10', '/images/shanks-st16-004-sp-alt-art-op11-psa10.jpg', 'PSA 10');
 
+    // Removed from sale (Sep 10 2026): per Denny - Zapdos 2016 XY Evolutions #42/108 Reverse Holo PSA 10 (site + eBay)
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('zapdos-evolutions-42-reverse-foil-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
