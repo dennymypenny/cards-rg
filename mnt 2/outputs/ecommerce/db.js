@@ -1635,6 +1635,13 @@ const db = {
     // Removed from sale (Sep 10 2026): per Denny - Zapdos 2016 XY Evolutions #42/108 Reverse Holo PSA 10 (site + eBay)
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('zapdos-evolutions-42-reverse-foil-psa10');
 
+    // ADDED (Sep 10 2026): per Denny - Rayquaza VMAX 2022 Silver Tempest Trainer Gallery TG29 Gold Secret Rare PSA 10, site $195 / eBay $215
+    addIfMissing('pokemon',
+      "Rayquaza VMAX 2022 Silver Tempest Trainer Gallery TG29 Gold Secret Rare PSA 10",
+      'rayquaza-vmax-silver-tempest-tg29-gold-psa10',
+      "Rayquaza VMAX TG29/TG30 Gold Secret Rare from the 2022 Pokemon Sword & Shield: Silver Tempest Trainer Gallery, graded PSA 10 GEM MINT (cert #143198171). The gold full-art Rapid Strike Rayquaza VMAX - the final card of the Silver Tempest Trainer Gallery and one of the most chased gold secret rares of the SWSH era. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      19500, 'CRG-RAYQUAZA-VMAX-TG29-GOLD-PSA10', '/images/rayquaza-vmax-silver-tempest-tg29-gold-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
