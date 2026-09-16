@@ -1652,6 +1652,15 @@ const db = {
         .run(removedSlug);
     }
 
+    // REMOVED (Sep 16 2026): per Denny - off the site + eBay
+    for (const removedSlug of [
+      'tigger-2025-topps-chrome-disney-aqua-mini-diamonds-psa10',
+      'teach-st27-081-leader-alt-art-psa10'
+    ]) {
+      prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1')
+        .run(removedSlug);
+    }
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
