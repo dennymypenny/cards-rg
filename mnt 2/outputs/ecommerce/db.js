@@ -1661,6 +1661,13 @@ const db = {
         .run(removedSlug);
     }
 
+    // ADDED (Sep 17 2026): per Denny - Thanos 2024 Upper Deck Marvel Masterpieces '92 Platinum Blue Traxx #83 PSA 10, site $1100 / eBay $1200
+    addIfMissing('collectibles',
+      "Thanos 2024 Upper Deck Marvel Masterpieces '92 Platinum Blue Traxx #83 PSA 10",
+      'thanos-2024-marvel-masterpieces-83-platinum-blue-traxx-psa10',
+      "Thanos #83 '92 Platinum Blue Traxx parallel from the 2024 Upper Deck Marvel Masterpieces set, graded PSA 10 GEM MINT (cert #120023284). The Mad Titan on the retro 1992 Masterpieces design, hit with the electric blue circuit-pattern Traxx foil - one of the hardest-hitting Thanos cards in the modern Masterpieces run. Dead centered with sharp corners and a flawless foil surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      110000, 'CRG-THANOS-MM24-83-BLUE-TRAXX-PSA10', '/images/thanos-2024-marvel-masterpieces-83-platinum-blue-traxx-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
