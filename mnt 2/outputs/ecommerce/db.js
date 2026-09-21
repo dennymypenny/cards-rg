@@ -1671,6 +1671,20 @@ const db = {
     // REMOVED (Sep 19 2026): per Denny - Mew V off the site
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('mew-v-darkness-ablaze-069-psa10');
 
+    // ADDED (Sep 21 2026): per Denny - 1992 Spider-Man The McFarlane Era #44 Perceptions PSA 10, $2725 OBO, POP 2 but selling ONE at a time
+    addIfMissing('collectibles',
+      "1992 Spider-Man The McFarlane Era #44 Perceptions Comic Images PSA 10 (1 of 2 - Selling One)",
+      'spiderman-1992-mcfarlane-era-44-perceptions-psa10',
+      "Spider-Man #44 'Perceptions' from the 1992 Comic Images Spider-Man: The McFarlane Era set, graded PSA 10 GEM MINT (cert #66155838). Todd McFarlane's jungle-swing panel art on the classic 1992 Comic Images stock - one of the toughest cards in the set to find perfectly centered. PSA POP 2 at Gem Mint 10, and only ONE of the two is being offered here. This listing is for a SINGLE graded card (cert #66155838). The second slab shown in the photos is pictured for reference only and is NOT included in this sale. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      272500, 'CRG-SPIDERMAN-MCFARLANE-92-44-PSA10', '/images/spiderman-1992-mcfarlane-era-44-perceptions-psa10.jpg', 'PSA 10');
+
+    // ADDED (Sep 21 2026): per Denny - 1995 Marvel Metal #1 Beast PSA 10, $1250
+    addIfMissing('collectibles',
+      "1995 Marvel Metal #1 Beast Fleer PSA 10",
+      'beast-1995-marvel-metal-1-psa10',
+      "Beast #1 from the 1995 Fleer Marvel Metal set, graded PSA 10 GEM MINT (cert #66264805). The card that opens the checklist - Beast in full etched-metal foil, one of the most iconic surfaces of the entire 90s Marvel insert era and a brutal card to get back in a 10 thanks to the print lines and edge chipping this stock is known for. Dead centered with sharp corners and a clean metal surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      125000, 'CRG-BEAST-MARVELMETAL95-1-PSA10', '/images/beast-1995-marvel-metal-1-psa10.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
