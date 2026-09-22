@@ -1692,6 +1692,13 @@ const db = {
            '/images/spiderman-1992-mcfarlane-era-44-perceptions-psa10-2.jpg',
            'spiderman-1992-mcfarlane-era-44-perceptions-psa10');
 
+    // ADDED (Sep 22 2026): per Denny - SECOND copy of the Thanos Blue Traxx #83 PSA 10 (cert 160440999), $1300 site + eBay. First copy (cert 120023284) stays at $1100.
+    addIfMissing('collectibles',
+      "2024 Upper Deck Marvel Masterpieces '92 Platinum Blue Traxx #83 Thanos PSA 10 GEM MINT",
+      'thanos-2024-marvel-masterpieces-83-platinum-blue-traxx-psa10-160440999',
+      "Thanos #83 from 2024 Upper Deck Marvel Masterpieces, the '92 Platinum Blue Traxx parallel, graded PSA 10 GEM MINT (cert #160440999). The Mad Titan in his classic 1992 Masterpieces pose, wrapped in the electric blue circuit-pattern Traxx foil that makes this one of the most sought-after Thanos parallels in the modern Masterpieces run. A true Gem Mint copy: dead centered, razor-sharp corners, clean edges and a flawless foil surface in hand. Premium villain, premium grade, and Thanos never goes out of style with Marvel collectors. The exact slab pictured is the one you receive. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      130000, 'CRG-THANOS-MM24-83-BLUE-TRAXX-PSA10-160440999', '/images/thanos-2024-marvel-masterpieces-83-platinum-blue-traxx-psa10-160440999.jpg', 'PSA 10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
