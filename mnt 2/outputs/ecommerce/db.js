@@ -1699,6 +1699,9 @@ const db = {
       "Thanos #83 from 2024 Upper Deck Marvel Masterpieces, the '92 Platinum Blue Traxx parallel, graded PSA 10 GEM MINT (cert #160440999). The Mad Titan in his classic 1992 Masterpieces pose, wrapped in the electric blue circuit-pattern Traxx foil that makes this one of the most sought-after Thanos parallels in the modern Masterpieces run. A true Gem Mint copy: dead centered, razor-sharp corners, clean edges and a flawless foil surface in hand. Premium villain, premium grade, and Thanos never goes out of style with Marvel collectors. The exact slab pictured is the one you receive. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
       130000, 'CRG-THANOS-MM24-83-BLUE-TRAXX-PSA10-160440999', '/images/thanos-2024-marvel-masterpieces-83-platinum-blue-traxx-psa10-160440999.jpg', 'PSA 10');
 
+    // REMOVED (Sep 22 2026): per Denny - Ground Death OP14-096 PSA 10 sold
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('ground-death-op14-096-alt-art-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
