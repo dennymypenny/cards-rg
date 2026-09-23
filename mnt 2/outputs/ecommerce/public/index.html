@@ -134,6 +134,69 @@ nav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid rg
 .filter-left{display:flex;align-items:center;gap:.5rem}
 .filter-label{font-size:.85rem;color:var(--muted)}
 .cats-row{display:flex;gap:.4rem;flex-wrap:wrap}
+/* ── FINDER ── */
+.finder{max-width:860px;margin:0 auto;padding:3.2rem 1.25rem 1.6rem;text-align:center}
+.finder-title{font-size:2rem;font-weight:900;letter-spacing:-.01em;line-height:1.1;margin:0 0 .4rem;color:#fff}
+.finder-title em{font-style:normal;background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.finder-sub{font-size:.9rem;color:var(--muted);margin-bottom:1.2rem}
+.finder-box{display:flex;align-items:center;gap:.6rem;background:#fff;border-radius:999px;padding:.35rem .5rem .35rem 1.1rem;border:2.5px solid transparent;background:linear-gradient(#fff,#fff) padding-box,conic-gradient(from 210deg,#fdfdfd,#8e939c 12%,#ffffff 22%,#5c616b 34%,#d9dce2 46%,#ff9fc7 52%,#9fe9ff 58%,#ffffff 66%,#7a8089 78%,#f4f5f7 88%,#a3a8b1 96%,#fdfdfd) border-box;box-shadow:0 12px 40px rgba(0,0,0,.45),0 0 0 6px rgba(255,255,255,.03);transition:box-shadow .2s}
+.finder-box:focus-within{box-shadow:0 12px 40px rgba(255,45,120,.3),0 0 0 6px rgba(255,45,120,.12)}
+.finder-ico{font-size:1.05rem;opacity:.7}
+.finder-box input{flex:1;min-width:0;border:none;outline:none;background:transparent;font-family:var(--sans);font-size:1.05rem;font-weight:600;color:#12122a;padding:.55rem 0}
+.finder-box input::placeholder{color:rgba(18,18,42,.4);font-weight:500}
+.finder-clear{border:none;background:#12122a;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:.75rem;flex-shrink:0}
+.finder-quick{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;margin:.9rem 0 1.4rem}
+.quick{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.7);font-family:var(--sans);font-size:.72rem;font-weight:600;padding:.32rem .75rem;border-radius:999px;cursor:pointer;transition:.15s}
+.quick:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,240,255,.06)}
+.finder .cats-row{justify-content:center;gap:.45rem}
+.finder-meta{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.3rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.07)}
+.sort-seg{display:inline-flex;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:3px}
+.sort-seg button{border:none;background:transparent;color:rgba(255,255,255,.6);font-family:var(--sans);font-size:.72rem;font-weight:700;padding:.35rem .8rem;border-radius:999px;cursor:pointer;transition:.15s}
+.sort-seg button.act{background:#fff;color:#12122a}
+.sort-seg button:hover:not(.act){color:#fff}
+.search-note{font-size:.78rem;color:var(--cyan);margin-top:.5rem;display:none}
+@media(max-width:600px){
+  .finder{padding:2.4rem 1rem 1.2rem}
+  .finder-title{font-size:1.5rem}
+  .finder-sub{font-size:.8rem}
+  .finder-box input{font-size:.95rem}
+  .finder-quick{gap:.35rem;margin:.75rem 0 1.1rem}
+  .finder-meta{flex-direction:column;align-items:stretch;gap:.6rem;text-align:center}
+  .sort-seg{justify-content:center}
+  .sort-seg button{flex:1}
+}
+/* ── MOBILE SEARCH SHEET ── */
+.search-sheet{position:fixed;inset:0;z-index:900;background:#0d0d1a;display:none;flex-direction:column;padding:max(env(safe-area-inset-top),.9rem) 1rem 1rem;overflow:hidden}
+.search-sheet.open{display:flex}
+.ss-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem}
+.ss-title{font-size:1.25rem;font-weight:900;color:#fff}
+.ss-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff;width:34px;height:34px;border-radius:50%;font-size:.8rem;cursor:pointer}
+.ss-box{flex-shrink:0}
+.ss-quick{margin:.8rem 0 .5rem;justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;padding-bottom:.2rem}
+.ss-quick::-webkit-scrollbar{display:none}
+.ss-quick .quick{white-space:nowrap;flex-shrink:0}
+.ss-count{font-size:.72rem;color:var(--muted);margin:.3rem 0 .5rem}
+.ss-results{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:.45rem;padding-bottom:1rem}
+.ss-row{display:flex;align-items:center;gap:.75rem;background:#16162a;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:.55rem .65rem;cursor:pointer}
+.ss-row img{width:44px;height:58px;object-fit:cover;border-radius:6px;background:var(--bg3);flex-shrink:0}
+.ss-row .n{flex:1;min-width:0;font-size:.8rem;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ss-row .c{font-size:.64rem;color:var(--muted);font-weight:500;display:block;margin-top:.15rem}
+.ss-row .p{font-size:.9rem;font-weight:800;color:var(--cyan);white-space:nowrap}
+.ss-empty{text-align:center;color:var(--muted);padding:2.5rem 1rem;font-size:.85rem}
+.finder-wrap{position:relative}
+.finder-suggest{position:absolute;left:.75rem;right:.75rem;top:calc(100% + 8px);background:#fff;border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.5);padding:.4rem;display:none;z-index:20;text-align:left}
+.finder-suggest.open{display:block}
+.sg{display:flex;align-items:center;gap:.7rem;padding:.55rem .7rem;border-radius:10px;cursor:pointer;color:#12122a}
+.sg:hover,.sg.hl{background:rgba(255,45,120,.08)}
+.sg b{font-size:.9rem;font-weight:700}
+.sg b mark{background:none;color:#d40f5c}
+.sg small{margin-left:auto;font-size:.7rem;color:rgba(18,18,42,.5);white-space:nowrap}
+.sg .sg-ico{font-size:.9rem;opacity:.6}
+.ss-suggest{display:flex;gap:.4rem;overflow-x:auto;scrollbar-width:none;margin:.2rem 0 .3rem}
+.ss-suggest::-webkit-scrollbar{display:none}
+.ss-suggest:empty{display:none}
+.ss-suggest .quick{flex-shrink:0;border-color:var(--pink);color:#fff;background:rgba(255,45,120,.15)}
+.fuzzy-note{font-size:.74rem;color:var(--cyan);margin-top:.35rem}
 /* liquid-metal category chips */
 .cat-chip{position:relative;padding:.4rem 1rem;border:2px solid transparent;border-radius:999px;font-size:.8rem;font-weight:600;cursor:pointer;font-family:var(--sans);color:rgba(255,255,255,.82);background:linear-gradient(180deg,#2b2f3a 0%,#161922 55%,#0f1117 100%) padding-box,conic-gradient(from 210deg,#fdfdfd,#8e939c 12%,#ffffff 22%,#5c616b 34%,#d9dce2 46%,#ff9fc7 52%,#9fe9ff 58%,#ffffff 66%,#7a8089 78%,#f4f5f7 88%,#a3a8b1 96%,#fdfdfd) border-box;box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 -1px 0 rgba(0,0,0,.6) inset,0 4px 12px rgba(0,0,0,.35);transition:transform .15s,box-shadow .15s,color .15s}
 .cat-chip::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.2) 0%,rgba(255,255,255,.05) 45%,rgba(255,255,255,0) 60%);mix-blend-mode:screen}
@@ -373,9 +436,9 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   .nav-icon-btn{height:36px;padding:0 .85rem;font-size:.78rem}
   .nav-search .nav-icon-btn{width:36px;font-size:.9rem}
   .nav-right{gap:.45rem}
-  .nav-links{order:3;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;padding-bottom:.3rem;scrollbar-width:none}
-  .nav-links::-webkit-scrollbar{display:none}
-  .nav-link{padding:.32rem .6rem;font-size:.7rem}
+  .nav-links{display:none}
+  nav{padding:.5rem .75rem}
+  .nav-logo{margin-right:auto}
   .nav-search input{position:fixed;left:1rem;right:1rem;width:auto;top:auto}
   .slogan-band{padding:.6rem 1rem}
   .slogan-band span{font-size:.68rem;letter-spacing:.32em;padding-left:.32em}
@@ -463,7 +526,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   <div class="nav-right">
     <div class="nav-search" id="navSearch">
       <button class="nav-icon-btn" onclick="toggleSearch()" aria-label="Search">🔍</button>
-      <input type="text" id="searchInput" placeholder="Search cards…" oninput="debounceSearch()"/>
+      <input type="text" id="searchInput" placeholder="Search cards…" oninput="setFinder(this.value)"/>
     </div>
     <div class="nav-icons">
       <a class="nav-sq nav-acct" href="https://www.instagram.com/cardsrgshop" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
@@ -590,29 +653,39 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
   <div class="recent-row" id="recentRow"></div>
 </section>
 
-<!-- SECTION HEAD -->
-<div class="section-head" id="featured">
-  <h1 id="pageTitle">All Cards</h1>
-  <div class="rule"></div>
-</div>
-
-<!-- FILTER BAR -->
-<div class="filter-bar">
-  <div class="filter-left">
-    <span class="filter-label">Filter:</span>
-    <div class="cats-row" id="catsRow">
-      <button class="cat-chip act" onclick="filterCat(this,'all')">All</button>
+<!-- FINDER -->
+<section class="finder" id="featured">
+  <h1 id="pageTitle" class="finder-title">What are you hunting for?</h1>
+  <p class="finder-sub">Search by player, set, grade, or price. Or tap a category below.</p>
+  <div class="finder-wrap">
+  <div class="finder-box">
+    <span class="finder-ico">🔍</span>
+    <input type="text" id="finderInput" placeholder="Try “Messi PSA 10”, “One Piece”, or “under $100”…" oninput="finderTyped(this.value)" onfocus="if(window.innerWidth<=768){this.blur();openSearchSheet();}" autocomplete="off"/>
+    <button class="finder-clear" id="finderClear" onclick="clearFinder()" aria-label="Clear" style="display:none">✕</button>
+  </div>
+  <div class="finder-suggest" id="finderSuggest"></div>
+  </div>
+  <div class="finder-quick">
+    <button class="quick" onclick="setFinder('PSA 10')">PSA 10</button>
+    <button class="quick" onclick="setFinder('under $100')">Under $100</button>
+    <button class="quick" onclick="setFinder('under $300')">Under $300</button>
+    <button class="quick" onclick="setFinder('alt art')">Alt Art</button>
+    <button class="quick" onclick="setFinder('charizard')">Charizard</button>
+    <button class="quick" onclick="setFinder('luffy')">Luffy</button>
+    <button class="quick" onclick="setFinder('marvel')">Marvel</button>
+  </div>
+  <div class="cats-row" id="catsRow">
+    <button class="cat-chip act" onclick="filterCat(this,'all')">All</button>
+  </div>
+  <div class="finder-meta">
+    <span class="count-badge" id="countBadge"></span>
+    <div class="sort-seg" id="sortSeg">
+      <button class="act" data-sort="newest" onclick="setSort('newest')">Newest</button>
+      <button data-sort="price-asc" onclick="setSort('price-asc')">Price ↑</button>
+      <button data-sort="price-desc" onclick="setSort('price-desc')">Price ↓</button>
     </div>
   </div>
-  <div class="filter-right">
-    <span class="count-badge" id="countBadge"></span>
-    <select class="sort-select" id="sortSelect" onchange="handleSort()">
-      <option value="newest">Date: Newest Added</option>
-      <option value="price-asc">Price: Low to High</option>
-      <option value="price-desc">Price: High to Low</option>
-    </select>
-  </div>
-</div>
+</section>
 
 <!-- PRODUCTS -->
 <div class="products-wrap">
@@ -647,6 +720,32 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
       <p class="modal-note">Open to offers &amp; trades</p>
     </div>
   </div>
+</div>
+
+<!-- MOBILE SEARCH SHEET -->
+<div class="search-sheet" id="searchSheet">
+  <div class="ss-head">
+    <div class="ss-title">What are you hunting for?</div>
+    <button class="ss-close" onclick="closeSearchSheet()" aria-label="Close">✕</button>
+  </div>
+  <div class="finder-box ss-box">
+    <span class="finder-ico">🔍</span>
+    <input type="text" id="sheetInput" placeholder="Player, set, grade, or “under $100”" oninput="sheetTyped(this.value)" autocomplete="off"/>
+    <button class="finder-clear" id="sheetClear" onclick="document.getElementById('sheetInput').value='';sheetTyped('');document.getElementById('sheetInput').focus()" style="display:none">✕</button>
+  </div>
+  <div class="finder-quick ss-quick">
+    <button class="quick" onclick="sheetPick('PSA 10')">PSA 10</button>
+    <button class="quick" onclick="sheetPick('under $100')">Under $100</button>
+    <button class="quick" onclick="sheetPick('under $300')">Under $300</button>
+    <button class="quick" onclick="sheetPick('pokemon')">Pokémon</button>
+    <button class="quick" onclick="sheetPick('one piece')">One Piece</button>
+    <button class="quick" onclick="sheetPick('soccer')">Soccer</button>
+    <button class="quick" onclick="sheetPick('marvel')">Marvel</button>
+    <button class="quick" onclick="sheetPick('alt art')">Alt Art</button>
+  </div>
+  <div class="ss-suggest" id="sheetSuggest"></div>
+  <div class="ss-count" id="sheetCount"></div>
+  <div class="ss-results" id="sheetResults"></div>
 </div>
 
 <!-- CART / PRE-CHECKOUT MODAL -->
@@ -884,17 +983,82 @@ function renderRecent() {
 }
 
 // ── FILTER & SORT ─────────────────────────────────────────────────────────
+let searchQuery = '', fuzzyUsed = false;
+function parseQuery(q) {
+  const norm = t => (t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  let s = norm(q).trim(), max = null, min = null;
+  s = s.replace(/\b(under|below|less than|<)\s*\$?\s*(\d+)k?\b/g, (m,_,n)=>{ max = +n; return ' '; });
+  s = s.replace(/\b(over|above|more than|>)\s*\$?\s*(\d+)\b/g, (m,_,n)=>{ min = +n; return ' '; });
+  s = s.replace(/\$\s*(\d+)\s*-\s*\$?\s*(\d+)/g, (m,a,b)=>{ min=+a; max=+b; return ' '; });
+  s = s.replace(/\b(cards?|for|the|a|an|any|got|do you have|show me|i want|looking for)\b/g,' ');
+  const terms = s.split(/\s+/).filter(Boolean);
+  return { terms, min, max, norm };
+}
 function getFiltered() {
   let p = [...allProducts];
   if (currentCat === 'sports')   p = p.filter(x => ['soccer','nba','football'].includes(x.category_slug));
   else if (currentCat === 'tcg') p = p.filter(x => ['pokemon','one-piece'].includes(x.category_slug));
   else if (currentCat !== 'all') p = p.filter(x => x.category_slug === currentCat);
-  const norm = t => (t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-  const s = norm(document.getElementById('searchInput').value).trim();
-  if (s) p = p.filter(x => norm(x.name).includes(s)||norm(x.description).includes(s));
+  const { terms, min, max, norm } = parseQuery(searchQuery);
+  if (max != null) p = p.filter(x => x.price/100 <= max);
+  if (min != null) p = p.filter(x => x.price/100 >= min);
+  if (terms.length) {
+    const syn = { psa10:'psa 10', slab:'psa|bgs|cgc', graded:'psa|bgs|cgc', pokemon:'pokemon' };
+    p = p.filter(x => {
+      return terms.every(t => {
+        const hay = norm(t.length <= 2 ? x.name : [x.name, x.description, x.category_name, x.badge].join(' '));
+        const key = t.replace(/\s/g,'');
+        const re = syn[key]
+          ? new RegExp('(^|[^a-z0-9])(' + syn[key] + ')', 'i')                       // synonyms are regex
+          : new RegExp('(^|[^a-z0-9])' + t.replace(/[.*+?^${}()[\]\\]/g,'\\$&'), 'i'); // plain terms match the start of a word
+        return re.test(hay);
+      });
+    });
+  }
+  fuzzyUsed = false;
+  if (!p.length && terms.length) {
+    // nothing exact — show the closest cards instead of an empty grid
+    let base = [...allProducts];
+    if (currentCat === 'sports')   base = base.filter(x => ['soccer','nba','football'].includes(x.category_slug));
+    else if (currentCat === 'tcg') base = base.filter(x => ['pokemon','one-piece'].includes(x.category_slug));
+    else if (currentCat !== 'all') base = base.filter(x => x.category_slug === currentCat);
+    if (max != null) base = base.filter(x => x.price/100 <= max);
+    if (min != null) base = base.filter(x => x.price/100 >= min);
+    const scored = base.map(x => {
+      const words = norm([x.name, x.category_name].join(' ')).split(/[^a-z0-9]+/);
+      let score = 0;
+      terms.forEach(t => { if (words.some(w => w.startsWith(t) || (t.length>=3 && lev(w,t) <= 2))) score++; });
+      return { x, score };
+    }).filter(o => o.score > 0).sort((a,b) => b.score - a.score);
+    p = scored.map(o => o.x);
+    fuzzyUsed = p.length > 0;
+  }
   if (currentSort === 'price-asc')  p.sort((a,b) => a.price - b.price);
-  if (currentSort === 'price-desc') p.sort((a,b) => b.price - a.price);
+  else if (currentSort === 'price-desc') p.sort((a,b) => b.price - a.price);
+  else if (!terms.length) {
+    // default view: Pokémon and One Piece lead, then everything else (newest first within each group)
+    const rank = { 'pokemon': 0, 'one-piece': 1 };
+    p.sort((a,b) => ((rank[a.category_slug] ?? 2) - (rank[b.category_slug] ?? 2)));
+  }
   return p;
+}
+
+function finderTyped(v) {
+  searchQuery = v;
+  renderSuggest(getSuggestions(v, true), v);
+  const nav = document.getElementById('searchInput'); if (nav && nav.value !== v) nav.value = v;
+  document.getElementById('finderClear').style.display = v ? '' : 'none';
+  debounceSearch();
+}
+function setFinder(v) {
+  const f = document.getElementById('finderInput'); f.value = v; finderTyped(v);
+  document.getElementById('featured')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function clearFinder() { const f = document.getElementById('finderInput'); f.value=''; finderTyped(''); f.focus(); }
+function setSort(v) {
+  currentSort = v;
+  document.querySelectorAll('#sortSeg button').forEach(b => b.classList.toggle('act', b.dataset.sort === v));
+  renderProducts();
 }
 
 function syncNavLinks(cat) {
@@ -908,10 +1072,13 @@ function filterCat(btn, cat) {
   document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('act'));
   btn.classList.add('act');
   syncNavLinks(cat);
-  const titles = {all:'All Cards'};
-  categories.forEach(c => titles[c.slug] = c.name);
-  document.getElementById('pageTitle').textContent = titles[cat] || 'Cards';
+  setFinderTitle(cat);
   renderProducts();
+}
+function setFinderTitle(slug) {
+  const titles = { all:'What are you hunting for?', sports:'Sports Cards', tcg:'TCG — Pokémon, One Piece & Sealed' };
+  categories.forEach(c => titles[c.slug] = c.name);
+  document.getElementById('pageTitle').textContent = titles[slug] || 'What are you hunting for?';
 }
 
 function navFilter(navBtn, slug) {
@@ -921,9 +1088,7 @@ function navFilter(navBtn, slug) {
   document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('act'));
   const chip = Array.from(document.querySelectorAll('.cat-chip')).find(c=>(c.getAttribute('onclick')||'').includes(`'${slug}'`));
   if (chip) chip.classList.add('act');
-  const titles = {all:'All Cards'};
-  categories.forEach(c=>titles[c.slug]=c.name);
-  document.getElementById('pageTitle').textContent = titles[slug] || 'All Cards';
+  setFinderTitle(slug);
   renderProducts();
   document.getElementById('featured')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -935,20 +1100,16 @@ function goCat(slug) {
   currentCat = slug;
   document.querySelectorAll('.nav-link[data-cat]').forEach(l=>l.classList.remove('act'));
   document.querySelectorAll('.cat-chip').forEach(b=>b.classList.remove('act'));
-  const specialTitles = { sports:'Sports Cards', tcg:'TCG — Pokémon, One Piece & Sealed' };
-  document.getElementById('pageTitle').textContent = specialTitles[slug] || 'All Cards';
+  setFinderTitle(slug);
   renderProducts();
   document.getElementById('featured')?.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-function handleSort() {
-  currentSort = document.getElementById('sortSelect').value;
-  renderProducts();
-}
 
 function debounceSearch() { clearTimeout(searchTimer); searchTimer = setTimeout(renderProducts, 300); }
 
 function toggleSearch() {
+  if (window.innerWidth <= 768) { openSearchSheet(); return; }
   const s = document.getElementById('navSearch');
   s.classList.toggle('open');
   if (s.classList.contains('open')) document.getElementById('searchInput').focus();
@@ -958,10 +1119,10 @@ function toggleSearch() {
 function renderProducts() {
   const filtered = getFiltered();
   const grid = document.getElementById('prodGrid');
-  document.getElementById('countBadge').textContent = `${filtered.length} product${filtered.length!==1?'s':''}`;
+  document.getElementById('countBadge').textContent = searchQuery.trim() ? (fuzzyUsed ? `No exact match for “${searchQuery.trim()}” — closest ${filtered.length}` : `${filtered.length} match${filtered.length!==1?'es':''} for “${searchQuery.trim()}”`) : `${filtered.length} card${filtered.length!==1?'s':''}`;
 
   if (!filtered.length) {
-    grid.innerHTML = `<div class="empty"><div class="empty-ico">🔍</div><h3>No cards found</h3><p>Try a different filter or check back for new drops.</p></div>`;
+    grid.innerHTML = `<div class="empty"><div class="empty-ico">🔍</div><h3>Nothing yet for that</h3><p>Try fewer words, a different category, or <a href="https://www.instagram.com/cardsrgshop" target="_blank" style="color:var(--cyan)">DM us</a> and we’ll hunt it down.</p></div>`;
     return;
   }
 
@@ -1259,6 +1420,107 @@ function removeFromCart(id) {
   updateCartCount();
 }
 
+
+// ── MOBILE SEARCH SHEET ──────────────────────────────────────────────────
+function openSearchSheet() {
+  const sh = document.getElementById('searchSheet');
+  sh.classList.add('open'); document.body.style.overflow = 'hidden';
+  const inp = document.getElementById('sheetInput');
+  inp.value = searchQuery; renderSheet();
+  setTimeout(() => inp.focus(), 50);
+}
+function closeSearchSheet() {
+  document.getElementById('searchSheet').classList.remove('open');
+  document.body.style.overflow = '';
+  // carry the query down to the main grid
+  const f = document.getElementById('finderInput');
+  if (f && f.value !== searchQuery) { f.value = searchQuery; }
+  document.getElementById('finderClear').style.display = searchQuery ? '' : 'none';
+  renderProducts();
+}
+function sheetTyped(v) {
+  searchQuery = v;
+  const sg = getSuggestions(v, false);
+  document.getElementById('sheetSuggest').innerHTML = sg.map(e => `<button class="quick" onclick="sheetTyped(applySuggestion('${e.label.replace(/'/g,"\\'")}', document.getElementById('sheetInput')))">${escHtml(e.label)} <span style="opacity:.6">· ${e.count}</span></button>`).join('');
+  document.getElementById('sheetClear').style.display = v ? '' : 'none';
+  renderSheet();
+}
+function sheetPick(v) { const i = document.getElementById('sheetInput'); i.value = v; sheetTyped(v); }
+function renderSheet() {
+  const savedCat = currentCat; currentCat = 'all';
+  const list = getFiltered(); currentCat = savedCat;
+  const q = searchQuery.trim();
+  document.getElementById('sheetCount').textContent = q ? (fuzzyUsed ? `No exact match — closest ${list.length}` : `${list.length} match${list.length!==1?'es':''}`) : `${list.length} cards in stock — newest first`;
+  const box = document.getElementById('sheetResults');
+  if (!list.length) { box.innerHTML = `<div class="ss-empty">Nothing yet for that.<br/>Try fewer words, or DM @cardsrgshop and we’ll hunt it down.</div>`; return; }
+  box.innerHTML = list.slice(0, 40).map(p => `
+    <div class="ss-row" onclick="closeSearchSheet();openCardModal(${p.id})">
+      ${p.image_url ? `<img src="${p.image_url}" alt="" onerror="this.style.visibility='hidden'"/>` : `<div style="width:44px;height:58px;display:flex;align-items:center;justify-content:center;font-size:1.3rem">🎴</div>`}
+      <div class="n">${escHtml(p.name)}<span class="c">${escHtml(p.category_name||'')}</span></div>
+      <div class="p">${p.price_formatted}</div>
+    </div>`).join('');
+}
+
+
+// ── SUGGESTIONS ──────────────────────────────────────────────────────────
+const SUGGEST_STOP = new Set(['psa','gem','card','cards','the','and','with','from','edition','pop','mint','one','two','graded','slab','auto','rookie','base','set','box','usd','rc','sp','ssp','holo','foil','prizm','chrome','topps','panini','upper','deck','fleer','bowman','select','donruss','mosaic','optic','sv','swsh','tg','sir','ex','gx','vmax','vstar','v','op','eb','st','pokemon','pokémon','piece','marvel','disney','lorcana','soccer','nba','football','collectibles','holo','gear','shiny','upper','deck','masterpieces','the','era','metal','platinum','blue']);
+function suggestIndex(pool) {
+  const idx = new Map();
+  pool.forEach(p => {
+    const seen = new Set();
+    // subject = the words before the year in the title (player / character), else the first 3 words
+    const name = p.name||'';
+    const m = name.match(/^(.*?)\b(19|20)\d{2}\b/);
+    let subject = m && m[1].trim() ? m[1] : name.replace(/^\s*(19|20)\d{2}[\s-]*(\d{2})?\s*/,'').split(/[#—–(]/)[0].split(/\s+/).slice(0,3).join(' ');
+    subject = subject.split(/\d/)[0].split(/\s+the\s+/i)[0].replace(/\s+(holo|v|vmax|vstar|ex|gx|gear)\s*$/i,'').trim();
+    subject.split(/[^A-Za-zÀ-ÿ'’-]+/).forEach(w => {
+      if (w.length < 3) return;
+      const k = w.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      if (SUGGEST_STOP.has(k) || /^\d+$/.test(k) || seen.has(k)) return;
+      if (w[0] !== w[0].toUpperCase()) return; // proper nouns: players, sets, characters
+      seen.add(k);
+      const e = idx.get(k) || { word: w, label: subject, key: k, count: 0, cat: p.category_name };
+      e.count++; idx.set(k, e);
+    });
+  });
+  return [...idx.values()];
+}
+function lev(a, b) {
+  if (Math.abs(a.length-b.length) > 2) return 9;
+  const m=a.length,n=b.length; let prev=[...Array(n+1).keys()], cur=[];
+  for (let i=1;i<=m;i++){ cur=[i]; for(let j=1;j<=n;j++){ cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1)); } prev=cur; }
+  return prev[n];
+}
+function getSuggestions(q, catScoped) {
+  const { terms, norm } = parseQuery(q);
+  if (!terms.length) return [];
+  const last = terms[terms.length-1];
+  if (last.length < 1) return [];
+  let pool = allProducts;
+  if (catScoped && currentCat !== 'all') pool = getFiltered.call(null) .length ? allProducts.filter(x => currentCat==='sports' ? ['soccer','nba','football'].includes(x.category_slug) : currentCat==='tcg' ? ['pokemon','one-piece'].includes(x.category_slug) : x.category_slug===currentCat) : allProducts;
+  const idx = suggestIndex(pool);
+  let hits = idx.filter(e => e.key.startsWith(last) && e.key !== last);
+  if (!hits.length && last.length >= 3) hits = idx.filter(e => lev(e.key, last) <= 2);
+  const seen = new Set();
+  hits = hits.filter(e => !seen.has(e.label.toLowerCase()) && seen.add(e.label.toLowerCase()));
+  return hits.sort((a,b) => b.count - a.count || a.word.localeCompare(b.word)).slice(0, 6).map(e => ({ ...e, last }));
+}
+function applySuggestion(label, target) {
+  target.value = label;
+  return target.value;
+}
+function renderSuggest(list, q) {
+  const box = document.getElementById('finderSuggest');
+  if (!list.length || !q.trim()) { box.classList.remove('open'); box.innerHTML=''; return; }
+  box.innerHTML = list.map(e => `<div class="sg" onmousedown="event.preventDefault();finderTyped(applySuggestion('${e.label.replace(/'/g,"\\'")}', document.getElementById('finderInput')));hideSuggest()"><span class="sg-ico">🔍</span><b>${hlLabel(e)}</b><small>${e.count} card${e.count!==1?'s':''} · ${escHtml(e.cat||'')}</small></div>`).join('');
+  box.classList.add('open');
+}
+function hlLabel(e) {
+  return escHtml(e.label).replace(new RegExp('\\b(' + e.last.replace(/[.*+?^${}()[\]\\]/g,'\\$&') + ')', 'i'), '<mark>$1</mark>');
+}
+function hideSuggest() { const b=document.getElementById('finderSuggest'); if (b){ b.classList.remove('open'); } }
+document.addEventListener('click', e => { if (!e.target.closest('.finder-wrap')) hideSuggest(); });
+
 // ── UTILS ─────────────────────────────────────────────────────────────────
 function escHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -1342,6 +1604,8 @@ async function init() {
     if (e.key === 'Escape') {
       const lb = document.getElementById('lightbox');
       if (lb.classList.contains('open')) { closeLightbox(); return; }
+      if (document.getElementById('searchSheet').classList.contains('open')) { closeSearchSheet(); return; }
+      hideSuggest();
       if (document.getElementById('signupOverlay').classList.contains('open')) { closeSignup(); return; }
       closeCardModal(); closeCart(); closeOfferModal();
     }

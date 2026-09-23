@@ -30,6 +30,8 @@ async function start() {
     setHeaders: (res, filePath) => {
       if (filePath.endsWith('.html')) {
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        // never let phones/in-app browsers hold a stale copy of a page
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       }
     }
   }));
