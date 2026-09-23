@@ -1618,6 +1618,8 @@ async function init() {
     }
   });
   if (shouldShowSignup()) setTimeout(() => openSignup(false), 6000);
+  // Arriving from /list with ?cart=1 → open the cart right away
+  try { if (new URLSearchParams(location.search).get('cart') === '1') { openCart(); history.replaceState(null, '', location.pathname); } } catch(e){}
 }
 
 init();

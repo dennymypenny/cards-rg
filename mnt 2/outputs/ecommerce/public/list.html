@@ -1,116 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
-<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<title>CardsRG — Active Inventory</title>
-<meta name="description" content="Everything currently for sale at CardsRG — Cards, Rips, and Grails. PSA slabs, grails, and fire singles."/>
-<meta property="og:title" content="CardsRG — Active Inventory"/>
-<meta property="og:description" content="Live list of every card currently for sale at CardsRG."/>
+<title>Live Inventory — CardsRG</title>
+<meta name="description" content="Every card currently for sale at CardsRG — Cards, Rips, and Grails. PSA slabs, grails, and fire singles. Buy now or add to cart."/>
+<meta property="og:title" content="CardsRG — Live Inventory"/>
+<meta property="og:description" content="Live list of every card currently for sale at CardsRG. Buy now or add to cart."/>
+<meta property="og:image" content="https://cardsrg.com/images/logo.png"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-  :root {
-    --bg:#0d0d1a; --bg2:#16162a; --bg3:#1e1e36; --card:#1b1b32;
-    --border:rgba(255,255,255,.1);
-    --pink:#FF2D78; --teal:#00F0FF; --purple:#9F3FE0;
-    --text:#fff; --muted:#9ca3af;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100vh;padding-bottom:3rem}
-  .vice-stripe{height:3px;background:linear-gradient(90deg,#FF2D78 0%,#9F3FE0 45%,#00F0FF 100%)}
-  header{background:var(--bg2);border-bottom:1px solid rgba(255,45,120,.25);padding:1.15rem 1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-  .logo{font-size:1.15rem;font-weight:900;letter-spacing:.04em;background:linear-gradient(90deg,#FF2D78,#00F0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-  .tagline{font-size:.75rem;color:var(--muted)}
-  header .right{margin-left:auto;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-  .btn{font-size:.78rem;padding:.42rem .9rem;border-radius:6px;font-weight:700;text-decoration:none;cursor:pointer;border:none}
-  .btn.primary{background:linear-gradient(135deg,#FF2D78,#9F3FE0);color:#fff;box-shadow:0 0 12px rgba(255,45,120,.35)}
-  .btn.ghost{background:var(--bg3);color:var(--teal);border:1px solid var(--border)}
-  main{max-width:860px;margin:0 auto;padding:1.75rem 1.25rem}
-  .summary{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:1.1rem;flex-wrap:wrap}
-  .summary h1{font-size:1.05rem;font-weight:800}
-  .summary .meta{font-size:.75rem;color:var(--muted)}
-  .cat-title{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:1.6rem 0 .6rem}
-  .row{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.8rem 1rem;display:flex;align-items:center;gap:.8rem;margin-bottom:.55rem;text-decoration:none;color:var(--text);transition:border-color .15s}
-  .row:hover{border-color:var(--pink)}
-  .row .ico{font-size:1.1rem}
-  .row .info{flex:1;min-width:0}
-  .row .name{font-size:.87rem;font-weight:700;line-height:1.35}
-  .row .badge{display:inline-block;font-size:.62rem;font-weight:800;letter-spacing:.05em;padding:.12rem .45rem;border-radius:4px;background:rgba(0,240,255,.12);color:var(--teal);border:1px solid rgba(0,240,255,.3);margin-top:.25rem}
-  .row .price{font-size:1rem;font-weight:800;color:var(--teal);white-space:nowrap}
-  .empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
-  footer{text-align:center;font-size:.74rem;color:var(--muted);margin-top:2.5rem;line-height:1.8}
-  footer a{color:var(--pink)}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+:root{--bg:#0d0d1a;--bg2:#16162a;--bg3:#1e1e36;--card:#1b1b32;--border:rgba(255,255,255,.1);--pink:#FF2D78;--cyan:#00F0FF;--purple:#9F3FE0;--white:#fff;--muted:#9ca3af;--sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --chrome:conic-gradient(from 210deg,#fdfdfd,#8e939c 12%,#ffffff 22%,#5c616b 34%,#d9dce2 46%,#ff9fc7 52%,#9fe9ff 58%,#ffffff 66%,#7a8089 78%,#f4f5f7 88%,#a3a8b1 96%,#fdfdfd);
+  --dark:linear-gradient(180deg,#2b2f3a 0%,#161922 55%,#0f1117 100%)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased;padding-bottom:4rem}
+a{color:inherit;text-decoration:none}
+.vice-stripe{height:3px;background:linear-gradient(90deg,var(--pink) 0%,var(--purple) 45%,var(--cyan) 100%)}
+
+/* nav (matches /about) */
+nav{position:sticky;top:0;z-index:50;background:#fff;height:84px;display:flex;align-items:center;padding:0 1.5rem;gap:1rem;box-shadow:0 2px 14px rgba(18,18,42,.08)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;white-space:nowrap}
+.nav-logo img{height:68px;width:auto;object-fit:contain}
+.nav-wordmark{font-size:1.7rem;font-weight:900;letter-spacing:.04em;color:#12122a;line-height:1}
+.nav-wordmark b{background:linear-gradient(135deg,var(--pink),var(--purple) 60%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:.2rem;margin-left:.5rem}
+.nav-link{color:rgba(18,18,42,.6);font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.38rem .7rem;border-radius:6px}
+.nav-link.act{color:#d40f5c}
+.nav-link:hover{color:#12122a;background:rgba(255,45,120,.07)}
+.nav-right{margin-left:auto;display:flex;gap:.5rem;align-items:center}
+.mbtn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;height:44px;padding:0 1.15rem;border-radius:999px;border:2.5px solid transparent;color:#fff;font-size:.88rem;font-weight:700;background:var(--dark) padding-box,var(--chrome) border-box;box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 -1px 0 rgba(0,0,0,.6) inset,0 6px 16px rgba(18,18,42,.25);transition:transform .15s,box-shadow .15s;white-space:nowrap;cursor:pointer;font-family:var(--sans)}
+.mbtn:hover{transform:translateY(-1px)}
+.mbtn.sq{width:44px;padding:0;border-radius:12px;border-width:2px}
+.mbtn svg{width:20px;height:20px}
+.cart-count{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--pink);color:#fff;font-size:.7rem;font-weight:800;display:none;align-items:center;justify-content:center;border:2px solid #fff}
+
+/* head */
+.wrap{max-width:1180px;margin:0 auto;padding:0 1.25rem}
+.head{padding:2.2rem 0 1.2rem;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.head h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;text-transform:uppercase;line-height:1.05}
+.head h1 span{background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.head .meta{font-size:.82rem;color:var(--muted);margin-top:.4rem}
+.head .tools{display:flex;gap:.5rem;flex-wrap:wrap}
+.btn{font-size:.78rem;padding:.5rem .95rem;border-radius:8px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--cyan);font-family:var(--sans)}
+.btn:hover{border-color:var(--cyan)}
+.promo{background:linear-gradient(90deg,rgba(255,45,120,.15),rgba(0,240,255,.12));border:1px solid rgba(255,45,120,.35);border-radius:10px;padding:.65rem 1rem;font-size:.82rem;margin-bottom:1.2rem}
+.promo b{color:var(--cyan)}
+
+/* grid */
+.cat-title{font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:1.8rem 0 .8rem;display:flex;align-items:center;gap:.6rem}
+.cat-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .15s,border-color .15s,box-shadow .15s}
+.card:hover{transform:translateY(-3px);border-color:rgba(255,45,120,.55);box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.card .img{position:relative;aspect-ratio:3/4;background:#0a0a16;cursor:pointer;overflow:hidden}
+.card .img img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .3s}
+.card:hover .img img{transform:scale(1.03)}
+.card .badge{position:absolute;top:.6rem;left:.6rem;font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.2rem .5rem;border-radius:5px;background:rgba(0,240,255,.15);color:var(--cyan);border:1px solid rgba(0,240,255,.4);backdrop-filter:blur(4px)}
+.card .body{padding:.85rem .9rem 1rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.card .name{font-size:.84rem;font-weight:700;line-height:1.35;flex:1}
+.card .price{font-size:1.15rem;font-weight:900;color:var(--cyan)}
+.card .cta{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.card .cta button{font-family:var(--sans);font-size:.76rem;font-weight:800;padding:.6rem .5rem;border-radius:9px;cursor:pointer;border:1px solid transparent;transition:.15s;white-space:nowrap}
+.buy{background:linear-gradient(135deg,#ff5c97,#ff2d78 55%,#d40f5c);color:#fff;box-shadow:0 4px 14px rgba(255,45,120,.35)}
+.buy:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.buy:disabled{opacity:.55;cursor:wait;transform:none}
+.atc{background:var(--bg3);color:#fff;border-color:var(--border)!important}
+.atc:hover{border-color:var(--cyan)!important;color:var(--cyan)}
+.atc.in{background:rgba(0,240,255,.12);color:var(--cyan);border-color:rgba(0,240,255,.5)!important}
+.empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:1.5rem;transform:translate(-50%,20px);background:#fff;color:#0c0c11;padding:.75rem 1.1rem;border-radius:12px;font-size:.85rem;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:.25s;z-index:100;display:flex;gap:.8rem;align-items:center}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast a{color:var(--pink);text-decoration:underline}
+
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(5,5,12,.94);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem;cursor:zoom-out}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px}
+.lb .x{position:absolute;top:1rem;right:1rem;width:40px;height:40px;border-radius:50%;background:#fff;color:#000;border:none;font-size:1.2rem;font-weight:800;cursor:pointer}
+
+footer{text-align:center;font-size:.76rem;color:var(--muted);margin-top:3rem;line-height:1.9}
+footer a{color:var(--pink)}
+
+@media(max-width:768px){
+  nav{height:auto;padding:.7rem 1rem;flex-wrap:wrap;gap:.6rem}
+  .nav-logo img{height:48px}.nav-wordmark{font-size:1.3rem}
+  .nav-links{order:3;width:100%;margin:.2rem 0 0;overflow-x:auto;scrollbar-width:none}
+  .nav-link{font-size:.68rem;padding:.3rem .55rem}
+  .mbtn:not(.sq){height:40px;padding:0 .9rem;font-size:.8rem}
+  .grid{grid-template-columns:repeat(2,1fr);gap:.7rem}
+  .card .cta{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div>
-    <div class="logo">CARDS RG</div>
-    <div class="tagline">Cards, Rips, and Grails — Active Inventory</div>
+<div class="vice-stripe"></div>
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png" alt="CardsRG"/>
+    <span class="nav-wordmark">CARDS<b>RG</b></span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="/">Shop</a>
+    <a class="nav-link" href="/about">About</a>
+    <a class="nav-link act" href="/list">Live Inventory</a>
   </div>
-  <div class="right">
-    <a class="btn ghost" href="/api/products/export.csv">Spreadsheet ↓</a>
-    <a class="btn primary" href="https://cardsrg.com">Shop the Store →</a>
+  <div class="nav-right">
+    <a class="mbtn sq" href="https://www.instagram.com/cardsrgshop" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+    <a class="mbtn" href="/?cart=1" id="cartBtn">Cart <span class="cart-count" id="cartCount">0</span></a>
   </div>
-</header>
+</nav>
 <div class="vice-stripe"></div>
 
-<main>
-  <div class="summary">
-    <h1>🃏 Everything For Sale Right Now</h1>
-    <div class="meta" id="summaryMeta">Loading…</div>
+<main class="wrap">
+  <div class="head">
+    <div>
+      <h1>Live <span>Inventory</span></h1>
+      <div class="meta" id="summaryMeta">Loading…</div>
+    </div>
+    <div class="tools">
+      <a class="btn" href="/api/products/export.csv">Spreadsheet ↓</a>
+      <a class="btn" href="/">Full Store →</a>
+    </div>
   </div>
-  <div id="listBody">
-    <div class="empty">⏳ Loading the list…</div>
-  </div>
+  <div class="promo">🎉 10% off sitewide with code <b>THANKYOU10</b> at checkout · Free shipping over $100 · Every card authenticated</div>
+  <div id="listBody"><div class="empty">⏳ Loading the list…</div></div>
 </main>
 
 <footer>
-  CardsRG · <a href="https://cardsrg.com">cardsrg.com</a> · IG <a href="https://instagram.com/cardsrgshop">@cardsrgshop</a><br>
-  Every card authenticated · Fast, insured shipping · Make an offer on any card at the store
+  CardsRG · <a href="https://cardsrg.com">cardsrg.com</a> · IG <a href="https://instagram.com/cardsrgshop">@cardsrgshop</a> · <a href="https://www.ebay.com/usr/cardsrgshop" target="_blank">eBay</a><br>
+  Fast, insured shipping · Want to make an offer? Open the card on the <a href="/">store</a>
 </footer>
 
+<div class="toast" id="toast"></div>
+<div class="lb" id="lb" onclick="closeLb()"><button class="x" aria-label="Close">✕</button><img id="lbImg" alt=""/></div>
+
 <script>
-async function load() {
+let products = [];
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem('crg_cart') || '[]'); } catch(e) { cart = []; }
+function saveCart(){ try { localStorage.setItem('crg_cart', JSON.stringify(cart)); } catch(e){} }
+function inCart(id){ return cart.some(x => x.id === id); }
+function updateCartCount(){
+  const el = document.getElementById('cartCount');
+  el.textContent = cart.length; el.style.display = cart.length ? 'flex' : 'none';
+}
+let toastT;
+function showToast(html){
+  const t = document.getElementById('toast'); t.innerHTML = html; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 4000);
+}
+function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function toggleCart(id){
+  const p = products.find(x => x.id === id); if (!p) return;
+  const i = cart.findIndex(x => x.id === id);
+  if (i >= 0) { cart.splice(i, 1); showToast('Removed from cart'); }
+  else {
+    cart.push({ id: p.id, name: p.name, price: p.price_formatted, image_url: p.image_url, category: p.category_name });
+    showToast('Added to cart · <a href="/?cart=1">Checkout →</a>');
+    fetch('/api/notify/cart', { method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ cert: p.slug, subject: p.name, price: p.price_formatted, brand: p.category_name }) }).catch(()=>{});
+  }
+  saveCart(); updateCartCount();
+  const b = document.getElementById('atc-' + id);
+  if (b) { b.textContent = inCart(id) ? '✓ In Cart' : 'Add to Cart'; b.classList.toggle('in', inCart(id)); }
+}
+
+async function buyNow(id){
+  const p = products.find(x => x.id === id); if (!p) return;
+  const btn = document.getElementById('buy-' + id);
+  btn.disabled = true; btn.textContent = 'Loading…';
+  try {
+    await fetch('/api/cart/clear', { method:'DELETE' });
+    const r = await fetch('/api/cart/add', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ product_id: id, quantity: 1 }) });
+    if (!r.ok) throw new Error('This card just sold or is no longer available');
+    const res = await fetch('/api/checkout/session', { method:'POST' });
+    const data = await res.json();
+    if (!res.ok || !data.url) throw new Error(data.error || 'Checkout unavailable');
+    // keep local cart in sync with what the server will charge
+    cart = [{ id: p.id, name: p.name, price: p.price_formatted, image_url: p.image_url, category: p.category_name }];
+    saveCart();
+    window.location.href = data.url;
+  } catch (err) {
+    showToast(err.message || 'Checkout failed — try again');
+    btn.disabled = false; btn.textContent = 'Buy Now';
+  }
+}
+
+function openLb(src){ document.getElementById('lbImg').src = src; document.getElementById('lb').classList.add('open'); }
+function closeLb(){ document.getElementById('lb').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+
+async function load(){
   const body = document.getElementById('listBody');
   const meta = document.getElementById('summaryMeta');
   try {
     const res = await fetch('/api/products?limit=100&sort=price&order=desc');
-    const { products } = await res.json();
-    if (!products || !products.length) {
-      body.innerHTML = '<div class="empty">Nothing listed right now — check back soon!</div>';
-      return;
-    }
+    const data = await res.json();
+    products = (data.products || []).filter(p => p.active !== 0);
+    if (!products.length) { body.innerHTML = '<div class="empty">Nothing listed right now — check back soon!</div>'; meta.textContent = ''; return; }
     const total = products.reduce((s, p) => s + (p.price || 0), 0);
-    meta.textContent = products.length + ' cards · $' + (total / 100).toLocaleString('en-US') + ' total · updated live';
-
-    // Group by category, keep price-desc order inside each
+    meta.textContent = products.length + ' cards for sale · $' + (total/100).toLocaleString('en-US') + ' total · updated live';
     const groups = {};
-    for (const p of products) {
-      const cat = p.category_name || 'Other';
-      (groups[cat] = groups[cat] || []).push(p);
-    }
+    for (const p of products) { const c = p.category_name || 'Other'; (groups[c] = groups[c] || []).push(p); }
     body.innerHTML = Object.entries(groups).map(([cat, items]) => `
-      <div class="cat-title">${cat} — ${items.length}</div>
-      ${items.map(p => `
-        <a class="row" href="https://cardsrg.com">
-          <span class="ico">🃏</span>
-          <span class="info">
-            <span class="name">${p.name}</span>
-            ${p.badge ? `<br><span class="badge">${p.badge}</span>` : ''}
-          </span>
-          <span class="price">${p.price_formatted}</span>
-        </a>`).join('')}
-    `).join('');
+      <div class="cat-title">${esc(cat)} · ${items.length}</div>
+      <div class="grid">
+        ${items.map(p => `
+        <div class="card">
+          <div class="img" onclick="openLb('${esc(p.image_url)}')">
+            <img src="${esc(p.image_url)}" alt="${esc(p.name)}" loading="lazy"/>
+            ${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}
+          </div>
+          <div class="body">
+            <div class="name">${esc(p.name)}</div>
+            <div class="price">${esc(p.price_formatted)}</div>
+            <div class="cta">
+              <button class="buy" id="buy-${p.id}" onclick="buyNow(${p.id})">Buy Now</button>
+              <button class="atc ${inCart(p.id)?'in':''}" id="atc-${p.id}" onclick="toggleCart(${p.id})">${inCart(p.id)?'✓ In Cart':'Add to Cart'}</button>
+            </div>
+          </div>
+        </div>`).join('')}
+      </div>`).join('');
   } catch (e) {
     body.innerHTML = '<div class="empty">⚠️ Could not load the list — try refreshing.</div>';
   }
 }
+updateCartCount();
 load();
 </script>
 </body>
