@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>CardsRG | Links</title>
+<meta name="description" content="CardsRG: Cards, Rips, and Grails. Shop graded slabs, find us on eBay, YouTube, Facebook and at the next card show."/>
+<meta property="og:title" content="CardsRG | Cards, Rips, and Grails"/>
+<meta property="og:description" content="Shop, socials and our next card show, all in one spot."/>
+<meta property="og:image" content="https://cardsrg.com/images/links-hero.jpg"/>
+<meta name="theme-color" content="#0d0d1a"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --bg:#0d0d1a; --bg2:#15152a; --card:#18182f;
+    --pink:#FF2D78; --teal:#19E8D3; --cyan:#00F0FF; --purple:#9F3FE0;
+    --text:#fff; --muted:#a3a3bd; --line:rgba(255,255,255,.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:
+      radial-gradient(900px 500px at 50% -10%, rgba(255,45,120,.20), transparent 60%),
+      radial-gradient(700px 500px at 110% 60%, rgba(25,232,211,.10), transparent 60%),
+      radial-gradient(700px 500px at -10% 90%, rgba(159,63,224,.14), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:480px;margin:0 auto;padding:18px 16px 40px}
+
+  /* Hero */
+  .hero{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/3.1;
+    box-shadow:0 20px 50px rgba(0,0,0,.45);border:1px solid var(--line)}
+  .hero img{width:100%;height:100%;object-fit:cover;object-position:50% 58%;display:block}
+  .hero::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(13,13,26,0) 45%,rgba(13,13,26,.85) 92%,var(--bg) 100%)}
+  .hero-tag{position:absolute;left:12px;top:12px;z-index:2;font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+    background:rgba(13,13,26,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.15);padding:6px 10px;border-radius:999px}
+  .hero-tag i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal);margin-right:6px;box-shadow:0 0 8px var(--teal);vertical-align:1px}
+
+  /* Identity */
+  .id{text-align:center;margin-top:-58px;position:relative;z-index:3}
+  .logo{width:104px;height:104px;border-radius:50%;margin:0 auto;display:grid;place-items:center;
+    background:radial-gradient(circle at 50% 40%,#2a1640,#0d0d1a 75%);
+    border:2px solid transparent;
+    background-clip:padding-box;
+    box-shadow:0 0 0 2px var(--pink),0 0 24px rgba(255,45,120,.45),0 10px 30px rgba(0,0,0,.5)}
+  .logo img{width:78px;height:auto;filter:drop-shadow(0 3px 6px rgba(0,0,0,.6))}
+  h1{font-size:1.65rem;font-weight:900;letter-spacing:.01em;margin-top:12px}
+  .handle{color:var(--muted);font-size:.86rem;font-weight:600;margin-top:2px}
+  .tagline{margin-top:10px;font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+    background:linear-gradient(90deg,var(--pink),var(--purple) 50%,var(--teal));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .bio{color:#d5d5e6;font-size:.9rem;line-height:1.45;margin:10px auto 0;max-width:340px}
+
+  /* Social icon row */
+  .socials{display:flex;justify-content:center;gap:10px;margin:18px 0 22px}
+  .socials a{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;
+    background:rgba(255,255,255,.06);border:1px solid var(--line);transition:transform .15s,background .15s,border-color .15s}
+  .socials a:hover,.socials a:focus-visible{transform:translateY(-2px);background:rgba(255,45,120,.14);border-color:rgba(255,45,120,.5)}
+  .socials svg{width:20px;height:20px}
+
+  /* Link buttons */
+  .links{display:flex;flex-direction:column;gap:11px}
+  .btn{position:relative;display:flex;align-items:center;gap:14px;padding:14px 16px;min-height:64px;border-radius:16px;
+    text-decoration:none;color:#fff;background:var(--card);border:1px solid var(--line);
+    transition:transform .15s,border-color .15s,box-shadow .15s}
+  .btn:hover,.btn:focus-visible{transform:translateY(-2px);border-color:rgba(25,232,211,.45);box-shadow:0 8px 22px rgba(0,0,0,.35)}
+  .btn:active{transform:scale(.985)}
+  .ico{flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center}
+  .ico svg{width:21px;height:21px}
+  .txt{flex:1;min-width:0}
+  .txt b{display:block;font-size:.98rem;font-weight:800}
+  .txt span{display:block;font-size:.78rem;color:var(--muted);margin-top:2px;font-weight:500}
+  .arrow{opacity:.45;flex:0 0 auto}
+  .arrow svg{width:16px;height:16px;display:block}
+
+  .btn.primary{background:linear-gradient(135deg,#FF2D78 0%,#c02c9c 55%,#9F3FE0 100%);border-color:transparent;
+    box-shadow:0 10px 28px rgba(255,45,120,.35)}
+  .btn.primary .txt span{color:rgba(255,255,255,.85)}
+  .btn.primary .ico{background:rgba(255,255,255,.18)}
+  .btn.primary .arrow{opacity:.85}
+
+  .c-pink{background:rgba(255,45,120,.15);color:var(--pink)}
+  .c-teal{background:rgba(25,232,211,.13);color:var(--teal)}
+  .c-purple{background:rgba(159,63,224,.18);color:#c58cff}
+  .c-red{background:rgba(255,48,48,.14);color:#ff5a5a}
+  .c-blue{background:rgba(64,128,255,.15);color:#6ea0ff}
+  .c-gold{background:rgba(255,196,0,.13);color:#ffcf3f}
+
+  /* Show card */
+  .show{margin-top:22px;border-radius:18px;padding:1.5px;
+    background:linear-gradient(135deg,var(--pink),var(--purple) 50%,var(--teal))}
+  .show-in{border-radius:16.5px;background:#121226;padding:16px 16px 14px}
+  .show-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .kicker{font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+  .count{font-size:.7rem;font-weight:800;padding:4px 9px;border-radius:999px;background:rgba(255,45,120,.16);color:var(--pink);white-space:nowrap}
+  .show h2{font-size:1.12rem;font-weight:900;margin-top:6px}
+  .show-meta{margin-top:8px;display:grid;gap:5px;font-size:.84rem;color:#d5d5e6}
+  .show-meta div{display:flex;gap:8px;align-items:flex-start}
+  .show-meta svg{width:15px;height:15px;flex:0 0 15px;margin-top:2px;color:var(--muted)}
+  .show-cta{margin-top:12px;display:flex;gap:8px}
+  .chip{flex:1;text-align:center;font-size:.8rem;font-weight:800;padding:10px 8px;border-radius:11px;text-decoration:none;color:#fff;
+    background:rgba(255,255,255,.07);border:1px solid var(--line)}
+  .chip:hover{background:rgba(255,255,255,.12)}
+
+  footer{text-align:center;margin-top:28px;color:var(--muted);font-size:.74rem;line-height:1.6}
+  footer b{color:#fff;font-weight:800}
+  footer a{color:var(--muted)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <div class="hero">
+    <img src="/images/links-hero.jpg" alt="Denny and Leo at the CardsRG booth at a card show" loading="eager"/>
+    <div class="hero-tag"><i></i>Family run · Buy · Sell · Trade</div>
+  </div>
+
+  <section class="id">
+    <div class="logo"><img src="/images/logo.png" alt="CardsRG logo"/></div>
+    <h1>CardsRG</h1>
+    <div class="handle">@cardsrgshop</div>
+    <div class="tagline">Cards • Rips • Grails</div>
+    <p class="bio">PSA slabs, grails and fire singles across Pokémon, One Piece, sports and Marvel. Uncle and nephew, collector to collector.</p>
+  </section>
+
+  <nav class="socials" aria-label="Social profiles">
+    <a href="https://www.instagram.com/cardsrgshop" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    </a>
+    <a href="https://youtube.com/@cardsrg" target="_blank" rel="noopener" aria-label="YouTube">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.5 12 31 31 0 0 0 23 7.2zM9.8 15.1V8.9L15.8 12l-6 3.1z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/cardsrgshop" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.3c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2H7.6v3.4h2.7V22H14v-10.1h2.7l.4-3.4H14z"/></svg>
+    </a>
+    <a href="https://www.ebay.com/usr/cardsrgshop" target="_blank" rel="noopener" aria-label="eBay store">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+    </a>
+    <a href="mailto:cardsrgshop@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+    </a>
+  </nav>
+
+  <div class="links">
+    <a class="btn primary" href="https://cardsrg.com" target="_blank" rel="noopener">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9h18v2a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0V9z"/><path d="M5 13v7h14v-7"/></svg></div>
+      <div class="txt"><b>Shop CardsRG.com</b><span>Best prices + Make an Offer</span></div>
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+    </a>
+
+    <a class="btn" href="https://cardsrg.com/list" target="_blank" rel="noopener">
+      <div class="ico c-teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor"/></svg></div>
+      <div class="txt"><b>Everything In Stock</b><span>The full list of what's for sale right now</span></div>
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+    </a>
+
+    <a class="btn" href="https://www.ebay.com/usr/cardsrgshop" target="_blank" rel="noopener">
+      <div class="ico c-purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg></div>
+      <div class="txt"><b>eBay Store</b><span>Shop with eBay buyer protection</span></div>
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+    </a>
+
+    <a class="btn" href="https://www.whatnot.com/user/cardsrgshop" target="_blank" rel="noopener">
+      <div class="ico c-gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3" fill="currentColor"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4M5 5a10 10 0 0 0 0 14M19 5a10 10 0 0 1 0 14"/></svg></div>
+      <div class="txt"><b>Whatnot</b><span>Follow for live shows and rips</span></div>
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+    </a>
+
+    <a class="btn" href="https://youtube.com/@cardsrg" target="_blank" rel="noopener">
+      <div class="ico c-red"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.5 12 31 31 0 0 0 23 7.2zM9.8 15.1V8.9L15.8 12l-6 3.1z"/></svg></div>
+      <div class="txt"><b>YouTube</b><span>Box rips, pulls and card show vlogs</span></div>
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+    </a>
+
+    <a class="btn" href="https://www.facebook.com/cardsrgshop" target="_blank" rel="noopener">
+      <div class="ico c-blue"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.3c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2H7.6v3.4h2.7V22H14v-10.1h2.7l.4-3.4H14z"/></svg></div>
+      <div class="txt"><b>Facebook</b><span>New drops and show updates</span></div>
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+    </a>
+
+    <a class="btn" href="https://ig.me/m/cardsrgshop" target="_blank" rel="noopener">
+      <div class="ico c-pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/></svg></div>
+      <div class="txt"><b>DM to Buy or Trade</b><span>Offers, trades and card requests</span></div>
+      <div class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></div>
+    </a>
+  </div>
+
+  <section class="show" id="nextShow" data-date="2026-10-11">
+    <div class="show-in">
+      <div class="show-top">
+        <div class="kicker">Next card show</div>
+        <div class="count" id="showCount">Sun · Oct 11</div>
+      </div>
+      <h2>Card House Society Expo</h2>
+      <div class="show-meta">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span>Broward County Convention Center, Fort Lauderdale</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v7M19 12v7"/></svg><span>Section C · Tables #336 and #361</span></div>
+      </div>
+      <div class="show-cta">
+        <a class="chip" href="https://maps.google.com/?q=Broward+County+Convention+Center+Fort+Lauderdale" target="_blank" rel="noopener">Directions</a>
+        <a class="chip" href="https://www.instagram.com/cardsrgshop" target="_blank" rel="noopener">Come say hi</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <b>CardsRG</b> · Cards, Rips, and Grails<br/>
+    <a href="mailto:cardsrgshop@gmail.com">cardsrgshop@gmail.com</a>
+  </footer>
+</main>
+
+<script>
+  // Countdown + auto-hide the show card once the show date has passed
+  (function(){
+    var el=document.getElementById('nextShow'); if(!el) return;
+    var d=new Date(el.dataset.date+'T23:59:59');
+    var now=new Date();
+    if(now>d){ el.style.display='none'; return; }
+    var days=Math.ceil((new Date(el.dataset.date+'T00:00:00')-now)/86400000);
+    var c=document.getElementById('showCount');
+    if(days<=0) c.textContent='Today!';
+    else if(days===1) c.textContent='Tomorrow';
+    else if(days<=21) c.textContent=days+' days out';
+  })();
+</script>
+</body>
+</html>

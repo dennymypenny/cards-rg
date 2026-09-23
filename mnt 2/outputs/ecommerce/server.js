@@ -91,6 +91,11 @@ async function start() {
     res.sendFile(path.join(__dirname, 'public', 'list.html'));
   });
 
+  // Link-in-bio page for Instagram: cardsrg.com/links
+  app.get(['/links','/link'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'links.html'));
+  });
+
   // About page — story, YouTube videos, socials
   app.get('/about', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'about.html'));
