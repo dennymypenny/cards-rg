@@ -88,6 +88,11 @@ async function start() {
     res.sendFile(path.join(__dirname, 'public', 'list.html'));
   });
 
+  // About page — story, YouTube videos, socials
+  app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'about.html'));
+  });
+
   // Public live market board — stock-ticker style, shareable
   app.get('/board', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'board.html'));

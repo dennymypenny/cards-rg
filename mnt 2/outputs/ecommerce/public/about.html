@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>About CardsRG — Family Owned. Collector Run.</title>
+<meta name="description" content="CardsRG is a family-owned trading card shop out of Miami. Meet the crew, watch our card show vlogs, and find us on Instagram, YouTube and eBay."/>
+<meta property="og:title" content="About CardsRG — Cards, Rips, and Grails"/>
+<meta property="og:description" content="Family owned. Collector run. Watch the rips, meet the crew, and come see us at the next show."/>
+<meta property="og:image" content="https://cardsrg.com/images/logo.png"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+:root{--bg:#0d0d1a;--bg2:#16162a;--bg3:#1e1e36;--pink:#FF2D78;--cyan:#00F0FF;--purple:#9F3FE0;--white:#fff;--muted:#9ca3af;--sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --chrome:conic-gradient(from 210deg,#fdfdfd,#8e939c 12%,#ffffff 22%,#5c616b 34%,#d9dce2 46%,#ff9fc7 52%,#9fe9ff 58%,#ffffff 66%,#7a8089 78%,#f4f5f7 88%,#a3a8b1 96%,#fdfdfd);
+  --dark:linear-gradient(180deg,#2b2f3a 0%,#161922 55%,#0f1117 100%)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--white);min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.vice-stripe{height:3px;background:linear-gradient(90deg,var(--pink) 0%,var(--purple) 45%,var(--cyan) 100%)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:#fff;height:84px;display:flex;align-items:center;padding:0 1.5rem;gap:1rem;box-shadow:0 2px 14px rgba(18,18,42,.08)}
+.nav-logo{display:flex;align-items:center;gap:.7rem;white-space:nowrap}
+.nav-logo img{height:68px;width:auto;object-fit:contain}
+.nav-wordmark{font-size:1.7rem;font-weight:900;letter-spacing:.04em;color:#12122a;line-height:1}
+.nav-wordmark b{background:linear-gradient(135deg,var(--pink),var(--purple) 60%,var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:.2rem;margin-left:.5rem}
+.nav-link{color:rgba(18,18,42,.6);font-size:.75rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:.38rem .7rem;border-radius:6px}
+.nav-link.act{color:#d40f5c}
+.nav-link:hover{color:#12122a;background:rgba(255,45,120,.07)}
+.nav-right{margin-left:auto;display:flex;gap:.5rem;align-items:center}
+.mbtn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;height:44px;padding:0 1.15rem;border-radius:999px;border:2.5px solid transparent;color:#fff;font-size:.88rem;font-weight:700;background:var(--dark) padding-box,var(--chrome) border-box;box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 -1px 0 rgba(0,0,0,.6) inset,0 6px 16px rgba(18,18,42,.25);transition:transform .15s,box-shadow .15s;white-space:nowrap}
+.mbtn::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.06) 40%,rgba(255,255,255,0) 55%,rgba(255,255,255,.08) 100%);mix-blend-mode:screen}
+.mbtn:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.45) inset,0 -1px 0 rgba(0,0,0,.6) inset,0 10px 22px rgba(255,45,120,.3)}
+.mbtn.sq{width:44px;padding:0;border-radius:12px;border-width:2px}
+.mbtn svg{width:20px;height:20px}
+.mbtn.pink{background:linear-gradient(180deg,#ff5c97 0%,#ff2d78 55%,#d40f5c 100%) padding-box,var(--chrome) border-box}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 20% 0%,rgba(255,45,120,.28),transparent 55%),radial-gradient(ellipse at 85% 100%,rgba(0,240,255,.2),transparent 50%),linear-gradient(135deg,#1a0530 0%,#0d0d1a 60%);padding:4.5rem 1.5rem 3.5rem;text-align:center}
+.hero img{width:150px;height:150px;object-fit:contain;filter:drop-shadow(0 0 28px rgba(255,45,120,.45));margin-bottom:1.2rem}
+.kicker{font-size:.66rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan);text-shadow:0 0 12px rgba(0,240,255,.5);margin-bottom:.8rem}
+.hero h1{font-size:clamp(2rem,6vw,3.6rem);font-weight:900;line-height:1;letter-spacing:-.01em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1 span{background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{max-width:560px;margin:0 auto;color:rgba(255,255,255,.72);font-size:1.02rem;line-height:1.6}
+
+/* story */
+.wrap{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+.story{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center;padding:4rem 0}
+.story h2{font-size:1.8rem;font-weight:900;line-height:1.1;margin-bottom:1rem;text-transform:uppercase}
+.story p{color:rgba(255,255,255,.72);line-height:1.7;margin-bottom:.9rem;font-size:.97rem}
+.story-card{position:relative;border-radius:20px;overflow:hidden;background:#16162a;border:1px solid rgba(255,255,255,.08);aspect-ratio:4/5;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.story-card img{width:100%;height:100%;object-fit:cover}
+.story-card .tag{position:absolute;left:1rem;bottom:1rem;right:1rem;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.story-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(13,13,26,.9))}
+
+/* values */
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding-bottom:4rem}
+.val{background:#16162a;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.5rem 1.4rem}
+.val .ico{font-size:1.6rem;margin-bottom:.8rem}
+.val h3{font-size:.95rem;font-weight:800;margin-bottom:.4rem}
+.val p{font-size:.85rem;color:rgba(255,255,255,.62);line-height:1.55}
+
+/* section head */
+.section-head{text-align:center;padding:0 0 1.6rem}
+.section-head h2{font-size:1.7rem;font-weight:900;text-transform:uppercase;background:linear-gradient(90deg,var(--pink),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block}
+.section-head p{color:var(--muted);font-size:.9rem;margin-top:.4rem}
+.rule{width:64px;height:3px;margin:.8rem auto 0;background:linear-gradient(90deg,var(--pink),var(--cyan));border-radius:2px}
+
+/* videos */
+.videos{background:linear-gradient(180deg,#0d0d1a,#120a22 50%,#0d0d1a);padding:3.5rem 0 4rem}
+.vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem}
+.vid{position:relative;border-radius:16px;overflow:hidden;background:#000;aspect-ratio:16/9;border:1px solid rgba(255,255,255,.08);cursor:pointer;box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.vid img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.vid:hover img{transform:scale(1.04)}
+.vid .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.vid .play span{width:64px;height:64px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(255,45,120,.7);transition:transform .15s}
+.vid .play span::after{content:'';border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+.vid:hover .play span{transform:scale(1.08)}
+.vid .title{position:absolute;left:0;right:0;bottom:0;padding:2rem 1rem .9rem;font-size:.82rem;font-weight:700;background:linear-gradient(180deg,transparent,rgba(0,0,0,.85));line-height:1.3}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid-cta{text-align:center;margin-top:1.8rem}
+
+/* find us */
+.find{padding:3.5rem 0 4.5rem}
+.find-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.find a.card{display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;background:#16162a;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:1.6rem 1rem;transition:.15s}
+.find a.card:hover{transform:translateY(-3px);border-color:rgba(255,45,120,.5);box-shadow:0 14px 30px rgba(255,45,120,.15)}
+.find .card .mbtn.sq{width:52px;height:52px}
+.find .card .mbtn svg{width:24px;height:24px}
+.find .card b{font-size:.9rem}
+.find .card small{font-size:.74rem;color:var(--muted)}
+
+footer{border-top:1px solid rgba(255,255,255,.08);padding:1.5rem;text-align:center;font-size:.76rem;color:rgba(255,255,255,.35)}
+footer a{color:var(--cyan)}
+
+@media(max-width:860px){
+  .story{grid-template-columns:1fr;gap:1.8rem;padding:3rem 0}
+  .story-card{aspect-ratio:16/10;max-height:320px}
+  .values{grid-template-columns:1fr}
+  .vid-grid{grid-template-columns:1fr}
+  .find-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{height:auto;flex-wrap:wrap;padding:.6rem .85rem}
+  .nav-logo img{height:48px}.nav-wordmark{font-size:1.15rem}
+  .nav-links{order:3;width:100%;margin:.2rem 0 0;overflow-x:auto;scrollbar-width:none}
+  .nav-link{font-size:.68rem;padding:.3rem .55rem}
+  .mbtn{height:36px;padding:0 .85rem;font-size:.78rem}.mbtn.sq{width:36px}
+  .hero{padding:3rem 1.25rem 2.5rem}.hero img{width:110px;height:110px}
+}
+@media(max-width:480px){.find-grid{grid-template-columns:1fr 1fr;gap:.6rem}.find a.card{padding:1.1rem .5rem}}
+</style>
+</head>
+<body>
+
+<div class="vice-stripe"></div>
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png" alt="CardsRG"/>
+    <span class="nav-wordmark">CARDS<b>RG</b></span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="/">Shop</a>
+    <a class="nav-link act" href="/about">About</a>
+    <a class="nav-link" href="/list">Live Inventory</a>
+  </div>
+  <div class="nav-right">
+    <a class="mbtn sq" href="https://www.instagram.com/cardsrgshop" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+    <a class="mbtn" href="/">Shop Cards <span>↗</span></a>
+  </div>
+</nav>
+<div class="vice-stripe"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="/images/logo.png" alt="CardsRG crest"/>
+  <div class="kicker">Cards • Rips • Grails</div>
+  <h1>Family Owned.<br/><span>Collector Run.</span></h1>
+  <p>CardsRG is a small, family-run card shop out of Miami. We buy what we'd collect ourselves, price it off real comps, and show up at the shows so you can see it in hand.</p>
+</section>
+
+<!-- STORY -->
+<div class="wrap">
+  <section class="story">
+    <div>
+      <div class="kicker">Our Story</div>
+      <h2>An uncle, a nephew,<br/>and way too many slabs</h2>
+      <p>It started the way most collections do: a couple of packs, a few trades, and a shoebox that somehow turned into a display case. Jr and his uncle Leo turned that shared obsession into CardsRG, a two-person operation built on the cards we actually love: PSA-graded Pokémon and One Piece, soccer parallels, Marvel, and the occasional sealed box we couldn't leave behind.</p>
+      <p>Everything here is hand-picked and photographed by us, priced against recent sales, and shipped like it's going into our own collection. No warehouse, no middlemen. When you DM the shop, you're talking to family.</p>
+      <p>You'll find us behind the table at South Florida card shows most months. Come say what's up, rip some packs, and make a deal.</p>
+    </div>
+    <div class="story-card">
+      <img src="https://i.ytimg.com/vi/DeMiP9Tk57I/maxresdefault.jpg" alt="CardsRG booth at a card show" onerror="this.src='https://i.ytimg.com/vi/DeMiP9Tk57I/hqdefault.jpg'"/>
+      <div class="tag">Behind the table • South Florida</div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="val"><div class="ico">🔍</div><h3>Authentic, as pictured</h3><p>Every slab and single is the exact card you get. Our photos, our watermark, no stock images.</p></div>
+    <div class="val"><div class="ico">📈</div><h3>Priced off real comps</h3><p>We check recent sales before we list, so you're paying market, not hype.</p></div>
+    <div class="val"><div class="ico">📦</div><h3>Shipped like it's ours</h3><p>Sleeved, cased, tracked, and out the door fast. Free shipping over $100.</p></div>
+  </section>
+</div>
+
+<!-- VIDEOS -->
+<section class="videos" id="videos">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>🎥 Watch the Rips</h2>
+      <p>Card show vlogs, booth setups, and the deals we make along the way.</p>
+      <div class="rule"></div>
+    </div>
+    <div class="vid-grid">
+      <div class="vid" data-id="DeMiP9Tk57I" onclick="playVid(this)"><img src="https://i.ytimg.com/vi/DeMiP9Tk57I/hqdefault.jpg" alt=""/><div class="play"><span></span></div><div class="title">Our FIRST Card Show as Vendors 🔥 Pokémon &amp; One Piece Booth Setup + Insane Deals</div></div>
+      <div class="vid" data-id="dfIAvjfC5Rc" onclick="playVid(this)"><img src="https://i.ytimg.com/vi/dfIAvjfC5Rc/hqdefault.jpg" alt=""/><div class="play"><span></span></div><div class="title">We Made a Deal With Deadpool at Our Card Show?! 🤯</div></div>
+      <div class="vid" data-id="DmYBRAQqH4I" onclick="playVid(this)"><img src="https://i.ytimg.com/vi/DmYBRAQqH4I/hqdefault.jpg" alt=""/><div class="play"><span></span></div><div class="title">Booth at a Card Show on the Water: Pokémon, Marvel &amp; PSA Slabs (Vendor POV)</div></div>
+      <div class="vid" data-id="7s9W-qtiUfM" onclick="playVid(this)"><img src="https://i.ytimg.com/vi/7s9W-qtiUfM/hqdefault.jpg" alt=""/><div class="play"><span></span></div><div class="title">This Is Why We Do Card Shows (Dade County Card Show, Miami)</div></div>
+    </div>
+    <div class="vid-cta"><a class="mbtn pink" href="https://youtube.com/@cardsrg" target="_blank">Subscribe on YouTube <span>↗</span></a></div>
+  </div>
+</section>
+
+<!-- FIND US -->
+<section class="find">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Find Us</h2>
+      <p>New pickups drop on Instagram first. Offers and trades are always open.</p>
+      <div class="rule"></div>
+    </div>
+    <div class="find-grid">
+      <a class="card" href="https://www.instagram.com/cardsrgshop" target="_blank">
+        <span class="mbtn sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>
+        <b>Instagram</b><small>@cardsrgshop</small>
+      </a>
+      <a class="card" href="https://youtube.com/@cardsrg" target="_blank">
+        <span class="mbtn sq"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 23.5 12 31 31 0 0 0 23 7.2zM9.8 15.1V8.9L15.8 12l-6 3.1z"/></svg></span>
+        <b>YouTube</b><small>@CardsRG</small>
+      </a>
+      <a class="card" href="https://www.ebay.com/usr/cardsrgshop" target="_blank" rel="noopener">
+        <span class="mbtn sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg></span>
+        <b>eBay Store</b><small>cardsrgshop</small>
+      </a>
+      <a class="card" href="mailto:cardsrgshop@gmail.com">
+        <span class="mbtn sq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        <b>Email</b><small>cardsrgshop@gmail.com</small>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 CardsRG — Cards, Rips, and Grails · <a href="/">Shop</a> · <a href="/list">Live Inventory</a></footer>
+
+<script>
+function playVid(el){
+  const id = el.dataset.id;
+  el.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0" title="CardsRG video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+  el.onclick = null; el.style.cursor = 'default';
+}
+</script>
+</body>
+</html>
