@@ -73,6 +73,7 @@ async function start() {
   app.use('/api/notify',    require('./routes/notify').router);
   app.use('/api/offers',    require('./routes/offers'));
   app.use('/api/subscribe', require('./routes/subscribers'));
+  app.use('/api/track',     require('./routes/track'));
 
   // ── SPA FALLBACK ────────────────────────────────────────────────────────────
 

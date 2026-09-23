@@ -332,7 +332,9 @@ nav{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid rg
 .cart-total{display:none}
 .cart-empty{text-align:center;padding:3rem 1rem;color:rgba(255,255,255,.5);font-size:.85rem}
 .cart-empty .ico{font-size:2rem;margin-bottom:.75rem}
-.cart-actions{margin-bottom:.55rem}
+.cart-actions{margin-bottom:.55rem;display:flex;flex-direction:column;gap:.45rem}
+.btn-cart-continue{width:100%;background:transparent;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);font-family:var(--sans);font-size:.8rem;font-weight:700;padding:.65rem 1rem;border-radius:12px;cursor:pointer;transition:.15s}
+.btn-cart-continue:hover{border-color:var(--cyan);color:var(--cyan)}
 .cart-right{min-width:0;background:#111118;padding:1.1rem;display:flex;flex-direction:column;gap:.8rem;overflow-y:auto;min-height:0}
 .cart-hero{position:relative;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 50% 30%,#242433,#0e0e14 70%);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .cart-hero img{width:100%;height:100%;object-fit:contain;padding:.6rem;filter:drop-shadow(0 12px 28px rgba(0,0,0,.6))}
@@ -766,6 +768,7 @@ footer{background:var(--bg2);border-top:2px solid rgba(255,45,120,.25);color:var
         <div class="cart-promo">🏷️ Code <b>THANKYOU10</b> takes 10% off at checkout</div>
         <div class="cart-actions">
           <button class="btn-cart-checkout" id="checkoutBtn" onclick="startCheckout()">Checkout — <span id="cartTotalAmt">$0</span></button>
+          <button class="btn-cart-continue" onclick="closeCart()">← Continue shopping</button>
         </div>
         <p class="cart-coming">🔒 Secured by Stripe · Free shipping over $100</p>
       </div>
@@ -1618,6 +1621,28 @@ async function init() {
 }
 
 init();
+</script>
+<script>
+/* CRG Pulse — first-party, cookie-free analytics */
+(function(){
+  try{
+    var sid=sessionStorage.getItem('crg_sid'); if(!sid){sid=Math.random().toString(36).slice(2,12);sessionStorage.setItem('crg_sid',sid);}
+  }catch(e){var sid='';}
+  var q=new URLSearchParams(location.search), utm=q.get('utm_source')||q.get('ref')||'';
+  var p=location.pathname, t0=Date.now(), maxScroll=0, sentLeave=false;
+  function send(d){ d.sid=sid; d.p=p; try{ navigator.sendBeacon('/api/track', new Blob([JSON.stringify(d)],{type:'application/json'})); }catch(e){} }
+  send({t:'view', r:document.referrer||'', utm:utm, w:window.innerWidth});
+  window.addEventListener('scroll',function(){ var h=document.documentElement.scrollHeight-window.innerHeight; if(h>0) maxScroll=Math.max(maxScroll, Math.round((window.scrollY/h)*100)); },{passive:true});
+  function leave(){ if(sentLeave) return; sentLeave=true; send({t:'leave', ms:Date.now()-t0, scroll:maxScroll}); }
+  window.addEventListener('pagehide',leave); document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='hidden') leave(); });
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('a,button,.hero-tile,.cat-tile,.prod-card,.recent-card,.ss-row,.cart-item'); if(!el) return;
+    var label=(el.getAttribute('aria-label')||el.getAttribute('data-track')||'').trim();
+    if(!label){ var tt=el.querySelector('.tile-title,.cat-tile-label,.prod-name,.recent-name,.n'); label=(tt?tt.textContent:el.textContent||'').replace(/\s+/g,' ').trim().slice(0,60); }
+    if(el.tagName==='A' && el.href && !/cardsrg\.com|^\//.test(el.getAttribute('href')||'')) label+=' (to '+(el.hostname||'')+')';
+    if(label) send({t:'click', label:label});
+  },true);
+})();
 </script>
 </body>
 </html>
