@@ -1585,9 +1585,9 @@ const db = {
 
     // ADDED (Sep 9 2026): per Denny - Monkey D. Luffy 2023 One Piece OP05-119 Gear 5 Alternate Art Manga PSA 10, site $700 / eBay $720
     addIfMissing('one-piece',
-      "Monkey D. Luffy 2023 One Piece OP05-119 Gear 5 Alternate Art Manga PSA 10",
+      "2023 One Piece OP05-119 Monkey D. Luffy Gear 5 Alternate Art PSA 10",
       'luffy-op05-119-alt-art-psa10',
-      "Monkey D. Luffy OP05-119 Alternate Art from the 2023 One Piece Card Game EN OP05 Awakening of the New Era set, graded PSA 10 GEM MINT (cert #162129528). The Gear 5 manga-panel alt art with the GEAR 5 lettering - cost 10, 12000 power, the extra-turn Luffy that headlines the set. One of the most sought-after English One Piece cards. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      "Monkey D. Luffy OP05-119 Alternate Art from the 2023 One Piece Card Game EN OP05 Awakening of the New Era set, graded PSA 10 GEM MINT (cert #162129528). The Gear 5 alternate art with the GEAR 5 lettering - cost 10, 12000 power, the extra-turn Luffy that headlines the set. One of the most sought-after English One Piece cards. Dead centered with sharp corners and a clean surface in hand. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
       70000, 'CRG-LUFFY-OP05-119-ALT-PSA10', '/images/luffy-op05-119-alt-art-psa10.jpg', 'PSA 10');
 
     // ADDED (Sep 9 2026): per Denny - Leafeon VMAX 2021 Pokemon SWSH Evolving Skies #205/203 Alt Art Secret PSA 10, site $700 / eBay $720
@@ -1703,6 +1703,16 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('ground-death-op14-096-alt-art-psa10');
     // Sep 24 2026: Luffy OP09-119 removed per Denny
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('luffy-op09-119-psa10');
+    // RENAME (Sep 24 2026): per Denny - OP05-119 is NOT manga; year-first, label-accurate Luffy titles
+    {
+      const ren = prepare('UPDATE products SET name = ?, updated_at = datetime(\'now\') WHERE slug = ? AND name <> ?');
+      for (const [slug, name] of [
+        ['luffy-op05-119-alt-art-psa10', '2023 One Piece OP05-119 Monkey D. Luffy Gear 5 Alternate Art PSA 10'],
+        ['luffy-op03-070-judge-vol2-psa10', '2023 One Piece OP03-070 Monkey D. Luffy Judge Pack Vol. 2 Promo PSA 10'],
+        ['luffy-gear5-p041-offline-regionals-vol2-psa10', '2024 One Piece P-041 Monkey D. Luffy Gear 5 Offline Regionals Pack Vol. 2 PSA 10'],
+      ]) ren.run(name, slug, name);
+      prepare("UPDATE products SET description = REPLACE(description, 'The Gear 5 manga-panel alt art', 'The Gear 5 alternate art') WHERE slug = ?").run('luffy-op05-119-alt-art-psa10');
+    }
 
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
