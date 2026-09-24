@@ -160,18 +160,25 @@ function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&l
 
 function toggleCart(id){
   const p = products.find(x => x.id === id); if (!p) return;
-  const i = cart.findIndex(x => x.id === id);
-  if (i >= 0) { cart.splice(i, 1); showToast('Removed from cart'); }
-  else {
-    cart.push({ id: p.id, name: p.name, price: p.price_formatted, image_url: p.image_url, category: p.category_name });
-    showToast('Added to cart · <a href="/?cart=1">Checkout →</a>');
-    fetch('/api/notify/cart', { method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ cert: p.slug, subject: p.name, price: p.price_formatted, brand: p.category_name }) }).catch(()=>{});
-  }
-  saveCart(); updateCartCount();
-  const b = document.getElementById('atc-' + id);
-  if (b) { b.textContent = inCart(id) ? '✓ In Cart' : 'Add to Cart'; b.classList.toggle('in', inCart(id)); }
+  // Already in cart: take them to the cart (remove lives on the ✕ there)
+  if (inCart(id)) { location.href = '/?cart=1'; return; }
+  cart.push({ id: p.id, name: p.name, price: p.price_formatted, image_url: p.image_url, category: p.category_name });
+  showToast('Added to cart · <a href="/?cart=1">Checkout →</a>');
+  fetch('/api/notify/cart', { method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ cert: p.slug, subject: p.name, price: p.price_formatted, brand: p.category_name }) }).catch(()=>{});
+  saveCart(); updateCartCount(); syncAtcButtons();
 }
+function syncAtcButtons(){
+  document.querySelectorAll('button.atc[id^="atc-"]').forEach(b => {
+    const id = Number(b.id.slice(4)), on = inCart(id);
+    b.textContent = on ? '✓ In Cart · View' : 'Add to Cart'; b.classList.toggle('in', on);
+  });
+}
+// Re-read the cart when coming Back from the store or when another tab changes it
+function reloadCart(){ try { cart = JSON.parse(localStorage.getItem('crg_cart') || '[]'); } catch(e) { cart = []; } updateCartCount(); syncAtcButtons(); }
+window.addEventListener('pageshow', e => { if (e.persisted) reloadCart(); });
+window.addEventListener('storage', e => { if (e.key === 'crg_cart') reloadCart(); });
+
 
 async function buyNow(id){
   const p = products.find(x => x.id === id); if (!p) return;
@@ -224,7 +231,7 @@ async function load(){
             <div class="price">${esc(p.price_formatted)}</div>
             <div class="cta">
               <button class="buy" id="buy-${p.id}" onclick="buyNow(${p.id})">Buy Now</button>
-              <button class="atc ${inCart(p.id)?'in':''}" id="atc-${p.id}" onclick="toggleCart(${p.id})">${inCart(p.id)?'✓ In Cart':'Add to Cart'}</button>
+              <button class="atc ${inCart(p.id)?'in':''}" id="atc-${p.id}" onclick="toggleCart(${p.id})">${inCart(p.id)?'✓ In Cart · View':'Add to Cart'}</button>
             </div>
           </div>
         </div>`).join('')}

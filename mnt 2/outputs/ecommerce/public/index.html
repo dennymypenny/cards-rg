@@ -1174,7 +1174,7 @@ function openCardModal(id) {
   statusEl.className = 'modal-status ' + (avail ? 'avail' : 'sold');
 
   const atcBtn = document.getElementById('modalAtcBtn');
-  atcBtn.textContent = inCart ? '✓ Added to Cart' : 'Add to Cart';
+  atcBtn.textContent = inCart ? '✓ In Cart · View Cart' : 'Add to Cart';
   atcBtn.className   = 'btn-atc' + (inCart ? ' btn-green' : '');
   atcBtn.disabled    = !avail;
 
@@ -1232,8 +1232,8 @@ function addToCartFromModal() {
   if (!p || p.stock < 1) return;
   const existing = cart.findIndex(x => x.id === p.id);
   if (existing >= 0) {
-    cart.splice(existing, 1);
-    showToast('Removed from cart');
+    // Already in cart: just show the cart (remove lives on the ✕ inside it)
+    cartHeroId = p.id;
   } else {
     cart.push({ id: p.id, name: p.name, price: p.price_formatted, image_url: p.image_url, category: p.category_name });
     cartHeroId = p.id;
@@ -1243,8 +1243,9 @@ function addToCartFromModal() {
   }
   saveCart();
   updateCartCount();
-  if (cart.some(x => x.id === p.id)) { closeCardModal(); openCart(); }
-  else { openCardModal(currentProductId); }
+  renderProducts();
+  closeCardModal();
+  openCart();
 }
 
 // ── MAKE OFFER ────────────────────────────────────────────────────────────
@@ -1413,11 +1414,12 @@ function quickAddCart(e, id) {
   e.stopPropagation();
   const p = allProducts.find(x => x.id === id);
   if (!p) return;
-  const idx = cart.findIndex(x => x.id === id);
-  if (idx >= 0) { cart.splice(idx, 1); showToast('Removed from cart'); }
-  else { cart.push({id:p.id, name:p.name, price:p.price_formatted, image_url:p.image_url, category:p.category_name}); cartHeroId = p.id; }
-  saveCart(); updateCartCount(); renderProducts();
-  if (cart.some(x => x.id === id)) openCart();
+  if (!cart.some(x => x.id === id)) {
+    cart.push({id:p.id, name:p.name, price:p.price_formatted, image_url:p.image_url, category:p.category_name});
+    saveCart(); updateCartCount(); renderProducts();
+  }
+  cartHeroId = id;
+  openCart();
 }
 
 function removeFromCart(id) {
@@ -1425,6 +1427,8 @@ function removeFromCart(id) {
   saveCart();
   renderCartPanel();
   updateCartCount();
+  renderProducts();   // flip that card's button back to "+ Cart"
+  showToast('Removed from cart');
 }
 
 
@@ -1601,6 +1605,20 @@ async function submitSignup() {
     btn.disabled = false; btn.textContent = 'Count Me In';
   }
 }
+
+// Keep cart in sync when /list (or another tab) changes it
+window.addEventListener('storage', e => {
+  if (e.key !== 'crg_cart') return;
+  try { cart = JSON.parse(e.newValue || '[]'); } catch(_) { cart = []; }
+  updateCartCount(); renderProducts();
+  if (document.getElementById('cartOverlay').classList.contains('open')) renderCartPanel();
+});
+// Back/forward cache restore: re-read the cart so it never shows stale items
+window.addEventListener('pageshow', e => {
+  if (!e.persisted) return;
+  try { cart = JSON.parse(localStorage.getItem('crg_cart')||'[]'); } catch(_) { cart = []; }
+  updateCartCount(); renderProducts();
+});
 
 // ── INIT ──────────────────────────────────────────────────────────────────
 async function init() {
