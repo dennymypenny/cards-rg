@@ -1701,6 +1701,8 @@ const db = {
 
     // REMOVED (Sep 22 2026): per Denny - Ground Death OP14-096 PSA 10 sold
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('ground-death-op14-096-alt-art-psa10');
+    // Sep 24 2026: Luffy OP09-119 removed per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('luffy-op09-119-psa10');
 
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
