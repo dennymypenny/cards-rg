@@ -1703,13 +1703,138 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('ground-death-op14-096-alt-art-psa10');
     // Sep 24 2026: Luffy OP09-119 removed per Denny
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('luffy-op09-119-psa10');
-    // RENAME (Sep 24 2026): per Denny - OP05-119 is NOT manga; year-first, label-accurate Luffy titles
+    // RENAME (Sep 24 2026): per Denny - every live title matches its PSA label, year first (OP05-119 Luffy is NOT manga)
     {
       const ren = prepare('UPDATE products SET name = ?, updated_at = datetime(\'now\') WHERE slug = ? AND name <> ?');
       for (const [slug, name] of [
-        ['luffy-op05-119-alt-art-psa10', '2023 One Piece OP05-119 Monkey D. Luffy Gear 5 Alternate Art PSA 10'],
-        ['luffy-op03-070-judge-vol2-psa10', '2023 One Piece OP03-070 Monkey D. Luffy Judge Pack Vol. 2 Promo PSA 10'],
-        ['luffy-gear5-p041-offline-regionals-vol2-psa10', '2024 One Piece P-041 Monkey D. Luffy Gear 5 Offline Regionals Pack Vol. 2 PSA 10'],
+        [
+                "umbreon-v-evs-189-alt-art-bgs95",
+                "2021 Pokemon Sword & Shield Evolving Skies #189 Umbreon V UR Alt Art BGS 9.5"
+        ],
+        [
+                "sylveon-vmax-evs-212-alt-art-psa10",
+                "2021 Pokemon SWSH Evolving Skies Secret #212 FA/Sylveon VMAX Alt Art PSA 10"
+        ],
+        [
+                "luffy-op03-070-judge-vol2-psa10",
+                "2023 One Piece EN Judge Pack Vol.2 #070 Monkey D. Luffy OP03-070 PSA 10"
+        ],
+        [
+                "mewtwo-ex-evolutions-52-psa10",
+                "2016 Pokemon XY Evolutions #52 Mewtwo EX PSA 10"
+        ],
+        [
+                "mewtwo-evolutions-51-holo-psa10",
+                "2016 Pokemon XY Evolutions #51 Mewtwo Holo PSA 10"
+        ],
+        [
+                "charizard-v-swsh050-champions-path-etb-promo-psa10",
+                "2020 Pokemon SWSH BSP #050 Charizard V Champion's Path Elite Trainer Box PSA 10"
+        ],
+        [
+                "rayquaza-vivid-voltage-138-amazing-rare-psa10",
+                "2020 Pokemon SWSH Vivid Voltage #138 Rayquaza Amazing Rare PSA 10"
+        ],
+        [
+                "monkey-d-dragon-op07-015-sp-alt-art-psa10",
+                "2024 One Piece OP09 EN #015 Monkey D. Dragon Special Alternate Art PSA 10"
+        ],
+        [
+                "mvenusaur-ex-evolutions-100-fa-psa10",
+                "2016 Pokemon XY Evolutions #100 FA/M Venusaur EX Full Art PSA 10"
+        ],
+        [
+                "glaceon-vmax-evs-209-alt-art-psa10",
+                "2021 Pokemon SWSH Evolving Skies Secret #209 FA/Glaceon VMAX Alt Art PSA 10"
+        ],
+        [
+                "mimikyu-v-brs-tg16-trainer-gallery-psa10",
+                "2022 Pokemon SWSH Brilliant Stars #TG16 FA/Mimikyu V Trainer Gallery PSA 10"
+        ],
+        [
+                "luffy-op05-119-alt-art-psa10",
+                "2023 One Piece OP05 EN #119 Monkey D. Luffy Gear 5 Alternate Art PSA 10"
+        ],
+        [
+                "leafeon-vmax-evs-205-alt-art-psa10",
+                "2021 Pokemon SWSH Evolving Skies Secret #205 FA/Leafeon VMAX Alt Art PSA 10"
+        ],
+        [
+                "charmander-sv6-hidden-fates-shiny-psa10",
+                "2019 Pokemon S&M Hidden Fates #SV6 Charmander Holo Shiny Vault PSA 10"
+        ],
+        [
+                "shanks-st16-004-sp-alt-art-op11-psa10",
+                "2025 One Piece OP11 EN #004 Shanks Special Alternate Art ST16-004 PSA 10"
+        ],
+        [
+                "rayquaza-vmax-silver-tempest-tg29-gold-psa10",
+                "2022 Pokemon SWSH Silver Tempest #TG29 FA/Rayquaza VMAX Gold PSA 10"
+        ],
+        [
+                "thanos-2024-marvel-masterpieces-83-platinum-blue-traxx-psa10",
+                "2024 Marvel Masterpieces '92 Platinum-Blue Traxx #83 Thanos PSA 10 (120023284)"
+        ],
+        [
+                "spiderman-1992-mcfarlane-era-44-perceptions-psa10",
+                "1992 Spider-Man The McFarlane Era #44 Perceptions PSA 10 (Pop 2, Both Cards)"
+        ],
+        [
+                "beast-1995-marvel-metal-1-psa10",
+                "1995 Marvel Metal #1 Beast PSA 10"
+        ],
+        [
+                "thanos-2024-marvel-masterpieces-83-platinum-blue-traxx-psa10-160440999",
+                "2024 Marvel Masterpieces '92 Platinum-Blue Traxx #83 Thanos PSA 10 (160440999)"
+        ],
+        [
+                "nico-paz-2025-donruss-rtwc-optic-pink-ice-2-25",
+                "2025-26 Donruss Road to FIFA World Cup 26 Optic Pink Ice #164 Nico Paz 02/25"
+        ],
+        [
+                "pulisic-2026-prizm-monopoly-red-47",
+                "2026 Prizm FIFA World Cup Monopoly Red Prizm #47 Christian Pulisic"
+        ],
+        [
+                "di-maria-2022-futera-maestro-ms06-17-25",
+                "2022 Futera Unique Maestro #MS06 Angel Di Maria Match-Worn Jersey 17/25"
+        ],
+        [
+                "nico-paz-2026-panini-wc-sticker-gold-arg14",
+                "2026 Panini FIFA World Cup Sticker ARG 14 Nico Paz Gold Foil"
+        ],
+        [
+                "ayala-2023-topps-afa-pink-19-50",
+                "2023 Topps AFA Pink Swirl #50 Roberto Ayala 19/50"
+        ],
+        [
+                "espeon-vmax-swsh-fst-270-secret-psa10",
+                "2021 Pokemon SWSH Fusion Strike Secret #270 FA/Espeon VMAX Alt Art PSA 10"
+        ],
+        [
+                "shanks-op09-001-psa-magazine-exclusive-psa10",
+                "2025 One Piece EN #001 Shanks PSA Magazine Exclusive OP09-001 Leader PSA 10"
+        ],
+        [
+                "o-nami-op05-062-illustration-box-vol1-psa10",
+                "2025 One Piece EN #062 O-Nami Illustration Box Vol.1 OP05-062 PSA 10"
+        ],
+        [
+                "luffy-gear5-p041-offline-regionals-vol2-psa10",
+                "2024 One Piece EN P-041 Monkey D. Luffy Gear 5 Offline Regionals Vol.2 PSA 10"
+        ],
+        [
+                "boa-hancock-op07-038-psa-magazine-psa10",
+                "2025 One Piece EN #038 Boa Hancock PSA Magazine Exclusive OP07-038 Leader PSA 10"
+        ],
+        [
+                "meowth-pfl-106-illustration-rare-psa10",
+                "2025 Pokemon Phantasmal Flames PFL EN #106 Meowth Illustration Rare PSA 10"
+        ],
+        [
+                "charizard-celebrations-classic-4-102-psa10",
+                "2021 Pokemon Celebrations Classic Collection #4 Charizard Holo Base Set PSA 10"
+        ]
       ]) ren.run(name, slug, name);
       prepare("UPDATE products SET description = REPLACE(description, 'The Gear 5 manga-panel alt art', 'The Gear 5 alternate art') WHERE slug = ?").run('luffy-op05-119-alt-art-psa10');
     }
