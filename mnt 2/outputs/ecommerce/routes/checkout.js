@@ -39,7 +39,48 @@ async function ensurePromo() {
     console.warn('[checkout] promo setup failed:', e.message);
   }
 }
-ensurePromo();
+
+// ── REP PROGRAM: CARDSRG1..CARDSRG{REP_CODE_COUNT} (5% off, idempotent) ────
+// Each rep gets one code. Buyer saves 5% at Stripe checkout; the rep earns 5%
+// of the sale (paid out manually — see redemptions per code in the Stripe
+// Dashboard under Product catalog → Coupons → "CRG Rep 5%").
+// All codes share one coupon with a fixed id so boots never create duplicates.
+const REP_COUPON_ID  = 'crg-rep-5';
+const REP_CODE_COUNT = 50;
+async function ensureRepCodes() {
+  try {
+    if (!process.env.STRIPE_SECRET_KEY) return;
+    const stripe = getStripe();
+    try {
+      await stripe.coupons.retrieve(REP_COUPON_ID);
+    } catch (e) {
+      if (e.statusCode !== 404) throw e;
+      await stripe.coupons.create({
+        id: REP_COUPON_ID,
+        percent_off: 5,
+        duration: 'once',
+        name: 'CRG Rep 5%',
+      });
+      console.log('[checkout] rep coupon created');
+    }
+    const have = new Set();
+    for await (const pc of stripe.promotionCodes.list({ coupon: REP_COUPON_ID, limit: 100 })) {
+      have.add(pc.code.toUpperCase());
+    }
+    let made = 0;
+    for (let i = 1; i <= REP_CODE_COUNT; i++) {
+      const code = `CARDSRG${i}`;
+      if (have.has(code)) continue;
+      await stripe.promotionCodes.create({ coupon: REP_COUPON_ID, code, metadata: { program: 'rep', rep_slot: String(i) } });
+      made++;
+    }
+    console.log(`[checkout] rep codes ready (${REP_CODE_COUNT} total, ${made} new)`);
+  } catch (e) {
+    console.warn('[checkout] rep code setup failed:', e.message);
+  }
+}
+
+ensurePromo().then(ensureRepCodes);
 
 // ── POST /api/checkout/session ─────────────────────────────────────────────
 // Creates a Stripe Checkout session from the current cart
@@ -207,8 +248,49 @@ async function fulfillOrder(session) {
     insertAll();
 
     console.log(`✅ Order ${orderNumber} created for ${session.customer_details?.email}`);
+
+    await notifyRepSale(session, orderNumber, cartItems);
   } catch (err) {
     console.error('Error fulfilling order:', err);
+  }
+}
+
+// ── REP SALE ALERT: push to Denny's phone when a CARDSRG# code is used ─────
+// Tells him which rep to pay and how much (5% of what the buyer paid for the
+// cards, excluding shipping and tax). Non-fatal on any failure.
+async function notifyRepSale(session, orderNumber, cartItems) {
+  try {
+    const stripe = getStripe();
+    const full = await stripe.checkout.sessions.retrieve(session.id, { expand: ['total_details.breakdown'] });
+    const discounts = full.total_details?.breakdown?.discounts || [];
+    for (const d of discounts) {
+      const pcId = d.discount?.promotion_code;
+      if (!pcId || d.discount?.coupon?.id !== REP_COUPON_ID) continue;
+      const pc = typeof pcId === 'string' ? await stripe.promotionCodes.retrieve(pcId) : pcId;
+      const cardsPaid = (full.amount_subtotal || 0) - (d.amount || 0);
+      const repCut    = Math.round(cardsPaid * 0.05);
+      const fmt = c => '$' + (c / 100).toLocaleString('en-US', { minimumFractionDigits: 2 });
+      const message =
+        `Code ${pc.code} was used on order ${orderNumber}\n` +
+        `${cartItems.map(i => i.name).join(', ')}\n` +
+        `Buyer paid ${fmt(cardsPaid)} for the cards (saved ${fmt(d.amount || 0)})\n` +
+        `Rep payout (5%): ${fmt(repCut)}`;
+      console.log('[rep] ' + message.replace(/\n/g, ' | '));
+      await fetch('https://ntfy.sh', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          topic:    process.env.NTFY_TOPIC || 'crg-denny-alerts',
+          title:    `🤝 Rep sale: ${pc.code}`,
+          message,
+          priority: 4,
+          tags:     ['handshake'],
+        }),
+        signal: AbortSignal.timeout(6000)
+      });
+    }
+  } catch (e) {
+    console.warn('[rep] sale alert failed:', e.message);
   }
 }
 
