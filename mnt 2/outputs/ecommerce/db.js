@@ -1703,6 +1703,8 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('ground-death-op14-096-alt-art-psa10');
     // Sep 24 2026: Luffy OP09-119 removed per Denny
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('luffy-op09-119-psa10');
+    // Sep 24 2026: Mewtwo Evolutions #51 Holo PSA 10 removed per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('mewtwo-evolutions-51-holo-psa10');
     // RENAME (Sep 24 2026): per Denny - every live title matches its PSA label, year first (OP05-119 Luffy is NOT manga)
     {
       const ren = prepare('UPDATE products SET name = ?, updated_at = datetime(\'now\') WHERE slug = ? AND name <> ?');
