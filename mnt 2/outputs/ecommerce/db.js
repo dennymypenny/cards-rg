@@ -1707,6 +1707,8 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('mewtwo-evolutions-51-holo-psa10');
     // Sep 26 2026: Charizard V SWSH050, Mewtwo EX #52, Rayquaza Amazing Rare #138, Rayquaza VMAX TG29 Gold removed per Denny
     for (const slug of ['charizard-v-swsh050-champions-path-etb-promo-psa10','mewtwo-ex-evolutions-52-psa10','rayquaza-vivid-voltage-138-amazing-rare-psa10','rayquaza-vmax-silver-tempest-tg29-gold-psa10']) prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run(slug);
+    // Sep 26 2026: Celebrations Classic Charizard 4/102 removed per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('charizard-celebrations-classic-4-102-psa10');
     // RENAME (Sep 24 2026): per Denny - every live title matches its PSA label, year first (OP05-119 Luffy is NOT manga)
     {
       const ren = prepare('UPDATE products SET name = ?, updated_at = datetime(\'now\') WHERE slug = ? AND name <> ?');
