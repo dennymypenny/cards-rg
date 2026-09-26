@@ -1713,6 +1713,8 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('mvenusaur-ex-evolutions-100-fa-psa10');
     // Sep 26 2026: Shanks ST16-004 SP (OP11 Fist of Divine Speed) removed per Denny
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('shanks-st16-004-sp-alt-art-op11-psa10');
+    // Sep 26 2026: Nico Paz Panini WC sticker ARG 14 Gold Foil removed per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('nico-paz-2026-panini-wc-sticker-gold-arg14');
     // RENAME (Sep 24 2026): per Denny - every live title matches its PSA label, year first (OP05-119 Luffy is NOT manga)
     {
       const ren = prepare('UPDATE products SET name = ?, updated_at = datetime(\'now\') WHERE slug = ? AND name <> ?');
