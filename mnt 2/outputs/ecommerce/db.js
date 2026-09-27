@@ -1715,6 +1715,8 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('shanks-st16-004-sp-alt-art-op11-psa10');
     // Sep 26 2026: Nico Paz Panini WC sticker ARG 14 Gold Foil removed per Denny
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('nico-paz-2026-panini-wc-sticker-gold-arg14');
+    // Sep 27 2026: Umbreon V Evolving Skies #189 Alt Art BGS 9.5 removed per Denny
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('umbreon-v-evs-189-alt-art-bgs95');
     // RENAME (Sep 24 2026): per Denny - every live title matches its PSA label, year first (OP05-119 Luffy is NOT manga)
     {
       const ren = prepare('UPDATE products SET name = ?, updated_at = datetime(\'now\') WHERE slug = ? AND name <> ?');
