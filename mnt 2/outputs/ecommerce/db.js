@@ -1730,6 +1730,13 @@ const db = {
       "Mimikyu SVP EN 075 black star promo from the 2024 Pokemon Scarlet & Violet Paldean Fates Elite Trainer Box, graded PSA 10 GEM MINT (cert #119606690). Mitsuhiro Arita's illustration rare style art: Mimikyu peeking out from a patchwork quilt in a sunlit sewing room, on the full holo promo stock. One of the most loved promos of the Scarlet & Violet era. 70 HP, Safeguard, Ghost Eye. Gem mint in hand: dead centered, sharp corners, clean holo surface. The exact slab pictured is the one you receive. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
       26000, 'CRG-MIMIKYU-SVP-075-PF-ETB-PSA10', '/images/mimikyu-svp-075-paldean-fates-etb-psa10.jpg', 'PSA 10');
 
+    // ADDED (Sep 29 2026 PM): per Denny - Thanos '92 Platinum Purple Crystals #83 PSA 10 (cert 138619031), $480 site + eBay
+    addIfMissing('collectibles',
+      "2024 Upper Deck Marvel Masterpieces '92 Platinum Purple Crystals #83 Thanos PSA 10 GEM MINT",
+      'thanos-2024-marvel-masterpieces-83-platinum-purple-crystals-psa10',
+      "Thanos #83 from 2024 Upper Deck Marvel Masterpieces, the '92 Platinum Purple Crystals parallel, graded PSA 10 GEM MINT (cert #138619031). The Mad Titan in his classic 1992 Masterpieces pose, set on the shattered purple-and-blue cracked-ice crystal foil that makes this one of the loudest, most collected Thanos parallels in the modern Masterpieces run. A true Gem Mint copy: dead centered, razor-sharp corners, clean edges and a flawless foil surface in hand. Premium villain, premium grade. The exact slab pictured is the one you receive. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      48000, 'CRG-THANOS-MM24-83-PURPLE-CRYSTALS-PSA10', '/images/thanos-2024-marvel-masterpieces-83-platinum-purple-crystals-psa10.jpg', 'PSA 10');
+
     // RENAME (Sep 24 2026): per Denny - every live title matches its PSA label, year first (OP05-119 Luffy is NOT manga)
     {
       const ren = prepare('UPDATE products SET name = ?, updated_at = datetime(\'now\') WHERE slug = ? AND name <> ?');
