@@ -1717,6 +1717,19 @@ const db = {
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('nico-paz-2026-panini-wc-sticker-gold-arg14');
     // Sep 27 2026: Umbreon V Evolving Skies #189 Alt Art BGS 9.5 removed per Denny
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('umbreon-v-evs-189-alt-art-bgs95');
+    // ADDED (Sep 29 2026): per Denny - Luffy ST13-003 Premium Card Collection Leader PSA 10 ($320) + Mimikyu SVP 075 Paldean Fates ETB promo PSA 10 ($260), site + eBay
+    addIfMissing('one-piece',
+      "2024 One Piece EN Premium Card Collection ST13-003 Monkey D. Luffy Leader PSA 10",
+      'luffy-st13-003-premium-card-collection-psa10',
+      "Monkey D. Luffy ST13-003 Leader from the 2024 One Piece Card Game EN Premium Card Collection (the Three Brothers / ST13 Ultra Deck Leader in its premium parallel-art treatment), graded PSA 10 GEM MINT (cert #158392066). Luffy mid-lunge with the Straw Hat swinging, the full-bleed textured foil catching light across the entire frame. 5000 power, 4 Life, Supernovas / Straw Hat Crew, DON!! x2 Activate:Main. A gem mint copy: dead centered, razor-sharp corners and a clean surface in hand. The exact slab pictured is the one you receive. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      32000, 'CRG-LUFFY-ST13-003-PCC-PSA10', '/images/luffy-st13-003-premium-card-collection-psa10.jpg', 'PSA 10');
+
+    addIfMissing('pokemon',
+      "2024 Pokemon SVP EN #075 Mimikyu Paldean Fates ETB Promo PSA 10",
+      'mimikyu-svp-075-paldean-fates-etb-psa10',
+      "Mimikyu SVP EN 075 black star promo from the 2024 Pokemon Scarlet & Violet Paldean Fates Elite Trainer Box, graded PSA 10 GEM MINT (cert #119606690). Mitsuhiro Arita's illustration rare style art: Mimikyu peeking out from a patchwork quilt in a sunlit sewing room, on the full holo promo stock. One of the most loved promos of the Scarlet & Violet era. 70 HP, Safeguard, Ghost Eye. Gem mint in hand: dead centered, sharp corners, clean holo surface. The exact slab pictured is the one you receive. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      26000, 'CRG-MIMIKYU-SVP-075-PF-ETB-PSA10', '/images/mimikyu-svp-075-paldean-fates-etb-psa10.jpg', 'PSA 10');
+
     // RENAME (Sep 24 2026): per Denny - every live title matches its PSA label, year first (OP05-119 Luffy is NOT manga)
     {
       const ren = prepare('UPDATE products SET name = ?, updated_at = datetime(\'now\') WHERE slug = ? AND name <> ?');
