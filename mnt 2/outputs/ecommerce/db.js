@@ -1744,6 +1744,13 @@ const db = {
       "Thanos #UPS33 from the 2022 Upper Deck Fleer Ultra Avengers set, the Universe Power Supreme clear acetate insert, graded PSA 10 GEM MINT (cert #90822099). The Mad Titan mid-roar on see-through acetate stock with the swirling galaxy pattern printed edge to edge, one of the standout inserts of the modern Fleer Ultra revival. A Gem Mint copy: dead centered, sharp corners, clean edges and a flawless surface in hand. The exact slab pictured is the one you receive. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
       12000, 'CRG-THANOS-FLEER-ULTRA-22-UPS33-PSA10', '/images/thanos-2022-fleer-ultra-avengers-ups33-universe-power-supreme-psa10.jpg', 'PSA 10');
 
+    // ADDED (Oct 2 2026): per Denny - Mystique 2019 Flair Marvel #133 Flairium Tier 5 PSA 10 (cert 93710792), Pop 1, $450 site + eBay (3x the Sep 27 2026 eBay sale of $149.99)
+    addIfMissing('collectibles',
+      "2019 Flair Marvel #133 Mystique Flairium Tier 5 PSA 10 GEM MINT (Pop 1)",
+      'mystique-2019-flair-marvel-133-flairium-tier5-psa10',
+      "THE ONE AND ONLY. Mystique #133 from 2019 Upper Deck Flair Marvel, the Flairium Tier 5 short print, graded PSA 10 GEM MINT (cert #93710792). PSA Pop 1: there is no other Gem Mint copy of this card. Fully painted Flairium art of Mystique in her classic white gown, flame-red hair whipping against a cracked crimson sky, finished with the gold foil Marvel Flairium script. A true Gem Mint copy: centered, sharp corners, clean edges and a flawless surface in hand. The exact slab pictured is the one you receive. Ships in the PSA slab, bubble-wrapped, double-boxed with tracking, fully insured, from a smoke-free shop. (Guard/Stands Not Included)",
+      45000, 'CRG-MYSTIQUE-FLAIR19-133-FLAIRIUM-T5-PSA10', '/images/mystique-2019-flair-marvel-133-flairium-tier5-psa10.jpg', 'PSA 10');
+
     // PRICE (Sep 29 2026): per Denny - both Thanos Blue Traxx #83 PSA 10s at $1300 on the site (first copy was $1100)
     prepare('UPDATE products SET price = 130000, updated_at = datetime(\'now\') WHERE slug = ? AND price <> 130000')
       .run('thanos-2024-marvel-masterpieces-83-platinum-blue-traxx-psa10');
