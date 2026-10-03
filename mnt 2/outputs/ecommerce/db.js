@@ -1891,6 +1891,9 @@ const db = {
       prepare("UPDATE products SET description = REPLACE(description, 'The Gear 5 manga-panel alt art', 'The Gear 5 alternate art') WHERE slug = ?").run('luffy-op05-119-alt-art-psa10');
     }
 
+    // REMOVED (Oct 3 2026): per Denny - 2024 One Piece OP09 #015 Monkey D. Dragon Special Alternate Art PSA 10 (cert 154310517), site + eBay
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('monkey-d-dragon-op07-015-sp-alt-art-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
