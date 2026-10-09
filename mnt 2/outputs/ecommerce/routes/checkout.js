@@ -145,7 +145,7 @@ router.post('/session', async (req, res, next) => {
       phone_number_collection: { enabled: true },
       allow_promotion_codes: true,
       success_url: `${storeUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url:  `${storeUrl}/cart`,
+      cancel_url:  `${storeUrl}/?cart=1`,
       metadata: {
         cart_items: JSON.stringify(cart.items.map(i => ({
           product_id: i.product_id,
