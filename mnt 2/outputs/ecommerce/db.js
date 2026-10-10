@@ -1898,6 +1898,10 @@ const db = {
     // REMOVED (Oct 3 2026): per Denny - 2019 Hidden Fates SV6 Shiny Charmander PSA 10, now the 1,500 follower giveaway prize
     prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('charmander-sv6-hidden-fates-shiny-psa10');
 
+    // REMOVED (Oct 10 2026): per Denny - Espeon VMAX FST 270 + Glaceon VMAX EVS 209 PSA 10 off the site
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('espeon-vmax-swsh-fst-270-secret-psa10');
+    prepare('UPDATE products SET active = 0, updated_at = datetime(\'now\') WHERE slug = ? AND active = 1').run('glaceon-vmax-evs-209-alt-art-psa10');
+
     // ── PRICE OVERRIDES (set from /hub price editor) ─────────────────────────
     // Applied on every boot, AFTER all seeds/one-off fixes, so hub-made price
     // changes survive Render's ephemeral disk. The hub's price endpoint keeps
